@@ -17,7 +17,7 @@ namespace August2008.Controllers
 
         public ActionResult About() 
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Your app description page...";
 
             return View();
         }
