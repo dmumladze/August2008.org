@@ -1,47 +1,51 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	    <title>We Remember August</title>
+	    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	    <meta name="description" content="In memory of those Georgian heroes who died in Russia–Georgia War of 2008" />
+	    <meta name="keywords" content="Russia–Georgia War of 2008; Five-Day War; 2008 South Ossetia Conflict; August War" />
+	    <meta name="robots" content="index, follow" />
+	    <link rel="shortcut icon" href="~/favicon.png" type="image/x-icon" />
+	    <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
+        <div id="header">
+            <div class="menu-container">
+	            <ul>
+		            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Mission", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Donations", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Join", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Heroes", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Contact", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Blog", "Index", "Home")</li>
+	            </ul>    
+	            <p id="layoutdims">&nbsp;</p>
             </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
+            <img src="../images/logo.png" class="logo" />
         </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-            </div>
-        </footer>
-
+        <div class="colmask threecol">
+	        <div class="colmid">
+		        <div class="colleft">
+			        <div class="col1">
+                        @RenderSection("MainSection", false)
+			        </div>
+			        <div class="col2">
+                        @RenderSection("LeftSection", false)
+			        </div>
+			        <div class="col3">
+                        @RenderSection("RightSection", false)
+			        </div>
+		        </div>
+	        </div>
+        </div>
+        <div id="footer">
+            &nbsp;
+        </div>
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     </body>
