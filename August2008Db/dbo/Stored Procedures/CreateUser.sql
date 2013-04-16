@@ -1,0 +1,8 @@
+﻿CREATE PROCEDURE dbo.CreateUser
+	@UserName		NVARCHAR(50),
+	@Email			NVARCHAR(50),
+	@DisplayName	NVARCHAR(50)
+AS
+BEGIN
+	SET NOCOUNT ON;
+END
