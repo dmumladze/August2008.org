@@ -9,6 +9,34 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "August2008Db", "August2008D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Data", "August2008.Data\August2008.Data.csproj", "{E7D0C7AC-FD22-4ECE-82D9-D713C4A8A50A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Model", "August2008.Model\August2008.Model.csproj", "{010855C3-51A6-4F61-9B02-15E0AB038DEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Manager", "August2008.Manager\August2008.Manager.csproj", "{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Common", "August2008.Common\August2008.Common.csproj", "{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{3FD79DE9-226A-40E8-B7D0-4693DB2BE847}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web UI", "Web UI", "{CA12B7F5-7825-48B2-9EF3-81EAAB946883}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7BFE55B9-4192-4689-9FC2-87C99BE75258}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{761A184F-5876-4A12-A27D-412C336ADC0F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.ObjectBuilder2.dll = ..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.ObjectBuilder2.dll
+		..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.Configuration.dll = ..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.Configuration.dll
+		..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.dll = ..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C72B5884-1D9F-475A-BFBA-3C66E4F91F15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bin", "Bin", "{7DB9CE85-0C2F-4DD9-BF5C-3356F19ECBDC}"
+	ProjectSection(SolutionItems) = preProject
+		CommonBin\Microsoft.Practices.ObjectBuilder2.dll = CommonBin\Microsoft.Practices.ObjectBuilder2.dll
+		CommonBin\Microsoft.Practices.Unity.Configuration.dll = CommonBin\Microsoft.Practices.Unity.Configuration.dll
+		CommonBin\Microsoft.Practices.Unity.dll = CommonBin\Microsoft.Practices.Unity.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +61,29 @@ Global
 		{E7D0C7AC-FD22-4ECE-82D9-D713C4A8A50A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7D0C7AC-FD22-4ECE-82D9-D713C4A8A50A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7D0C7AC-FD22-4ECE-82D9-D713C4A8A50A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5} = {3FD79DE9-226A-40E8-B7D0-4693DB2BE847}
+		{7263D0F0-6BC4-41BF-A2C3-19E669020068} = {CA12B7F5-7825-48B2-9EF3-81EAAB946883}
+		{E7D0C7AC-FD22-4ECE-82D9-D713C4A8A50A} = {7BFE55B9-4192-4689-9FC2-87C99BE75258}
+		{28748D9E-0148-4AFC-A778-A92E4F0CB19A} = {7BFE55B9-4192-4689-9FC2-87C99BE75258}
+		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E} = {761A184F-5876-4A12-A27D-412C336ADC0F}
+		{010855C3-51A6-4F61-9B02-15E0AB038DEA} = {761A184F-5876-4A12-A27D-412C336ADC0F}
+		{1004BEBB-3124-414B-A7CA-99C1E07A0A67} = {C72B5884-1D9F-475A-BFBA-3C66E4F91F15}
 	EndGlobalSection
 EndGlobal

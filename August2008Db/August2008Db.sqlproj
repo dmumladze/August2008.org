@@ -125,25 +125,31 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Tables\MilitaryRank.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="dbo\Tables\HeroPhoto.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Tables\Hero.sql">
+    <Build Include="dbo\Tables\Language.sql" />
+    <Build Include="dbo\Tables\MilitaryRankTranslation.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="dbo\Tables\MilitaryGroupTranslation.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\HeroTranslation.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\Hero.sql" />
     <Build Include="dbo\Tables\MilitaryGroup.sql" />
-    <Build Include="dbo\Tables\Language.sql" />
+    <Build Include="dbo\Tables\MilitaryRank.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="August2008Db.refactorlog" />
+    <None Include="SchemaCompare.scmp" />
   </ItemGroup>
 </Project>
