@@ -11,12 +11,20 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jqueryui")
+        
+        <script type="text/javascript">
+            
+            function dialog() {
+
+            }
+        </script>
     </head>
     <body>
         <div id="header">
             <div class="menu-container">
 	            <ul>
-		            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Welcome", "Index", "Home")</li>
 		            <li>@Html.ActionLink("Mission", "Index", "Home")</li>
 		            <li>@Html.ActionLink("Donations", "Index", "Home")</li>
 		            <li>@Html.ActionLink("Join", "Index", "Home")</li>
@@ -46,7 +54,7 @@
         <div id="footer">
             &nbsp;
         </div>
-        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jquery")        
         @RenderSection("scripts", required: false)
     </body>
 </html>

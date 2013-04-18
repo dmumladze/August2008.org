@@ -1,4 +1,6 @@
 ﻿CREATE TABLE [dbo].[Language]
 (
-	[Id] INT NOT NULL PRIMARY KEY
+	[LanguageId] INT NOT NULL PRIMARY KEY, 
+    [DisplayName] NVARCHAR(50) NOT NULL, 
+    [CultureName] NVARCHAR(50) NOT NULL
 )

@@ -8,7 +8,7 @@ BEGIN
 	,[UserName]
 	,[Email]
 	,[DisplayName]
-	,[CreateDate]
+	,[DateCreated]
 	FROM [dbo].[User]
 
 END
