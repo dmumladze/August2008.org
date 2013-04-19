@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace August2008.Model
 {
-    class MilitaryRank
+    public class MilitaryRank
     {
+        public int MilitaryRankId { get; set; }
+        public string RankName { get; set; }
+        public string Description { get; set; }        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using August2008.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace August2008.Tests.Data
@@ -9,7 +10,8 @@ namespace August2008.Tests.Data
         [TestMethod]
         public void HeroDataClient_Can_Get_MilitaryRanks()
         {
-
+            var dataClient = new HeroDataClient();
+            var ranks = dataClient.GetMilitaryRanks(1);
         }
     }
 }

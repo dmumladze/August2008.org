@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Configuration;
-using MelaniArt.Core.Tools;
-using MelaniArt.Core.Exceptions;
-using MelaniArt.Core.Interfaces;
+using August2008.Common.Exceptions;
+using August2008.Common.Interfaces;
+using August2008.Common.Tools;
 
-namespace MelaniArt.Core.DataAccess
+namespace August2008.Common
 {
-    public class Database : IDisposable
+    public sealed class Database : IDisposable
     {
         public const string ReturnValueParameterName = "@info";
 
@@ -18,11 +17,7 @@ namespace MelaniArt.Core.DataAccess
         private DbConnection _mainConnection; 
         private DbTransactionManager _transactionManager;
         private bool _mainConnectionIsLocal;
-        private int _rowsAffected;
         private bool _isDisposed;
-        private bool _isCommandPending;
-        private IDbConnectionResolver _databaseResolver;
-        private DbProviderFactory _providerFactory;
 
         #endregion
 
@@ -31,7 +26,7 @@ namespace MelaniArt.Core.DataAccess
         /// <summary>
         /// Initializes a new instance of data provider with a default IDatabaseResolver instance.
         /// </summary>
-        public Database() : this(DefaultDatabaseResolver.Instance)
+        public Database() : this(DbConnectionResolver.Instance)
         {
         }
         /// <summary>
@@ -49,10 +44,10 @@ namespace MelaniArt.Core.DataAccess
             try
             {
                 _transactionManager = transaction;
-                _databaseResolver = transaction.DatabaseResolver;
-                _providerFactory = DbProviderFactories.GetFactory(_databaseResolver.ProviderName);
+                DatabaseResolver = transaction.DatabaseResolver;
+                DbProviderFactory = DbProviderFactories.GetFactory(DatabaseResolver.ProviderName);
                 _mainConnection = transaction.CurrentTransaction.Connection;
-                _mainCommand = _providerFactory.CreateCommand();
+                _mainCommand = DbProviderFactory.CreateCommand();
                 _mainConnectionIsLocal = false;
                 _isDisposed = false;
             }
@@ -61,15 +56,16 @@ namespace MelaniArt.Core.DataAccess
                 throw new DataAccessException("Failed to initialize data provider with a DbTransactionManager", ex);
             }
         }
-        protected virtual void Initialize(IDbConnectionResolver resolver)
+
+        private void Initialize(IDbConnectionResolver resolver)
         {
             try
             {
-                _databaseResolver = resolver;
-                _providerFactory = DbProviderFactories.GetFactory(resolver.ProviderName);
-                _mainConnection = _providerFactory.CreateConnection();
+                DatabaseResolver = resolver;
+                DbProviderFactory = DbProviderFactories.GetFactory(resolver.ProviderName);
+                _mainConnection = DbProviderFactory.CreateConnection();
                 _mainConnection.ConnectionString = resolver.ConnectionString;
-                _mainCommand = _providerFactory.CreateCommand();
+                _mainCommand = DbProviderFactory.CreateCommand();
                 _mainConnectionIsLocal = true;
                 _isDisposed = false;
             }
@@ -88,57 +84,63 @@ namespace MelaniArt.Core.DataAccess
         /// </summary>
         public void CreateStoredProcCommand(string commandText)
         {
-            if (_isCommandPending)
+            if (IsCommandPending)
+            {
                 throw new DataAccessException("Cannot create a new command while the other is still pending.");
-            if (!string.IsNullOrEmpty(commandText))
-            {                
-                _mainCommand.CommandText = commandText;
-                _mainCommand.CommandType = CommandType.StoredProcedure;
-                _isCommandPending = true;
             }
+            if (string.IsNullOrEmpty(commandText))
+            {
+                return;
+            }
+            _mainCommand.CommandText = commandText;
+            _mainCommand.CommandType = CommandType.StoredProcedure;
+            IsCommandPending = true;
         }
         /// <summary>
         /// Creates an internal DbCommand object for the command.
         /// </summary>
         public void CreateTextCommand(string commandText)
         {
-            if (_isCommandPending)
-                throw new DataAccessException("Cannot create a new command while the other is still pending.");
-            if (!string.IsNullOrEmpty(commandText))
+            if (IsCommandPending)
             {
-                _mainCommand.CommandText = commandText;
-                _mainCommand.CommandType = CommandType.Text;
-                _isCommandPending = true;
+                throw new DataAccessException("Cannot create a new command while the other is still pending.");
             }
+            if (string.IsNullOrEmpty(commandText))
+            {
+                return;
+            }
+            _mainCommand.CommandText = commandText;
+            _mainCommand.CommandType = CommandType.Text;
+            IsCommandPending = true;
         }
         /// <summary>
         /// Adds an input parameter to the associated DbCommand object.
         /// </summary>
-        public void AddInParameter(string name, DbType paramType, object value)
+        public void AddInParameter(string name, DbType type, object value)
         {
-            AddParameter(name, paramType, ParameterDirection.Input, object.ReferenceEquals(value, null) ? DBNull.Value : value);
+            AddParameter(name, type, ParameterDirection.Input, object.ReferenceEquals(value, null) ? DBNull.Value : value);
         }
         /// <summary>
         /// Adds an output parameter to the associated DbCommand object.
         /// </summary>
-        public void AddOutParameter(string name, DbType paramType)
+        public void AddOutParameter(string name, DbType type)
         {
-            AddParameter(name, paramType, ParameterDirection.Output, DBNull.Value);
+            AddParameter(name, type, ParameterDirection.Output, DBNull.Value);
         }
         /// <summary>
         /// Adds a return parameter to the associated DbCommand object.
         /// </summary>
-        public void AddReturnParameter(string name, DbType paramType)
+        public void AddReturnParameter(string name, DbType type)
         {
-            AddParameter(name, paramType, ParameterDirection.ReturnValue, null);
+            AddParameter(name, type, ParameterDirection.ReturnValue, null);
         }
         /// <summary>
         /// Adds a parameter to the associated DbCommand object.
         /// </summary>
-        public void AddParameter(string name, DbType paramType, ParameterDirection direction, object value)
+        public void AddParameter(string name, DbType type, ParameterDirection direction, object value)
         {
-            var param = _providerFactory.CreateParameter();
-            param.DbType = paramType;
+            var param = DbProviderFactory.CreateParameter();
+            param.DbType = type;
             param.ParameterName = name;            
             param.Direction = direction;
             param.Value = value;
@@ -151,9 +153,13 @@ namespace MelaniArt.Core.DataAccess
         {
             int index = _mainCommand.Parameters.IndexOf(name);
             if (index > 0)
+            {
                 _mainCommand.Parameters.RemoveAt(index);
+            }
             else
+            {
                 throw new DataAccessException(string.Format("Parameter {0} does not exists", name));
+            }
         }
         /// <summary>
         /// Auto generates the DbDataReader wrapper class which is used to initialize the entities.
@@ -180,8 +186,8 @@ namespace MelaniArt.Core.DataAccess
         public void ExecuteNonQuery()
         {
             this.OpenConnection();
-            _isCommandPending = false;
-            _rowsAffected = _mainCommand.ExecuteNonQuery();
+            IsCommandPending = false;
+            RowsAffected = _mainCommand.ExecuteNonQuery();
         }
         /// <summary>
         /// Executes the DbCommand.
@@ -189,7 +195,7 @@ namespace MelaniArt.Core.DataAccess
         public DbDataReader ExecuteReader()
         {
             this.OpenConnection();
-            _isCommandPending = false;
+            IsCommandPending = false;
             return _mainCommand.ExecuteReader();
         }
         /// <summary>
@@ -198,7 +204,7 @@ namespace MelaniArt.Core.DataAccess
         public DbDataReader ExecuteReader(CommandBehavior behavior)
         {
             this.OpenConnection();
-            _isCommandPending = false;
+            IsCommandPending = false;
             return _mainCommand.ExecuteReader(behavior);
         }
         /// <summary>
@@ -207,8 +213,8 @@ namespace MelaniArt.Core.DataAccess
         public T ExecuteScalar<T>()
         {
             this.OpenConnection();
-            _isCommandPending = false;
-            object value = _mainCommand.ExecuteScalar();
+            IsCommandPending = false;
+            var value = _mainCommand.ExecuteScalar();
             if (value != null)
                 return (T)value;
             return default(T);
@@ -238,17 +244,17 @@ namespace MelaniArt.Core.DataAccess
         /// </summary>
         public void ResetPendingCommand()
         {
-            if (_isCommandPending)
+            if (IsCommandPending)
                 throw new DataAccessException("Cannot reset the current command without executing it first.");
-            _isCommandPending = false;
-            _rowsAffected = 0;
+            IsCommandPending = false;
+            RowsAffected = 0;
             _mainCommand.Parameters.Clear();
             _mainCommand.CommandText = string.Empty;
         }
         /// <summary>
         /// Manages connection object state.
         /// </summary>
-        protected void OpenConnection()
+        private void OpenConnection()
         {
             if (_mainConnectionIsLocal)
             {
@@ -311,7 +317,7 @@ namespace MelaniArt.Core.DataAccess
         /// <summary>
         /// Releases resources held by the data provider object.
         /// </summary>
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_isDisposed)
             {
@@ -328,7 +334,7 @@ namespace MelaniArt.Core.DataAccess
                         _mainConnectionIsLocal = false;
                         _mainCommand = null;
                         _mainConnection = null;
-                        _providerFactory = null;
+                        DbProviderFactory = null;
                     }
                 }
                 _isDisposed = true;
@@ -342,13 +348,8 @@ namespace MelaniArt.Core.DataAccess
         /// <summary>
         /// Gets number of rows affected by the current operation.
         /// </summary>
-        public int RowsAffected
-        {
-            get
-            {
-                return _rowsAffected;
-            }
-        }
+        public int RowsAffected { get; private set; }
+
         /// <summary>
         /// Gets or the Transact-SQL statement, table name or stored procedure to execute at the data source.
         /// </summary>
@@ -366,27 +367,9 @@ namespace MelaniArt.Core.DataAccess
                 return _mainCommand.CommandType;
             }
         }
-        public bool IsCommandPending
-        {
-            get
-            {
-                return _isCommandPending;
-            }
-        }
-        public IDbConnectionResolver DatabaseResolver
-        {
-            get
-            {
-                return _databaseResolver;
-            }
-        }
-        public DbProviderFactory DbProviderFactory
-        {
-            get
-            {
-                return _providerFactory;
-            }
-        }
+        public bool IsCommandPending { get; private set; }
+        public IDbConnectionResolver DatabaseResolver { get; private set; }
+        public DbProviderFactory DbProviderFactory { get; private set; }
 
         #endregion
     }

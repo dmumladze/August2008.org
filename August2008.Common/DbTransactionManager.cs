@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using MelaniArt.Core.DataAccess;
-using MelaniArt.Core.Exceptions;
-using MelaniArt.Core.Interfaces;
+using August2008.Common.Interfaces;
 
-namespace MelaniArt.Core.DataAccess
+namespace August2008.Common
 {
     /// <summary>
     /// Provides transaction to IDataProvider objects. This class cannot be inherited.
@@ -27,7 +25,7 @@ namespace MelaniArt.Core.DataAccess
         /// <summary>
         /// Initializes a new instance of DbTransactionManager with a default IDatabaseResolver instance.
         /// </summary>
-        public DbTransactionManager() : this(DefaultDatabaseResolver.Instance)
+        public DbTransactionManager() : this(DbConnectionResolver.Instance)
         {
         }
         /// <summary>

@@ -30,7 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CommonBin\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\CommonBin\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,7 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tools\ClassBuilder.cs" />
+    <Compile Include="Exceptions\DataAccessException.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Tools\DataReaderEngine.cs" />
+    <Compile Include="Exceptions\DbTransactionException.cs" />
+    <Compile Include="DbTransactionManager.cs" />
+    <Compile Include="DbConnectionResolver.cs" />
+    <Compile Include="Interfaces\IDbConnectionResolver.cs" />
+    <Compile Include="Exceptions\ManagerException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\August2008.Model\August2008.Model.csproj">
+      <Project>{010855c3-51a6-4f61-9b02-15e0ab038dea}</Project>
+      <Name>August2008.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

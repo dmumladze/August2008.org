@@ -22,11 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7BFE55B9-4192-4689-9FC2-87C99BE75258}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{761A184F-5876-4A12-A27D-412C336ADC0F}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.ObjectBuilder2.dll = ..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.ObjectBuilder2.dll
-		..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.Configuration.dll = ..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.Configuration.dll
-		..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.dll = ..\..\Users\David\Desktop\MelaniArt\CommonBin\Microsoft.Practices.Unity.dll
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C72B5884-1D9F-475A-BFBA-3C66E4F91F15}"
 EndProject

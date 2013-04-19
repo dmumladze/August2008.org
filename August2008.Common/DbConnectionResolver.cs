@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using August2008.Common.Interfaces;
 
 namespace August2008.Common
 {
@@ -9,7 +10,7 @@ namespace August2008.Common
 
         private DbConnectionResolver()
         {
-            var settings = ConfigurationManager.ConnectionStrings["DefaultDatabase"];
+            var settings = ConfigurationManager.ConnectionStrings["August2008Db"];
             if (settings == null)
             {
                 throw new ArgumentException("Default database connection has not been setup");

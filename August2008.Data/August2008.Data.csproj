@@ -39,7 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeroDataClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\August2008.Common\August2008.Common.csproj">
+      <Project>{7b2dc08d-01a3-41ee-b0ce-c40945b0172e}</Project>
+      <Name>August2008.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\August2008.Model\August2008.Model.csproj">
+      <Project>{010855c3-51a6-4f61-9b02-15e0ab038dea}</Project>
+      <Name>August2008.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

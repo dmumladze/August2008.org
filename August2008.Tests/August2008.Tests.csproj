@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\HeroDataClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -123,6 +124,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\August2008.Common\August2008.Common.csproj">
+      <Project>{7b2dc08d-01a3-41ee-b0ce-c40945b0172e}</Project>
+      <Name>August2008.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\August2008.Data\August2008.Data.csproj">
+      <Project>{e7d0c7ac-fd22-4ece-82d9-d713c4a8a50a}</Project>
+      <Name>August2008.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\August2008.Manager\August2008.Manager.csproj">
+      <Project>{36ce3cc2-996e-48ef-b6c5-7c488ae32bd5}</Project>
+      <Name>August2008.Manager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\August2008.Model\August2008.Model.csproj">
+      <Project>{010855c3-51a6-4f61-9b02-15e0ab038dea}</Project>
+      <Name>August2008.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\August2008\August2008.csproj">
       <Project>{7263D0F0-6BC4-41BF-A2C3-19E669020068}</Project>
       <Name>August2008</Name>
