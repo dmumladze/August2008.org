@@ -3,8 +3,8 @@ GO
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SET IDENTITY_INSERT [dbo].[Language] ON
 GO
-INSERT INTO [dbo].[Language] ([LanguageId], [NativeName], [EnglishName], [Culture]) VALUES (1, 'ქართული', 'Georgian', 'ka-GE')
-INSERT INTO [dbo].[Language] ([LanguageId], [NativeName], [EnglishName], [Culture]) VALUES (2, 'English', 'English (US)', 'en-US')
+INSERT INTO [dbo].[Language] ([LanguageId], [DisplaName], [EnglishName], [Culture]) VALUES (1, 'ქართული', 'Georgian', 'ka-GE')
+INSERT INTO [dbo].[Language] ([LanguageId], [DisplaName], [EnglishName], [Culture]) VALUES (2, 'English', 'English (US)', 'en-US')
 GO
 SET IDENTITY_INSERT [dbo].[Language] OFF
 GO
