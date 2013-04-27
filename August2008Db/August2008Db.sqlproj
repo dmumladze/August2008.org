@@ -145,11 +145,17 @@
     <Build Include="dbo\Tables\Hero.sql" />
     <Build Include="dbo\Tables\MilitaryGroup.sql" />
     <Build Include="dbo\Tables\MilitaryRank.sql" />
+    <Build Include="dbo\Tables\Role.sql" />
+    <Build Include="dbo\Tables\UserRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchemaCompare.scmp" />
+    <None Include="SqlSchemaCompare.Simon.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="August2008Db.refactorlog" />
   </ItemGroup>
 </Project>
