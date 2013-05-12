@@ -9,6 +9,13 @@ GO
 SET IDENTITY_INSERT [dbo].[Language] OFF
 GO
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SET IDENTITY_INSERT [dbo].[PhotoType] ON
+GO
+INSERT INTO [dbo].[PhotoType] ([PhotoTypeId], [DisplayName], [Description]) VALUES (1, 'Thumbnail', 'Thumbnail 250x250')
+INSERT INTO [dbo].[PhotoType] ([PhotoTypeId], [DisplayName], [Description]) VALUES (2, 'Fullsize', 'Full-size photo')
+GO
+SET IDENTITY_INSERT [dbo].[PhotoType] OFF
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SET IDENTITY_INSERT [dbo].[MilitaryGroup] ON
 GO
 INSERT [dbo].[MilitaryGroup] ([MilitaryGroupId]) VALUES (1)

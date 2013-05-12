@@ -47,9 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IHeroRepository.cs" />
     <Compile Include="Tools\ClassBuilder.cs" />
     <Compile Include="Exceptions\DataAccessException.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="DataAccess.cs" />
     <Compile Include="Tools\DataReaderEngine.cs" />
     <Compile Include="Exceptions\DbTransactionException.cs" />
     <Compile Include="DbTransactionManager.cs" />

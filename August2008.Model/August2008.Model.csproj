@@ -40,7 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hero.cs" />
+    <Compile Include="HeroPhoto.cs" />
+    <Compile Include="MilitaryGroup.cs" />
     <Compile Include="MilitaryRank.cs" />
+    <Compile Include="PhotoType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

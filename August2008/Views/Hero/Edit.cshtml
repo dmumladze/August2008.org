@@ -1,0 +1,61 @@
+﻿@model August2008.Models.HeroModel
+
+<fieldset>
+    <legend>Hero</legend>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.MilitaryRanks)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("MilitaryRank", Model.MilitaryRanks, "-")
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.MilitaryGroups)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("MilitaryGroup", Model.MilitaryGroups, "-")
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Hero.FirstName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Hero.FirstName, new { id = "FirstName" })
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Hero.LastName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Hero.LastName, new { id = "LastName" })
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Hero.MiddleName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Hero.MiddleName, new { id = "MiddleName" })
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Hero.Dob)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Hero.Dob, new { id = "Dob" })
+    </div>
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Hero.Died)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Hero.Died, new { id = "Died" })
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Hero.Biography)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Hero.Biography, new { id = "Biography" })
+    </div>
+</fieldset>

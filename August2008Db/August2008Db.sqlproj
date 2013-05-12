@@ -147,12 +147,29 @@
     <Build Include="dbo\Tables\MilitaryRank.sql" />
     <Build Include="dbo\Tables\Role.sql" />
     <Build Include="dbo\Tables\UserRole.sql" />
+    <Build Include="dbo\Stored Procedures\GetMilitaryRanks.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\GetMilitaryGroups.sql" />
+    <Build Include="dbo\Stored Procedures\GetHero.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\CreateHero.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\GetHeros.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SchemaCompare.scmp" />
+    <None Include="SchemaCompare.David.scmp" />
     <None Include="SqlSchemaCompare.Simon.scmp" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
     [HeroId]      INT            NOT NULL,
     [FirstName]   NVARCHAR (50)  NOT NULL,
     [LastName]    NVARCHAR (75)  NOT NULL,
+	[MiddleName]  NVARCHAR (50)  NULL,
     [Biography]   NVARCHAR (MAX) NULL,
     [DateUpdated] DATETIME       NOT NULL,
     [UpdatedBy]   INT            NOT NULL,

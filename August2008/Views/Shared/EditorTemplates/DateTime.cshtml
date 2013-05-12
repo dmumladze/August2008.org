@@ -1,0 +1,23 @@
+﻿@model DateTime?
+@{
+    var date = Model;
+    var identity = ViewData["id"];
+    var dateFormat = Html.JQueryDateFormat();
+
+    if ((!date.HasValue  || date.Equals(default(DateTime))) && ((bool?)ViewData["nowIfNull"] ?? false)) 
+    {
+        date = DateTime.Now;
+    }
+    @Html.TextBox("", (date == null) ? String.Empty : date.Value.ToString(dateFormat), new { @class = "jquery-date", id = identity })
+}
+<script type="text/javascript">
+    $(function() {
+        $('#@identity').datepicker({
+            showAnim: 'slide',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: '@dateFormat'
+        });
+    });
+</script>

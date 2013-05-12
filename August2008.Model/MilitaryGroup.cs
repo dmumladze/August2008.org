@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace August2008.Models
-{
+namespace August2008.Model 
+{ 
     public class MilitaryGroup
     {
         public int MilitaryGroupId { get; set; }

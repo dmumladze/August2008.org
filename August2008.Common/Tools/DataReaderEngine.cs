@@ -29,7 +29,7 @@ namespace August2008.Common.Tools
                     // unload stuff...
                 };
         }
-        internal DataReaderEngine(Database dataProvider)
+        internal DataReaderEngine(DataAccess dataProvider)
         {
             if (dataProvider == null)
             {
@@ -359,7 +359,7 @@ namespace August2008.Common.Tools
             }
             return string.Empty;
         }
-        internal Database DataProvider
+        internal DataAccess DataProvider
         {
             get;
             set;

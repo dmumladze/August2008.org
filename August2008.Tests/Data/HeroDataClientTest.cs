@@ -10,7 +10,7 @@ namespace August2008.Tests.Data
         [TestMethod]
         public void HeroDataClient_Can_Get_MilitaryRanks()
         {
-            var dataClient = new HeroDataClient();
+            var dataClient = new HeroRepository();
             var ranks = dataClient.GetMilitaryRanks(1);
         }
     }

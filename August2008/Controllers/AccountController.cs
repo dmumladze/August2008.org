@@ -14,7 +14,6 @@ using August2008.Models;
 namespace August2008.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //

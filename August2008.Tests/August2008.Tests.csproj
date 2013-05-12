@@ -115,7 +115,6 @@
   <ItemGroup>
     <Compile Include="Data\HeroDataClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -144,6 +143,9 @@
       <Project>{7263D0F0-6BC4-41BF-A2C3-19E669020068}</Project>
       <Name>August2008</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

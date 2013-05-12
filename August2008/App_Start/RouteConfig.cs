@@ -14,9 +14,15 @@ namespace August2008
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Partial",
+                url: "{cotroller}/Partial/{view}",
+                defaults: new {controller = "Home", action = "Partial", view = ""}
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
             );
         }
     }

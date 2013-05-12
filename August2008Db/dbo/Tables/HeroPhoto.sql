@@ -5,7 +5,7 @@
     [PhotoTypeId] INT            NOT NULL,
     [DateCreated] DATETIME       NOT NULL,
     [UpdatedBy]   INT            NOT NULL,
-    [Version] ROWVERSION NOT NULL, 
+    [Version]	  ROWVERSION NOT NULL, 
     CONSTRAINT [PK_HeroPhoto] PRIMARY KEY CLUSTERED ([HeroPhotoId] ASC),
     CONSTRAINT [FK_HeroPhoto_Hero] FOREIGN KEY ([HeroId]) REFERENCES [dbo].[Hero] ([HeroId]),
     CONSTRAINT [FK_HeroPhoto_PhotoType] FOREIGN KEY ([PhotoTypeId]) REFERENCES [dbo].[PhotoType] ([PhotoTypeId]),
