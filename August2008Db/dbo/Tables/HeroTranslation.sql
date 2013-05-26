@@ -4,7 +4,7 @@
     [LastName]    NVARCHAR (75)  NOT NULL,
 	[MiddleName]  NVARCHAR (50)  NULL,
     [Biography]   NVARCHAR (MAX) NULL,
-    [DateUpdated] DATETIME       NOT NULL,
+    [DateUpdated] DATETIME       NOT NULL DEFAULT GETDATE(),
     [UpdatedBy]   INT            NOT NULL,
     [LanguageId]  INT            NOT NULL,
     [Version]     ROWVERSION     NOT NULL,

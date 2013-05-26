@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using August2008.Common.Interfaces;
 
@@ -24,16 +26,16 @@ namespace August2008.Common
         public static string ToDbXml(this IPostedFile file)
         {
             return string.Format("<Photo PhotoUrl=\"{0}\" ContentType=\"{1}\" {2}/>", 
-                file.FileName, 
+                Path.GetFileName(file.FileName), 
                 file.ContentType, 
-                file.Attributes.ToXmlAttributes());
+                file.Attributes.ToXmlAttributes("FileName"));
         }   
-        public static string ToXmlAttributes(this Dictionary<string, string> dictionary)
+        public static string ToXmlAttributes(this Dictionary<string, string> dictionary, params string[] ignore)
         {
             if (dictionary != null)
             {
                 var sb = new StringBuilder();
-                foreach (var item in dictionary)
+                foreach (var item in dictionary.Where(item => !item.Key.Equals(ignore)))
                 {
                     sb.AppendFormat("{0}=\"{1}\"", item.Key, item.Value);
                 }

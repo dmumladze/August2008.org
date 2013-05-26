@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace August2008.Model
 {
-    class Language
+    public class Language
     {
+        public int LanguageId { get; set; }
+        public string DisplayName { get; set; }
+        public string EnglishName { get; set; }
+        public string Culture { get; set; }
     }
 }

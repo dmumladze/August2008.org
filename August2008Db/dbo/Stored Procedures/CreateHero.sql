@@ -1,5 +1,5 @@
 ﻿
-create PROCEDURE [dbo].[CreateHero]
+CREATE PROCEDURE [dbo].[CreateHero]
 	@MilitaryGroupId	INT,
 	@MilitaryRankId		INT,
 	@Dob				DATETIME		= NULL,
@@ -8,7 +8,6 @@ create PROCEDURE [dbo].[CreateHero]
 	@LastName			NVARCHAR(75),
 	@MiddleName			NVARCHAR(50)	= NULL,
 	@Biography			NVARCHAR(MAX)	= NULL,
-	@DateUpdated		DATETIME,
 	@UpdatedBy			INT,
 	@LanguageId			INT,
 	@Photos				XML				= NULL,
@@ -41,7 +40,6 @@ BEGIN
 		LastName,
 		MiddleName,
 		Biography,
-		DateUpdated,
 		UpdatedBy
 	)
 	VALUES (
@@ -51,7 +49,6 @@ BEGIN
 		@LastName,
 		@MiddleName,
 		@Biography,
-		@DateUpdated,
 		@UpdatedBy
 	);
 
@@ -60,22 +57,21 @@ BEGIN
 	INSERT INTO dbo.HeroPhoto (
 		PhotoUrl,
 		HeroId,
-		PhotoTypeId,
-		DateCreated,
+		ContentType,
+		IsThumbnail,
 		UpdatedBy
 	)
 	SELECT    
 		PhotoUrl,
 		@HeroId,
-		PhotoTypeId,
-		DateCreated,
-		UpdatedBy
-	FROM OPENXML (@xdh, '/Photos/Photo',2)
+		ContentType,
+		IsThumbnail,
+		@UpdatedBy
+	FROM OPENXML (@xdh, '/Photos/Photo', 1)
 	WITH (
 		PhotoUrl	NVARCHAR(250),
-		PhotoTypeId INT,
-		DateCreated DATETIME,
-		UpdatedBy	INT
+		ContentType NVARCHAR(25),
+		IsThumbnail BIT
 	);
 
 	EXEC sp_xml_removedocument @xdh;

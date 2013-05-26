@@ -1,61 +1,138 @@
 ﻿@model August2008.Models.HeroModel
 
-<fieldset>
-    <legend>Hero</legend>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.MilitaryRanks)
-    </div>
-    <div class="editor-field">
-        @Html.DropDownList("MilitaryRank", Model.MilitaryRanks, "-")
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.MilitaryGroups)
-    </div>
-    <div class="editor-field">
-        @Html.DropDownList("MilitaryGroup", Model.MilitaryGroups, "-")
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Hero.FirstName)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Hero.FirstName, new { id = "FirstName" })
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Hero.LastName)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Hero.LastName, new { id = "LastName" })
-    </div>
+@using (Html.BeginForm("Save", "Hero", FormMethod.Post, new {enctype = "multipart/form-data"})) {
+    <fieldset>
+        <legend>Hero</legend>
     
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Hero.MiddleName)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Hero.MiddleName, new { id = "MiddleName" })
-    </div>
+        <div class="editor-label">Upload Images</div>
+        <div class="editor-field">
+            <div id="fileupload" >
+                <button type="submit" id="btn">Upload Files!</button>
+                <input id="images" type="file" name="images" multiple />
+            </div>   
+            <div id="response"></div>
+            <ul id="image-list"></ul>         
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Hero.Dob)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Hero.Dob, new { id = "Dob" })
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MilitaryRanks)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("MilitaryRank", Model.MilitaryRanks, "-", new { id = "MilitaryRankId"})
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MilitaryGroups)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("MilitaryGroup", Model.MilitaryGroups, "-",  new { id = "MilitaryGroupId"})
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+        </div>
     
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Hero.Died)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Hero.Died, new { id = "Died" })
-    </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MiddleName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MiddleName)
+        </div>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.Hero.Biography)
-    </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Hero.Biography, new { id = "Biography" })
-    </div>
-</fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Dob)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Dob)
+        </div>
+    
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Died)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Died) 
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Biography)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Biography)
+        </div>
+    </fieldset>
+
+}
+<script>
+    (function () {
+        var input = $("#images");
+        var formData = false;
+
+        function showUploadedItem(source) {
+            //debugger;
+            var list = document.getElementById("image-list"),
+                li = document.createElement("li"),
+                img = document.createElement("img");
+            img.src = source;
+            li.appendChild(img);
+            list.appendChild(li);
+        }
+
+        if (window.FormData) {
+            formData = new FormData();
+            document.getElementById("btn").style.display = "none";
+        }
+
+        input.change(function (evt) {
+            $("response").html("Uploading . . .");
+
+            var i = 0;
+            var len = this.files.length;
+            var img;
+            var reader;
+            var file;
+
+            for (; i < len; i++) {
+                file = this.files[i];
+
+                if (!!file.type.match(/image.*/)) {
+                    if (window.FileReader) {
+                        reader = new FileReader();
+                        reader.onloadend = function (e) {
+                            showUploadedItem(e.target.result, file.fileName);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                    if (formData) {
+                        formData.append("images", file);
+                    }
+                }
+            }
+            if (formData) {
+                August2008.hero.hydrate(formData);
+                $.ajax({
+                    url: '@Url.Action("Save")',
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (res) {
+                            alert(res);
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            alert(errorMessage);
+                        }
+                    });
+                }
+            });
+        }());
+</script>

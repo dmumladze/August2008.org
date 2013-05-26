@@ -22,5 +22,14 @@ namespace August2008.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("~/App_Data/pictures/heroes")]
+        public string HeroPhotoDirectory {
+            get {
+                return ((string)(this["HeroPhotoDirectory"]));
+            }
+        }
     }
 }

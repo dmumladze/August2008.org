@@ -8,12 +8,13 @@ namespace August2008.Model
 {
     public class HeroPhoto
     {
-      public int HeroPhotoId { get; set; }
-      public string PhotoUrl { get; set; }
-      public int HeroId { get; set; }
-      public PhotoType PhotoType { get; set; } 
-      public DateTime DateCreated { get; set; }
-      public int UpdatedBy { get; set; }
-      public long Version { get; set; }
+        public int HeroPhotoId { get; set; }
+        public string PhotoUrl { get; set; }
+        public int HeroId { get; set; }
+        public string ContentType { get; set; }
+        public PhotoType PhotoType { get; set; }
+        public DateTime DateCreated { get; set; }
+        public int UpdatedBy { get; set; }
+        public long Version { get; set; }
     }
 }

@@ -51,9 +51,10 @@ BEGIN
 
 	SELECT
 		hp.HeroId,
+		hp.ContentType,
 		hp.PhotoUrl
 	FROM dbo.HeroPhoto hp (NOLOCK)
 	INNER JOIN @Hero h ON hp.HeroId = h.HeroId
-	WHERE hp.PhotoTypeId = 1;
+	WHERE hp.IsThumbnail = 1;
 
 END;

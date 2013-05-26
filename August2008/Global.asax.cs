@@ -8,6 +8,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using August2008.Model;
+using August2008.Models;
+using AutoMapper;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Microsoft.Practices.Unity.Mvc;
@@ -30,6 +33,8 @@ namespace August2008
                 section.Configure(container);
             }
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
+            Mapper.CreateMap<HeroModel, Hero>();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -37,6 +42,12 @@ namespace August2008
             var ci = new CultureInfo("ka");
             System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
             System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
+
+            var app = sender as HttpApplication;
+            if (app != null)
+            {
+                app.Context.User = new User {UserId = 2, Language = new Language { LanguageId = 1}};
+            }
         }
     }
 }

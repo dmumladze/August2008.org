@@ -5,8 +5,8 @@ namespace August2008.Model
 { 
     public class Hero
     {
-        public int HeroId { get; set; }
-        public int MilitaryRankId { get; set; }
+        public int? HeroId { get; set; }
+        public int? MilitaryRankId { get; set; }
         public int MilitaryGroupId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -7,9 +7,9 @@ namespace August2008.Common.Interfaces
     public interface IHeroRepository
     {
         Hero GetHero(int heroId, int languageId);
-        int CreateHero(Hero hero);
+        int CreateHero(Hero hero, IEnumerable<IPostedFile> photos);
 
-        List<MilitaryRank> GetMilitaryRanks(int languageId);
-        List<MilitaryGroup> GetMilitaryGroups(int languageId);
+        IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId);
+        IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId);
     }
 }

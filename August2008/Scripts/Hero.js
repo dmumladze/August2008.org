@@ -7,9 +7,10 @@ function Hero() {
     this.LastName = null;
     this.MiddleName = null;
     this.Dob = null;
+    this.Died = null;
     this.Biography = null;
 };
-Hero.init = function(editUrl) {
+Hero.init = function(editUrl, saveUrl) {
     // editor dialog
     $('#hero-dialog').dialog({
         autoOpen: false,
@@ -43,15 +44,10 @@ Hero.prototype.edit = function(url) {
         }
     });
 };
-Hero.prototype.create = function() {
-    this.hydrateForm();
-    return JSON.stringify(this);
-};
-Hero.prototype.hydrateForm = function() {
+Hero.prototype.hydrate = function(formData) {
     for (var prop in this) {
-        debugger;
         if (this.hasOwnProperty(prop)) {
-            this[prop] = $('#'+prop).val();
+            formData.append(prop, (this[prop] = $('#' + prop).val()) || '');
         }
     }
 };

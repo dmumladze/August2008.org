@@ -14,6 +14,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetHeroDetails");
+
                 db.AddInParameter("@HeroId", DbType.Int32, heroId);
                 db.AddInParameter("@LanguageId", DbType.Int32, languageId);
 
@@ -29,11 +30,44 @@ namespace August2008.Data
                 return hero;
             }
         }
-        public int CreateHero(Hero hero)
+        public int CreateHero(Hero hero, IEnumerable<IPostedFile> photos)
         {
-            return 0;
+            var heroId = 0;
+            using (var ts = new DbTransactionManager())
+            {
+                ts.BeginTransaction();
+
+                using (var db = new DataAccess(ts))
+                {
+                    db.CreateStoredProcCommand("dbo.CreateHero");
+
+                    db.AddInParameter("@FirstName", DbType.String, hero.FirstName);
+                    db.AddInParameter("@LastName", DbType.String, hero.LastName);
+                    db.AddInParameter("@MiddleName", DbType.String, hero.MiddleName);
+                    db.AddInParameter("@Dob", DbType.DateTime, hero.Dob);
+                    db.AddInParameter("@Died", DbType.DateTime, hero.Died);
+                    db.AddInParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
+                    db.AddInParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
+                    db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
+                    db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
+                    db.AddInParameter("@Photos", DbType.Xml, photos.ToDbXml());
+                    db.AddOutParameter("@HeroId", DbType.Int32);
+                    try
+                    {
+                        db.ExecuteNonQuery();
+                        heroId = db.GetParameterValue<int>("@HeroId");
+                        ts.Commit();
+                        SavePhotos(photos);
+                    }
+                    catch (Exception)
+                    {
+                        ts.Rollback();
+                    }
+                    return heroId;
+                }
+            }
         }
-        public List<MilitaryRank> GetMilitaryRanks(int languageId)
+        public IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId)
         {
             using (var db = new DataAccess())
             {
@@ -52,7 +86,7 @@ namespace August2008.Data
                 return ranks;
             }
         }
-        public List<MilitaryGroup> GetMilitaryGroups(int languageId)
+        public IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId)
         {
             using (var db = new DataAccess())
             {
@@ -69,6 +103,20 @@ namespace August2008.Data
                     throw;
                 }
                 return groups;
+            }
+        }
+        private static void SavePhotos(IEnumerable<IPostedFile> photos)
+        {
+            if (photos == null) return;
+            try
+            {
+                foreach (var photo in photos)
+                {
+                    photo.Save();
+                }
+            }
+            catch (Exception)
+            {
             }
         }
     }

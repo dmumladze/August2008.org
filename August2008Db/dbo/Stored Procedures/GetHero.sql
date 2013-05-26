@@ -62,7 +62,7 @@ BEGIN
 		HeroPhotoId,
 		PhotoUrl,
 		HeroId,
-		PhotoTypeId,
+		IsThumbnail,
 		DateCreated,
 		UpdatedBy
 	FROM dbo.HeroPhoto (NOLOCK)

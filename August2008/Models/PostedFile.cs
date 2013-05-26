@@ -1,25 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Web;
 using System.Drawing;
 using August2008.Common.Interfaces;
 
 namespace August2008.Models
 {
-    public class PostedFile : IHttpPostedFile, IDisposable
+    public class PostedFile : IPostedFile, IDisposable
     {
         private HttpPostedFileBase _postedFile;
         private Bitmap _bitmap;
-        private bool _isDisposed;
+        private bool _disposed;
+        private readonly Dictionary<string, string> _attributes = new Dictionary<string, string>();
 
         public PostedFile(HttpPostedFileBase postedFile)
         {
             _postedFile = postedFile;
         }
-        public void SaveAs(string fileName)
+        public void Save(string fileName = null)
         {
             if (_postedFile != null && _postedFile.InputStream.Length != 0)
             {
-                _postedFile.SaveAs(fileName);
+                _postedFile.SaveAs(fileName ?? FileName);
             }
         }
         public bool Validate(int maxWidth = 0, int maxHeight = 0)
@@ -40,40 +43,42 @@ namespace August2008.Models
             {
                 if (this.EnsureBitmap())
                 {
-                    return _postedFile.FileName;
+                    string fileName;
+                    if (!_attributes.TryGetValue("FileName", out fileName))
+                    {
+                        fileName = Path.GetFileName(_postedFile.FileName);
+                    }
+                    return fileName;
                 }
-                return string.Empty;
+                return  string.Empty;
             }
+        }
+        public string ContentType
+        {
+            get { return _postedFile.ContentType; }
         }
         public int Width
         {
-            get
-            {
-                if (this.EnsureBitmap())
-                {
-                    return _bitmap.Width;
-                }
-                return 0;
-            }
+            get { return this.EnsureBitmap() ? _bitmap.Width : 0; }
         }
         public int Height
         {
             get
             {
-                if (this.EnsureBitmap())
-                {
-                    return _bitmap.Height;
-                }
-                return 0;
+                return this.EnsureBitmap() ? _bitmap.Height : 0;
             }
         }
         public bool CanSave
         {
             get { return _postedFile != null && _postedFile.InputStream.Length > 0; }
         }
+        public Dictionary<string, string> Attributes
+        {
+            get { return _attributes; }
+        }
         public void Dispose()
         {
-            if (!_isDisposed)
+            if (!_disposed)
             {
                 if (_bitmap != null)
                 {
@@ -81,7 +86,7 @@ namespace August2008.Models
                 }
                 _bitmap = null;
                 _postedFile = null;
-                _isDisposed = true;                
+                _disposed = true;                
             }
             GC.SuppressFinalize(this);
         }

@@ -1,7 +1,7 @@
 ﻿@model DateTime?
 @{
     var date = Model;
-    var identity = ViewData["id"];
+    var identity = ViewData["id"] ?? ViewData.ModelMetadata.PropertyName;
     var dateFormat = Html.JQueryDateFormat();
 
     if ((!date.HasValue  || date.Equals(default(DateTime))) && ((bool?)ViewData["nowIfNull"] ?? false)) 
