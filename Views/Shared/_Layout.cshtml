@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+	    <title>We Remember August</title>
+	    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	    <meta name="description" content="In memory of those Georgian heroes who died in Russia–Georgia War of 2008" />
+	    <meta name="keywords" content="Russia–Georgia War of 2008; Five-Day War; 2008 South Ossetia Conflict; August War" />
+	    <meta name="robots" content="index, follow" />
+	    <link rel="shortcut icon" href="~/favicon.png" type="image/x-icon" />
+	    <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jqueryui")
+        
+        <script type="text/javascript">
+            
+            function dialog() {
+
+            }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <div class="menu-container">
+	            <ul>
+		            <li>@Html.ActionLink("Welcome", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Mission", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Donations", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Join", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Heroes", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Contact", "Index", "Home")</li>
+		            <li>@Html.ActionLink("Blog", "Index", "Home")</li>
+	            </ul>    
+	            <p id="layoutdims">&nbsp;</p>
+            </div>
+            <img src="../images/logo.png" class="logo" />
+        </div>
+        <div class="colmask threecol">
+	        <div class="colmid">
+		        <div class="colleft">
+			        <div class="col1">
+                        @RenderSection("MainSection", false)
+			        </div>
+			        <div class="col2">
+                        @RenderSection("LeftSection", false)
+			        </div>
+			        <div class="col3">
+                        @RenderSection("RightSection", false)
+			        </div>
+		        </div>
+	        </div>
+        </div>
+        <div id="footer">
+            &nbsp;
+        </div>
+        @Scripts.Render("~/bundles/jquery")        
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

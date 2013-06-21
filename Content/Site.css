@@ -1,0 +1,244 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    border: 0; 
+    width: 100%;
+    background: #fff;
+    min-width: 768px;
+    font-size: 90%;
+    height: 100%;
+}
+
+a:hover {
+    color: #fff;
+    background: #369;
+    text-decoration: none;
+}
+
+h1, h2, h3 {
+    margin: .8em 0 .2em 0;
+    padding: 0;
+}
+
+p {
+    margin: .4em 0 .8em 0;
+    padding: 0;
+}
+
+img {
+    margin: 10px 0 5px;
+}
+
+#ads img {
+    display: block;
+    padding-top: 10px;
+}
+
+#header {
+    clear: both;
+    float: left;
+    width: 100%;
+    height: 120px;
+}
+
+#header { 
+    border-bottom: 1px solid #000;
+    background-image: url(../images/black-texture-bg.jpg);
+    background-repeat: repeat-x;
+}
+
+#header p,
+#header h1,
+#header h2 {
+    padding: .4em 15px 0 15px;
+    margin: 0;
+}
+
+#header ul {
+    display: inline-block;
+    clear: left;
+    float: left;
+    list-style: none;
+    margin: 10px 0 0 0;
+    padding: 0;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#header ul li {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#header ul li a {
+    display: block;
+    float: left;
+    margin: 0 0 0 1px;
+    padding: 3px 10px;
+    text-align: center;
+    background: #eee;
+    color: #000;
+    text-decoration: none;
+    position: relative;
+    left: 15px;
+    line-height: 40px;
+    width: 75px;
+    text-shadow: 0 1px 1px #fff;
+}
+
+#header ul li a:hover {
+    background: #323577;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+}
+
+#header ul li a.active,
+#header ul li a.active:hover {
+    color: #fff;
+    background: #222;
+    font-weight: bold;
+    text-shadow: 0 1px 1px #555;
+}
+
+#header ul li a span {
+    display: block;
+}
+
+#header .menu-container {
+    padding-top: 31px;
+}
+
+#layoutdims {
+    clear: both;
+    background: #eee;
+    border-top: 3px solid #222222;
+    margin: 0;
+    padding: 6px 15px !important;
+    text-align: right;
+    -moz-box-shadow: 3px 3px 3px 4px #111111;
+    -webkit-box-shadow: 0 3px 3px 4px #111111;
+    box-shadow: 3px 3px 3px 4px #222222;
+}
+
+.logo {
+    position: absolute;
+    right:0; 
+    top:0;
+    z-index:9999; 
+    width: 26%;
+    height: 13% 
+}
+
+.colmask {
+    position: relative; 
+    clear: both;
+    float: left;
+    width: 100%;
+    overflow: hidden; 
+}
+
+.colmid,
+.colleft {
+	float:left;
+	width:100%;	
+	position:relative;
+}
+
+.col1,
+.col2,
+.col3 {
+	float:left;
+	position:relative;
+	padding:0 0 1em 0;	
+	overflow:hidden;
+    padding: 20px 0;
+}
+
+.threecol {
+    background-image: url(../images/american-flag-bg.jpg);
+    background-position: right top;
+    background-repeat: repeat-y;
+}
+
+.threecol .colmid {
+    right: 15%;
+    background: #fff;
+    -moz-box-shadow: 0 0 3px 4px #111111;
+    -webkit-box-shadow: 0 0 3px 4px #111111;
+    box-shadow: 0 0 3px 4px #111111;
+    background-image: url(../images/white-texture-bg.jpg);
+    background-position: right top;
+    background-repeat: repeat;
+}
+
+.threecol .colleft {
+    right: 60%;
+    background-image: url(../images/georgian-flag-bg.jpg);
+    background-position: right top;
+    background-repeat: repeat-y;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.threecol .col1 {
+    left: 101%;
+    width: 58%;
+}
+
+.threecol .col2 {
+    left: 18%;
+    width: 23%;
+}
+
+.threecol .col3 {
+    left: 80%;
+    width: 13%;
+    height: 770px;
+}
+#footer {
+    clear: both;
+    float: left;
+    width: 100%;
+    border-top: 1px solid #000;
+}
+
+#footer p {
+    padding: 10px;
+    margin: 0;
+}
+
+.section {
+    background-color: #fff;
+    border: 0px solid #333;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.split-two {
+    float: left;
+    width: 50%;
+}
+
+.transp {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+}
+.shadow {
+    margin: 0 3px;
+    -moz-box-shadow: 20px 20px 10px 20px #222;
+    -webkit-box-shadow: 0 0 3px #222;
+    box-shadow: 0px 0px 2px 0px #111111;
+}
