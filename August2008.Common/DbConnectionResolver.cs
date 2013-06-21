@@ -6,7 +6,7 @@ namespace August2008.Common
 {
     public sealed class DbConnectionResolver : IDbConnectionResolver
     {
-        public readonly static IDbConnectionResolver Instance = new DbConnectionResolver();
+        public readonly static IDbConnectionResolver Default = new DbConnectionResolver();
 
         private DbConnectionResolver()
         {

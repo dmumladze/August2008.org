@@ -25,7 +25,7 @@ namespace August2008.Common
         /// <summary>
         /// Initializes a new instance of DbTransactionManager with a default IDatabaseResolver instance.
         /// </summary>
-        public DbTransactionManager() : this(DbConnectionResolver.Instance)
+        public DbTransactionManager() : this(DbConnectionResolver.Default)
         {
         }
         /// <summary>

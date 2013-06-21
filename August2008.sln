@@ -27,9 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C72B5884-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bin", "Bin", "{7DB9CE85-0C2F-4DD9-BF5C-3356F19ECBDC}"
 	ProjectSection(SolutionItems) = preProject
-		CommonBin\Microsoft.Practices.ObjectBuilder2.dll = CommonBin\Microsoft.Practices.ObjectBuilder2.dll
+		CommonBin\AutoMapper.dll = CommonBin\AutoMapper.dll
 		CommonBin\Microsoft.Practices.Unity.Configuration.dll = CommonBin\Microsoft.Practices.Unity.Configuration.dll
 		CommonBin\Microsoft.Practices.Unity.dll = CommonBin\Microsoft.Practices.Unity.dll
+		CommonBin\Microsoft.Practices.Unity.Mvc.dll = CommonBin\Microsoft.Practices.Unity.Mvc.dll
 	EndProjectSection
 EndProject
 Global
@@ -79,5 +80,8 @@ Global
 		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E} = {761A184F-5876-4A12-A27D-412C336ADC0F}
 		{010855C3-51A6-4F61-9B02-15E0AB038DEA} = {761A184F-5876-4A12-A27D-412C336ADC0F}
 		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5} = {3FD79DE9-226A-40E8-B7D0-4693DB2BE847}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

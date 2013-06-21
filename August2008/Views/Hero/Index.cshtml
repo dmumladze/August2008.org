@@ -1,0 +1,26 @@
+﻿@model August2008.Model.Hero
+
+@section HeaderScriptSection 
+{
+    @Scripts.Render("~/bundles/hero")
+}
+
+@section MainSection 
+{
+    <div id="hero-dialog">
+    </div>  
+    <input type="button" id="createButton" value="Create"/>  
+    
+    @Html.Action("Edit")  
+}
+
+@section BottomScriptSection
+{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            Hero.init('@Url.Action("Edit", "Hero")');
+        });
+
+    </script>
+}
