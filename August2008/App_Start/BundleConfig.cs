@@ -17,7 +17,11 @@ namespace August2008
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-1.9.1.js",
-                "~/Scripts/jquery-ui-1.10.3.custom.js"));
+                "~/Scripts/jquery-ui-1.10.3.custom.js",
+                "~/Scripts/jquery.jqote2.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/security").Include(
+                "~/Scripts/Security.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));

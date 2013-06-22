@@ -60,8 +60,8 @@ namespace August2008.Controllers
                         }
                     }
                     hero.UpdatedBy = _principal.UserId;
-                    hero.LanguageId = _principal.Language.LanguageId;
-                    hero.HeroId = _heroRepository.CreateHero(hero, photos);
+                    hero.LanguageId = _principal.Profile.Lang.LanguageId;
+                    //hero.HeroId = _heroRepository.CreateHero(hero, photos);
                     return Json(new {Ok = true, HeroId = 1});
                 }
                 catch (Exception)

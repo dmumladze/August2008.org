@@ -14,4 +14,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="UserRoleId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="8a932e61-f14c-4bce-afe6-7d07ede5663b" ChangeDateTime="06/16/2013 22:42:22">
+    <Property Name="ElementName" Value="[dbo].[UserProfile].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserProfile]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserProfileId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8d60f84c-6586-42b6-8c3c-37ddbe438514" ChangeDateTime="06/16/2013 22:50:10">
+    <Property Name="ElementName" Value="[dbo].[OAuthUser].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[OAuthUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OAuthUserId" />
+  </Operation>
 </Operations>

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\IHeroRepository.cs" />
     <Compile Include="Interfaces\IPostedFile.cs" />
     <Compile Include="Tools\ClassBuilder.cs" />

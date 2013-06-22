@@ -11,6 +11,7 @@
     @Styles.Render("~/content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/security")
     
     @RenderSection("HeaderScriptSection", false)
 </head>
@@ -26,9 +27,11 @@
                 <li>@Html.ActionLink("Contact", "Index", "Home")</li>
                 <li>@Html.ActionLink("Blog", "Index", "Home")</li>
             </ul>
-            <p id="layoutdims">&nbsp;</p>
+            <p id="layoutdims">
+                <a href="javascript:void(0)" id="btn-login">Log in</a>
+            </p>
         </div>
-        <img src="../images/logo.png" class="logo" />
+        <!--<img src="../images/logo.png" class="logo" />-->
     </div>
     <div class="colmask threecol">
         <div class="colmid">
@@ -39,7 +42,7 @@
                 <div class="col2">
                     @RenderSection("LeftSection", false)
                 </div>
-                <div class="col3">
+                <div class="col3">                    
                     @RenderSection("RightSection", false)
                 </div>
             </div>
@@ -48,6 +51,9 @@
     <div id="footer">
         @RenderSection("FooterSection", false)      
     </div>
+    <div id="login-dialog">
+        @Html.Partial("Login")
+    </div>  
     @RenderSection("BottomScriptSection", false)
 </body>
 </html>

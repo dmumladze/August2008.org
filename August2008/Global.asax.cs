@@ -46,7 +46,11 @@ namespace August2008
             var app = sender as HttpApplication;
             if (app != null)
             {
-                app.Context.User = new User {UserId = 2, Language = new Language { LanguageId = 1}};
+                app.Context.User = new User
+                    {
+                        UserId = 2,
+                        Profile = new UserProfile { Lang = new Language { LanguageId = 1 } }
+                    };
             }
         }
     }

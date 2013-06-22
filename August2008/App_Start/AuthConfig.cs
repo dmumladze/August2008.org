@@ -22,9 +22,7 @@ namespace August2008
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient("551104464941114", "3189a843e5829d465a52da1c862a191f");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }

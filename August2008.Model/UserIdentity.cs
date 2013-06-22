@@ -4,18 +4,9 @@ using System.Security.Principal;
 namespace August2008.Model
 {
     public class UserIdentity : IIdentity
-    {        
-        public string AuthenticationType
-        {
-            get { return "Forms Authentication"; }
-        }
-        public bool IsAuthenticated
-        {
-            get { return true; }
-        }
-        public string Name
-        {
-            get { return "David Mumladze"; }
-        }
+    {
+        public string AuthenticationType { get; set; }
+        public bool IsAuthenticated { get; set; }
+        public string Name { get; set; }
     }
 }

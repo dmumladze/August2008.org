@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using August2008.Common.Interfaces;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -16,16 +17,70 @@ namespace August2008.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
+        private readonly IAccountRepository _accountRepository;
 
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public AccountController(IAccountRepository accountRepository)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            _accountRepository = accountRepository;
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Login(LoginProvider provider, string returnUrl)
+        {
+            return new ExternalLoginResult(provider, Url.Action("AuthenticateExternal", new {returnUrl = returnUrl}));
+        }
+        [AllowAnonymous]
+        public ActionResult AuthenticateExternal(string returnUrl)  
+        {
+            var result = OAuthWebSecurity.VerifyAuthentication();
+            if (result.IsSuccessful)
+            {
+                var provider = result.Provider;
+                var uniqueUserId = result.ProviderUserId;
+                var uniqueId = provider + "-" + uniqueUserId;
 
+                int? userId;
+                if (!_accountRepository.TryGetUserIdByProviderId(uniqueId, out userId))
+                {
+                    var extraData = result.ExtraData;
+                }
+                FormsAuthentication.SetAuthCookie(uniqueId, true);
+            }
+            return RedirectToLocal(returnUrl);
+        }
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        private class ExternalLoginResult : ActionResult
+        {
+            public ExternalLoginResult(LoginProvider provider, string returnUrl)
+            {
+                Provider = provider;
+                ReturnUrl = returnUrl;
+            }
+
+            public LoginProvider Provider { get; private set; }
+            public string ReturnUrl { get; private set; }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                switch (Provider)
+                {
+                    case LoginProvider.Facebook:
+                        OAuthWebSecurity.RequestAuthentication(Provider.ToString(), ReturnUrl);
+                        break;
+                }                
+            }
+        }
+        /*
         //
         // POST: /Account/Login
 
@@ -402,5 +457,6 @@ namespace August2008.Controllers
             }
         }
         #endregion
+        */
     }
 }

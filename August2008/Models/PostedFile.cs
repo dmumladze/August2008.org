@@ -12,7 +12,7 @@ namespace August2008.Models
         private HttpPostedFileBase _postedFile;
         private Bitmap _bitmap;
         private bool _disposed;
-        private readonly Dictionary<string, string> _attributes = new Dictionary<string, string>();
+        private Dictionary<string, string> _attributes = new Dictionary<string, string>();
 
         public PostedFile(HttpPostedFileBase postedFile)
         {
@@ -84,11 +84,17 @@ namespace August2008.Models
                 {
                     _bitmap.Dispose();
                 }
+                if (_attributes.Count != 0)
+                {
+                    _attributes.Clear();
+                    _attributes = null;
+                }
                 _bitmap = null;
                 _postedFile = null;
-                _disposed = true;                
-            }
-            GC.SuppressFinalize(this);
+                _disposed = true;
+
+                GC.SuppressFinalize(this);
+            }            
         }
     }
 }

@@ -7,19 +7,20 @@
 
 @section MainSection 
 {
-    <div id="hero-dialog">
-    </div>  
+    <div id="hero-dialog"></div>  
     <input type="button" id="createButton" value="Create"/>  
-    
-    @Html.Action("Edit")  
+   
 }
-
+@section FooterSection{
+}
 @section BottomScriptSection
 {
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            Hero.init('@Url.Action("Edit", "Hero")');
+        $(document).ready(function () {
+            Hero.editAction = '@Url.Action("Edit", "Hero")';
+            Hero.saveAction = '@Url.Action("Save", "Hero")';
+            Hero.init();
         });
 
     </script>
