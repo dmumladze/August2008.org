@@ -11,41 +11,46 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	-- create user
-	INSERT INTO dbo.[User] (
-		UserName,
-		Email,		
-		DisplayName		
-	)
-	VALUES (
-		@UserName,
-		@Email,
-		@DisplayName		
-	);
+	BEGIN TRY 
+		-- create user
+		INSERT INTO dbo.[User] (
+			UserName,
+			Email,		
+			DisplayName		
+		)
+		VALUES (
+			@UserName,
+			@Email,
+			@DisplayName		
+		);
 
-	SELECT @UserId = SCOPE_IDENTITY();
+		SELECT @UserId = SCOPE_IDENTITY();
 
-	-- populate profile
-	INSERT INTO dbo.UserProfile (
-		UserId,
-		LanguageId
-	)
-	VALUES (
-		@UserId,
-		@LanguageId
-	);
+		-- populate profile
+		INSERT INTO dbo.UserProfile (
+			UserId,
+			LanguageId
+		)
+		VALUES (
+			@UserId,
+			@LanguageId
+		);
 
-	-- populate OAuth stuff
-	INSERT INTO dbo.OAuthUser (
-		UserId,
-		ProviderId,
-		ProviderName,
-		ProviderData
-	)
-	VALUES (
-		@UserId,
-		@ProviderId,
-		@ProviderName,
-		@ProviderData
-	);
-END
+		-- populate OAuth stuff
+		INSERT INTO dbo.OAuthUser (
+			UserId,
+			ProviderId,
+			ProviderName,
+			ProviderData
+		)
+		VALUES (
+			@UserId,
+			@ProviderId,
+			@ProviderName,
+			@ProviderData
+		);
+	END TRY
+	BEGIN CATCH
+			RAISERROR('Cannot create User record', 16, 1);
+	END CATCH;
+END;

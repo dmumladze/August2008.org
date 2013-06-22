@@ -67,8 +67,8 @@ namespace August2008.Controllers
                 ReturnUrl = returnUrl;
             }
 
-            public LoginProvider Provider { get; private set; }
-            public string ReturnUrl { get; private set; }
+            private LoginProvider Provider { get; set; }
+            private string ReturnUrl { get; set; }
 
             public override void ExecuteResult(ControllerContext context)
             {

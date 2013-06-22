@@ -16,63 +16,67 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @xdh INT;
+	BEGIN TRY 
+		DECLARE @xdh INT;
 
-	INSERT INTO dbo.Hero (
-		MilitaryGroupId,
-		MilitaryRankId,
-		Dob,
-		Died
-	)
-	VALUES (
-		@MilitaryGroupId,
-		@MilitaryRankId,
-		@Dob,
-		@Died
-	);
+		INSERT INTO dbo.Hero (
+			MilitaryGroupId,
+			MilitaryRankId,
+			Dob,
+			Died
+		)
+		VALUES (
+			@MilitaryGroupId,
+			@MilitaryRankId,
+			@Dob,
+			@Died
+		);
 
-	SELECT @HeroId = SCOPE_IDENTITY();
+		SELECT @HeroId = SCOPE_IDENTITY();
 
-	INSERT INTO dbo.HeroTranslation (
-		HeroId,
-		LanguageId,
-		FirstName,
-		LastName,
-		MiddleName,
-		Biography,
-		UpdatedBy
-	)
-	VALUES (
-		@HeroId,
-		@LanguageId,
-		@FirstName,
-		@LastName,
-		@MiddleName,
-		@Biography,
-		@UpdatedBy
-	);
+		INSERT INTO dbo.HeroTranslation (
+			HeroId,
+			LanguageId,
+			FirstName,
+			LastName,
+			MiddleName,
+			Biography,
+			UpdatedBy
+		)
+		VALUES (
+			@HeroId,
+			@LanguageId,
+			@FirstName,
+			@LastName,
+			@MiddleName,
+			@Biography,
+			@UpdatedBy
+		);
 
-	EXEC sp_xml_preparedocument @xdh OUTPUT, @Photos;
+		EXEC sp_xml_preparedocument @xdh OUTPUT, @Photos;
 
-	INSERT INTO dbo.HeroPhoto (
-		PhotoUrl,
-		HeroId,
-		ContentType,
-		IsThumbnail,
-		UpdatedBy
-	)
-	SELECT    
-		PhotoUrl,
-		@HeroId,
-		ContentType,
-		IsThumbnail,
-		@UpdatedBy
-	FROM OPENXML (@xdh, '/Photos/Photo', 1)
-	WITH (
-		PhotoUrl	NVARCHAR(250),
-		ContentType NVARCHAR(25),
-		IsThumbnail BIT
-	);
-
-	EXEC sp_xml_removedocument @xdh;
+		INSERT INTO dbo.HeroPhoto (
+			PhotoUrl,
+			HeroId,
+			ContentType,
+			IsThumbnail,
+			UpdatedBy
+		)
+		SELECT    
+			PhotoUrl,
+			@HeroId,
+			ContentType,
+			IsThumbnail,
+			@UpdatedBy
+		FROM OPENXML (@xdh, '/Photos/Photo', 1)
+		WITH (
+			PhotoUrl	NVARCHAR(250),
+			ContentType NVARCHAR(25),
+			IsThumbnail BIT
+		);
+		EXEC sp_xml_removedocument @xdh;
+	END TRY
+	BEGIN CATCH
+		RAISERROR('Cannot create Hero record.', 16, 1);
+	END CATCH
 END;

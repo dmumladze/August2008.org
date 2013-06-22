@@ -143,6 +143,7 @@
     <Build Include="dbo\Tables\MilitaryRank.sql" />
     <Build Include="dbo\Tables\Role.sql" />
     <Build Include="dbo\Tables\UserRole.sql" />
+<<<<<<< HEAD
     <Build Include="dbo\Stored Procedures\GetMilitaryRanks.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -164,13 +165,23 @@
     <Build Include="dbo\Tables\OAuthUser.sql" />
     <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
     <Build Include="dbo\Stored Procedures\GetUserIdByProviderId.sql" />
+=======
+    <Build Include="dbo\Stored Procedures\spCreateUserCK.sql" />
+>>>>>>> 16cef13e591f73b40c94e6e2bee902213d3f9bed
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <None Include="SchemaCompare.David.scmp" />
+>>>>>>> 16cef13e591f73b40c94e6e2bee902213d3f9bed
     <None Include="SqlSchemaCompare.Simon.scmp" />
     <None Include="SchemaCompare.David.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="August2008Db.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

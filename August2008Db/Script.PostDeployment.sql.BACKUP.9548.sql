@@ -9,6 +9,16 @@ GO
 SET IDENTITY_INSERT [dbo].[Language] OFF
 GO
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
+=======
+SET IDENTITY_INSERT [dbo].[PhotoType] ON
+GO
+INSERT INTO [dbo].[PhotoType] ([PhotoTypeId], [DisplayName], [Description]) VALUES (1, 'Thumbnail', 'Thumbnail 250x250')
+INSERT INTO [dbo].[PhotoType] ([PhotoTypeId], [DisplayName], [Description]) VALUES (2, 'Fullsize', 'Full-size photo')
+GO
+SET IDENTITY_INSERT [dbo].[PhotoType] OFF
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+>>>>>>> 16cef13e591f73b40c94e6e2bee902213d3f9bed
 SET IDENTITY_INSERT [dbo].[MilitaryGroup] ON
 GO
 INSERT [dbo].[MilitaryGroup] ([MilitaryGroupId]) VALUES (1)
@@ -64,8 +74,12 @@ INSERT [dbo].[MilitaryRank] ([MilitaryRankId]) VALUES (13)
 INSERT [dbo].[MilitaryRank] ([MilitaryRankId]) VALUES (14)
 INSERT [dbo].[MilitaryRank] ([MilitaryRankId]) VALUES (15)
 INSERT [dbo].[MilitaryRank] ([MilitaryRankId]) VALUES (16)
+<<<<<<< HEAD
 GO
 SET IDENTITY_INSERT [dbo].[MilitaryRank] OFF
+=======
+SET IDENTITY_INSERT [dbo].[MilitaryRank] ON
+>>>>>>> 16cef13e591f73b40c94e6e2bee902213d3f9bed
 GO
 INSERT [dbo].[MilitaryRankTranslation] ([MilitaryRankId], [RankName], [Description], [LanguageId]) VALUES (1, N'კაპიტან-ლეიტენანტი', NULL, 1)
 INSERT [dbo].[MilitaryRankTranslation] ([MilitaryRankId], [RankName], [Description], [LanguageId]) VALUES (2, N'კაპრალი', NULL, 1)
@@ -83,5 +97,8 @@ INSERT [dbo].[MilitaryRankTranslation] ([MilitaryRankId], [RankName], [Descripti
 INSERT [dbo].[MilitaryRankTranslation] ([MilitaryRankId], [RankName], [Description], [LanguageId]) VALUES (14, N'ეს/პირი', NULL, 1)
 INSERT [dbo].[MilitaryRankTranslation] ([MilitaryRankId], [RankName], [Description], [LanguageId]) VALUES (15, N'რეზერვისტი', NULL, 1)
 INSERT [dbo].[MilitaryRankTranslation] ([MilitaryRankId], [RankName], [Description], [LanguageId]) VALUES (16, N'ოფიცერი', NULL, 1)
+<<<<<<< HEAD
 GO
+=======
+>>>>>>> 16cef13e591f73b40c94e6e2bee902213d3f9bed
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

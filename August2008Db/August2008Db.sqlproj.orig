@@ -143,6 +143,10 @@
     <Build Include="dbo\Tables\MilitaryRank.sql" />
     <Build Include="dbo\Tables\Role.sql" />
     <Build Include="dbo\Tables\UserRole.sql" />
+<<<<<<< HEAD
+    <Build Include="dbo\Stored Procedures\spCreateUserCK.sql" />
+=======
+>>>>>>> parent of 78d384a... I created few stored procedures, would you please check and let me know if they are good
     <Build Include="dbo\Stored Procedures\GetMilitaryRanks.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -160,17 +164,23 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+<<<<<<< HEAD
     <Build Include="dbo\Tables\UserProfile.sql" />
     <Build Include="dbo\Tables\OAuthUser.sql" />
     <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
     <Build Include="dbo\Stored Procedures\GetUserIdByProviderId.sql" />
+=======
+>>>>>>> parent of 78d384a... I created few stored procedures, would you please check and let me know if they are good
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SqlSchemaCompare.Simon.scmp" />
     <None Include="SchemaCompare.David.scmp" />
+    <None Include="SqlSchemaCompare.Simon.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="August2008Db.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

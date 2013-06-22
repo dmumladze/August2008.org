@@ -121,6 +121,10 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="dbo\Tables\PhotoType.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
     <Build Include="dbo\Tables\HeroPhoto.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -143,6 +147,9 @@
     <Build Include="dbo\Tables\MilitaryRank.sql" />
     <Build Include="dbo\Tables\Role.sql" />
     <Build Include="dbo\Tables\UserRole.sql" />
+<<<<<<< HEAD
+    <Build Include="dbo\Stored Procedures\spCreateUserCK.sql" />
+=======
     <Build Include="dbo\Stored Procedures\GetMilitaryRanks.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -164,19 +171,16 @@
     <Build Include="dbo\Tables\OAuthUser.sql" />
     <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
     <Build Include="dbo\Stored Procedures\GetUserIdByProviderId.sql" />
+>>>>>>> Rebase current branch on top of remote one
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SchemaCompare.scmp" />
     <None Include="SqlSchemaCompare.Simon.scmp" />
-    <None Include="SchemaCompare.David.scmp" />
   </ItemGroup>
   <ItemGroup>
-    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
-      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
-    </ArtifactReference>
+    <RefactorLog Include="August2008Db.refactorlog" />
   </ItemGroup>
 </Project>
