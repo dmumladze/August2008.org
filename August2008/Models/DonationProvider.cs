@@ -5,7 +5,9 @@ using System.Web;
 
 namespace August2008.Models
 {
-    public class DonationProvider
+    public enum DonationProvider
     {
+        PayPal,
+        Google
     }
 }

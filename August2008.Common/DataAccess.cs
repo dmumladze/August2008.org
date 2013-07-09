@@ -92,6 +92,7 @@ namespace August2008.Common
             {
                 return;
             }
+            _mainCommand.Parameters.Clear();
             _mainCommand.CommandText = commandText;
             _mainCommand.CommandType = CommandType.StoredProcedure;
             IsCommandPending = true;
@@ -183,11 +184,12 @@ namespace August2008.Common
         /// <summary>
         /// Executes commands such as Insert, Update, and Delete
         /// </summary>
-        public void ExecuteNonQuery()
+        public int ExecuteNonQuery()
         {
             this.OpenConnection();
             IsCommandPending = false;
             RowsAffected = _mainCommand.ExecuteNonQuery();
+            return RowsAffected;
         }
         /// <summary>
         /// Executes the DbCommand.

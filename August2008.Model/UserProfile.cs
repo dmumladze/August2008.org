@@ -9,6 +9,7 @@ namespace August2008.Model
         {
             Lang = new Language();
         }
+        public int UserProfileId { get; set; }
         public DateTime? Dob { get; set; }
         public string Nationality { get; set; }
         public Language Lang { get; set; }

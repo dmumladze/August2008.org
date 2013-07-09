@@ -9,8 +9,8 @@ BEGIN
 	DECLARE @Hero TABLE
 	(
 		HeroId			INT,
-		MilitaryGroupId NVARCHAR(100),
-		MilitaryRankId	NVARCHAR(100),
+		MilitaryGroupId INT,
+		MilitaryRankId	INT,
 		Dob				DATETIME,
 		Died			DATETIME,	
 		FirstName		NVARCHAR(50),
@@ -62,6 +62,7 @@ BEGIN
 		HeroPhotoId,
 		PhotoUrl,
 		HeroId,
+		ContentType,
 		IsThumbnail,
 		DateCreated,
 		UpdatedBy

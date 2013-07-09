@@ -44,7 +44,7 @@ BEGIN
 	INNER JOIN dbo.MilitaryGroupTranslation mgt (NOLOCK) ON h.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
 	INNER JOIN dbo.MilitaryRankTranslation mrt (NOLOCK) ON h.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
 	ORDER BY ht.LastName, ht.FirstName
-	OFFSET (@PageNo * @PageSize) ROWS
+	OFFSET ((@PageNo - 1) * @PageSize) ROWS
 	FETCH NEXT @PageSize ROWS ONLY
 
 	SELECT * FROM @Hero;
@@ -52,7 +52,8 @@ BEGIN
 	SELECT
 		hp.HeroId,
 		hp.ContentType,
-		hp.PhotoUrl
+		hp.PhotoUrl,
+		hp.IsThumbnail
 	FROM dbo.HeroPhoto hp (NOLOCK)
 	INNER JOIN @Hero h ON hp.HeroId = h.HeroId
 	WHERE hp.IsThumbnail = 1;

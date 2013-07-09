@@ -5,10 +5,8 @@ using System.Security.Principal;
 
 namespace August2008.Model
 {
-    public class User : IPrincipal
+    public class User 
     {
-        private UserIdentity _identity;
-
         public User()
         {
             Profile = new UserProfile();
@@ -16,31 +14,14 @@ namespace August2008.Model
             Roles = new List<string>();
         }        
         public int UserId { get; set; }
-        public string UserName { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
         public DateTime MemeberSince { get; set; }
+        public bool SuperUser { get; set; }
 
         public UserProfile Profile { get; set; }
         public OAuthUser OAuth { get; set; }
 
         public List<string> Roles { get; set; } 
-
-        public IIdentity Identity
-        {
-            get
-            {
-                 return _identity ?? (_identity = new UserIdentity
-                            {
-                                AuthenticationType = OAuth.ProviderName,
-                                IsAuthenticated = !string.IsNullOrWhiteSpace(OAuth.ProviderId),
-                                Name = DisplayName ?? UserName ?? Email
-                            });
-            }
-        }
-        public bool IsInRole(string role)
-        {
-            return Roles.Contains(role, StringComparer.OrdinalIgnoreCase);
-        }
     }
 }

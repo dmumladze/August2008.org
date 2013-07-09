@@ -8,9 +8,9 @@ using AutoMapper;
 
 namespace August2008
 {
-    public class AutoMapperConfig
+    public class MapperConfig
     {
-        public static void ConfigMapper()
+        public static void RegisterMapper()
         {
             Mapper.CreateMap<HeroModel, Hero>();
             Mapper.CreateMap<Hero, HeroModel>();

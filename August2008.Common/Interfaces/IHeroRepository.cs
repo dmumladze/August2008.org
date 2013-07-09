@@ -9,6 +9,10 @@ namespace August2008.Common.Interfaces
         Hero GetHero(int heroId, int languageId);
         int CreateHero(Hero hero, IEnumerable<IPostedFile> photos);
 
+        HeroSearchCriteria GetHeros(HeroSearchCriteria criteria);
+
+        HeroPhoto DeletePhoto(int heroPhotoId);
+
         IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId);
         IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId);
     }

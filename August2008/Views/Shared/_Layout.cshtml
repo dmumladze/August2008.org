@@ -2,7 +2,7 @@
 <head>
     <title>We Remember August</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-    <meta name="description" content="In memory of those Georgian heroes who died in Russia–Georgia War of 2008" />
+    <meta name="description" content="In memory of Georgian heroes who died in Russia–Georgia War of 2008" />
     <meta name="keywords" content="Russia–Georgia War of 2008; Five-Day War; 2008 South Ossetia Conflict; August War" />
     <meta name="robots" content="index, follow" />
     <meta property="og:image" content="http://august2008.azurewebsites.net/images/logo.png" />
@@ -11,24 +11,29 @@
     @Styles.Render("~/content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/security")
-    
+    @Scripts.Render("~/bundles/august2008")
+       
     @RenderSection("HeaderScriptSection", false)
 </head>
 <body>
+    <script>
+        $(document).ready(function() {
+            Spinner.init('@Url.ImageUrl("spinner-1.gif")');
+        })
+    </script>
     <div id="header">
         <div class="menu-container">
             <ul>
                 <li>@Html.ActionLink(Labels.Home, "Index", "Home")</li>
                 <li>@Html.ActionLink("Mission", "Index", "Home")</li>
-                <li>@Html.ActionLink("Donations", "Index", "Home")</li>
+                <li>@Html.ActionLink("Donations", "Index", "Donations")</li>
                 <li>@Html.ActionLink("Join", "Index", "Home")</li>
                 <li>@Html.ActionLink("Heroes", "Index", "Hero")</li>
                 <li>@Html.ActionLink("Contact", "Index", "Home")</li>
                 <li>@Html.ActionLink("Blog", "Index", "Home")</li>
             </ul>
             <p id="layoutdims">
-                <a href="javascript:void(0)" id="btn-login">Log in</a>
+                <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })">Log In</a>
             </p>
         </div>
         <!--<img src="../images/logo.png" class="logo" />-->
@@ -51,9 +56,6 @@
     <div id="footer">
         @RenderSection("FooterSection", false)      
     </div>
-    <div id="login-dialog">
-        @Html.Partial("Login")
-    </div>  
     @RenderSection("BottomScriptSection", false)
 </body>
 </html>

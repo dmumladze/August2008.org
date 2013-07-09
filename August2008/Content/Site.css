@@ -241,9 +241,9 @@ img {
 }
 .shadow {
     margin: 0 3px;
-    -moz-box-shadow: 20px 20px 10px 20px #222;
-    -webkit-box-shadow: 0 0 3px #222;
-    box-shadow: 0px 0px 2px 0px #111111;
+    -moz-box-shadow: 0px 0px 2px 0px #222;
+    -webkit-box-shadow: 0px 0px 2px 0px #222;
+    box-shadow: 0px 0px 2px 0px #222;
 }
 /* form controls */
 .editor-label {
@@ -315,7 +315,7 @@ input.file {
     float: left;
     padding-right: 5px;
 }
-.thumb-img-box {
+#upload-images .thumb-img-box {
     margin: 5px;
     width: 128px;
     height: 135px;
@@ -323,6 +323,9 @@ input.file {
     text-align: center;
     vertical-align: top;
     padding: 0;
+}
+#upload-images .thumb-img-cmd {
+    
 }
 .hero-bio {
     width: 100%;
@@ -333,6 +336,38 @@ input.file {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+#hero-list {
+    width: 100%;
+}
+#hero-list .hero-list-box {
+    height: 250px;
+    width: 250px;
+    float: left;    
+}
+#hero-list .hero-list-info {
+    
+}
+#hero-list .hero-list-thumb {
+    
+}
+#hero-list .hero-list-img {
+    
+}
+#hero-list .hero-list-div {
+    
+}
+#hero-list .hero-list-cmd {
+    
+}
+.old-hero-photo {
+    border: 0;
+}
+.old-hero-photo {
+    border: 0;
+}
+.hero-thumb {
+    border: 4px solid #336699;
 }
 fieldset {
     display: inline-block;    

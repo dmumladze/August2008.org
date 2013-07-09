@@ -7,32 +7,47 @@ using August2008.Common.Interfaces;
 using August2008.Filters;
 using August2008.Model;
 using August2008.Models;
+using August2008.Helpers;
 using August2008.Properties;
 using AutoMapper;
 
 namespace August2008.Controllers
 {
-    public class HeroController : Controller
+    /// <summary>
+    /// Orchestrates hero API for editing, saving, deleting and updating data.
+    /// </summary>
+    public class HeroController : BaseController
     {
-        private User _principal;
         private readonly IHeroRepository _heroRepository;
 
+        /// <summary>
+        /// Initializes controller with an instance of repository interface.
+        /// </summary>
         public HeroController(IHeroRepository heroRepository)
         {
             _heroRepository = heroRepository;
         }
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        /// <summary>
+        /// Renders default page with initial information.
+        /// </summary>
+        [HttpGet]
+        [NoCache]
+        public ActionResult Index(int? page)
         {
-            _principal = requestContext.HttpContext.User as User;
-
-            base.Initialize(requestContext);
+            var model = _heroRepository.GetHeros(new HeroSearchCriteria
+                {
+                    PageNo = page.GetValueOrDefault(1),
+                    PageSize = 10,
+                    LanguageId = Me.LanguageId
+                });
+            return View(model);
         }
-        public ActionResult Index()
-        {
-            return View();
-        }
+        /// <summary>
+        /// Creates or updates hero record with photos and other attributes.
+        /// </summary>
         [HttpPost]
         [AjaxValidate]
+        [Authorize2(Roles = "Admin")]
         public JsonResult Save(HeroModel model, IEnumerable<HttpPostedFileBase> images) 
         {
             if (ModelState.IsValid)
@@ -41,7 +56,6 @@ namespace August2008.Controllers
                 {
                     var hero = new Hero();
                     var photos = new List<IPostedFile>();
-
                     Mapper.Map(model, hero);
                     
                     foreach (var image in images)
@@ -54,15 +68,16 @@ namespace August2008.Controllers
                                 file.Attributes.Add("IsThumbnail", "1");
                             }
                             file.Attributes.Add("FileName", Path.Combine(Server.MapPath(Settings.Default.HeroPhotoDirectory), 
-                                string.Format("{0}-{1}-{2}", 
-                                    hero.FirstName, hero.LastName, Guid.NewGuid())));
+                                string.Format("{0}-{1}-{2}{3}", 
+                                    hero.FirstName, hero.LastName, DateTime.Now.Ticks, Path.GetExtension(image.FileName))));
                             photos.Add(file);
                         }
                     }
-                    hero.UpdatedBy = _principal.UserId;
-                    hero.LanguageId = _principal.Profile.Lang.LanguageId;
+                    hero.UpdatedBy = Me.UserId;
+                    hero.LanguageId = Me.LanguageId;
                     hero.HeroId = _heroRepository.CreateHero(hero, photos);
-                    return Json(new {Ok = true, HeroId = 1});
+                    photos.SaveAll();
+                    return Json(new { Ok = true, HeroId = hero.HeroId });
                 }
                 catch (Exception)
                 {
@@ -71,24 +86,47 @@ namespace August2008.Controllers
             }
             return Json(new {Ok = false});
         }
+        /// <summary>
+        /// Gets the edit form for new or existing records where users can enter information.
+        /// </summary>
+        [HttpGet]
+        [NoCache]
+        //[Authorize2(Roles = "Admin")]
         public PartialViewResult Edit(int? id)
         {
+            System.Threading.Thread.Sleep(5000);
             var model = new HeroModel();
             if (id.HasValue)
             {
-                //model.Hero = _heroRepository.GetHero(id.Value, 1);
+                var hero = _heroRepository.GetHero(id.Value, Me.LanguageId);
+                Mapper.Map(hero, model);
             }
-            else
-            {
-                model = new HeroModel();
-            }
-            var groups = _heroRepository.GetMilitaryGroups(1);
-            var ranks = _heroRepository.GetMilitaryRanks(1);
+            var groups = _heroRepository.GetMilitaryGroups(Me.LanguageId);
+            var ranks = _heroRepository.GetMilitaryRanks(Me.LanguageId);
 
             model.MilitaryGroups = new SelectList(groups, "MilitaryGroupId", "GroupName", model.MilitaryGroupId);
             model.MilitaryRanks = new SelectList(ranks, "MilitaryRankId", "RankName", model.MilitaryRankId);
 
             return PartialView(model);
+        }
+        /// <summary>
+        /// Gets a single photo by name and requested size.
+        /// </summary>
+        [HttpGet]
+        public FileResult GetPhoto(string name, PhotoSize? size)
+        {
+            return SiteHelper.GetHeroPhoto(name, size.GetValueOrDefault(PhotoSize.Small));
+        }
+        /// <summary>
+        /// Deletes a single photo.
+        /// </summary>
+        [HttpPost]
+        [Authorize2(Roles = "Admin")]
+        public JsonResult DeletePhoto(int id)
+        {
+            var photo = _heroRepository.DeletePhoto(id);
+            System.IO.File.Delete(Path.Combine(Server.MapPath(Settings.Default.HeroPhotoDirectory), photo.PhotoUrl));
+            return Json(new { Ok = true });
         }
     }
 }

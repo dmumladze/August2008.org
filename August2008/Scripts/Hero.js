@@ -1,6 +1,7 @@
 ﻿
 Hero.saveAction = undefined;
 Hero.editAction = undefined;
+Hero.deletePhotoAction = undefined;
 
 function Hero() {
     // server model
@@ -18,11 +19,12 @@ function Hero() {
 };
 Hero.init = function() {
     // editor dialog
+    $('<div id="hero-dialog"></div>').appendTo(document.body);
     $('#hero-dialog').dialog({
         autoOpen: false,
         modal: true,
         width: 710,
-        title: 'Add Hero',
+        title: 'Hero',
         buttons: {
             Save: function () {
                 $.hero.save();
@@ -37,17 +39,14 @@ Hero.init = function() {
         $.hero.edit();
     });
 };
-Hero.prototype.edit = function() {
+Hero.prototype.edit = function (id) {
     $.ajax({
-        url: Hero.editAction,
+        url: Hero.editAction + (id != undefined ? ("/" + id) : ""),
         method: 'GET',
-        success: function(result) {
+        success: function (result) {
+            $('#hero-dialog').empty();
             $('#hero-dialog').html(result);
             $('#hero-dialog').dialog('open');
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
         }
     });
 };
@@ -89,6 +88,7 @@ Hero.prototype.addPhoto = function (src, file) {
     //debugger;    
     var img = document.createElement('img');
     img.src = src;
+    img.setAttribute("class", "new-hero-photo");
 
     var maxWidth = 125;
     var maxHeight = 125;
@@ -138,12 +138,24 @@ Hero.prototype.save = function () {
         contentType: false,
         success: function(res) {
             alert(res);
-        },
-        error: function(jqXhr, textStatus, errorMessage) {
-            alert(errorMessage);
         }
     });
 };
+Hero.prototype.deletePhoto = function(heroPhotoId, photoBox) {
+    //debugger;
+    var form = new FormData();
+    form.append("id", heroPhotoId);
+    $.ajax({
+        url: Hero.deletePhotoAction,
+        type: "POST",
+        data: form,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            $('#upload-images #' + photoBox).remove();
+        }
+    });
+}
 
 $.hero = new Hero();
 

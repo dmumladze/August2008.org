@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using August2008.Model;
+using System.Web.Security;
 using August2008.Models;
-using AutoMapper;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Microsoft.Practices.Unity.Mvc;
 
 namespace August2008
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -25,32 +21,38 @@ namespace August2008
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-
-            var container = new UnityContainer();
-            var section = ConfigurationManager.GetSection("unity.mvc") as UnityConfigurationSection;
-            if (section != null)
-            {
-                section.Configure(container);
-            }
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-
-            Mapper.CreateMap<HeroModel, Hero>();
+            DependencyConfig.RegisterDependencyResolver();
+            MapperConfig.RegisterMapper();
         }
-
-        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        protected void Application_AcquireRequestState(object sender, EventArgs e)  
         {
-            var ci = new CultureInfo("ka");
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
-
-            var app = sender as HttpApplication;
-            if (app != null)
+            var cookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (cookie == null || cookie.Value == "")
             {
-                app.Context.User = new User
-                    {
-                        UserId = 2,
-                        Profile = new UserProfile { Lang = new Language { LanguageId = 1 } }
-                    };
+                this.SetPrincipal(FormsPrincipal.GetDefaultPrincipal());
+            }
+            try
+            {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+                if (ticket != null)
+                {
+                    var user = ticket.UserData.FromJson<FormsPrincipal>();
+                    this.SetPrincipal(user);
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+        private void SetPrincipal(FormsPrincipal principal)
+        {
+            if (principal != null)
+            {
+                Context.User = principal;
+                var ci = new CultureInfo(principal.Culture);
+                Thread.CurrentThread.CurrentUICulture = ci;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
             }
         }
     }

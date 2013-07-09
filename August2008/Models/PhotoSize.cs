@@ -5,7 +5,11 @@ using System.Web;
 
 namespace August2008.Models
 {
-    public class PhotoSize
+    public enum PhotoSize
     {
+        Small,
+        Medium,
+        Large,
+        Fullsize
     }
 }

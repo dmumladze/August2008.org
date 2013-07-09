@@ -9,7 +9,7 @@
     CONSTRAINT [PK_Hero] PRIMARY KEY CLUSTERED ([HeroId] ASC),
     CONSTRAINT [FK_Hero_MilitaryGroup] FOREIGN KEY ([MilitaryGroupId]) REFERENCES [dbo].[MilitaryGroup] ([MilitaryGroupId]),
     CONSTRAINT [FK_Hero_MilitaryRank] FOREIGN KEY ([MilitaryRankId]) REFERENCES [dbo].[MilitaryRank] ([MilitaryRankId]),
-	CONSTRAINT [FK__User] FOREIGN KEY ([UpdatedBy]) REFERENCES [dbo].[User]([UserId])
+	CONSTRAINT [FK_User] FOREIGN KEY ([UpdatedBy]) REFERENCES [dbo].[User]([UserId])
 );
 
 

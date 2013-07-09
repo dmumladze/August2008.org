@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeroSearchCriteria.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="OAuthUser.cs" />
     <Compile Include="User.cs" />
@@ -46,9 +47,7 @@
     <Compile Include="HeroPhoto.cs" />
     <Compile Include="MilitaryGroup.cs" />
     <Compile Include="MilitaryRank.cs" />
-    <Compile Include="PhotoType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserIdentity.cs" />
     <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

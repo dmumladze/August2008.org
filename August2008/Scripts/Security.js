@@ -6,7 +6,7 @@ function Security() {
 Security.loginDialogId = '#login-dialog';
 Security.loginButtonId = '#btn-login';
 
-Security.prototype.init = function () {
+Security.prototype.init = function() {
     $(Security.loginDialogId).dialog({
         autoOpen: false,
         modal: true,
@@ -19,7 +19,7 @@ Security.prototype.init = function () {
             }
         }
     });
-    $(Security.loginButtonId).click(function () {
+    $(Security.loginButtonId).click(function(e) {
         $(Security.loginDialogId).dialog('open');
     });
 };

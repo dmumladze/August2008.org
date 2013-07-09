@@ -5,7 +5,7 @@ using System.Web;
 
 namespace August2008.Models
 {
-    public class PayPalPostBackModel
+    public class PayPalDataModel
     {
         public string mc_gross { get; set; }
         public string protection_eligibility { get; set; }

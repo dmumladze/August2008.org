@@ -6,6 +6,6 @@ using System.Web;
 namespace August2008.Models
 {
     public class DonationModel
-    {
+    {        
     }
 }

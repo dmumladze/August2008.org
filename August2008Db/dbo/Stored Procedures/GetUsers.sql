@@ -5,9 +5,8 @@ BEGIN
 
 	SELECT 
 	 [UserId]
-	,[UserName]
 	,[Email]
 	,[DisplayName]
-	FROM [dbo].[User]
+	FROM [dbo].[User] (NOLOCK)
 
 END

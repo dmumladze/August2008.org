@@ -1,5 +1,8 @@
-﻿@model August2008.Model.Hero
-
+﻿@model HeroSearchCriteria
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @section HeaderScriptSection 
 {
     @Scripts.Render("~/bundles/hero")
@@ -7,9 +10,30 @@
 
 @section MainSection 
 {
-    <div id="hero-dialog"></div>  
     <input type="button" id="createButton" value="Create"/>  
-   
+    
+    <div id="hero-list">
+        @if (Model.NotNull() && Model.Result.NotNullOrEmpty()) {
+            foreach (var item in Model.Result)  {
+                <div class="hero-list-box shadow section transp">
+                    <div class="hero-list-info">@item.FirstName @item.LastName</div>
+                    <div class="hero-list-thumb">
+                        @if (item.Photos.NotNullOrEmpty()) {
+                            <img class="hero-list-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUrl, size = PhotoSize.Medium})"/>
+                        }
+                        else {
+                            <div class="hero-list-div">
+                                NO IMAGE
+                            </div>
+                        }
+                    </div>
+                    <div class="hero-list-cmd">
+                        <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
+                    </div>
+                </div>                
+            }
+        }
+    </div>
 }
 @section FooterSection{
 }
@@ -18,8 +42,9 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            Hero.editAction = '@Url.Action("Edit", "Hero")';
-            Hero.saveAction = '@Url.Action("Save", "Hero")';
+            Hero.editAction = '@Url.Action("Edit")';
+            Hero.saveAction = '@Url.Action("Save")';
+            Hero.deletePhotoAction = '@Url.Action("DeletePhoto")';
             Hero.init();
         });
 

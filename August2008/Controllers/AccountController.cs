@@ -6,50 +6,131 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using August2008.Common.Interfaces;
+using August2008.Model;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using August2008.Filters;
 using August2008.Models;
+using August2008;
+using August2008.Common;
+using System.Globalization;
 
 namespace August2008.Controllers
 {
+    /// <summary>
+    /// Orchestrates account related actions such as User Accouts, Logins, Authorization, etc.
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
         private readonly IAccountRepository _accountRepository;
 
+        /// <summary>
+        /// Initializes controller with an instance of repository interface.
+        /// </summary>
         public AccountController(IAccountRepository accountRepository)
         {
             _accountRepository = accountRepository;
         }
-        [AllowAnonymous]
+        /// <summary>
+        /// Renders Login.cshtml view with logon options.
+        /// </summary>
         [HttpGet]
-        public ActionResult Login(LoginProvider provider, string returnUrl)
-        {
-            return new ExternalLoginResult(provider, Url.Action("AuthenticateExternal", new {returnUrl = returnUrl}));
-        }
         [AllowAnonymous]
-        public ActionResult AuthenticateExternal(string returnUrl)  
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+        /// <summary>
+        /// Renders ExternalLoginsPartial.cshtml view with enabled OAuth provider options.
+        /// </summary>
+        [AllowAnonymous]
+        [ChildActionOnly]
+        public ActionResult ExternalLoginsList(string returnUrl)  
+        {
+            // called from Login.cshtml
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView("ExternalLoginsPartial", OAuthWebSecurity.RegisteredClientData);
+        }
+        /// <summary>
+        /// Performs OAuth authentication with user-selected provider.
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+        }
+        /// <summary>
+        /// Handles external OAuth provider's redirection callback.
+        /// </summary>
+        [AllowAnonymous]
+        public ActionResult ExternalLoginCallback(string returnUrl)
         {
             var result = OAuthWebSecurity.VerifyAuthentication();
             if (result.IsSuccessful)
             {
-                var provider = result.Provider;
-                var uniqueUserId = result.ProviderUserId;
-                var uniqueId = provider + "-" + uniqueUserId;
-
+                User user = null;
+                var externalUser = result.ToExternalUser();
                 int? userId;
-                if (!_accountRepository.TryGetUserIdByProviderId(uniqueId, out userId))
-                {
-                    var extraData = result.ExtraData;
+                if (!_accountRepository.TryGetUserIdByProviderId(externalUser.UniqueUserId, out userId))
+                {                    
+                    user = new User
+                        {
+                            DisplayName = externalUser.DisplayName,
+                            Email = externalUser.Username
+                        };
+                    var oauth = new OAuthUser
+                        {
+                            ProviderId = externalUser.UniqueUserId,
+                            ProviderName = externalUser.Provider,
+                            ProviderData = result.ExtraData
+                        };
+                    var profile = new UserProfile
+                        {
+                            Lang = new Language { LanguageId = 1}
+                        };
+                    user.OAuth = oauth;
+                    user.Profile = profile;
+                    user = _accountRepository.CreateUser(user);
                 }
-                FormsAuthentication.SetAuthCookie(uniqueId, true);
+                else if (userId.HasValue)
+                {
+                    user = _accountRepository.GetUser(userId.Value);
+                }
+                if (user != null)
+                {
+                    var ticket = new FormsAuthenticationTicket(
+                        2,
+                        user.UserId.ToString(),
+                        DateTime.Now,
+                        DateTime.Now.AddDays(1),
+                        false,
+                        user.ToFormsPrincipal().ToJson()
+                    );
+                    var encrypted = FormsAuthentication.Encrypt(ticket);
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                    Response.Cookies.Add(cookie);
+                }
+            }
+            else
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                ViewBag.Provider = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(result.Provider);
+                return RedirectToAction("LoginFailure");
             }
             return RedirectToLocal(returnUrl);
         }
+        [AllowAnonymous]
+        public ActionResult LoginFailure() 
+        {
+            return View();
+        }
         private ActionResult RedirectToLocal(string returnUrl)
         {
+            // prevents from "open redirection attack"
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -58,28 +139,33 @@ namespace August2008.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-        }
+        }        
         private class ExternalLoginResult : ActionResult
         {
-            public ExternalLoginResult(LoginProvider provider, string returnUrl)
+            // used by ExternalLogin action above
+            public ExternalLoginResult(string provider, string returnUrl)
             {
                 Provider = provider;
                 ReturnUrl = returnUrl;
             }
-
-            private LoginProvider Provider { get; set; }
+            private string Provider { get; set; }
             private string ReturnUrl { get; set; }
 
             public override void ExecuteResult(ControllerContext context)
             {
-                switch (Provider)
-                {
-                    case LoginProvider.Facebook:
-                        OAuthWebSecurity.RequestAuthentication(Provider.ToString(), ReturnUrl);
-                        break;
-                }                
+                OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
             }
         }
+        /// <summary>
+        /// Logs off user by removing a forms authentication ticket.
+        /// </summary>
+        [HttpPost]
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         /*
         //
         // POST: /Account/Login
@@ -107,7 +193,6 @@ namespace August2008.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -346,21 +431,6 @@ namespace August2008.Controllers
 
         //
         // GET: /Account/ExternalLoginFailure
-
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        [ChildActionOnly]
-        public ActionResult ExternalLoginsList(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
-        }
-
         [ChildActionOnly]
         public ActionResult RemoveExternalLogins()
         {

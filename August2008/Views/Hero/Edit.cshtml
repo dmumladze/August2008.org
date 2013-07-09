@@ -1,7 +1,6 @@
 ﻿@model August2008.Models.HeroModel
 
-@using (Html.BeginForm("Save", "Hero", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+@using (Html.BeginForm("Save", "Hero", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     <fieldset>
         <legend>Hero</legend>
         <table>
@@ -60,14 +59,24 @@
                     <fieldset>
                         <legend>Photos</legend>
                         <div id="photo-edits">
-                            <div id="upload-images"></div>      
+                            <div id="upload-images">
+                                @if (Model.Photos.NotNullOrEmpty()) {
+                                    foreach (var photo in Model.Photos) {
+                                        <div class="thumb-img-box" id="box-@photo.HeroPhotoId">
+                                            <img class="@(photo.IsThumbnail ? "old-hero-photo hero-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = photo.PhotoUrl, size = PhotoSize.Medium})"/>
+                                            <div class="thumb-img-cmd">
+                                                <a href="#" onclick="$.hero.deletePhoto(@photo.HeroPhotoId, 'box-@photo.HeroPhotoId');return false;">Delete</a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>      
                             <div id="edit-commands">
                                 <input id="images" type="file" name="images" class="file" multiple />
                                 <div id="fakefile">
                                     <button type="button" id="btn" onclick="$('#images').click()">Add</button>                
                                 </div>  
-                                <div>
-                                    <button type="button" id="btn2">Remove</button>                
+                                <div>           
                                 </div>                                            
                             </div>
                         </div>

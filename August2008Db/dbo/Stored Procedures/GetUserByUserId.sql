@@ -6,10 +6,10 @@ BEGIN
 
 	-- user 
 	SELECT	 UserId
-			,UserName
 			,Email
 			,DisplayName
 			,MemberSince
+			,SuperUser
 	FROM dbo.[User] (NOLOCK)
 	WHERE UserId = @UserId;
 
@@ -24,14 +24,14 @@ BEGIN
 			,lang.DisplayName
 			,lang.EnglishName
 			,lang.Culture
-	FROM dbo.[Language] lang
+	FROM dbo.[Language] lang (NOLOCK)
 	INNER JOIN dbo.UserProfile up (NOLOCK) ON lang.LanguageId = up.LanguageId AND up.UserId = @UserId;
 
 	-- provider
 	SELECT	 ProviderId
 			,ProviderName
-			,ProviderData
-	FROM dbo.OAuthUser
+			--,ProviderData
+	FROM dbo.OAuthUser (NOLOCK)
 	WHERE UserId = @UserId;
 
 	-- roles

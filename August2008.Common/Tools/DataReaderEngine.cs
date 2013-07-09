@@ -350,12 +350,16 @@ namespace August2008.Common.Tools
                 case "System.Double":
                 case "System.Single":                
                     return "0";
+                case "System.Boolean":
+                    return "false";
                 case "System.Byte":
                     return "(System.Byte)0";
                 case "System.DateTime":
                     return "DateTime.MinValue";
                 case "System.Guid":
                     return "Guid.Empty";
+                default:
+                    return "default(" + dataType + ")";
             }
             return string.Empty;
         }

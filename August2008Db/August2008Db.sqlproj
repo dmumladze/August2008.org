@@ -164,6 +164,11 @@
     <Build Include="dbo\Tables\OAuthUser.sql" />
     <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
     <Build Include="dbo\Stored Procedures\GetUserIdByProviderId.sql" />
+    <Build Include="dbo\Tables\Donation.sql" />
+    <Build Include="dbo\Tables\DonationProvider.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteHeroPhoto.sql" />
+    <Build Include="dbo\Stored Procedures\CreateOAuthUser.sql" />
+    <Build Include="dbo\Stored Procedures\CreateUserProfile.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

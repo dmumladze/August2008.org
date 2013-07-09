@@ -20,6 +20,12 @@ namespace August2008
             );
 
             routes.MapRoute(
+                name: "GetPhoto",
+                url: "{cotroller}/GetPhoto/{name}/{size}",
+                defaults: new { controller = "Hero", action = "GetPhoto" } 
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
