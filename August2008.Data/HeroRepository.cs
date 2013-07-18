@@ -69,7 +69,6 @@ namespace August2008.Data
             {
                 db.CreateStoredProcCommand("dbo.DeleteHeroPhoto");
                 db.AddInParameter("@HeroPhotoId", DbType.Int32, heroPhotoId);
-
                 var photo = new HeroPhoto();
                 try
                 {
@@ -90,12 +89,10 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetHeros");
-
                 db.AddInParameter("@PageNo", DbType.Int32, criteria.PageNo);
                 db.AddInParameter("@PageSize", DbType.Int32, criteria.PageSize);
                 db.AddInParameter("@LanguageId", DbType.Int32, criteria.LanguageId);
                 db.AddOutParameter("@TotalCount", DbType.Int32);
-
                 try
                 {
                     db.ReadInto(heros, photos);
@@ -109,43 +106,6 @@ namespace August2008.Data
                 return criteria;
             }            
         }
-        public IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId)
-        {
-            using (var db = new DataAccess())
-            {
-                db.CreateStoredProcCommand("dbo.GetMilitaryRanks");
-                db.AddInParameter("@LanguageId", DbType.Int32, languageId);
 
-                var ranks = new List<MilitaryRank>();
-                try
-                {
-                    db.ReadInto(ranks);
-                }
-                catch (Exception)
-                {                    
-                    throw;
-                }
-                return ranks;
-            }
-        }
-        public IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId)
-        {
-            using (var db = new DataAccess())
-            {
-                db.CreateStoredProcCommand("dbo.GetMilitaryGroups");
-                db.AddInParameter("@LanguageId", DbType.Int32, languageId);
-
-                var groups = new List<MilitaryGroup>();
-                try
-                {
-                    db.ReadInto(groups);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-                return groups;
-            }
-        }
     }
 }

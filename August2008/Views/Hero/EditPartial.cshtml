@@ -1,6 +1,7 @@
 ﻿@model August2008.Models.HeroModel
 
 @using (Html.BeginForm("Save", "Hero", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    @Html.HiddenFor(m => m.HeroId)
     <fieldset>
         <legend>Hero</legend>
         <table>
@@ -97,7 +98,7 @@
     </fieldset>
 }
 <script>
-    (function () {
+    (function() {
         $('#images').change(function (e) {
             $.hero.onFileChange(this, e);
         });

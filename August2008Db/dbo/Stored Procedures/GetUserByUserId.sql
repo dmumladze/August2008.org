@@ -9,7 +9,7 @@ BEGIN
 			,Email
 			,DisplayName
 			,MemberSince
-			,SuperUser
+			,SuperAdmin
 	FROM dbo.[User] (NOLOCK)
 	WHERE UserId = @UserId;
 

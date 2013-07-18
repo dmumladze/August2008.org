@@ -163,12 +163,16 @@
     <Build Include="dbo\Tables\UserProfile.sql" />
     <Build Include="dbo\Tables\OAuthUser.sql" />
     <Build Include="dbo\Stored Procedures\GetUserByUserId.sql" />
-    <Build Include="dbo\Stored Procedures\GetUserIdByProviderId.sql" />
+    <Build Include="dbo\Stored Procedures\GetUserRegistered.sql" />
     <Build Include="dbo\Tables\Donation.sql" />
     <Build Include="dbo\Tables\DonationProvider.sql" />
     <Build Include="dbo\Stored Procedures\DeleteHeroPhoto.sql" />
     <Build Include="dbo\Stored Procedures\CreateOAuthUser.sql" />
     <Build Include="dbo\Stored Procedures\CreateUserProfile.sql" />
+    <Build Include="dbo\Stored Procedures\GetRoles.sql" />
+    <Build Include="dbo\Stored Procedures\SearchUsers.sql" />
+    <Build Include="dbo\Stored Procedures\AssignUserToRole.sql" />
+    <Build Include="dbo\Stored Procedures\RevokeUserFromRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
@@ -183,5 +187,8 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
     </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="August2008Db.refactorlog" />
   </ItemGroup>
 </Project>

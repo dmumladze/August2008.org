@@ -12,8 +12,5 @@ namespace August2008.Common.Interfaces
         HeroSearchCriteria GetHeros(HeroSearchCriteria criteria);
 
         HeroPhoto DeletePhoto(int heroPhotoId);
-
-        IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId);
-        IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId);
     }
 }

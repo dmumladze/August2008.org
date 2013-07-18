@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using August2008.Models;
 using August2008.Properties;
+using August2008.Resources.Shared;
 using ImageResizer;
 
 namespace August2008.Helpers
@@ -30,7 +31,7 @@ namespace August2008.Helpers
             {
                 case PhotoSize.Medium:
                     maxHeight = 225;
-                    maxHeight = 225;
+                    maxWidth = 225;
                     break;
             }
             var rs = new ResizeSettings
@@ -52,6 +53,18 @@ namespace August2008.Helpers
                 }                
             }
             return default(byte[]);
+        }
+        public static List<char> GetAlphabet()
+        {            
+            var firstLetter = char.Parse(Global.AlphabetFirstLetter);
+            var lastLetter = char.Parse(Global.AlphabetLastLetter);
+            var alphabet = new List<char>(lastLetter - firstLetter + 1);
+
+            for (var c = firstLetter; c <= lastLetter; c++)
+            {
+                alphabet.Add(c);
+            }
+            return alphabet;
         }
     }
 }

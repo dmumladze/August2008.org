@@ -28,7 +28,7 @@ namespace August2008.Models
 
         public bool IsInRole(string role)
         {
-            return (SuperUser || (Roles.NotNullOrEmpty() && Roles.Contains(role, StringComparer.OrdinalIgnoreCase)));
+            return (SuperUser || (Roles.IsNullOrEmpty() && Roles.Contains(role, StringComparer.OrdinalIgnoreCase)));
         }
 
         internal static FormsPrincipal GetDefaultPrincipal()

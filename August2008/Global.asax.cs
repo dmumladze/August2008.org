@@ -30,6 +30,7 @@ namespace August2008
             if (cookie == null || cookie.Value == "")
             {
                 this.SetPrincipal(FormsPrincipal.GetDefaultPrincipal());
+                return;
             }
             try
             {

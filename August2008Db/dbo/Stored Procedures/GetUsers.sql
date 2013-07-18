@@ -2,11 +2,9 @@
 AS
 BEGIN
 	SET NOCOUNT ON;
-
 	SELECT 
-	 [UserId]
-	,[Email]
-	,[DisplayName]
+		 [UserId]
+		,[Email]
+		,[DisplayName]
 	FROM [dbo].[User] (NOLOCK)
-
 END

@@ -1,36 +1,59 @@
-﻿August2008ma@model August2008.Models.RegisterExternalLoginModel
-@{
-    ViewBag.Title = "Register";
-}
+﻿@model August2008.Models.RegisterUser
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Associate your @ViewBag.ProviderDisplayName account.</h2>
-</hgroup>
-
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Association Form</legend>
-        <p>
-            You've successfully authenticated with <strong>@ViewBag.ProviderDisplayName</strong>.
-            Please enter a user name for this site below and click the Confirm button to finish
-            logging in.
-        </p>
-        <ol>
-            <li class="name">
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-        </ol>
-        @Html.HiddenFor(m => m.ExternalLoginData)
-        <input type="submit" value="Register" />
-    </fieldset>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section MainSection {
+    @Html.ValidationSummary()
+    @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new {ReturnUrl = ViewBag.ReturnUrl})) {
+        <fieldset>
+            <legend>Confirmation Form</legend>
+            <table>
+                <tr>
+                    <td>                                            
+                        <div class="editor-label">
+                            @Html.LabelFor2(m => m.Email)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(m => m.Email)
+                        </div>            
+                        <div class="editor-label">
+                            @Html.LabelFor2(m => m.DisplayName)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(m => m.DisplayName)
+                        </div>            
+                        <div class="editor-label">
+                            @Html.LabelFor2(m => m.Gender)
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownListFor(m => m.Gender, new SelectList(new string[] { "", "Male", "Female", "Other", Model.Gender}))
+                        </div>                        
+                        <div class="editor-label">
+                            @Model.Provider 
+                            @Html.LabelFor2(m => m.SocialLink)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(m => m.SocialLink)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor2(m => m.Password)
+                        </div>
+                        <div class="editor-field">
+                            @Html.PasswordFor(m => m.Password)
+                        </div>      
+                        <div class="editor-label">
+                            @Html.LabelFor2(m => m.ConfirmPassword)
+                        </div>
+                        <div class="editor-field">
+                            @Html.PasswordFor(m => m.ConfirmPassword)
+                        </div>                                             
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(m => m.ProviderId)
+            @Html.HiddenFor(m => m.UserId)
+            <input type="submit" name="action" value="Confirm" />
+            <input type="submit" name="action" value="Cancel" />
+        </fieldset>
+    }
 }

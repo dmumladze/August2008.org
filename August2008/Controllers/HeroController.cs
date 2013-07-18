@@ -19,13 +19,16 @@ namespace August2008.Controllers
     public class HeroController : BaseController
     {
         private readonly IHeroRepository _heroRepository;
+        private readonly IMetadataRepository _metadataRepository; 
 
         /// <summary>
         /// Initializes controller with an instance of repository interface.
         /// </summary>
-        public HeroController(IHeroRepository heroRepository)
+        public HeroController(IHeroRepository heroRepository, IMetadataRepository metadataRepository, ICacheProvider cacheProvider)
+            : base(cacheProvider)
         {
             _heroRepository = heroRepository;
+            _metadataRepository = metadataRepository;
         }
         /// <summary>
         /// Renders default page with initial information.
@@ -34,6 +37,8 @@ namespace August2008.Controllers
         [NoCache]
         public ActionResult Index(int? page)
         {
+            var alphabet = SiteHelper.GetAlphabet();
+
             var model = _heroRepository.GetHeros(new HeroSearchCriteria
                 {
                     PageNo = page.GetValueOrDefault(1),
@@ -101,13 +106,13 @@ namespace August2008.Controllers
                 var hero = _heroRepository.GetHero(id.Value, Me.LanguageId);
                 Mapper.Map(hero, model);
             }
-            var groups = _heroRepository.GetMilitaryGroups(Me.LanguageId);
-            var ranks = _heroRepository.GetMilitaryRanks(Me.LanguageId);
+            var groups = _metadataRepository.GetMilitaryGroups(Me.LanguageId);
+            var ranks = _metadataRepository.GetMilitaryRanks(Me.LanguageId);
 
             model.MilitaryGroups = new SelectList(groups, "MilitaryGroupId", "GroupName", model.MilitaryGroupId);
             model.MilitaryRanks = new SelectList(ranks, "MilitaryRankId", "RankName", model.MilitaryRankId);
 
-            return PartialView(model);
+            return PartialView("EditPartial",model);
         }
         /// <summary>
         /// Gets a single photo by name and requested size.

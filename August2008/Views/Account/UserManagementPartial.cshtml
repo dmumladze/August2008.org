@@ -1,0 +1,37 @@
+﻿@model August2008.Models.UserModel
+
+<div>
+    <fieldset>
+        <legend>User Management</legend>
+        <div>
+            <div>
+                @using (Html.BeginForm("AssignRole", "Account")) {
+                    
+                }
+            </div>
+            <div>
+                <div id="tabs">
+                  <ul>
+                    <li><a href="#roles"><span>Roles</span></a></li>
+                    <li><a href="#profile"><span>Profile</span></a></li>
+                    <li><a href="#openid"><span>OpenID</span></a></li>
+                    <li><a href="#openid"><span>Donations</span></a></li>
+                  </ul>
+                  <div id="#roles">
+                      @Html.CheckBoxListFor(m => m.Roles,
+                                            m => m.Roles,
+                                            m => m.Name,
+                                            m => m.RoleId,
+                                            m => m.Name)
+                  </div>
+                  <div id="#profile">
+                  </div>
+                  <div id="#openid">
+                  </div>
+                  <div id="#donations">
+                  </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

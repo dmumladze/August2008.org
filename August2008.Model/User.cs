@@ -11,17 +11,18 @@ namespace August2008.Model
         {
             Profile = new UserProfile();
             OAuth = new OAuthUser();
-            Roles = new List<string>();
+            Roles = new List<Role>();
         }        
         public int UserId { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
         public DateTime MemeberSince { get; set; }
-        public bool SuperUser { get; set; }
+        public bool SuperAdmin { get; set; }
+        public string Password { get; set; }
 
         public UserProfile Profile { get; set; }
         public OAuthUser OAuth { get; set; }
 
-        public List<string> Roles { get; set; } 
+        public List<Role> Roles { get; set; } 
     }
 }

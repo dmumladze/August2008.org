@@ -42,6 +42,7 @@
     <Compile Include="HeroSearchCriteria.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="OAuthUser.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="HeroPhoto.cs" />
@@ -49,6 +50,8 @@
     <Compile Include="MilitaryRank.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserProfile.cs" />
+    <Compile Include="UserRole.cs" />
+    <Compile Include="UserSearchCriteria.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
