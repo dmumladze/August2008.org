@@ -7,4 +7,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="SuperAdmin" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="77092f47-0e51-4002-afed-fd800d8c1040" ChangeDateTime="07/21/2013 18:05:59">
+    <Property Name="ElementName" Value="[dbo].[DonationProvider].[ProviderName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DonationProvider]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7b35edc4-4d55-4f7b-a627-9430bc6b6a66" ChangeDateTime="07/21/2013 18:06:21">
+    <Property Name="ElementName" Value="[dbo].[Donation].[Message]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Donation]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserMessage" />
+  </Operation>
 </Operations>
