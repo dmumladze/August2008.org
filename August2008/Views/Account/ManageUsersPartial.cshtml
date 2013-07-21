@@ -1,50 +1,72 @@
-﻿@model August2008.Models.UserModel
+﻿@model August2008.Models.UserSearchModel
 
-<div>
-    <fieldset>
-        <legend>User Management</legend>
+<div id="manageUsersPartial">
+    <div id="userSearchFormContainer">
         <div>
-            <div>
-                @using (Ajax.BeginForm("SearchUsers", "Account", null, new AjaxOptions {
+            @using (Ajax.BeginForm("SearchUsers", "Account", null, new AjaxOptions {
                                                                             HttpMethod = "POST",
                                                                             InsertionMode = InsertionMode.Replace,
-                                                                            UpdateTargetId = "user-list"
+                                                                            UpdateTargetId = "userList",
+                                                                            OnBegin = "Spinner.show()",
+                                                                            OnComplete = "Spinner.hide()"                                                                       
                                                                         },
-                                                                        new { @id = "search-form" }))
-                {                    
-                    @Html.TextBox("name")
-                    <input type="submit" value="Go" />
+                                                                        new { @id = "searchForm", name = "searchForm" }))
+            {                    
+                @Html.TextBox("name")
+                <input type="submit" value="Go" />
+            }            
+            @using (Ajax.BeginForm("UserRoles", "Account", null, new AjaxOptions {
+                                                                        HttpMethod = "POST",
+                                                                        InsertionMode = InsertionMode.Replace,
+                                                                        UpdateTargetId = "userRoles",
+                                                                        OnBegin = "Spinner.show()",
+                                                                        OnComplete = "Spinner.hide()"     
+                                                                    },
+                                                                    new { @id = "userListForm", name = "userListForm" }))
+            { 
+                <div id="userList">     
+                    @Html.Partial("UserListPartial", Model.Users)
+                </div>
+            }
+        </div>
+    </div>
+    <div id="manageUsersTabsContainer">
+        <div id="manageUsersTabs">
+            <ul>
+                <li><a href="#userRolesTab"><span>Roles</span></a></li>
+                <li><a href="#userRrofileTab"><span>Profile</span></a></li>
+                <li><a href="#userOpenIDTab"><span>OpenID</span></a></li>
+                <li><a href="#userDonationsTab"><span>Donations</span></a></li>
+            </ul>
+            <div id="userRolesTab">
+                @using (Ajax.BeginForm("AssignRoles", "Account", null, new AjaxOptions {
+                                                                            HttpMethod = "POST",
+                                                                            InsertionMode = InsertionMode.Replace,
+                                                                            UpdateTargetId = "userRoles",
+                                                                            OnBegin = "Spinner.show()",
+                                                                            OnComplete = "Spinner.hide()"     
+                                                                        },
+                                                                        new { @id = "userRolesForm", name = "userRolesForm" }))
+                { 
+                    <div id="userRoles">   
+                        Select user to view roles...
+                    </div>
+                    <div class="bottom-right">
+                        <input type="submit" value="Save" />
+                        <input type="reset" value="Cancel" />
+                    </div>
                 }
-                <div id="user-list">
-                    @Html.Partial("UserListPartial", Model.Users);
-                </div>
             </div>
-            <div>
-                <div id="tabs">
-                  <ul>
-                    <li><a href="#user-roles"><span>Roles</span></a></li>
-                    <li><a href="#user-profile"><span>Profile</span></a></li>
-                    <li><a href="#user-openid"><span>OpenID</span></a></li>
-                    <li><a href="#user-donations"><span>Donations</span></a></li>
-                  </ul>
-                  <div id="#roles">
-                    @using (Html.BeginForm("AssignRole", "Account")) {
-                    
-                    }
-                      @Html.CheckBoxListFor(m => m.Roles,
-                                            m => m.Roles,
-                                            m => m.Name,
-                                            m => m.RoleId,
-                                            m => m.Name)
-                  </div>
-                  <div id="#profile">
-                  </div>
-                  <div id="#openid">
-                  </div>
-                  <div id="#donations">
-                  </div>
-                </div>
+            <div id="userRrofileTab">
+            </div>
+            <div id="userOpenIDTab">
+            </div>
+            <div id="userDonationsTab">
             </div>
         </div>
-    </fieldset>
+    </div>
 </div>
+<script>
+    $("#manageUsersTabs").tabs();
+    $("#name").watermark("Search users...");
+</script>

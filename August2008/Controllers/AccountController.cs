@@ -15,13 +15,14 @@ using August2008.Models;
 using August2008;
 using August2008.Common;
 using System.Globalization;
+using AutoMapper;
 
 namespace August2008.Controllers
 {
     /// <summary>
     /// Orchestrates account related actions such as User Accouts, Logins, Authorization, etc.
     /// </summary>
-    [Authorize]
+    //[Authorize]
     public class AccountController : BaseController
     {
         private readonly IAccountRepository _accountRepository;
@@ -186,40 +187,55 @@ namespace August2008.Controllers
         /// Renders UserManagementPartial with initial information.
         /// </summary>
         [HttpGet]
+        [NoCache]
         //[Authorize2(Roles = "Admin")]
-        public ActionResult UserManagement()
+        public ActionResult ManageUsers()
         {
             var users = _accountRepository.SearchUsers();
-            var model = new UserModel
+            var model = new UserSearchModel
                 {
-                    Users = users,
-                    Roles = _metadataRepository.GetRoles()
+                    Users = new List<UserModel>(),
+                    AvailableRoles = _metadataRepository.GetRoles()
                 };
-            return PartialView("UserManagementPartial", model);
+            Mapper.Map(users, model.Users);
+            return PartialView("ManageUsersPartial", model);
         }
-        [HttpGet]
+        [HttpPost]
+        [NoCache]
         //[Authorize2(Roles = "Admin")]
-        public JsonResult SearchUsers(string name)
+        public ActionResult SearchUsers(string name)
         {
-            return new JsonResult
+            var users = _accountRepository.SearchUsers(name);
+            var model = new List<UserModel>();
+            Mapper.Map(users, model);
+            return PartialView("UserListPartial", model);
+        }
+        [HttpPost]
+        [NoCache]
+        //[Authorize2(Roles = "Admin")]
+        public ActionResult UserRoles(int userId)  
+        {
+            var model = new UserRoleModel
                 {
-                    Data = _accountRepository.SearchUsers(name),
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                    UserId = userId,
+                    UserRoles = _accountRepository.GetUserRoles(userId),
+                    AvaialbleRoles = new MultiSelectList(_metadataRepository.GetRoles(), "RoleId", "Name", null)
                 };
+            return PartialView("UserRolesPartial", model);
         }
         [HttpPost]
         [AjaxValidate]
         //[Authorize2(Roles = "Admin")]
-        public JsonResult AssignRoles(UserModel user)
+        public JsonResult AssignRoles(UserRoleModel user)
         {
-            if (!user.AssignedRoles.IsNullOrEmpty())
+            if (!user.UserRoles.IsNullOrEmpty())
             {
-                _accountRepository.AssignUserToRoles(user.UserId, user.AssignedRoles);
+                //_accountRepository.AssignUserToRoles(user.UserId, user.UserRoles);
             }
-            if (!user.RevokedRoles.IsNullOrEmpty())
-            {
-                _accountRepository.RevokeUserFromRoles(user.UserId, user.RevokedRoles);
-            }
+            //if (!user.RevokedRoles.IsNullOrEmpty())
+            //{
+            //    //_accountRepository.RevokeUserFromRoles(user.UserId, user.RevokedRoles);
+            //}
             return OkJson();
         }
     }

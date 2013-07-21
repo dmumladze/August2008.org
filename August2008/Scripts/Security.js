@@ -1,45 +1,33 @@
 ﻿
+Security.manageUsersDialog = undefined;
+Security.manageUsersAction = undefined;
+
 function Security() {
 
 }
 
-Security.loginDialogId = '#login-dialog';
-Security.loginButtonId = '#btn-login';
-
-Security.prototype.init = function() {
-    $(Security.loginDialogId).dialog({
+Security.init = function(action) {
+    Security.manageUsersAction = action;
+    $("<div id=\"manageUsersDialog\"></div>").appendTo(document.body);
+    Security.manageUsersDialog = $('#manageUsersDialog').dialog({
         autoOpen: false,
         modal: true,
-        width: 400,
-        height: 250,
-        title: 'Log in',
-        buttons: {
-            Cancel: function () {
-                $(this).dialog("close");
-            }
-        }
+        width: 850,
+        height: 700,
+        title: "Manage Users"
     });
-    $(Security.loginButtonId).click(function(e) {
-        $(Security.loginDialogId).dialog('open');
+    $("#manageUsersOpener").click(function(e) {
+        Security.manageUsers();
     });
 };
-Security.prototype.login = function (action) {
+Security.manageUsers = function () {
     $.ajax({
-        url: action,
-        method: 'GET',
-        success: function(result) {
-            debugger;
-            alert(result);
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
+        url: Security.manageUsersAction,
+        method: "GET",
+        success: function (result) {
+            Security.manageUsersDialog.empty();
+            Security.manageUsersDialog.html(result);
+            Security.manageUsersDialog.dialog("open");
         }
     });
 };
-
-$(document).ready(function() {
-    $.security.init();
-});
-
-$.security = new Security();

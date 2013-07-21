@@ -14,7 +14,8 @@ namespace August2008
             bundles.Add(new ScriptBundle("~/bundles/august2008").Include(
                 "~/Scripts/August2008.js",
                 "~/Scripts/Security.js",
-                "~/Scripts/Spinner.js"));
+                "~/Scripts/Spinner.js",
+                "~/Scripts/jquery.watermark.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/hero").Include(
                 "~/Scripts/Hero.js"));
@@ -23,6 +24,10 @@ namespace August2008
                 "~/Scripts/jquery-1.9.1.js",
                 "~/Scripts/jquery-ui-1.10.3.custom.js",
                 "~/Scripts/jquery.jqote2.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                "~/Scripts/jquery.unobtrusive*",
+                "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));

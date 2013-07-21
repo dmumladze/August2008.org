@@ -173,6 +173,7 @@
     <Build Include="dbo\Stored Procedures\SearchUsers.sql" />
     <Build Include="dbo\Stored Procedures\AssignUserToRole.sql" />
     <Build Include="dbo\Stored Procedures\RevokeUserFromRole.sql" />
+    <Build Include="dbo\Stored Procedures\GetUserRoles.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

@@ -17,15 +17,8 @@ namespace August2008
             Mapper.CreateMap<HeroModel, Hero>();
             Mapper.CreateMap<Hero, HeroModel>();
 
-            Mapper.CreateMap<List<Role>, List<int>>().ForMember(
-                x => x,
-                o => o.MapFrom(y => y.Select(z => z.RoleId)));
-
-            Mapper.CreateMap<List<int>, List<Role>>().ForMember(
-                x => x.Select(p => p.RoleId),
-                o => o.MapFrom(y => y));
-
             Mapper.CreateMap<UserModel, User>();
+            Mapper.CreateMap<User, UserModel>();
         }
     }
 }

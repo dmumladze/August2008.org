@@ -6,6 +6,7 @@ using System.Transactions;
 using August2008.Common;
 using August2008.Model;
 using August2008.Common.Interfaces;
+using System.Diagnostics;
 
 namespace August2008.Data
 {
@@ -147,11 +148,28 @@ namespace August2008.Data
                     db.ReadInto(users);
                     return users;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     throw;
                 }
             }  
+        }
+        public IEnumerable<Role> GetUserRoles(int userId)
+        {
+            using (var db = new DataAccess())
+            {
+                try
+                {
+                    db.CreateStoredProcCommand("dbo.GetUserRoles");
+                    var roles = new List<Role>();
+                    db.ReadInto(roles);
+                    return roles;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
         public void AssignUserToRoles(int userId, List<int> roles)
         {

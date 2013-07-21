@@ -1,10 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section MainSection 
-{
-    <h2>Login with @ViewBag.Provider has failed. Please check you account and try again.</h2>
+<h2>Login with @ViewBag.Provider has failed. Please check you account and try again.</h2>
 
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-}
+@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
 

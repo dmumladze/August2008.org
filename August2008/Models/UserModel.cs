@@ -9,12 +9,9 @@ namespace August2008.Models
 {
     public class UserModel
     {
-        public IEnumerable<User> Users { get; set; }
-        public IEnumerable<Role> Roles { get; set; }
-
-        [Required]
         public int UserId { get; set; }
-        public List<int> AssignedRoles { get; set; }
-        public List<int> RevokedRoles { get; set; }
+        public string DisplayName { get; set; }
+        public DateTime MemeberSince { get; set; }
+        public IEnumerable<Role> Roles { get; set; }
     }
 }

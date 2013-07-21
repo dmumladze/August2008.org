@@ -99,7 +99,6 @@ namespace August2008.Controllers
         //[Authorize2(Roles = "Admin")]
         public PartialViewResult Edit(int? id)
         {
-            System.Threading.Thread.Sleep(5000);
             var model = new HeroModel();
             if (id.HasValue)
             {

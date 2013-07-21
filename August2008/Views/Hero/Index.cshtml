@@ -8,35 +8,31 @@
     @Scripts.Render("~/bundles/hero")
 }
 
-@section MainSection 
-{
-    <input type="button" id="createButton" value="Create"/>  
+<input type="button" id="createButton" value="Create"/>  
     
-    <div id="hero-list">
-        @if (Model.NotNull() && Model.Result.NotNullOrEmpty()) {
-            foreach (var item in Model.Result)  {
-                <div class="hero-list-box shadow section transp">
-                    <div class="hero-list-info">@item.FirstName @item.LastName</div>
-                    <div class="hero-list-thumb">
-                        @if (item.Photos.NotNullOrEmpty()) {
-                            <img class="hero-list-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUrl, size = PhotoSize.Medium})"/>
-                        }
-                        else {
-                            <div class="hero-list-div">
-                                NO IMAGE
-                            </div>
-                        }
-                    </div>
-                    <div class="hero-list-cmd">
-                        <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
-                    </div>
-                </div>                
-            }
+<div id="hero-list">
+    @if (!Model.Result.IsNullOrEmpty()) {
+        foreach (var item in Model.Result)  {
+            <div class="hero-list-box shadow section transp">
+                <div class="hero-list-info">@item.FirstName @item.LastName</div>
+                <div class="hero-list-thumb">
+                    @if (item.Photos.IsNullOrEmpty()) {
+                        <img class="hero-list-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUrl, size = PhotoSize.Medium})"/>
+                    }
+                    else {
+                        <div class="hero-list-div">
+                            NO IMAGE
+                        </div>
+                    }
+                </div>
+                <div class="hero-list-cmd">
+                    <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
+                </div>
+            </div>                
         }
-    </div>
-}
-@section FooterSection{
-}
+    }
+</div>
+
 @section BottomScriptSection
 {
     <script type="text/javascript">

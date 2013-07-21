@@ -248,17 +248,17 @@ img {
 /* form controls */
 .editor-label {
     text-align: left;
+    padding: 0 3px 0 0;
+    vertical-align: bottom;
 }
 .editor-field {
     text-align: left;
     margin-left: 0;
 }
 .editor-field * {
-    width: 170px;
     margin-left: 0;
 }
 .editor-field select {
-    width: 175px;
 }
 .editor-field select option{
     width: 395px;
@@ -269,6 +269,12 @@ img {
 .required {
     color: red;
     font-weight: bold;
+}
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px 10px 0;
 }
 /* hero edit view */
 #photo-edits {
@@ -308,7 +314,7 @@ input.file {
 }
 #edit-commands {
     vertical-align: middle;
-    border-top: solid 1px #999;
+    border-top: solid 1px #aaaaaa;
     padding-top: 5px;
 }
 #edit-commands div {
@@ -319,7 +325,7 @@ input.file {
     margin: 5px;
     width: 128px;
     height: 135px;
-    border: solid 1px #999;
+    border: solid 1px #aaaaaa;
     text-align: center;
     vertical-align: top;
     padding: 0;
@@ -369,10 +375,45 @@ input.file {
 .hero-thumb {
     border: 4px solid #336699;
 }
-fieldset {
-    display: inline-block;    
-}
 table { 
   border-spacing:0;
   border-collapse:collapse; 
+}
+select {
+    height: 26px;
+    line-height: 26px;
+    width: 191px;
+    border: 1px solid #AAAAAA;
+}
+input[type=text], textarea {
+    border: 1px solid #AAAAAA;
+}
+input[type=text] {
+    height: 23px;
+    width: 189px;
+}
+fieldset {
+    border: 1px solid #AAAAAA;    
+}
+#manageUsersPartial {
+    width: 100%;
+    float: left;
+}
+#manageUsersPartial div {
+    float: left;
+}
+#userSearchFormContainer {
+    width: 250px;
+}
+#manageUsersTabsContainer {
+    width: 560px;
+}
+#manageUsersTabs {
+    width: 100%;
+    min-height: 625px;
+}
+#userSearchFormContainer #userId {
+    height: 603px;
+    width: 241px;
+    margin-top: 3px;
 }

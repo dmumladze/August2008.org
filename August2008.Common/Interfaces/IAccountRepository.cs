@@ -12,6 +12,7 @@ namespace August2008.Common.Interfaces
         bool TryGetUserRegistered(string providerId, out int? userId, out bool isOAuthUser, out bool isRegistered);
         IEnumerable<User> GetUsers();
         IEnumerable<User> SearchUsers(string name = null);
+        IEnumerable<Role> GetUserRoles(int userId);
         void AssignUserToRoles(int userId, List<int> roles);
         void RevokeUserFromRoles(int userId, List<int> roles); 
     }

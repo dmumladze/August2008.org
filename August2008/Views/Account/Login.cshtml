@@ -1,7 +1,4 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section MainSection 
-{
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-}
+@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })

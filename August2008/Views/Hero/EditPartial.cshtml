@@ -2,100 +2,97 @@
 
 @using (Html.BeginForm("Save", "Hero", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.HiddenFor(m => m.HeroId)
-    <fieldset>
-        <legend>Hero</legend>
-        <table>
-            <tr>
-                <td style="vertical-align: top; width: 200px">
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.MilitaryRanks)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("MilitaryRank", Model.MilitaryRanks, "-", new { id = "MilitaryRankId" })
-                    </div>
+    <table>
+        <tr>
+            <td style="vertical-align: top; width: 200px">
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.MilitaryRanks)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("MilitaryRank", Model.MilitaryRanks, "-", new { id = "MilitaryRankId" })
+                </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.MilitaryGroups)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("MilitaryGroup", Model.MilitaryGroups, "-", new { id = "MilitaryGroupId" })
-                    </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.MilitaryGroups)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("MilitaryGroup", Model.MilitaryGroups, "-", new { id = "MilitaryGroupId" })
+                </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.FirstName)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.FirstName)
-                    </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.FirstName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.FirstName)
+                </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.LastName)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.LastName)
-                    </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.LastName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.LastName)
+                </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.MiddleName)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.MiddleName)
-                    </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.MiddleName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MiddleName)
+                </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.Dob)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Dob)
-                    </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.Dob)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Dob)
+                </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.Died)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.Died)
-                    </div>
-                </td>
-                <td>
-                    <fieldset>
-                        <legend>Photos</legend>
-                        <div id="photo-edits">
-                            <div id="upload-images">
-                                @if (Model.Photos.NotNullOrEmpty()) {
-                                    foreach (var photo in Model.Photos) {
-                                        <div class="thumb-img-box" id="box-@photo.HeroPhotoId">
-                                            <img class="@(photo.IsThumbnail ? "old-hero-photo hero-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = photo.PhotoUrl, size = PhotoSize.Medium})"/>
-                                            <div class="thumb-img-cmd">
-                                                <a href="#" onclick="$.hero.deletePhoto(@photo.HeroPhotoId, 'box-@photo.HeroPhotoId');return false;">Delete</a>
-                                            </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.Died)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Died)
+                </div>
+            </td>
+            <td>
+                <fieldset>
+                    <legend>Photos</legend>
+                    <div id="photo-edits">
+                        <div id="upload-images">
+                            @if (!Model.Photos.IsNullOrEmpty()) {
+                                foreach (var photo in Model.Photos) {
+                                    <div class="thumb-img-box" id="box-@photo.HeroPhotoId">
+                                        <img class="@(photo.IsThumbnail ? "old-hero-photo hero-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = photo.PhotoUrl, size = PhotoSize.Medium})"/>
+                                        <div class="thumb-img-cmd">
+                                            <a href="#" onclick="$.hero.deletePhoto(@photo.HeroPhotoId, 'box-@photo.HeroPhotoId');return false;">Delete</a>
                                         </div>
-                                    }
+                                    </div>
                                 }
-                            </div>      
-                            <div id="edit-commands">
-                                <input id="images" type="file" name="images" class="file" multiple />
-                                <div id="fakefile">
-                                    <button type="button" id="btn" onclick="$('#images').click()">Add</button>                
-                                </div>  
-                                <div>           
-                                </div>                                            
-                            </div>
+                            }
+                        </div>      
+                        <div id="edit-commands">
+                            <input id="images" type="file" name="images" class="file" multiple />
+                            <div id="fakefile">
+                                <button type="button" id="btn" onclick="$('#images').click()">Add</button>                
+                            </div>  
+                            <div>           
+                            </div>                                            
                         </div>
-                    </fieldset>                    
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class="editor-label">
-                        @Html.LabelFor2(model => model.Biography)
                     </div>
-                    <div class="editor-field">
-                        @Html.TextAreaFor(model => model.Biography, new { @class = "hero-bio" })
-                    </div>                    
-                </td>
-            </tr>
-        </table>
-    </fieldset>
+                </fieldset>                    
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.Biography)
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.Biography, new { @class = "hero-bio" })
+                </div>                    
+            </td>
+        </tr>
+    </table>
 }
 <script>
     (function() {

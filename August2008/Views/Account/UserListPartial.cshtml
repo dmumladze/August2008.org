@@ -1,1 +1,9 @@
-﻿
+﻿@model IEnumerable<UserModel>
+
+@Html.ListBox("userId", new SelectList(Model, "UserId", "DisplayName"))
+
+<script>
+    $("#userId").change(function () {
+        $("#userId").closest("form").submit();
+    });
+</script>

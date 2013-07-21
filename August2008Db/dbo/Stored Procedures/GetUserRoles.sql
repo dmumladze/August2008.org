@@ -1,6 +1,13 @@
 ﻿CREATE PROCEDURE [dbo].[GetUserRoles]
-	@param1 int = 0,
-	@param2 int
+	@UserId	INT
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT
+		r.RoleId,
+		r.Name
+	FROM dbo.[Role] r (NOLOCK)
+	INNER JOIN dbo.UserRole ur (NOLOCK) ON r.RoleId =ur.RoleId 
+	WHERE ur.UserId = @UserId;
+END;

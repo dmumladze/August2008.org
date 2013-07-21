@@ -11,14 +11,15 @@
     @Styles.Render("~/content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/august2008")
-       
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/august2008")       
     @RenderSection("HeaderScriptSection", false)
 </head>
 <body>
     <script>
         $(document).ready(function() {
             Spinner.init('@Url.ImageUrl("spinner-1.gif")');
+            Security.init('@Url.Action("ManageUsers", "Account")');
         })
     </script>
     <div id="header">
@@ -33,6 +34,7 @@
                 <li>@Html.ActionLink("Blog", "Index", "Home")</li>
             </ul>
             <p id="layoutdims">
+                <a href="#" id="manageUsersOpener">Manage Users</a>
                 <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })">Log In</a>
             </p>
         </div>
@@ -42,7 +44,7 @@
         <div class="colmid">
             <div class="colleft">
                 <div class="col1">
-                    @RenderSection("MainSection", false)
+                    @RenderBody()
                 </div>
                 <div class="col2">
                     @RenderSection("LeftSection", false)
