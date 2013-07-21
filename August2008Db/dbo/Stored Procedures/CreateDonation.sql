@@ -1,30 +1,39 @@
-﻿CREATE PROC dbo.CreateDonation
+﻿CREATE PROC [dbo].[CreateDonation]
 	@DonationProviderId		INT,
 	@UserId					INT,
+	@FistName				NVARCHAR(50) = NULL,
+	@LastName				NVARCHAR(50) = NULL,
 	@Amount					MONEY,
 	@Currency				NVARCHAR(10) = NULL,
 	@UserMessage			NVARCHAR(500)= NULL,
 	@ProviderData			XML			 = NULL,
+	@Email					NVARCHAR(50) = NULL,
 	@DonationId				INT			 = NULL OUTPUT
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO dbo.Donation (
-		DonationProviderId
+	INSERT INTO dbo.Donation(
+		 DonationProviderId
 		,UserId
+		,FirstName
+		,LastName
 		,Amount
 		,Currency
 		,UserMessage
 		,ProviderData
-	)
-	VALUES (
+		,Email
+		)
+	VALUES(
 		@DonationProviderId
 		,@UserId
+		,@FistName
+		,@LastName
 		,@Amount
 		,@Currency
 		,@UserMessage
-		,@ProviderData	
-	);
-	SET @DonationId = SCOPE_IDENTITY();
-END;
+		,@ProviderData
+		,@Email	
+	 )
+	SET @DonationId = SCOPE_IDENTITY()
+END
