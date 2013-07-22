@@ -140,12 +140,19 @@ namespace August2008.Common
         /// </summary>
         public void AddParameter(string name, DbType type, ParameterDirection direction, object value)
         {
-            var param = DbProviderFactory.CreateParameter();
-            param.DbType = type;
-            param.ParameterName = name;            
-            param.Direction = direction;
-            param.Value = value;
-            _mainCommand.Parameters.Add(param);
+            if (!_mainCommand.Parameters.Contains(name))
+            {
+                var param = DbProviderFactory.CreateParameter();
+                param.DbType = type;
+                param.ParameterName = name;
+                param.Direction = direction;
+                param.Value = value;
+                _mainCommand.Parameters.Add(param);
+            }
+            else
+            {
+                _mainCommand.Parameters[name].Value = value;
+            }
         }
         /// <summary>
         /// Removes the parameter from the associated DbCommand object.
@@ -227,8 +234,7 @@ namespace August2008.Common
         public T GetParameterValue<T>(string name)
         {
             var param = _mainCommand.Parameters[name];
-            if (param != null &&
-                param.Value != DBNull.Value)
+            if (param != null && param.Value != DBNull.Value)
             {
                 return (T)param.Value;
             }
@@ -244,14 +250,19 @@ namespace August2008.Common
         /// <summary>
         /// Resets and removes all the parameters from the main DbCommand object; However, command is still a part of the transaction.
         /// </summary>
-        public void ResetPendingCommand()
+        public void ResetCommand(bool clearCommandText = true)
         {
             if (IsCommandPending)
+            {
                 throw new DataAccessException("Cannot reset the current command without executing it first.");
+            }
             IsCommandPending = false;
             RowsAffected = 0;
             _mainCommand.Parameters.Clear();
-            _mainCommand.CommandText = string.Empty;
+            if (clearCommandText)
+            {
+                _mainCommand.CommandText = string.Empty;
+            }
         }
         /// <summary>
         /// Manages connection object state.

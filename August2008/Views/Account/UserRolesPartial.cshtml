@@ -1,3 +1,9 @@
 ﻿@model UserRoleModel
 
-@Html.CheckBoxListFor(m => m.AvaialbleRoles, Model.AvaialbleRoles)
+@Html.HiddenFor(m => m.UserId)
+
+@Html.CheckBoxListFor(m => m.PostedRoles, 
+                      m => m.Roles,
+                      e => e.RoleId,
+                      e => e.Name,
+                      m => m.Assigned, MvcCheckBoxList.Model.Position.Vertical)

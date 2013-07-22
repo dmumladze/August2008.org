@@ -23,7 +23,7 @@ BEGIN
 		,UserMessage
 		,ProviderData
 		,Email
-		)
+	)
 	VALUES(
 		@DonationProviderId
 		,@UserId

@@ -161,6 +161,7 @@ namespace August2008.Data
                 try
                 {
                     db.CreateStoredProcCommand("dbo.GetUserRoles");
+                    db.AddInParameter("@UserId", DbType.Int32, userId);
                     var roles = new List<Role>();
                     db.ReadInto(roles);
                     return roles;
@@ -171,19 +172,21 @@ namespace August2008.Data
                 }
             }
         }
-        public void AssignUserToRoles(int userId, List<int> roles)
+        public void AssignUserToRoles(int userId, IEnumerable<int> roles)
         {
+            using (var tran= new TransactionScope())            
             using (var db = new DataAccess())
             {
                 try
                 {
-                    db.CreateStoredProcCommand("dbo.AssignUserToRoles");
+                    db.CreateStoredProcCommand("dbo.AssignUserToRole");
                     foreach (var id in roles)
                     {
                         db.AddInParameter("@UserId", DbType.Int32, userId);
                         db.AddInParameter("@RoleId", DbType.Int32, id);
                         db.ExecuteNonQuery();
                     }
+                    tran.Complete();
                 }
                 catch (Exception)
                 {
@@ -191,8 +194,9 @@ namespace August2008.Data
                 }
             }
         }
-        public void RevokeUserFromRoles(int userId, List<int> roles)
+        public void RevokeUserFromRoles(int userId, IEnumerable<int> roles)
         {
+            using (var tran = new TransactionScope())   
             using (var db = new DataAccess())
             {
                 try
@@ -204,6 +208,7 @@ namespace August2008.Data
                         db.AddInParameter("@RoleId", DbType.Int32, id);
                         db.ExecuteNonQuery();
                     }
+                    tran.Complete();
                 }
                 catch (Exception)
                 {

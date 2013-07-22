@@ -81,7 +81,12 @@
 	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (2, 'Writer', 'User with ability to perform set of operation such as creating an aricle etc..')
 	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (3, 'Admin', 'Administrator')
 	SET IDENTITY_INSERT [dbo].[Role] OFF
+	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	SET IDENTITY_INSERT [dbo].[DonationProvider] ON
+	INSERT INTO [dbo].[DonationProvider] (DonationProviderId, Name) VALUES (1, 'PayPal')	
+	SET IDENTITY_INSERT [dbo].[DonationProvider] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	COMMIT TRANSACTION;
 	COMMIT TRANSACTION;
 END TRY
 BEGIN CATCH

@@ -244,6 +244,7 @@
     <Compile Include="Helpers\HtmlHelper2.cs" />
     <Compile Include="Helpers\JQueryHelper.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
+    <Compile Include="Helpers\StringDoubleConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
     <Compile Include="Models\FormsIdentity.cs" />
     <Compile Include="Models\FormsPrincipal.cs" />
@@ -253,9 +254,10 @@
     <Compile Include="Models\RegisterUser.cs" />
     <Compile Include="Models\HeroModel.cs" />
     <Compile Include="Models\LoginProvider.cs" />
-    <Compile Include="Models\PayPalDataModel.cs" />
+    <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PhotoSize.cs" />
     <Compile Include="Models\PostedFile.cs" />
+    <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Models\UserSearchModel.cs" />
@@ -377,6 +379,8 @@
     <Content Include="Views\Account\ManageUsersPartial.cshtml" />
     <Content Include="Views\Account\UserListPartial.cshtml" />
     <Content Include="Views\Account\UserRolesPartial.cshtml" />
+    <Content Include="Views\Donations\Confirm.cshtml" />
+    <Content Include="Views\Donations\Donate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

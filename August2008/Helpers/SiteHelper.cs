@@ -66,5 +66,11 @@ namespace August2008.Helpers
             }
             return alphabet;
         }
+        public static double ToDouble(this string value)
+        {
+            double target;
+            double.TryParse(value, out target);
+            return target;
+        }
     }
 }

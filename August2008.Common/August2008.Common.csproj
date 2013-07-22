@@ -52,6 +52,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\ICacheProvider.cs" />
+    <Compile Include="Interfaces\IDonationRepository.cs" />
     <Compile Include="Interfaces\IHeroRepository.cs" />
     <Compile Include="Interfaces\IMetadataRepository.cs" />
     <Compile Include="Interfaces\IPostedFile.cs" />

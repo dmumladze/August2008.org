@@ -13,7 +13,7 @@ namespace August2008.Common.Interfaces
         IEnumerable<User> GetUsers();
         IEnumerable<User> SearchUsers(string name = null);
         IEnumerable<Role> GetUserRoles(int userId);
-        void AssignUserToRoles(int userId, List<int> roles);
-        void RevokeUserFromRoles(int userId, List<int> roles); 
+        void AssignUserToRoles(int userId, IEnumerable<int> roles);
+        void RevokeUserFromRoles(int userId, IEnumerable<int> roles); 
     }
 }

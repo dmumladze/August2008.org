@@ -27,13 +27,17 @@ namespace August2008.Controllers
         protected FormsPrincipal Me { get; private set; }
         protected ICacheProvider Cache { get; private set; }
 
-        public JsonResult OkJson(string message = null)
+        protected ActionResult RedirectToLocal(string returnUrl)
         {
-            return new JsonResult { Data = new {Ok = true, Message = message}};
-        }
-        public JsonResult WtfJson(string message = null) 
-        {
-            return new JsonResult { Data = new {Ok = false, Message = message}};
+            // prevents from "open redirection attack"
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

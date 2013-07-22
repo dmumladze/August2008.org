@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Donation.cs" />
     <Compile Include="HeroSearchCriteria.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="OAuthUser.cs" />

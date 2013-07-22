@@ -145,18 +145,6 @@ namespace August2008.Controllers
         {
             return View();
         }
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            // prevents from "open redirection attack"
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
         private class ExternalLoginResult : ActionResult
         {
             // used by ExternalLogin action above
@@ -215,28 +203,43 @@ namespace August2008.Controllers
         //[Authorize2(Roles = "Admin")]
         public ActionResult UserRoles(int userId)  
         {
+            return GetUserRoles(userId);
+        }
+        [HttpPost]
+        [NoCache]
+        //[Authorize2(Roles = "Admin")]
+        public ActionResult AssignRoles(UserRoleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var roles = _accountRepository.GetUserRoles(model.UserId);
+                var assigned = (from r in roles
+                                where !model.PostedRoles.IsNull() && model.PostedRoles.Contains(r.RoleId) && !r.UserId.HasValue
+                                select r.RoleId).ToArray();
+                var revoked = (from r in roles
+                               where (model.PostedRoles.IsNull() || !model.PostedRoles.Contains(r.RoleId)) && r.UserId.HasValue
+                               select r.RoleId).ToArray();
+                if (!assigned.IsNullOrEmpty())
+                {
+                    _accountRepository.AssignUserToRoles(model.UserId, assigned);
+                }
+                if (!revoked.IsNullOrEmpty())
+                {
+                    _accountRepository.RevokeUserFromRoles(model.UserId, revoked);
+                }
+            }
+            return GetUserRoles(model.UserId);
+        }
+        private ActionResult GetUserRoles(int userId)
+        {
+            var roles = _accountRepository.GetUserRoles(userId);
             var model = new UserRoleModel
                 {
                     UserId = userId,
-                    UserRoles = _accountRepository.GetUserRoles(userId),
-                    AvaialbleRoles = new MultiSelectList(_metadataRepository.GetRoles(), "RoleId", "Name", null)
+                    Roles = new List<RoleModel>()
                 };
+            Mapper.Map(roles, model.Roles);
             return PartialView("UserRolesPartial", model);
-        }
-        [HttpPost]
-        [AjaxValidate]
-        //[Authorize2(Roles = "Admin")]
-        public JsonResult AssignRoles(UserRoleModel user)
-        {
-            if (!user.UserRoles.IsNullOrEmpty())
-            {
-                //_accountRepository.AssignUserToRoles(user.UserId, user.UserRoles);
-            }
-            //if (!user.RevokedRoles.IsNullOrEmpty())
-            //{
-            //    //_accountRepository.RevokeUserFromRoles(user.UserId, user.RevokedRoles);
-            //}
-            return OkJson();
         }
     }
 }

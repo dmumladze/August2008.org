@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetUserRoles]
+﻿CREATE PROCEDURE [dbo].[GetUserRoles] 
 	@UserId	INT
 AS
 BEGIN
@@ -6,8 +6,8 @@ BEGIN
 
 	SELECT
 		r.RoleId,
-		r.Name
+		r.Name,
+		ur.UserId
 	FROM dbo.[Role] r (NOLOCK)
-	INNER JOIN dbo.UserRole ur (NOLOCK) ON r.RoleId =ur.RoleId 
-	WHERE ur.UserId = @UserId;
+	LEFT JOIN dbo.UserRole ur (NOLOCK) ON r.RoleId = ur.RoleId AND ur.UserId = @UserId;
 END;

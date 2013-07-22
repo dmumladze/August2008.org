@@ -7,6 +7,7 @@ BEGIN
 
 	SELECT
 		 dp.DonationProviderId
+		,dp.ProviderName
 		,u.UserId 
 		,d.DonationId
 		,u.DisplayName

@@ -177,7 +177,7 @@ namespace August2008.Common.Tools
                 else
                 {
                     writer.WriteLine("{0}.{1} = reader.IsDBNull({2}) ? {3} : ({4})reader[{5}];", itemName, property.Name,
-                                     columnOrdinal, GetDefaultValueAsString(clrDataTypeName), clrDataTypeName, columnOrdinal);
+                                     columnOrdinal, GetDefault(property.PropertyType, clrDataTypeName), clrDataTypeName, columnOrdinal);
                 }
             }
         }
@@ -198,7 +198,7 @@ namespace August2008.Common.Tools
             else
             {
                 writer.WriteLine("{0} item = reader.IsDBNull({1}) ? {2} : ({3})reader[{4}];", clrDataTypeName,
-                                 columnOrdinal, GetDefaultValueAsString(clrDataTypeName), clrDataTypeName, columnOrdinal);
+                                 columnOrdinal, GetDefault(type, clrDataTypeName), clrDataTypeName, columnOrdinal);
             }
         }
         private static PropertyInfo GetProperty(string name, Type declaringType, bool throwOnError)
@@ -335,33 +335,13 @@ namespace August2008.Common.Tools
         {
             return !string.IsNullOrEmpty(value) ? InvalidChars.Replace(value, string.Empty) : string.Empty;
         }
-        private static string GetDefaultValueAsString(string dataType)
+        private static string GetDefault(Type type, string dataType)
         {
-            switch (dataType)
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                case "System.Char":
-                case "System.String":                
-                    return "String.Empty";
-                case "System.Int16":
-                    return "(System.Int16)0";
-                case "System.Int32":
-                case "System.Int64":
-                case "System.Decimal":
-                case "System.Double":
-                case "System.Single":                
-                    return "0";
-                case "System.Boolean":
-                    return "false";
-                case "System.Byte":
-                    return "(System.Byte)0";
-                case "System.DateTime":
-                    return "DateTime.MinValue";
-                case "System.Guid":
-                    return "Guid.Empty";
-                default:
-                    return "default(" + dataType + ")";
+                return "default(Nullable<" + dataType + ">)";
             }
-            return string.Empty;
+            return "default(" + dataType + ")";
         }
         internal DataAccess DataProvider
         {

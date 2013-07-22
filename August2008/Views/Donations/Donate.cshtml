@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+
+    <!-- Identify your business so that you can collect the payments. -->
+    <input type="hidden" name="business" value="davidlars99@gmail.com">
+
+    <!-- Specify a Donate button. -->
+    <input type="hidden" name="cmd" value="_donations">
+
+    <!-- Specify details about the contribution -->
+    <input type="hidden" name="item_name" value="Thank you for donating.">
+    <input type="hidden" name="return" value="@Url.Action("PayPalPost", null, null, HttpContext.Current.Request.Url.Scheme)"/>
+    <input type="hidden" name="cancel_return" value="@Url.Action("Cancel", null, new {provider = DonationProvider.PayPal}, HttpContext.Current.Request.Url.Scheme)"/>
+    <input type="hidden" name="rm" value="2"/>
+    <input type="hidden" name="item_number" value="5.00"> 
+    <select name="amount" onchange="$('input[name=item_number]').val($(this).val())">
+        <option value="1.00">$1.00</option>    
+        <option value="5.00" selected="">$5.00</option>
+        <option value="10.00">$10.00</option>
+        <option value="15.00">$15.00</option>
+        <option value="25.00">$25.00</option>
+        <option value="50.00">$50.00</option>
+    </select>
+    <input type="hidden" name="currency_code" value="USD">
+
+    <!-- Display the payment button. -->
+    <input type="image" name="submit" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif">
+</form>
