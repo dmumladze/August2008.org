@@ -83,7 +83,7 @@
 	SET IDENTITY_INSERT [dbo].[Role] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	SET IDENTITY_INSERT [dbo].[DonationProvider] ON
-	INSERT INTO [dbo].[DonationProvider] (DonationProviderId, Name) VALUES (1, 'PayPal')	
+	INSERT INTO [dbo].[DonationProvider] (DonationProviderId, ProviderName) VALUES (1, 'PayPal')	
 	SET IDENTITY_INSERT [dbo].[DonationProvider] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	COMMIT TRANSACTION;
