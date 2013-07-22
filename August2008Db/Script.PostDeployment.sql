@@ -87,7 +87,6 @@
 	SET IDENTITY_INSERT [dbo].[DonationProvider] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	COMMIT TRANSACTION;
-	COMMIT TRANSACTION;
 END TRY
 BEGIN CATCH
 	IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION
