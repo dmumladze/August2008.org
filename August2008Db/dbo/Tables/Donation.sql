@@ -6,7 +6,7 @@
     [LastName]           NVARCHAR (50)  NULL,
     [Currency]           NVARCHAR (10)  NULL,
     [UserMessage]        NVARCHAR (500) NULL,
-    [DateDonated]        DATETIME       CONSTRAINT [DF__Donation__DateDo__5441852A] DEFAULT (getdate()) NOT NULL,
+    [DateDonated]        DATETIME       DEFAULT (GETDATE()) NOT NULL,
     [Amount]             MONEY          NOT NULL,
     [ProviderData]       XML            NULL,
     [Email]              NVARCHAR (50)  NULL,
@@ -14,11 +14,3 @@
     CONSTRAINT [FK_Donation_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId]),
     CONSTRAINT [FK_DonationProvider_User] FOREIGN KEY ([DonationProviderId]) REFERENCES [dbo].[DonationProvider] ([DonationProviderId])
 );
-
-ULL,
-    CONSTRAINT [PK_Donation] PRIMARY KEY CLUSTERED ([DonationId] ASC),
-    CONSTRAINT [FK_Donation_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId]),
-    CONSTRAINT [FK_DonationProvider_User] FOREIGN KEY ([DonationProviderId]) REFERENCES [dbo].[DonationProvider] ([DonationProviderId])
-);
-
-
