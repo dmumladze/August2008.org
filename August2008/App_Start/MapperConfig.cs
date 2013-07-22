@@ -23,7 +23,7 @@ namespace August2008
 
             Mapper.CreateMap<Role, RoleModel>();
 
-            Mapper.CreateMap<string, double>().ConvertUsing<StringDoubleConverter>();
+            Mapper.CreateMap<string, decimal>().ConvertUsing<StringDecimalConverter>();
 
             Mapper.CreateMap<PayPalModel, Donation>()
                 .ForMember(x => x.Amount, o => o.MapFrom(y => y.mc_gross))

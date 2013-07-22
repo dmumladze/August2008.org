@@ -20,13 +20,13 @@ namespace August2008.Data
                 db.AddInParameter("@DonationId", DbType.Int32, donation.DonationId);
                 db.AddInParameter("@DonationProviderId", DbType.Int32, donation.DonationProviderId);
                 db.AddInParameter("@UserId", DbType.Int32, donation.UserId);
-                db.AddInParameter("@Amount", DbType.Int32, donation.Amount);
-                db.AddInParameter("@Currency", DbType.Int32, donation.Currency);
-                db.AddInParameter("@FirstName", DbType.Int32, donation.FirstName);
-                db.AddInParameter("@LastName", DbType.Int32, donation.LastName);
-                db.AddInParameter("@Email", DbType.Int32, donation.Email);
-                db.AddInParameter("@UserMessage", DbType.Int32, donation.UserMessage);
-                db.AddInParameter("@ProviderData", DbType.Int32, donation.ProviderData.ToDbXml());
+                db.AddInParameter("@Amount", DbType.Decimal, donation.Amount);
+                db.AddInParameter("@Currency", DbType.String, donation.Currency);
+                db.AddInParameter("@FirstName", DbType.String, donation.FirstName);
+                db.AddInParameter("@LastName", DbType.String, donation.LastName);
+                db.AddInParameter("@Email", DbType.String, donation.Email);
+                db.AddInParameter("@UserMessage", DbType.String, donation.UserMessage);
+                db.AddInParameter("@ProviderData", DbType.Xml, donation.ProviderData.ToDbXml());
                 db.AddOutParameter("@DonationId", DbType.Int32);
                 try
                 {

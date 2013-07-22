@@ -1,7 +1,7 @@
-﻿CREATE PROC [dbo].[CreateDonation]
+﻿CREATE PROCEDURE [dbo].[CreateDonation]
 	@DonationProviderId		INT,
 	@UserId					INT,
-	@FistName				NVARCHAR(50) = NULL,
+	@FirstName				NVARCHAR(50) = NULL,
 	@LastName				NVARCHAR(50) = NULL,
 	@Amount					MONEY,
 	@Currency				NVARCHAR(10) = NULL,
@@ -13,7 +13,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO dbo.Donation(
+	INSERT INTO dbo.Donation (
 		 DonationProviderId
 		,UserId
 		,FirstName
@@ -24,10 +24,10 @@ BEGIN
 		,ProviderData
 		,Email
 	)
-	VALUES(
-		@DonationProviderId
+	VALUES (
+		 @DonationProviderId
 		,@UserId
-		,@FistName
+		,@FirstName
 		,@LastName
 		,@Amount
 		,@Currency
@@ -35,5 +35,5 @@ BEGIN
 		,@ProviderData
 		,@Email	
 	 )
-	SET @DonationId = SCOPE_IDENTITY()
-END
+	SET @DonationId = SCOPE_IDENTITY();
+END;

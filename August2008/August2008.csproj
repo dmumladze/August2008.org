@@ -244,7 +244,7 @@
     <Compile Include="Helpers\HtmlHelper2.cs" />
     <Compile Include="Helpers\JQueryHelper.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
-    <Compile Include="Helpers\StringDoubleConverter.cs" />
+    <Compile Include="Helpers\StringDecimalConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
     <Compile Include="Models\FormsIdentity.cs" />
     <Compile Include="Models\FormsPrincipal.cs" />

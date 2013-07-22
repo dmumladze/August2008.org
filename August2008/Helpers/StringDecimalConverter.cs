@@ -6,15 +6,15 @@ using AutoMapper;
 
 namespace August2008.Helpers
 {
-    public class StringDoubleConverter : ITypeConverter<string, double>
+    public class StringDecimalConverter : ITypeConverter<string, decimal>
     {
-        public double Convert(ResolutionContext context)
+        public decimal Convert(ResolutionContext context)
         {
             if (!context.IsSourceValueNull)
             {
-                return context.SourceValue.ToString().ToDouble();
+                return context.SourceValue.ToString().ToDecimal();
             }
-            return 0D;
+            return 0M;
         }
     }
 }

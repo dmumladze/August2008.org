@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
@@ -66,11 +67,11 @@ namespace August2008.Helpers
             }
             return alphabet;
         }
-        public static double ToDouble(this string value)
+        public static decimal ToDecimal(this string value)
         {
-            double target;
-            double.TryParse(value, out target);
-            return target;
+            decimal result;
+            decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
+            return result;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace August2008.Model
         public string LastName { get; set; }
         public string DisplayName { get; set; }
         public string Email { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Currency { get; set; }
         public string UserMessage { get; set; }
         public DateTime DateDonated { get; set; }
