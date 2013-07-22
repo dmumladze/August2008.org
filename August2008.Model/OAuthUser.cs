@@ -7,6 +7,7 @@ namespace August2008.Model
     {
         public int OAuthUserId { get; set; }
         public int? UserId { get; set; }
+        public string Email { get; set; }
         public string ProviderId { get; set; }
         public string ProviderName { get; set; }
         public IDictionary<string, string> ProviderData { get; set; }

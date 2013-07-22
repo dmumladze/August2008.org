@@ -11,19 +11,11 @@ namespace August2008
     {
         public static void RegisterAuth()
         {
-            // To let users of this site log in using their accounts from other sites such as Microsoft, Facebook, and Twitter,
-            // you must update this site. For more information visit http://go.microsoft.com/fwlink/?LinkID=252166
-
-            //OAuthWebSecurity.RegisterMicrosoftClient(
-            //    clientId: "",
-            //    clientSecret: "");
-
-            //OAuthWebSecurity.RegisterTwitterClient(
-            //    consumerKey: "",
-            //    consumerSecret: "");
-
+            //OAuthWebSecurity.RegisterMicrosoftClient("00000000401017BA", "HiS50OVaZl93jQM60op5r5FSBGDe6JOR");
+            //OAuthWebSecurity.RegisterTwitterClient("48WJcrkiwrv0pa2dJgbvw", "Rewzwm8e42m8OyCftG9vGtW9XyEEoDbMhdbwe1ds8aA");
             OAuthWebSecurity.RegisterFacebookClient("551104464941114", "3189a843e5829d465a52da1c862a191f");
             OAuthWebSecurity.RegisterGoogleClient();
+            OAuthWebSecurity.RegisterYahooClient();
         }
     }
 }

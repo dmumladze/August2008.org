@@ -30,7 +30,7 @@ namespace August2008.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PayPalPost(PayPalModel pdt) 
+        public ActionResult PayPal(PayPalModel transaction) 
         {
             var donation = new Donation 
                 {
@@ -39,7 +39,7 @@ namespace August2008.Controllers
                     DisplayName = Me.Identity.Name,
                     DonationProviderId = 1 // PayPal 
                 };
-            Mapper.Map(pdt, donation);
+            Mapper.Map(transaction, donation);
             donation = _donationRepository.CreateDonation(donation);
             var model = new DonationModel();
             Mapper.Map(donation, model);

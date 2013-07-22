@@ -17,7 +17,6 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.CreateDonation");
-                db.AddInParameter("@DonationId", DbType.Int32, donation.DonationId);
                 db.AddInParameter("@DonationProviderId", DbType.Int32, donation.DonationProviderId);
                 db.AddInParameter("@UserId", DbType.Int32, donation.UserId);
                 db.AddInParameter("@Amount", DbType.Decimal, donation.Amount);
@@ -46,7 +45,7 @@ namespace August2008.Data
             {
                 db.CreateStoredProcCommand("dbo.UpdateDonation");
                 db.AddInParameter("@DonationId", DbType.Int32, donation.DonationId);
-                db.AddInParameter("@UserMessage", DbType.Int32, donation.UserMessage);
+                db.AddInParameter("@UserMessage", DbType.String, donation.UserMessage);
                 try
                 {
                     db.ExecuteNonQuery();

@@ -34,22 +34,18 @@ namespace August2008.Data
             }
             return user;
         }
-        public bool TryGetUserRegistered(string providerId, out int? userId, out bool isOAuthUser, out bool isRegistered)
+        public bool TryGetUserRegistered(string email, out int? userId)
         {
             userId = null;
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetUserRegistered");
-                db.AddInParameter("@ProviderId", DbType.String, providerId);
+                db.AddInParameter("@Email", DbType.String, email);
                 db.AddOutParameter("@UserId", DbType.Int32);
-                db.AddOutParameter("@IsRegistered", DbType.Boolean);
-                db.AddOutParameter("@IsOAuthUser", DbType.Boolean);
                 try
                 {
                     db.ExecuteNonQuery();
                     userId = db.GetParameterValue<int?>("@UserId");
-                    isOAuthUser = db.GetParameterValue<bool>("@IsOAuthUser");
-                    isRegistered = db.GetParameterValue<bool>("@IsRegistered");
                 }
                 catch (Exception)
                 {
@@ -185,6 +181,7 @@ namespace August2008.Data
                         db.AddInParameter("@UserId", DbType.Int32, userId);
                         db.AddInParameter("@RoleId", DbType.Int32, id);
                         db.ExecuteNonQuery();
+                        db.ResetCommand(false);
                     }
                     tran.Complete();
                 }
@@ -207,6 +204,7 @@ namespace August2008.Data
                         db.AddInParameter("@UserId", DbType.Int32, userId);
                         db.AddInParameter("@RoleId", DbType.Int32, id);
                         db.ExecuteNonQuery();
+                        db.ResetCommand(false);
                     }
                     tran.Complete();
                 }

@@ -36,7 +36,6 @@ namespace August2008.Controllers
             _accountRepository = accountRepository;
             _metadataRepository = metadataRepository;
         }
-
         /// <summary>
         /// Renders Login.cshtml view with logon options.
         /// </summary>
@@ -47,7 +46,6 @@ namespace August2008.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
         /// <summary>
         /// Renders ExternalLoginsPartial.cshtml view with enabled OAuth provider options.
         /// </summary>
@@ -59,7 +57,6 @@ namespace August2008.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return PartialView("ExternalLoginsPartial", OAuthWebSecurity.RegisteredClientData);
         }
-
         /// <summary>
         /// Performs OAuth authentication with user-selected provider.
         /// </summary>
@@ -69,76 +66,47 @@ namespace August2008.Controllers
         {
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
         }
-
         /// <summary>
         /// Handles external OAuth provider's redirection callback.
         /// </summary>
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
-            var result = OAuthWebSecurity.VerifyAuthentication();
+            var result = OAuthWebSecurity.VerifyAuthentication();            
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.Provider = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(result.Provider);
+            ViewBag.OAuthProvider = result.Provider.ToTitleCase();
             if (result.IsSuccessful)
             {
-                var registerUser = result.ToRegisterUser();
+                var user = result.ToLocalUser();
                 int? userId;
-                bool isOAuthUser;
-                bool isRegistered;
-                if (_accountRepository.TryGetUserRegistered(registerUser.ProviderId,
-                                                            out userId,
-                                                            out isOAuthUser,
-                                                            out isRegistered))
+                if (_accountRepository.TryGetUserRegistered(user.Email, out userId))
                 {
-                    var user = _accountRepository.GetUser(userId.Value);
+                    user = _accountRepository.GetUser(userId.Value);
                     Response.Cookies.Add(user.ToAuthCookie());
                 }
-                if (!isOAuthUser)
+                else
                 {
-                    _accountRepository.CreateOAuthUser(result.ToOAuthUser());
+                    user = _accountRepository.CreateUser(user);
                 }
-                return isRegistered ? RedirectToLocal(returnUrl) : View("ExternalLoginConfirmation", registerUser);
+                return userId.HasValue ? RedirectToLocal(returnUrl) : View("ExternalLoginConfirmation", user.ToRegisterUser());
             }
             return RedirectToAction("LoginFailure");
         }
-
         /// <summary>
         /// Allows users to associtate their OpenID with local account.
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ExternalLoginConfirmation(RegisterUser model, PostButton action, string returnUrl)
+        public ActionResult ExternalLoginConfirmation(RegisterUser model, string returnUrl)
         {
-            if (action == PostButton.Confirm)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var user = new User
-                        {
-                            DisplayName = model.DisplayName,
-                            Email = model.Email,
-                            Password = model.Password
-                        };
-                    var oauth = new OAuthUser
-                        {
-                            ProviderId = model.ProviderId,
-                            ProviderName = model.Provider
-                        };
-                    var profile = new UserProfile
-                        {
-                            Lang = new Language { LanguageId = 1 }
-                        };
-                    user.OAuth = oauth;
-                    user.Profile = profile;
-                    user = _accountRepository.CreateUser(user);
-                    Response.Cookies.Add(user.ToAuthCookie());
-                    return RedirectToLocal(returnUrl);
-                }
-                ViewBag.ReturnUrl = returnUrl;
-                return View(model);
+                //var user = _accountRepository.CreateUser(user);
+                //Response.Cookies.Add(model.ToAuthCookie());
+                //return RedirectToLocal(returnUrl);
             }
-            Response.Cookies.Add(model.ToAuthCookie());
-            return RedirectToLocal(returnUrl);
+            ViewBag.ReturnUrl = returnUrl;
+            return View(model);
         }
         [AllowAnonymous]
         public ActionResult LoginFailure()

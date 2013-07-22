@@ -51,14 +51,24 @@ namespace August2008
                 throw;
             }
         }
-        public static RegisterUser ToRegisterUser(this AuthenticationResult source) 
+        public static RegisterUser ToRegisterUser(this User source) 
         {
             var user = new RegisterUser();
-
             if (source != null)
             {
-                user.Provider = source.Provider;
-                user.ProviderId = string.Concat(source.Provider, "-", source.ProviderUserId);
+                user.UserId = source.UserId;
+                user.Email = source.Email;
+                user.DisplayName = source.DisplayName;
+            }
+            return user; 
+        }
+        public static User ToLocalUser(this AuthenticationResult source)
+        {
+            var user = new User();
+            if (source != null)
+            {
+                user.OAuth.ProviderName = source.Provider.ToTitleCase();
+                user.OAuth.ProviderId = source.ProviderUserId;
 
                 if (source.ExtraData != null)
                 {
@@ -67,29 +77,25 @@ namespace August2008
                         case "facebook":
                             user.Email = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("username"));
                             user.DisplayName = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("name")).ToTitleCase();
-                            user.SocialLink = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("link"));
-                            user.Gender = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("gender")).ToTitleCase();
-                            user.AccessToken = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("accesstoken"));
                             break;
                         case "google":
+                            user.Email = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("email"));                            
+                            break;
+                        case "yahoo":
                             user.Email = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("email"));
+                            user.DisplayName = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("fullName")).ToTitleCase();
                             break;
                     }
+                    user.OAuth.Email = user.Email;
+                    if (string.IsNullOrWhiteSpace(user.DisplayName) && !string.IsNullOrWhiteSpace(user.Email))
+                    {
+                        user.DisplayName = user.Email.Substring(0, user.Email.IndexOf('@'));
+                    }
+                    user.Profile.Lang = new Language { LanguageId = 1 };
                 }
             }
-            return user; 
-        }
-        public static OAuthUser ToOAuthUser(this AuthenticationResult source)
-        {
-            var user = new OAuthUser();
-            if (source != null)
-            {
-                user.ProviderName = source.Provider;
-                user.ProviderId = string.Concat(source.Provider, "-", source.ProviderUserId);
-                user.ProviderData = source.ExtraData;
-            }
             return user;
-        } 
+        }
         public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> source, Func<KeyValuePair<TKey, TValue>, bool> predicate)
         {
             if (source != null)
@@ -112,7 +118,7 @@ namespace August2008
                     2,
                     user.UserId.ToString(),
                     DateTime.Now,
-                    DateTime.Now.AddDays(1),
+                    DateTime.Now.AddDays(25),
                     false,
                     user.ToFormsPrincipal().ToJson()
                     );

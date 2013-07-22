@@ -11,7 +11,7 @@
 
     <!-- Specify details about the contribution -->
     <input type="hidden" name="item_name" value="Thank you for donating.">
-    <input type="hidden" name="return" value="@Url.Action("PayPalPost", null, null, HttpContext.Current.Request.Url.Scheme)"/>
+    <input type="hidden" name="return" value="@Url.Action("PayPal", null, null, HttpContext.Current.Request.Url.Scheme)"/>
     <input type="hidden" name="cancel_return" value="@Url.Action("Cancel", null, new {provider = DonationProvider.PayPal}, HttpContext.Current.Request.Url.Scheme)"/>
     <input type="hidden" name="rm" value="2"/>
     <input type="hidden" name="item_number" value="5.00"> 

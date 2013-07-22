@@ -140,19 +140,12 @@ namespace August2008.Common
         /// </summary>
         public void AddParameter(string name, DbType type, ParameterDirection direction, object value)
         {
-            if (!_mainCommand.Parameters.Contains(name))
-            {
-                var param = DbProviderFactory.CreateParameter();
-                param.DbType = type;
-                param.ParameterName = name;
-                param.Direction = direction;
-                param.Value = value;
-                _mainCommand.Parameters.Add(param);
-            }
-            else
-            {
-                _mainCommand.Parameters[name].Value = value;
-            }
+            var param = DbProviderFactory.CreateParameter();
+            param.DbType = type;
+            param.ParameterName = name;
+            param.Direction = direction;
+            param.Value = value;
+            _mainCommand.Parameters.Add(param);
         }
         /// <summary>
         /// Removes the parameter from the associated DbCommand object.
