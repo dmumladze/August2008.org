@@ -80,7 +80,15 @@ namespace August2008.Controllers
                     }
                     hero.UpdatedBy = Me.UserId;
                     hero.LanguageId = Me.LanguageId;
-                    hero.HeroId = _heroRepository.CreateHero(hero, photos);
+
+                    if (model.IsNew)
+                    {
+                        hero.HeroId = _heroRepository.CreateHero(hero, photos);
+                    }
+                    else
+                    {
+                        _heroRepository.UpdateHero(hero, photos);
+                    }
                     photos.SaveAll();
                     return Json(new { Ok = true, HeroId = hero.HeroId });
                 }

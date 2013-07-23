@@ -99,12 +99,14 @@ Hero.prototype.addPhoto = function (src, file) {
     var wAdjust = 0;
     var hAdjust = 0;
 
-    var container = $('#upload-images');
-    var div = $('<div class="thumb-img-box"></div>');
-
+    var div = $('<div class="new-thumb-img"></div>');
     // 1. append first
-    container.append(div.append(img));
-
+    if ($('.existing-humb-img').length != undefined) {
+        div.insertBefore('.existing-thumb-img');
+    }
+    else {
+        $('#upload-images').append(div.append(img));
+    }      
     // 2. get dimmensions
     var imageWidth = img.width;
     var imageHeight = img.height;

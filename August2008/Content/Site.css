@@ -321,7 +321,7 @@ input.file {
     float: left;
     padding-right: 5px;
 }
-#upload-images .thumb-img-box {
+#upload-images .new-thumb-img, #upload-images .existing-thumb-img {
     margin: 5px;
     width: 128px;
     height: 135px;

@@ -59,9 +59,9 @@
                     <legend>Photos</legend>
                     <div id="photo-edits">
                         <div id="upload-images">
-                            @if (!Model.Photos.IsNullOrEmpty()) {
+                            @if (!Model.Photos.IsNullOrEmpty()) {                                
                                 foreach (var photo in Model.Photos) {
-                                    <div class="thumb-img-box" id="box-@photo.HeroPhotoId">
+                                    <div class="existing-thumb-img" id="box-@photo.HeroPhotoId">
                                         <img class="@(photo.IsThumbnail ? "old-hero-photo hero-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = photo.PhotoUrl, size = PhotoSize.Medium})"/>
                                         <div class="thumb-img-cmd">
                                             <a href="#" onclick="$.hero.deletePhoto(@photo.HeroPhotoId, 'box-@photo.HeroPhotoId');return false;">Delete</a>

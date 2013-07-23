@@ -45,6 +45,11 @@ namespace August2008.Models
         public SelectList MilitaryRanks { get; set; }
 
         [Display(Name = "MilitaryGroup", ResourceType = typeof(Form))]
-        public SelectList MilitaryGroups { get; set; } 
+        public SelectList MilitaryGroups { get; set; }
+
+        public bool IsNew
+        {
+            get { return !HeroId.HasValue; }
+        }
     }
 }

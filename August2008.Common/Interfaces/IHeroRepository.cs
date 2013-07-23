@@ -8,6 +8,7 @@ namespace August2008.Common.Interfaces
     {
         Hero GetHero(int heroId, int languageId);
         int CreateHero(Hero hero, IEnumerable<IPostedFile> photos);
+        void UpdateHero(Hero hero, IEnumerable<IPostedFile> photos);  
 
         HeroSearchCriteria GetHeros(HeroSearchCriteria criteria);
 

@@ -63,6 +63,9 @@ namespace August2008.Data
                 }
             }
         }
+        public void UpdateHero(Hero hero, IEnumerable<IPostedFile> photos)
+        {
+        }
         public HeroPhoto DeletePhoto(int heroPhotoId)
         {
             using (var db = new DataAccess())

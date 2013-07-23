@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [dbo].[CreateHero]
+﻿CREATE PROCEDURE [dbo].[CreateHero]
 	@MilitaryGroupId	INT,
 	@MilitaryRankId		INT,
 	@Dob				DATETIME		= NULL,
@@ -22,13 +21,15 @@ BEGIN
 		MilitaryGroupId,
 		MilitaryRankId,
 		Dob,
-		Died
+		Died,
+		UpdatedBy
 	)
 	VALUES (
 		@MilitaryGroupId,
 		@MilitaryRankId,
 		@Dob,
-		@Died
+		@Died,
+		@UpdatedBy
 	);
 
 	SELECT @HeroId = SCOPE_IDENTITY();

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Hero] (
     [HeroId]          INT        IDENTITY (1, 1) NOT NULL,
-    [MilitaryRankId]  INT        NOT NULL,
-    [MilitaryGroupId] INT        NOT NULL,
+    [MilitaryRankId]  INT        NULL,
+    [MilitaryGroupId] INT        NULL,
 	[Dob]			  DATETIME	 NULL,
 	[Died]			  DATETIME	 NULL,
     [Version]         ROWVERSION NOT NULL,
