@@ -73,22 +73,27 @@ namespace August2008.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             var result = OAuthWebSecurity.VerifyAuthentication();            
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.OAuthProvider = result.Provider.ToTitleCase();
+            ViewBag.ReturnUrl = returnUrl;            
             if (result.IsSuccessful)
             {
-                var user = result.ToLocalUser();
+                var user = result.ToUser();
                 int? userId;
-                if (_accountRepository.TryGetUserRegistered(user.Email, out userId))
+                bool isOAuthUser;
+                if (_accountRepository.TryGetUserRegistered(user.Email, result.Provider, out userId, out isOAuthUser)) 
                 {
-                    user = _accountRepository.GetUser(userId.Value);
-                    Response.Cookies.Add(user.ToAuthCookie());
+                    if (!isOAuthUser)
+                    {
+                        user.OAuth.UserId = userId;
+                        _accountRepository.CreateOAuthUser(user.OAuth);
+                    }
+                    user = _accountRepository.GetUser(userId.Value);                     
                 }
                 else
                 {
                     user = _accountRepository.CreateUser(user);
                 }
-                return userId.HasValue ? RedirectToLocal(returnUrl) : View("ExternalLoginConfirmation", user.ToRegisterUser());
+                Response.Cookies.Add(user.ToAuthCookie());
+                return isOAuthUser ? RedirectToLocal(returnUrl) : View("ExternalLoginConfirmation", user.ToRegisterUser());
             }
             return RedirectToAction("LoginFailure");
         }
@@ -101,9 +106,8 @@ namespace August2008.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var user = _accountRepository.CreateUser(user);
-                //Response.Cookies.Add(model.ToAuthCookie());
-                //return RedirectToLocal(returnUrl);
+                _accountRepository.UpdateUser(model.ToUser());
+                return RedirectToLocal(returnUrl);
             }
             ViewBag.ReturnUrl = returnUrl;
             return View(model);

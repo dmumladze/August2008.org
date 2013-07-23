@@ -7,9 +7,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE dbo.[User]
-	SET Email	    = ISNULL(@Email, Email),
-		DisplayName = ISNULL(@DisplayName, DisplayName)
-	WHERE UserId = @UserId
-	AND (@Email IS NOT NULL OR 
-		 @DisplayName IS NOT NULL); 
+	SET Email	    = @Email,
+		DisplayName = @DisplayName
+	WHERE UserId = @UserId; 
 END;

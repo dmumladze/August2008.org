@@ -196,8 +196,7 @@
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SqlSchemaCompare.Simon.scmp" />
-    <None Include="SchemaCompare.David.scmp" />
+    <None Include="SchemaCompare.scmp" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

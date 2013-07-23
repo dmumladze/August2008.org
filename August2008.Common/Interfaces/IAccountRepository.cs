@@ -8,8 +8,10 @@ namespace August2008.Common.Interfaces
     {
         User CreateUser(User user);
         User GetUser(int userId);
+        void UpdateUser(User user);
+        void UpdateUserProfile(UserProfile profile);
         OAuthUser CreateOAuthUser(OAuthUser user);
-        bool TryGetUserRegistered(string email, out int? userId);
+        bool TryGetUserRegistered(string email, string provider, out int? userId, out bool isOAuthUser);
         IEnumerable<User> GetUsers();
         IEnumerable<User> SearchUsers(string name = null);
         IEnumerable<Role> GetUserRoles(int userId);

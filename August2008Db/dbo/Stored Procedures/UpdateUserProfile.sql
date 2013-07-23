@@ -9,9 +9,7 @@ BEGIN
 
 	UPDATE dbo.UserProfile
 	SET	LanguageId = @LanguageId,
-		Dob		   = ISNULL(@Dob,Dob),
-		Nationality= ISNULL(@Nationality,Nationality)
-	WHERE UserId = @UserId AND
-		(@Dob IS NOT NULL OR
-		 @Nationality IS NOT NULL);
+		Dob		   = @Dob,
+		Nationality= @Nationality
+	WHERE UserId = @UserId;
 END

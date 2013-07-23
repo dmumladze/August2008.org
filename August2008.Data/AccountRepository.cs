@@ -34,18 +34,21 @@ namespace August2008.Data
             }
             return user;
         }
-        public bool TryGetUserRegistered(string email, out int? userId)
+        public bool TryGetUserRegistered(string email, string provider, out int? userId, out bool isOAuthUser)
         {
             userId = null;
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetUserRegistered");
                 db.AddInParameter("@Email", DbType.String, email);
+                db.AddInParameter("@Provider", DbType.String, provider);
                 db.AddOutParameter("@UserId", DbType.Int32);
+                db.AddOutParameter("@IsOAuthUser", DbType.Boolean);
                 try
                 {
                     db.ExecuteNonQuery();
                     userId = db.GetParameterValue<int?>("@UserId");
+                    isOAuthUser = db.GetParameterValue<bool>("@IsOAuthUser");
                 }
                 catch (Exception)
                 {
@@ -54,7 +57,6 @@ namespace August2008.Data
             }
             return userId.HasValue;
         }
-
         public User CreateUser(User user)
         {
             using (var tran = new TransactionScope())
@@ -65,7 +67,6 @@ namespace August2008.Data
                     db.CreateStoredProcCommand("dbo.CreateUser");
                     db.AddInParameter("@Email", DbType.String, user.Email);
                     db.AddInParameter("@DisplayName", DbType.String, user.DisplayName);
-                    db.AddInParameter("@Password", DbType.String, user.Password);
                     db.AddOutParameter("@UserId", DbType.Int32);
                     db.ExecuteNonQuery();
                     user.UserId = db.GetParameterValue<int>("@UserId");
@@ -83,7 +84,6 @@ namespace August2008.Data
                     user.Profile.UserProfileId = db.GetParameterValue<int>("@UserProfileId");
 
                     user = GetUser(user.UserId);
-
                     tran.Complete();
                 }
                 catch (Exception)
@@ -97,14 +97,15 @@ namespace August2008.Data
         {
             using (var db = new DataAccess())
             {
+                db.CreateStoredProcCommand("dbo.CreateOAuthUser");
+                db.AddInParameter("@UserId", DbType.String, user.UserId);
+                db.AddInParameter("@Email", DbType.String, user.Email);
+                db.AddInParameter("@ProviderId", DbType.String, user.ProviderId);
+                db.AddInParameter("@ProviderName", DbType.String, user.ProviderName);
+                db.AddInParameter("@ProviderData", DbType.Xml, user.ProviderData.ToDbXml());
+                db.AddOutParameter("@OAuthUserId", DbType.Int32);
                 try
                 {
-                    db.CreateStoredProcCommand("dbo.CreateOAuthUser");
-                    db.AddInParameter("@UserId", DbType.String, user.UserId);
-                    db.AddInParameter("@ProviderId", DbType.String, user.ProviderId);
-                    db.AddInParameter("@ProviderName", DbType.String, user.ProviderName);
-                    db.AddInParameter("@ProviderData", DbType.Xml, user.ProviderData.ToDbXml());
-                    db.AddOutParameter("@OAuthUserId", DbType.Int32);
                     db.ExecuteNonQuery();
                     user.OAuthUserId = db.GetParameterValue<int>("@OAuthUserId");
                 }
@@ -114,6 +115,50 @@ namespace August2008.Data
                 }
             }
             return user;
+        }
+        public void UpdateUser(User user)
+        {
+            using (var tran = new TransactionScope())
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.UpdateUser");
+                db.AddInParameter("@UserId", DbType.Int32, user.UserId);
+                db.AddInParameter("@Email", DbType.String, user.Email);
+                db.AddInParameter("@DisplayName", DbType.String, user.DisplayName); 
+                try
+                {                   
+                    db.ExecuteNonQuery();
+
+                    if (user.Profile != null)
+                    {
+                        UpdateUserProfile(user.Profile);
+                    }
+                    tran.Complete();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+        public void UpdateUserProfile(UserProfile profile)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.UpdateUserProfile");
+                db.AddInParameter("@UserId", DbType.Int32, profile.UserId);
+                db.AddInParameter("@LanguageId", DbType.String, profile.Lang.LanguageId);
+                db.AddInParameter("@Dob", DbType.String, profile.Dob);
+                db.AddInParameter("@Nationality", DbType.String, profile.Nationality);
+                try
+                {
+                    db.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
         public IEnumerable<User> GetUsers()
         {

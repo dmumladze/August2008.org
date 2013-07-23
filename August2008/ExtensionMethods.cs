@@ -62,7 +62,18 @@ namespace August2008
             }
             return user; 
         }
-        public static User ToLocalUser(this AuthenticationResult source)
+        public static User ToUser(this RegisterUser source)
+        {
+            var user = new User();
+            if (source != null)
+            {
+                user.UserId = source.UserId;
+                user.Email = source.Email;
+                user.DisplayName = source.DisplayName;
+            }
+            return user;
+        }
+        public static User ToUser(this AuthenticationResult source)
         {
             var user = new User();
             if (source != null)
@@ -86,6 +97,7 @@ namespace August2008
                             user.DisplayName = source.ExtraData.GetValueOrDefault(x => x.Key.Equals("fullName")).ToTitleCase();
                             break;
                     }
+                    user.OAuth.ProviderData = source.ExtraData;
                     user.OAuth.Email = user.Email;
                     if (string.IsNullOrWhiteSpace(user.DisplayName) && !string.IsNullOrWhiteSpace(user.Email))
                     {
