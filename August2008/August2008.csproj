@@ -297,7 +297,7 @@
     <Compile Include="Helpers\SiteHelper.cs" />
     <Compile Include="Helpers\StringDecimalConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
-    <Compile Include="Models\FormsIdentity.cs" />
+    <Compile Include="Models\FormsIdentity2.cs" />
     <Compile Include="Models\FormsPrincipal.cs" />
     <Compile Include="Models\DonationModel.cs" />
     <Compile Include="Models\DonationProvider.cs" />

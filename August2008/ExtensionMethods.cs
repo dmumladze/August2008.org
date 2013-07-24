@@ -10,7 +10,7 @@ using August2008.Model;
 using August2008.Models;
 using DotNetOpenAuth.AspNet;
 using Newtonsoft.Json;
-using FormsIdentity = August2008.Models.FormsIdentity;
+using August2008.Models;
 
 namespace August2008
 {
@@ -131,9 +131,8 @@ namespace August2008
                     user.UserId.ToString(),
                     DateTime.Now,
                     DateTime.Now.AddDays(25),
-                    false,
-                    user.ToFormsPrincipal().ToJson()
-                    );
+                    true,
+                    user.ToFormsPrincipal().ToJson());
                 var encrypted = FormsAuthentication.Encrypt(ticket);
                 return new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
             }
@@ -149,8 +148,7 @@ namespace August2008
                     DateTime.Now,
                     DateTime.Now.AddDays(25),
                     true,
-                    user.ToFormsPrincipal().ToJson()
-                    );
+                    user.ToFormsPrincipal().ToJson());
                 var encrypted = FormsAuthentication.Encrypt(ticket);
                 return new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
             }
@@ -161,7 +159,7 @@ namespace August2008
             if (source != null)
             {
                 var isAuthenticated = source.UserId != 0;
-                var target = new FormsPrincipal(new FormsIdentity(source.DisplayName, isAuthenticated))
+                var target = new FormsPrincipal(new FormsIdentity2(source.DisplayName, isAuthenticated))
                     {
                         UserId = source.UserId,
                         SuperUser = source.SuperAdmin,
@@ -177,7 +175,7 @@ namespace August2008
         {
             if (source != null)
             {
-                var target = new FormsPrincipal(new FormsIdentity(source.DisplayName, true))
+                var target = new FormsPrincipal(new FormsIdentity2(source.DisplayName, true))
                     {                    
                         LanguageId = 1,
                         Culture = "ka-GE"
