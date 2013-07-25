@@ -7,11 +7,26 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	DECLARE @Hero TABLE
+	(
+		HeroId			INT,
+		GroupName		NVARCHAR(100),
+		RankName		NVARCHAR(100),
+		Dob				DATETIME,
+		Died			DATETIME,	
+		FirstName		NVARCHAR(50),
+		LastName		NVARCHAR(75),
+		MiddleName		NVARCHAR(50),
+		Biography		NVARCHAR(MAX),
+		DateUpdated		DATETIME
+	);
+
 	SELECT 
 		@TotalCount = COUNT(*)
 	FROM dbo.HeroTranslation ht (NOLOCK)
 	WHERE ht.LanguageId = @LanguageId;
 
+	INSERT INTO @Hero
 	SELECT 
 		h.HeroId,
 		mgt.GroupName,
@@ -23,7 +38,6 @@ BEGIN
 		ht.MiddleName,
 		ht.Biography,
 		ht.DateUpdated	
-	INTO #Hero
 	FROM dbo.Hero h (NOLOCK)
 	INNER JOIN dbo.HeroTranslation ht (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId
 	LEFT JOIN dbo.MilitaryGroupTranslation mgt (NOLOCK) ON h.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
@@ -32,15 +46,15 @@ BEGIN
 	OFFSET ((@PageNo - 1) * @PageSize) ROWS
 	FETCH NEXT @PageSize ROWS ONLY
 
-	SELECT * FROM #Hero;
+	SELECT * FROM @Hero;
 
-	SELECT TOP(1)
+	SELECT 
 		hp.HeroId,
 		hp.ContentType,
-		hp.PhotoUrl,
+		hp.PhotoUri,
 		hp.IsThumbnail
 	FROM dbo.HeroPhoto hp (NOLOCK)
-	INNER JOIN #Hero ON hp.HeroId = h.HeroId
+	INNER JOIN @Hero h ON hp.HeroId = h.HeroId
 	--WHERE hp.IsThumbnail = 1;
 
 END;

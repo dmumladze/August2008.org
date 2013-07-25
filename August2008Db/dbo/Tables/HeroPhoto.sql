@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[HeroPhoto] (
     [HeroPhotoId] INT            IDENTITY (1, 1) NOT NULL,
-    [PhotoUrl]    NVARCHAR (250) NOT NULL,
+    [PhotoUri]    NVARCHAR (250) NOT NULL,
     [HeroId]      INT            NOT NULL,
     [IsThumbnail] BIT            NULL,
 	[ContentType] VARCHAR(25)	 NULL,

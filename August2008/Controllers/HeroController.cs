@@ -72,9 +72,7 @@ namespace August2008.Controllers
                             {
                                 file.Attributes.Add("IsThumbnail", "1");
                             }
-                            file.Attributes.Add("FileName", Path.Combine(Server.MapPath(Settings.Default.HeroPhotoDirectory), 
-                                string.Format("{0}-{1}-{2}{3}", 
-                                    hero.FirstName, hero.LastName, DateTime.Now.Ticks, Path.GetExtension(image.FileName))));
+                            file.Attributes.Add("FileName", string.Concat(Guid.NewGuid(), Path.GetExtension(image.FileName)));
                             photos.Add(file);
                         }
                     }
@@ -89,7 +87,6 @@ namespace August2008.Controllers
                     {
                         _heroRepository.UpdateHero(hero, photos);
                     }
-                    photos.SaveAll();
                     return Json(new { Ok = true, HeroId = hero.HeroId });
                 }
                 catch (Exception)
@@ -137,7 +134,6 @@ namespace August2008.Controllers
         public JsonResult DeletePhoto(int id)
         {
             var photo = _heroRepository.DeletePhoto(id);
-            System.IO.File.Delete(Path.Combine(Server.MapPath(Settings.Default.HeroPhotoDirectory), photo.PhotoUrl));
             return Json(new { Ok = true });
         }
     }

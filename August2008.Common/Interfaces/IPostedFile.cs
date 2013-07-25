@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +11,11 @@ namespace August2008.Common.Interfaces
     {
         string FileName { get; }
         string ContentType { get; }
-        int Width { get; }
-        int Height { get; }
-
         bool CanSave { get; }
 
-        bool Validate(int maxWidth = 0, int maxHeight = 0);
-        void Save(string fileName = null);
-
+        Stream Stream { get; }
         Dictionary<string, string> Attributes { get; }
+
+        void Save(string fileName = null);
     }
 }

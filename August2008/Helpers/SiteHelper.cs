@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
@@ -17,13 +18,17 @@ namespace August2008.Helpers
 {
     public static class SiteHelper
     {
-        public static FileContentResult GetHeroPhoto(string name, PhotoSize size)
+        public static FileContentResult GetHeroPhoto(string uri, PhotoSize size)
         {
-            var path = Path.Combine(Settings.Default.HeroPhotoDirectory, name);
-            var bmp = ResizeImage(new FileStream(HttpContext.Current.Server.MapPath(path), FileMode.Open), size);
-            return new FileContentResult(bmp.ToByteArray(), MediaTypeNames.Application.Octet);
+            var wr = WebRequest.Create(uri);
+            using (var response = wr.GetResponse())
+            {
+                var bmp = ResizeImage(response.GetResponseStream(), size);
+                return new FileContentResult(bmp.ToByteArray(), MediaTypeNames.Application.Octet);
+            }
+
         }
-        public static Bitmap ResizeImage(Stream streamImage, PhotoSize size)
+        public static Bitmap ResizeImage(Stream imageStream, PhotoSize size)
         {
             var maxHeight = 125;
             var maxWidth = 125;
@@ -41,7 +46,8 @@ namespace August2008.Helpers
                     MaxHeight = maxHeight,
                     MaxWidth = maxWidth,
                 };
-            return ImageBuilder.Current.Build(streamImage, rs);
+
+            return ImageBuilder.Current.Build(imageStream, rs);
         }
         public static byte[] ToByteArray(this Bitmap bmp)
         {

@@ -16,8 +16,8 @@
             <div class="hero-list-box shadow section transp">
                 <div class="hero-list-info">@item.FirstName @item.LastName</div>
                 <div class="hero-list-thumb">
-                    @if (item.Photos.IsNullOrEmpty()) {
-                        <img class="hero-list-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUrl, size = PhotoSize.Medium})"/>
+                    @if (!item.Photos.IsNullOrEmpty()) {
+                        <img class="hero-list-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
                     }
                     else {
                         <div class="hero-list-div">

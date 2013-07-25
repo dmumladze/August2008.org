@@ -60,7 +60,7 @@ BEGIN
 
 	SELECT
 		HeroPhotoId,
-		PhotoUrl,
+		PhotoUri,
 		HeroId,
 		ContentType,
 		IsThumbnail,

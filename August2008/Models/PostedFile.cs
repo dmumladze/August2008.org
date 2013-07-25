@@ -72,6 +72,14 @@ namespace August2008.Models
         {
             get { return _postedFile != null && _postedFile.InputStream.Length > 0; }
         }
+        public Stream Stream
+        {
+            get
+            {
+                _postedFile.InputStream.Seek(0, SeekOrigin.Begin);
+                return _postedFile.InputStream;
+            }
+        }
         public Dictionary<string, string> Attributes
         {
             get { return _attributes; }

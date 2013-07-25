@@ -56,14 +56,14 @@ BEGIN
 	EXEC sp_xml_preparedocument @xdh OUTPUT, @Photos;
 
 	INSERT INTO dbo.HeroPhoto (
-		PhotoUrl,
+		PhotoUri,
 		HeroId,
 		ContentType,
 		IsThumbnail,
 		UpdatedBy
 	)
 	SELECT    
-		PhotoUrl,
+		PhotoUri,
 		@HeroId,
 		ContentType,
 		IsThumbnail,

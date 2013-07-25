@@ -9,7 +9,7 @@ namespace August2008.Model
     public class HeroPhoto
     {
         public int HeroPhotoId { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoUri { get; set; }
         public int HeroId { get; set; }
         public string ContentType { get; set; }
         public bool IsThumbnail { get; set; }

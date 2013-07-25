@@ -7,6 +7,6 @@ BEGIN
 	OUTPUT 
 		DELETED.HeroId,
 		DELETED.HeroPhotoId,
-		DELETED.PhotoUrl 
+		DELETED.PhotoUri
 	WHERE HeroPhotoId = @HeroPhotoId;
 END;

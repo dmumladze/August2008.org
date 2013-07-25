@@ -5,6 +5,7 @@ using System.Data;
 using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Model;
+using System.IO;
 
 namespace August2008.Data
 {
@@ -21,6 +22,7 @@ namespace August2008.Data
                 try
                 {
                     db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.Photos);
+                    GetBlobs(hero, new CloudDataAccess());
                 }
                 catch (Exception)
                 {
@@ -53,6 +55,7 @@ namespace August2008.Data
                     {
                         db.ExecuteNonQuery();
                         heroId = db.GetParameterValue<int>("@HeroId");
+                        SaveBlobs(heroId, photos);
                         tran.Commit();
                     }
                     catch (Exception)
@@ -76,6 +79,7 @@ namespace August2008.Data
                 try
                 {
                     db.ReadInto(photo);
+                    DeleteBlob(photo);
                 }
                 catch (Exception)
                 {
@@ -100,6 +104,7 @@ namespace August2008.Data
                 {
                     db.ReadInto(heros, photos);
                     heros.ForEach(x => x.Photos = photos.Where(y => y.HeroId == x.HeroId));
+                    GetBlobs(heros, new CloudDataAccess());
                     criteria.Result = heros;
                 }
                 catch (Exception)
@@ -109,6 +114,37 @@ namespace August2008.Data
                 return criteria;
             }            
         }
-
+        private void SaveBlobs(int heroId, IEnumerable<IPostedFile> photos)
+        {
+            var cloud = new CloudDataAccess();
+            foreach (var item in photos)
+            {
+                cloud.AddBlob("images", string.Format("hero/{0}/{1}", heroId, Path.GetFileName(item.FileName)), item.Stream, item.ContentType);
+            }
+        }
+        private void GetBlobs(IEnumerable<Hero> heros, CloudDataAccess cloud)
+        {            
+            foreach (var item in heros)
+            {
+                GetBlobs(item, cloud);
+            }
+        }
+        private void GetBlobs(Hero hero, CloudDataAccess cloud)
+        {
+            var baseUri = cloud.GetBaseUri("images/hero", hero.HeroId.ToString());
+            GetBlobs(baseUri, hero.Photos);
+        }
+        private void GetBlobs(Uri baseUri, IEnumerable<HeroPhoto> photos)
+        {
+            foreach (var item in photos)
+            {
+                item.PhotoUri = Path.Combine(baseUri.AbsoluteUri, item.PhotoUri); 
+            }
+        }
+        private void DeleteBlob(HeroPhoto photo)
+        {
+            var cloud = new CloudDataAccess();
+            cloud.DeleteBlob("images/hero", photo.HeroId.ToString(), photo.PhotoUri);            
+        }
     }
 }

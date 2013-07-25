@@ -25,7 +25,7 @@ namespace August2008.Common
         }
         public static string ToDbXml(this IPostedFile file)
         {
-            return string.Format("<Photo PhotoUrl=\"{0}\" ContentType=\"{1}\" {2}/>", 
+            return string.Format("<Photo PhotoUri=\"{0}\" ContentType=\"{1}\" {2}/>", 
                 Path.GetFileName(file.FileName), 
                 file.ContentType, 
                 file.Attributes.ToXmlAttributes("FileName"));
