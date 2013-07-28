@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -35,16 +36,19 @@ namespace August2008.Controllers
         /// </summary>
         [HttpGet]
         [NoCache]
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string name)
         {
-            var alphabet = SiteHelper.GetAlphabet();
-
-            var model = _heroRepository.GetHeros(new HeroSearchCriteria
+            var criteria = _heroRepository.GetHeros(new HeroSearchCriteria
                 {
                     PageNo = page.GetValueOrDefault(1),
+                    Name = name,
                     PageSize = 10,
                     LanguageId = Me.LanguageId
                 });
+            var alphabet = SiteHelper.GetAlphabet();
+            var heroAlphabet = _heroRepository.GetAlphabet(Me.LanguageId);
+            var model = Mapper.Map(criteria, new HeroSearchModel());
+            model.Alphabet = alphabet.ConvertAll<AlphabetLetter>(x => new AlphabetLetter(x, heroAlphabet.Contains(x)));            
             return View(model);
         }
         /// <summary>
@@ -62,25 +66,27 @@ namespace August2008.Controllers
                     var hero = new Hero();
                     var photos = new List<IPostedFile>();
                     Mapper.Map(model, hero);
-                    
-                    foreach (var image in images)
-                    {                        
-                        if (image.ContentLength > 0)
+
+                    if (!images.IsNullOrEmpty())
+                    {
+                        foreach (var image in images)
                         {
-                            var file = new PostedFile(image);
-                            if (image.FileName.Equals(model.Thumbnail, StringComparison.OrdinalIgnoreCase))
+                            if (image.ContentLength > 0)
                             {
-                                file.Attributes.Add("IsThumbnail", "1");
+                                var file = new PostedFile(image);
+                                if (image.FileName.Equals(model.Thumbnail, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    file.Attributes.Add("IsThumbnail", "1");
+                                }
+                                file.Attributes.Add("FileName", string.Concat(Guid.NewGuid(), Path.GetExtension(image.FileName)));
+                                photos.Add(file);
                             }
-                            file.Attributes.Add("FileName", string.Concat(Guid.NewGuid(), Path.GetExtension(image.FileName)));
-                            photos.Add(file);
                         }
                     }
                     hero.UpdatedBy = Me.UserId;
-                    hero.LanguageId = Me.LanguageId;
-
                     if (model.IsNew)
                     {
+                        hero.LanguageId = Me.LanguageId;
                         hero.HeroId = _heroRepository.CreateHero(hero, photos);
                     }
                     else

@@ -2,21 +2,22 @@
 
 @using (Html.BeginForm("Save", "Hero", FormMethod.Post, new { enctype = "multipart/form-data" })) {
     @Html.HiddenFor(m => m.HeroId)
+    @Html.HiddenFor(m => m.LanguageId)
     <table>
         <tr>
-            <td style="vertical-align: top; width: 200px">
+            <td style="vertical-align: top; width: 235px; padding-top: 10px">
                 <div class="editor-label">
                     @Html.LabelFor2(model => model.MilitaryRanks)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("MilitaryRank", Model.MilitaryRanks, "-", new { id = "MilitaryRankId" })
+                    @Html.DropDownList("Rank", Model.MilitaryRanks, "-", new { id = "MilitaryRankId" })
                 </div>
 
                 <div class="editor-label">
                     @Html.LabelFor2(model => model.MilitaryGroups)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("MilitaryGroup", Model.MilitaryGroups, "-", new { id = "MilitaryGroupId" })
+                    @Html.DropDownList("Group", Model.MilitaryGroups, "-", new { id = "MilitaryGroupId" })
                 </div>
 
                 <div class="editor-label">
@@ -62,7 +63,7 @@
                             @if (!Model.Photos.IsNullOrEmpty()) {                                
                                 foreach (var item in Model.Photos) {
                                     <div class="existing-thumb-img" id="box-@item.HeroPhotoId">
-                                        <img class="@(item.IsThumbnail ? "old-hero-photo hero-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = item.PhotoUri, size = PhotoSize.Small})"/>
+                                        <img class="@(item.IsThumbnail ? "old-hero-photo hero-edit-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = item.PhotoUri, size = PhotoSize.Small})"/>
                                         <div class="thumb-img-cmd">
                                             <a href="#" onclick="$.hero.deletePhoto(@item.HeroPhotoId, 'box-@item.HeroPhotoId');return false;">Delete</a>
                                         </div>
@@ -73,7 +74,7 @@
                         <div id="edit-commands">
                             <input id="images" type="file" name="images" class="file" multiple />
                             <div id="fakefile">
-                                <button type="button" id="btn" onclick="$('#images').click()">Add</button>                
+                                <button class="btn" type="button" id="btn" onclick="$('#images').click()">Add</button>                
                             </div>  
                             <div>           
                             </div>                                            

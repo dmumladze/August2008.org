@@ -1,6 +1,11 @@
-﻿CREATE PROCEDURE [dbo].[GetHeroAlphabet]
-	@param1 int = 0,
-	@param2 int
+﻿CREATE PROCEDURE [dbo].[GetHeroAlphabet] 
+	@LanguageId	INT = 1
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+	SELECT
+		DISTINCT(SUBSTRING(LastName, 1, 1)) AS FirstLetter
+	FROM dbo.HeroTranslation (NOLOCK)
+	WHERE LanguageId = @LanguageId
+	ORDER BY FirstLetter;
+END;

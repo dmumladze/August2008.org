@@ -172,11 +172,11 @@ namespace August2008.Common.Tools
                 }
                 if (!allowDbNull)
                 {
-                    writer.WriteLine("{0}.{1} = ({2})reader[{3}];", itemName, property.Name, clrDataTypeName, columnOrdinal);
+                    writer.WriteLine("{0}.{1} = ({2})reader[{3}];", itemName, columnName, clrDataTypeName, columnOrdinal);
                 }
                 else
                 {
-                    writer.WriteLine("{0}.{1} = reader.IsDBNull({2}) ? {3} : ({4})reader[{5}];", itemName, property.Name,
+                    writer.WriteLine("{0}.{1} = reader.IsDBNull({2}) ? {3} : ({4})reader[{5}];", itemName, columnName,
                                      columnOrdinal, GetDefault(property.PropertyType, clrDataTypeName), clrDataTypeName, columnOrdinal);
                 }
             }
@@ -203,7 +203,22 @@ namespace August2008.Common.Tools
         }
         private static PropertyInfo GetProperty(string name, Type declaringType, bool throwOnError)
         {
-            var property = declaringType.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo property = null;
+            if (name.IndexOf('.') == -1)
+            {
+                property = declaringType.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+            }
+            else
+            {     
+                var split = name.Split('.');
+                var index = 0;
+                do
+                {
+                    property = declaringType.GetProperty(split[index], BindingFlags.Public | BindingFlags.Instance);
+                    declaringType = property.PropertyType;
+                }
+                while (++index < split.Length);
+            }
             if (property == null && throwOnError)
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, 

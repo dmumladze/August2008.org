@@ -6,6 +6,7 @@ using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Model;
 using System.IO;
+using System.Diagnostics;
 
 namespace August2008.Data
 {
@@ -68,6 +69,35 @@ namespace August2008.Data
         }
         public void UpdateHero(Hero hero, IEnumerable<IPostedFile> photos)
         {
+            using (var tran = new DbTransactionManager())
+            {
+                try
+                {
+                    tran.BeginTransaction();
+                    using (var db = new DataAccess(tran))
+                    {
+                        db.CreateStoredProcCommand("dbo.UpdateHero");
+                        db.AddInParameter("@HeroId", DbType.Int32, hero.HeroId);
+                        db.AddInParameter("@FirstName", DbType.String, hero.FirstName);
+                        db.AddInParameter("@LastName", DbType.String, hero.LastName);
+                        db.AddInParameter("@MiddleName", DbType.String, hero.MiddleName);
+                        db.AddInParameter("@Dob", DbType.DateTime, hero.Dob);
+                        db.AddInParameter("@Died", DbType.DateTime, hero.Died);
+                        db.AddInParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
+                        db.AddInParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
+                        db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
+                        db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
+                        db.AddInParameter("@Biography", DbType.String, hero.Biography);
+
+                        db.ExecuteNonQuery();
+                        tran.Commit();
+                    }
+                }
+                catch (Exception)
+                {
+                    tran.Rollback();
+                }
+            }
         }
         public HeroPhoto DeletePhoto(int heroPhotoId)
         {
@@ -97,6 +127,7 @@ namespace August2008.Data
             {
                 db.CreateStoredProcCommand("dbo.GetHeros");
                 db.AddInParameter("@PageNo", DbType.Int32, criteria.PageNo);
+                db.AddInParameter("@Name", DbType.String, criteria.Name);
                 db.AddInParameter("@PageSize", DbType.Int32, criteria.PageSize);
                 db.AddInParameter("@LanguageId", DbType.Int32, criteria.LanguageId);
                 db.AddOutParameter("@TotalCount", DbType.Int32);
@@ -113,6 +144,25 @@ namespace August2008.Data
                 }
                 return criteria;
             }            
+        }
+        public IEnumerable<string> GetAlphabet(int languageId)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.GetHeroAlphabet");
+                db.AddInParameter("@LanguageId", DbType.String, languageId);
+                try
+                {
+                    var alphabet = new List<string>();
+                    db.ReadInto(alphabet);
+                    return alphabet;
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex);
+                    throw;
+                }
+            }
         }
         private void SaveBlobs(int heroId, IEnumerable<IPostedFile> photos)
         {

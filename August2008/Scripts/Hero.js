@@ -14,6 +14,7 @@ function Hero() {
     this.Dob = null;
     this.Died = null;
     this.Biography = null;
+    this.LanguageId = null;
     // client model
     this.photos = new Array();
 };
@@ -23,16 +24,24 @@ Hero.init = function() {
     $('#hero-dialog').dialog({
         autoOpen: false,
         modal: true,
-        width: 710,
+        width: 725,
         title: 'Hero',
-        buttons: {
-            Save: function () {
-                $.hero.save();
+        buttons: [
+            {
+                text: "Save",
+                //"class": "btn btn-inverse",
+                click: function () {
+                    $.hero.save();
+                }
             },
-            Cancel: function () {
-                $(this).dialog("close");
+            {
+                text: "Cancel",
+                //"class": "btn btn-inverse",
+                click: function () {
+                    $(this).dialog("close");
+                }
             }
-        }
+        ]
     });    
     // dialog open
     $('#createButton').click(function() {
@@ -91,7 +100,7 @@ Hero.prototype.addPhoto = function (src, file) {
     img.setAttribute("class", "new-hero-photo");
 
     var maxWidth = 125;
-    var maxHeight = 125;
+    var maxHeight = 120;
     var adjust = 0;
     var percent = 0;
     var wPercent = 0;
@@ -124,6 +133,8 @@ Hero.prototype.addPhoto = function (src, file) {
         imageWidth = Math.round(imageWidth - (imageWidth * percent));
     }
     // 3. and scale to size
+    img.setAttribute("width", "imageWidth");
+    img.setAttribute("height", "imageHeight");
     img.width = imageWidth;
     img.height = imageHeight;
 

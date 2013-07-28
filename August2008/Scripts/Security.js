@@ -12,7 +12,7 @@ Security.init = function(action) {
     Security.manageUsersDialog = $('#manageUsersDialog').dialog({
         autoOpen: false,
         modal: true,
-        width: 850,
+        width: 878,
         height: 700,
         title: "Manage Users"
     });

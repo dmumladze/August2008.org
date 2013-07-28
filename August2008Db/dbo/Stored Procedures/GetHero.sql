@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [dbo].[GetHero]
+﻿CREATE PROCEDURE [dbo].[GetHero] 
 	@HeroId		INT,
 	@LanguageId	INT
 AS

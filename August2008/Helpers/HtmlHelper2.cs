@@ -82,8 +82,13 @@ namespace August2008.Helpers
                                                     selectedValues.Contains(item.Value) ? "checked=\"checked\"" : "",
                                                     item.Text);
             }
-
             return MvcHtmlString.Create(divTag.ToString());
+        }
+        public static IHtmlString DisplayTextFor2<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)   
+        {
+            var metadata = ModelMetadata.FromLambdaExpression<TModel, TProperty>(expression, htmlHelper.ViewData);
+            string value = metadata.DisplayName ?? (metadata.PropertyName ?? ExpressionHelper.GetExpressionText(expression));
+            return MvcHtmlString.Create(value);
         }
     }
 }

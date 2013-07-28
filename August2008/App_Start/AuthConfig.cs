@@ -15,7 +15,7 @@ namespace August2008
             //OAuthWebSecurity.RegisterTwitterClient("48WJcrkiwrv0pa2dJgbvw", "Rewzwm8e42m8OyCftG9vGtW9XyEEoDbMhdbwe1ds8aA");
             OAuthWebSecurity.RegisterFacebookClient("551104464941114", "3189a843e5829d465a52da1c862a191f");
             OAuthWebSecurity.RegisterGoogleClient();
-            OAuthWebSecurity.RegisterYahooClient();
+            OAuthWebSecurity.RegisterYahooClient("Yahoo!");
         }
     }
 }

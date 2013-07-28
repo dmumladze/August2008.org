@@ -11,7 +11,7 @@ namespace August2008.Common.Interfaces
         void UpdateHero(Hero hero, IEnumerable<IPostedFile> photos);  
 
         HeroSearchCriteria GetHeros(HeroSearchCriteria criteria);
-
         HeroPhoto DeletePhoto(int heroPhotoId);
+        IEnumerable<string> GetAlphabet(int languageId);
     }
 }

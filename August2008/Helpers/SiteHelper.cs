@@ -61,15 +61,15 @@ namespace August2008.Helpers
             }
             return default(byte[]);
         }
-        public static List<char> GetAlphabet()
+        public static List<string> GetAlphabet()
         {            
             var firstLetter = char.Parse(Global.AlphabetFirstLetter);
             var lastLetter = char.Parse(Global.AlphabetLastLetter);
-            var alphabet = new List<char>(lastLetter - firstLetter + 1);
+            var alphabet = new List<string>(lastLetter - firstLetter + 1);
 
             for (var c = firstLetter; c <= lastLetter; c++)
             {
-                alphabet.Add(c);
+                alphabet.Add(c.ToString(CultureInfo.CurrentCulture));
             }
             return alphabet;
         }
@@ -78,6 +78,14 @@ namespace August2008.Helpers
             decimal result;
             decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
             return result;
+        }
+        public static string ToShortDateString(this DateTime? dateTime)
+        {
+            if (dateTime.HasValue)
+            {
+                return dateTime.Value.ToShortDateString();
+            }
+            return string.Empty;
         }
     }
 }

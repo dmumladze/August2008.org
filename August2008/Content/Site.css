@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
 }
-
 body {
     margin: 0;
     padding: 0;
@@ -13,33 +12,22 @@ body {
     min-width: 768px;
     font-size: 90%;
     height: 100%;
+    color: #000;
+    font-family: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+    line-height: 20px;
 }
-
-a:hover {
-    color: #fff;
-    background: #369;
-    text-decoration: none;
-}
-
 h1, h2, h3 {
     margin: .8em 0 .2em 0;
     padding: 0;
 }
-
 p {
     margin: .4em 0 .8em 0;
     padding: 0;
 }
-
-img {
-    margin: 10px 0 5px;
-}
-
 #ads img {
     display: block;
     padding-top: 10px;
 }
-
 #header {
     clear: both;
     float: left;
@@ -47,18 +35,15 @@ img {
     border-bottom: 1px solid #000;
     background-image: url(../images/black-texture-bg.jpg);
     background-repeat: repeat-x;
-    height: 13%;
+    height: 16%;
     position: relative;
 }
-
-
 #header p,
 #header h1,
 #header h2 {
     padding: .4em 15px 0 15px;
     margin: 0;
 }
-
 #header ul {
     display: inline-block;
     clear: left;
@@ -66,16 +51,13 @@ img {
     list-style: none;
     margin: 10px 0 0 0;
     padding: 0;
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
-
 #header ul li {
     display: inline;
     list-style: none;
     margin: 0;
     padding: 0;
 }
-
 #header ul li a {
     display: block;
     float: left;
@@ -87,17 +69,15 @@ img {
     text-decoration: none;
     position: relative;
     left: 15px;
-    line-height: 40px;
-    width: 75px;
+    line-height: 50px;
+    width: 80px;
     text-shadow: 0 1px 1px #fff;
 }
-
 #header ul li a:hover {
     background: #323577;
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
-
 #header ul li a.active,
 #header ul li a.active:hover {
     color: #fff;
@@ -105,35 +85,24 @@ img {
     font-weight: bold;
     text-shadow: 0 1px 1px #555;
 }
-
 #header ul li a span {
     display: block;
 }
-
 #header .menu-container {
     bottom: 0;
     position: absolute;
     vertical-align: bottom;
     width: 100%;
 }
-
 #layoutdims {
     clear: both;
     background: #eee;
     border-top: 1px solid #222222;
     margin: 0;
     padding: 0;
-    height: 25px;
+    height: 33px;
     text-align: right;
 }
-
-.logo {
-    position: absolute;
-    right:0; 
-    top:0;
-    z-index:9999; 
-}
-
 .colmask {
     position: relative; 
     clear: both;
@@ -142,7 +111,6 @@ img {
     overflow: hidden;
     height: 87%;
 }
-
 .colmid,
 .colleft {
 	float:left;
@@ -150,7 +118,6 @@ img {
 	position:relative;
     height: 100%;
 }
-
 .col1,
 .col2,
 .col3 {
@@ -158,15 +125,13 @@ img {
 	position:relative;
 	padding:0 0 1em 0;	
 	overflow:hidden;
-    padding: 20px 0;
+    padding: 8px 0;
 }
-
 .threecol {
     background-image: url(../images/american-flag-bg.jpg);
     background-position: right top;
     background-repeat: repeat-y;
 }
-
 .threecol .colmid {
     right: 15%;
     background: #fff;
@@ -177,7 +142,6 @@ img {
     background-position: right top;
     background-repeat: repeat;
 }
-
 .threecol .colleft {
     right: 60%;
     background-image: url(../images/georgian-flag-bg.jpg);
@@ -186,17 +150,14 @@ img {
     margin: 0px auto;
     text-align: center;
 }
-
 .threecol .col1 {
     left: 101%;
     width: 58%;
 }
-
 .threecol .col2 {
     left: 18%;
     width: 23%;
 }
-
 .threecol .col3 {
     left: 80%;
     width: 13%;
@@ -209,14 +170,62 @@ img {
     border-top: 1px solid #000;
     height: 5%;
 }
-
 #footer p {
     padding: 10px;
     margin: 0;
 }
-
+a {
+    text-decoration: none;
+}
+a:link {
+    color: #26427F;
+}
+a:visited {
+    color:  #26427F;
+}
+a:hover {
+    color:  #26427F;
+}
+a:active {
+    color:  #26427F;
+}
+.logo-first {
+    position: absolute;
+    right:0; 
+    top:0;
+    z-index:9999; 
+}
+.logo-tea-mikaia {
+    position: absolute;
+    right:45px; 
+    top:8px;
+    z-index:9999; 
+    width: 110px;
+    height: 95px;
+}
+.top-nav {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 30px;
+}
+.alphabet-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;    
+}
+.alphabet-container ul li {
+    display: inline-block;
+    margin: 0;
+    float: left;
+}
+.alphabet-container {
+    float: left;
+}
+.hero-toolbar-container {
+    float: right;
+}
 .section {
-    background-color: #fff;
+    background-color: #FCFCFC;
     border: 0px solid #333;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     bottom: 0;
@@ -226,46 +235,24 @@ img {
     padding: 5px;
     overflow: hidden;
 }
-
 .split-two {
     float: left;
     width: 50%;
 }
-
 .transp {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  filter: alpha(opacity=80);
-  -moz-opacity: 0.8;
-  -khtml-opacity: 0.8;
-  opacity: 0.8;
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+  opacity: 0.9;
 }
 .shadow {
     margin: 0 3px;
-    -moz-box-shadow: 0px 0px 2px 0px #222;
-    -webkit-box-shadow: 0px 0px 2px 0px #222;
-    box-shadow: 0px 0px 2px 0px #222;
+    -moz-box-shadow: 0px 0px 2px 0px #888;
+    -webkit-box-shadow: 0px 0px 2px 0px #888;
+    box-shadow: 0px 0px 2px 0px #888;
 }
 /* form controls */
-.editor-label {
-    text-align: left;
-    padding: 0 3px 0 0;
-    vertical-align: bottom;
-}
-.editor-field {
-    text-align: left;
-    margin-left: 0;
-}
-.editor-field * {
-    margin-left: 0;
-}
-.editor-field select {
-}
-.editor-field select option{
-    width: 395px;
-}
-.label-required {
-    
-}
 .required {
     color: red;
     font-weight: bold;
@@ -314,7 +301,7 @@ input.file {
 }
 #edit-commands {
     vertical-align: middle;
-    border-top: solid 1px #aaaaaa;
+    border-top: solid 1px #E5E5E5;
     padding-top: 5px;
 }
 #edit-commands div {
@@ -322,16 +309,25 @@ input.file {
     padding-right: 5px;
 }
 #upload-images .new-thumb-img, #upload-images .existing-thumb-img {
-    margin: 5px;
-    width: 128px;
-    height: 135px;
-    border: solid 1px #aaaaaa;
+    margin: 3px;
+    padding: 5px 0 2px;
+    width: 135px;
+    height: 140px;
+    border: solid 1px #E5E5E5;
     text-align: center;
     vertical-align: top;
-    padding: 0;
+    position: relative;
+}
+img {
+    margin: 0;
 }
 #upload-images .thumb-img-cmd {
-    
+    position: absolute;
+    margin: 2px 4px;
+    bottom: 0;
+}
+#upload-images .thumb-img-cmd a {
+    font-size: 12px;
 }
 .hero-bio {
     width: 100%;
@@ -343,28 +339,75 @@ input.file {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-#hero-list {
-    width: 100%;
+.hero-box {
+    padding: 15px 25px;
+    color: #444444;  
+    clear: both;
 }
-#hero-list .hero-list-box {
-    height: 250px;
-    width: 250px;
-    float: left;    
+.hero-box .hero-header {  
+    width: 86%;
+    border-bottom: solid 1px #E5E5E5;
+    font-family: 'Trebuchet MS';
+    font-size: 1.2em;
+    vertical-align: top;
+    height: 25px;
 }
-#hero-list .hero-list-info {
-    
+.hero-header .hero-name {
+    font-weight: normal;
+    float: left;
 }
-#hero-list .hero-list-thumb {
-    
+.hero-header .hero-rank {
+    font-weight: normal;
+    float: right;
 }
-#hero-list .hero-list-img {
-    
+.hero-box .hero-body {
+    clear: both;
 }
-#hero-list .hero-list-div {
-    
+.hero-box .hero-thumb { /*block formatting context - https://developer.mozilla.org/en-US/docs/Web/CSS/Block_formatting_context*/
+    padding-top: 5px;
+    float: left;
 }
-#hero-list .hero-list-cmd {
-    
+.hero-box .hero-about { /*block formatting context*/
+    overflow: hidden;
+}
+.hero-about p.hero-about-text {
+    font-size: 1.1em;
+}
+.hero-box .hero-thumb-img {
+    left: 0;
+    margin: 0;    
+}
+.hero-about .hero-about-info {
+    margin-right: 10px;
+    padding-left: 10px;
+    float: left;
+    max-width: 150px;
+}
+.hero-about .hero-about-bio {
+    line-height: 24px;
+    position: relative;
+    padding-left: 10px;
+    overflow: hidden;
+    min-height: 220px;
+    max-height: 200px;
+    border-left: dashed 1px #E5E5E5;
+}
+.hero-about-bio .hero-bio-more {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #E5E5E5;
+    padding: 0 10px 0 10px;
+}
+.hero-about .hero-about-label {
+    display: block;
+    width: 100px;
+    padding: 0 0 1px 1px;
+    background-color: #E5E5E5;
+    vertical-align: middle;
+}
+.hero-box .hero-box-cmd {
+    clear: both;
 }
 .old-hero-photo {
     border: 0;
@@ -372,28 +415,11 @@ input.file {
 .old-hero-photo {
     border: 0;
 }
-.hero-thumb {
+.hero-edit-thumb {
     border: 4px solid #336699;
 }
-table { 
-  border-spacing:0;
-  border-collapse:collapse; 
-}
-select {
-    height: 26px;
-    line-height: 26px;
-    width: 191px;
-    border: 1px solid #AAAAAA;
-}
-input[type=text], textarea {
-    border: 1px solid #AAAAAA;
-}
-input[type=text] {
-    height: 23px;
-    width: 189px;
-}
-fieldset {
-    border: 1px solid #AAAAAA;    
+.hero-box {
+    margin: 10px 0 0 0;
 }
 #manageUsersPartial {
     width: 100%;
@@ -403,7 +429,7 @@ fieldset {
     float: left;
 }
 #userSearchFormContainer {
-    width: 250px;
+    width: 280px;
 }
 #manageUsersTabsContainer {
     width: 560px;
@@ -413,7 +439,19 @@ fieldset {
     min-height: 625px;
 }
 #userSearchFormContainer #userId {
-    height: 603px;
-    width: 241px;
-    margin-top: 3px;
+    height: 593px;
+    width: 272px;
+}
+.soldier-1 {
+    background-image: url(../images/soldier-1.png);
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+.soldier-helmut {
+    background-image: url(../images/soldier-helmut-sky.png);
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+.padding-50 {
+    padding: 50px;
 }

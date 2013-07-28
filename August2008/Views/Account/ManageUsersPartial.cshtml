@@ -11,9 +11,10 @@
                                                                             OnComplete = "Spinner.hide()"                                                                       
                                                                         },
                                                                         new { @id = "searchForm", name = "searchForm" }))
-            {                    
-                @Html.TextBox("name")
-                <input type="submit" value="Go" />
+            {      
+                              
+                @Html.TextBox("name", "", new { @class = "span3" })
+                <button type="submit" class="btn">Go</button>
             }            
             @using (Ajax.BeginForm("UserRoles", "Account", null, new AjaxOptions {
                                                                         HttpMethod = "POST",
@@ -52,8 +53,8 @@
                         Select user to view roles...
                     </div>
                     <div class="bottom-right">
-                        <input type="submit" value="Save" />
-                        <input type="reset" value="Cancel" />
+                        <button type="submit" class="btn btn-inverse">Save</button>
+                        <button type="reset" class="btn">Reset</button>
                     </div>
                 }
             </div>

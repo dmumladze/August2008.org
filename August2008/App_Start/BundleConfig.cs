@@ -34,7 +34,8 @@ namespace August2008
 
             bundles.Add(new StyleBundle("~/content/css").Include(
                 "~/content/site.css",
-                "~/content/jquery-ui-1.10.3.custom.css"));
+                "~/content/jquery-ui-1.10.3.custom.css",
+                "~/content/bootstrap.css"));
         }
     }
 }

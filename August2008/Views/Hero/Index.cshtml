@@ -1,4 +1,4 @@
-﻿@model HeroSearchCriteria
+﻿@model HeroSearchModel
 @{
     ViewBag.Title = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,30 +8,72 @@
     @Scripts.Render("~/bundles/hero")
 }
 
-<input type="button" id="createButton" value="Create"/>  
-    
-<div id="hero-list">
-    @if (!Model.Result.IsNullOrEmpty()) {
-        foreach (var item in Model.Result)  {
-            <div class="hero-list-box shadow section transp">
-                <div class="hero-list-info">@item.FirstName @item.LastName</div>
-                <div class="hero-list-thumb">
+<div class="top-nav">
+    <div id="alphabet" class="alphabet-container">
+        <ul class="nav-alphabet">
+            @foreach (var item in Model.Alphabet) {
+                <li>
+                    @if (item.Active) {
+                        <a href="@Url.Action("Index", new { page = 1, name = item.Letter })" class="btn btn-success btn-mini">@item.Letter</a>
+                    } 
+                    else {
+                        <a href="#" class="btn btn-mini">@item.Letter</a>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+    <div id="adminToolbar" class="hero-toolbar-container">
+        <button id="createButton" class="btn btn-inverse btn-mini">Add Hero</button> 
+    </div>
+</div>
+
+@if (!Model.Result.IsNullOrEmpty()) {
+    foreach (var item in Model.Result)  {
+        <div class="hero-box section shadow transp soldier-helmut">
+            <div class="hero-header">
+                <span class="hero-name">@item.LastName @item.FirstName</span>
+                <span class="hero-rank">@item.MilitaryRank.RankName</span>
+            </div>
+            <div class="hero-body">
+                <div class="hero-thumb">
                     @if (!item.Photos.IsNullOrEmpty()) {
-                        <img class="hero-list-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
+                        <img class="hero-thumb-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
                     }
                     else {
-                        <div class="hero-list-div">
-                            NO IMAGE
-                        </div>
+                        <span>NO IMAGE</span>
                     }
                 </div>
-                <div class="hero-list-cmd">
+                <div class="hero-about">
+                    <div class="hero-about-info">
+                        <span class="hero-about-label">@Html.DisplayTextFor2(m => item.Dob)</span>
+                        <p class="hero-about-text">@item.Dob.ToShortDateString()</p>
+
+                        <span class="hero-about-label">@Html.DisplayTextFor2(m => item.Died)</span>
+                        <p class="hero-about-text">@item.Died.ToShortDateString()</p>
+
+                        <span class="hero-about-label">@Html.DisplayTextFor2(m => item.MilitaryGroup)</span>
+                        <p class="hero-about-text">@item.MilitaryGroup.GroupName</p>
+                    </div>
+                    <div class="hero-about-bio">
+                        <span class="hero-about-label hero-about-bio-label">@Html.DisplayTextFor2(m => item.Biography)</span>
+                        <p class="hero-about-text">
+                            @item.Biography
+                        </p>
+                        <div class="hero-bio-more">
+                            <a href="#">ვრცლად...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (User.Identity.IsAuthenticated) {
+                <div class="hero-box-cmd">
                     <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
                 </div>
-            </div>                
-        }
+            }
+        </div>                
     }
-</div>
+}
 
 @section BottomScriptSection
 {

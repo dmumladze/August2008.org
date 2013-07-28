@@ -18,7 +18,10 @@ namespace August2008.Models
         public string Thumbnail { get; set; }
         public List<HeroPhoto> Photos { get; set; }
 
+        [Display(Name = "MilitaryRank", ResourceType = typeof(Form))]
         public MilitaryRank MilitaryRank { get; set; }
+
+        [Display(Name = "MilitaryGroup", ResourceType = typeof(Form))]
         public MilitaryGroup MilitaryGroup { get; set; }
 
         [Required]

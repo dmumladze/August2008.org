@@ -297,10 +297,12 @@
     <Compile Include="Helpers\SiteHelper.cs" />
     <Compile Include="Helpers\StringDecimalConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
+    <Compile Include="Models\AlphabetLetter.cs" />
     <Compile Include="Models\FormsIdentity2.cs" />
     <Compile Include="Models\FormsPrincipal.cs" />
     <Compile Include="Models\DonationModel.cs" />
     <Compile Include="Models\DonationProvider.cs" />
+    <Compile Include="Models\HeroSearchModel.cs" />
     <Compile Include="Models\PostButton.cs" />
     <Compile Include="Models\RegisterUser.cs" />
     <Compile Include="Models\HeroModel.cs" />
@@ -355,6 +357,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\animated-overlay.gif" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -375,10 +378,13 @@
     <None Include="Properties\PublishProfiles\August2008 - Web Deploy.pubxml" />
     <Content Include="Images\american-flag-bg.jpg" />
     <Content Include="Images\black-texture-bg.jpg" />
+    <Content Include="Images\logo-tea-mikaia.png" />
+    <Content Include="Images\soldier-1.png" />
+    <Content Include="Images\soldier-helmut-sky.png" />
     <Content Include="Images\spinner-1.gif" />
     <Content Include="Images\georgian-flag-bg.jpg" />
     <Content Include="favicon.png" />
-    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo-first.png" />
     <Content Include="Images\white-texture-bg.jpg" />
     <Content Include="Scripts\August2008.js" />
     <Content Include="Scripts\Hero.js" />

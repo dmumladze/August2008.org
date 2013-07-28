@@ -113,7 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\HeroDataClientTest.cs" />
+    <Compile Include="Data\HeroRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

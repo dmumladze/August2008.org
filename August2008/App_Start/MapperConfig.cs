@@ -17,6 +17,7 @@ namespace August2008
         {
             Mapper.CreateMap<HeroModel, Hero>();
             Mapper.CreateMap<Hero, HeroModel>();
+            Mapper.CreateMap<HeroSearchCriteria, HeroSearchModel>();
 
             Mapper.CreateMap<UserModel, User>();
             Mapper.CreateMap<User, UserModel>();

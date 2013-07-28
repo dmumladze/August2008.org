@@ -2,24 +2,27 @@
 
 @Html.ValidationSummary()
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
+<div class="section transp shadow soldier-1 padding-50">
+    @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
      
-    @Html.HiddenFor(m => m.UserId)
-    <fieldset>
-        <legend>Confirmation Form</legend>
-        <div class="editor-label">
-            @Html.LabelFor2(m => m.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(m => m.Email)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor2(m => m.DisplayName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(m => m.DisplayName)
-        </div>
-        <input type="submit" name="action" value="Confirm" />
-        <input type="submit" name="action" value="Cancel" />
-    </fieldset>
-}
+        @Html.HiddenFor(m => m.UserId)
+        <fieldset>
+            <legend>Confirm Your Identity</legend>
+            <div class="editor-label">
+                @Html.LabelFor2(m => m.Email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Email)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor2(m => m.DisplayName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.DisplayName)
+            </div>
+            <br />
+            <button type="submit" name="action" class="btn btn-inverse">Confirm</button>
+            <button type="submit" name="action" class="btn">No, that's not me!</button>
+        </fieldset>
+    }
+</div>
