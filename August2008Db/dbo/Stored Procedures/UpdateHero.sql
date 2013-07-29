@@ -17,11 +17,11 @@ BEGIN
 
 	UPDATE dbo.Hero 
 	SET
-		Dob				= ISNULL(@Dob, Dob),
-		Died			= ISNULL(@Died, Died),
-		UpdatedBy		= @UpdatedBy
+		Dob			= ISNULL(@Dob, Dob),
+		Died		= ISNULL(@Died, Died),
+		UpdatedBy	= @UpdatedBy
 	WHERE 
-		HeroId			= @HeroId;
+		HeroId		= @HeroId;
 
 	UPDATE dbo.HeroTranslation 
 	SET
