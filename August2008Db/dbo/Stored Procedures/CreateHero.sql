@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[CreateHero]
-	@MilitaryGroupId	INT,
-	@MilitaryRankId		INT,
+	@MilitaryGroupId	INT				= NULL,	 
+	@MilitaryRankId		INT				= NULL,
+	@MilitaryAwardId	INT				= NULL,
 	@Dob				DATETIME		= NULL,
 	@Died				DATETIME		= NULL,	
 	@FirstName			NVARCHAR(50),
@@ -18,15 +19,11 @@ BEGIN
 	DECLARE @xdh INT;
 
 	INSERT INTO dbo.Hero (
-		MilitaryGroupId,
-		MilitaryRankId,
 		Dob,
 		Died,
 		UpdatedBy
 	)
 	VALUES (
-		@MilitaryGroupId,
-		@MilitaryRankId,
 		@Dob,
 		@Died,
 		@UpdatedBy
@@ -36,6 +33,9 @@ BEGIN
 
 	INSERT INTO dbo.HeroTranslation (
 		HeroId,
+		MilitaryRankId,
+		MilitaryGroupId,
+		MilitaryAwardId,
 		LanguageId,
 		FirstName,
 		LastName,
@@ -45,6 +45,9 @@ BEGIN
 	)
 	VALUES (
 		@HeroId,
+		@MilitaryRankId,
+		@MilitaryGroupId,
+		@MilitaryAwardId,
 		@LanguageId,
 		@FirstName,
 		@LastName,
@@ -63,7 +66,7 @@ BEGIN
 		UpdatedBy
 	)
 	SELECT    
-		PhotoUri,
+		PhotoUrl,
 		@HeroId,
 		ContentType,
 		IsThumbnail,

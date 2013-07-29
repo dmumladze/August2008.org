@@ -5,6 +5,7 @@
 	@LastName			NVARCHAR(75),
 	@MilitaryGroupId	INT				= NULL,
 	@MilitaryRankId		INT				= NULL,
+	@MilitaryAwardId	INT				= NULL,
 	@Dob				DATETIME		= NULL,
 	@Died				DATETIME		= NULL,	
 	@MiddleName			NVARCHAR(50)	= NULL,
@@ -16,8 +17,6 @@ BEGIN
 
 	UPDATE dbo.Hero 
 	SET
-		MilitaryGroupId	= ISNULL(@MilitaryGroupId, MilitaryGroupId),
-		MilitaryRankId	= ISNULL(@MilitaryRankId, MilitaryRankId),
 		Dob				= ISNULL(@Dob, Dob),
 		Died			= ISNULL(@Died, Died),
 		UpdatedBy		= @UpdatedBy
@@ -30,8 +29,12 @@ BEGIN
 		LastName	= @LastName,
 		MiddleName	= ISNULL(@MiddleName, MiddleName),
 		Biography	= ISNULL(@Biography, Biography),
-		UpdatedBy	= @UpdatedBy
+		UpdatedBy	= @UpdatedBy,
+		MilitaryGroupId	= ISNULL(@MilitaryGroupId, MilitaryGroupId),
+		MilitaryRankId	= ISNULL(@MilitaryRankId, MilitaryRankId),
+		MilitaryAwardId	= ISNULL(@MilitaryAwardId, MilitaryAwardId)
 	WHERE 
 		HeroId		= @HeroId
 	AND LanguageId	= @LanguageId;
 END;
+

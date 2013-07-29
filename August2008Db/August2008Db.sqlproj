@@ -192,7 +192,12 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="dbo\Stored Procedures\GetRandomHero.sql" />
+<<<<<<< HEAD
     <Build Include="dbo\Stored Procedures\GetHeroAlphabet.sql" />
+=======
+    <Build Include="dbo\Tables\MilitaryAwardTranslation.sql" />
+    <Build Include="dbo\Tables\MilitaryAward.sql" />
+>>>>>>> 8ce760135a93b6a8404a6f87af1b4c53a15ec536
     <Build Include="dbo\Stored Procedures\UpdateHero.sql" />
   </ItemGroup>
   <ItemGroup>
