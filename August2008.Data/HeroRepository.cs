@@ -32,6 +32,25 @@ namespace August2008.Data
                 return hero;
             }
         }
+        public Hero GetRandomHero(int languageId)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.GetRandomHero");
+                db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                var hero = new Hero();
+                try
+                {
+                    db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.Photos);
+                    GetBlobs(hero, new CloudDataAccess());
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return hero;
+            }
+        }
         public int CreateHero(Hero hero, IEnumerable<IPostedFile> photos)
         {
             var heroId = 0;

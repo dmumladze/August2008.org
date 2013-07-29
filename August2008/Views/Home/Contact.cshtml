@@ -1,0 +1,59 @@
+﻿@model ContactModel
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post)) {
+    <div class="section transp shadow contact-envelope padding-50">
+        <fieldset>
+            <legend>Contact Us</legend>
+            <div style="float:left">
+                <div class="editor-label">
+                    @Html.LabelFor2(m => m.Name)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "input-large" })
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(m => m.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "input-large" })
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(m => m.Subject)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.Subject, new { @class = "input-large" })
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor2(m => m.Message)
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(m => m.Message, new { rows = 10, @class = "contact-message" })
+                </div>
+            </div>
+            <div style="overflow:hidden;padding-left:35px">
+                <div style="text-align:left">
+                    <p>Frequantly Asked Questions</p>
+                    <ul style="margin: 0 0 0 15px">
+                        <li><a href="#">Question #1 Question #1 Question #1</a></li>
+                        <li><a href="#">Question #2</a></li>
+                        <li><a href="#">Question #3</a></li>
+                        <li><a href="#">Question #4</a></li>
+                        <li><a href="#">Question #5</a></li>
+                        <li><a href="#">Question #6</a></li>
+                        <li><a href="#">Question #7</a></li>
+                        <li><a href="#">Question #8</a></li>
+                        <li><a href="#">Question #9</a></li>
+                        <li><a href="#">Question #10</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="clear:both">
+                <button type="submit" class="btn btn-inverse">Send</button>
+                <button type="submit" class="btn">Reset</button>
+            </div>
+        </fieldset>
+    </div>
+}
