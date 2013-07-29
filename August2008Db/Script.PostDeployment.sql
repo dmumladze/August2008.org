@@ -2,8 +2,8 @@
 	BEGIN TRANSACTION;
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	SET IDENTITY_INSERT[dbo].[Language] ON
-	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (1, 'ქართული (Georgian)', 'Georgian', 'ka-GE')
-	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (2, 'English (USA)', 'English (US)', 'en-US')
+	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (1, N'ქართული (Georgian)', N'Georgian', N'ka-GE')
+	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (2, N'English (USA)', N'English (US)', N'en-US')
 	SET IDENTITY_INSERT[dbo].[Language] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	SET IDENTITY_INSERT[dbo].[MilitaryGroup] ON
