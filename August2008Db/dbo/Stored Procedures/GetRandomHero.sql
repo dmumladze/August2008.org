@@ -9,7 +9,7 @@ BEGIN
 
 	DECLARE @Random TABLE
 	(
-		RandomId	INT IDENTITY,
+		RandomId	INT IDENTITY(1,1),
 		HeroId		INT
 	);
 
@@ -18,8 +18,8 @@ BEGIN
 	FROM dbo.HeroTranslation
 	WHERE LanguageId = @LanguageId;
 
-	SELECT 
-		@RandomId = ROUND(RAND() * MAX(RandomId), 0)
+	SELECT  
+		@RandomId = ROUND(RAND() * (MAX(RandomId)-1)+1, 0)
 	FROM @Random	
 	
 	SELECT 
@@ -29,6 +29,3 @@ BEGIN
 		
 	EXEC dbo.GetHero @HeroId, @LanguageId; 
 END;
-
-
-

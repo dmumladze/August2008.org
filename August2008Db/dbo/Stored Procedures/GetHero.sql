@@ -11,6 +11,7 @@ BEGIN
 		HeroId			INT,
 		MilitaryGroupId INT,
 		MilitaryRankId	INT,
+		MilitaryAwardId	INT,
 		Dob				DATETIME,
 		Died			DATETIME,	
 		FirstName		NVARCHAR(50),
@@ -25,8 +26,9 @@ BEGIN
 	INSERT INTO @Hero
 	SELECT TOP 1
 		h.HeroId,
-		h.MilitaryGroupId,
-		h.MilitaryRankId,
+		ht.MilitaryGroupId,
+		ht.MilitaryRankId,
+		ht.MilitaryAwardId,
 		h.Dob,	
 		h.Died,		
 		ht.FirstName,
@@ -57,6 +59,14 @@ BEGIN
 	FROM dbo.MilitaryRank mr (NOLOCK)
 	INNER JOIN dbo.MilitaryRankTranslation mrt (NOLOCK) ON mr.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
 	INNER JOIN @Hero h ON mrt.MilitaryRankId = h.MilitaryRankId;
+
+	SELECT TOP 1
+		mat.MilitaryAwardId,
+		mat.AwardName,
+		mat.Description
+	FROM dbo.MilitaryAward ma (NOLOCK)
+	INNER JOIN dbo.MilitaryAwardTranslation mat (NOLOCK) ON ma.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
+	INNER JOIN @Hero h ON mat.MilitaryAwardId = h.MilitaryAwardId;
 
 	SELECT
 		HeroPhotoId,

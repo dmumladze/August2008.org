@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE dbo.GetHeros
 	@PageNo		INT,
+	@Name		NVARCHAR(50) = NULL,
 	@PageSize	INT,
 	@LanguageId	INT = 1,
 	@TotalCount	INT = 0 OUTPUT
@@ -12,6 +13,7 @@ BEGIN
 		HeroId			INT,
 		GroupName		NVARCHAR(100),
 		RankName		NVARCHAR(100),
+		AwardName		NVARCHAR(100),
 		Dob				DATETIME,
 		Died			DATETIME,	
 		FirstName		NVARCHAR(50),
@@ -24,13 +26,15 @@ BEGIN
 	SELECT 
 		@TotalCount = COUNT(*)
 	FROM dbo.HeroTranslation ht (NOLOCK)
-	WHERE ht.LanguageId = @LanguageId;
+	WHERE ht.LanguageId = @LanguageId
+	AND (@Name IS NULL OR ht.LastName LIKE @Name + '%');
 
 	INSERT INTO @Hero
 	SELECT 
 		h.HeroId,
 		mgt.GroupName,
 		mrt.RankName,
+		mat.AwardName,
 		h.Dob,
 		h.Died,
 		ht.FirstName,
@@ -40,13 +44,27 @@ BEGIN
 		ht.DateUpdated	
 	FROM dbo.Hero h (NOLOCK)
 	INNER JOIN dbo.HeroTranslation ht (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId
-	LEFT JOIN dbo.MilitaryGroupTranslation mgt (NOLOCK) ON h.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
-	LEFT JOIN dbo.MilitaryRankTranslation mrt (NOLOCK) ON h.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
+	LEFT JOIN dbo.MilitaryGroupTranslation mgt (NOLOCK) ON ht.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
+	LEFT JOIN dbo.MilitaryRankTranslation mrt (NOLOCK) ON ht.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
+	LEFT JOIN dbo.MilitaryAwardTranslation mat (NOLOCK) ON ht.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
+	AND (@Name IS NULL OR ht.LastName LIKE @Name + '%')
 	ORDER BY ht.LastName, ht.FirstName
 	OFFSET ((@PageNo - 1) * @PageSize) ROWS
 	FETCH NEXT @PageSize ROWS ONLY
 
-	SELECT * FROM @Hero;
+	SELECT
+		HeroId,
+		GroupName	AS [MilitaryGroup.GroupName],
+		RankName	AS [MilitaryRank.RankName],
+		AwardName	AS [MilitaryAward.AwardName],
+		Dob,
+		Died,
+		FirstName,
+		LastName,
+		MiddleName,
+		Biography,
+		DateUpdated		
+	FROM @Hero;
 
 	SELECT 
 		hp.HeroId,
