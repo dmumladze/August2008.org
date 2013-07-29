@@ -16,8 +16,18 @@ BEGIN
 	INNER JOIN dbo.[User] u (NOLOCK) ON oa.UserId = u.UserId
 	WHERE oa.Email = @Email; 
 
-	IF @Provider2 = @Provider 
-		SET @IsOAuthUser = 1;
-	ELSE
-		SET @IsOAuthUser = 0;
+	IF @UserId IS NOT NULL
+	BEGIN
+		SELECT TOP 1
+			@Provider2	= oa.ProviderName
+		FROM dbo.OAuthUser oa (NOLOCK)
+		INNER JOIN dbo.[User] u (NOLOCK) ON oa.UserId = u.UserId
+		WHERE oa.Email = @Email
+		AND oa.ProviderName = @Provider
+
+		IF @Provider2 = @Provider 
+			SET @IsOAuthUser = 1;
+		ELSE
+			SET @IsOAuthUser = 0;
+	END;
 END;

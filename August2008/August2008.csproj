@@ -298,6 +298,7 @@
     <Compile Include="Helpers\StringDecimalConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
     <Compile Include="Models\AlphabetLetter.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\FormsIdentity2.cs" />
     <Compile Include="Models\FormsPrincipal.cs" />
     <Compile Include="Models\DonationModel.cs" />
@@ -378,6 +379,7 @@
     <None Include="Properties\PublishProfiles\August2008 - Web Deploy.pubxml" />
     <Content Include="Images\american-flag-bg.jpg" />
     <Content Include="Images\black-texture-bg.jpg" />
+    <Content Include="Images\contact-envelope.png" />
     <Content Include="Images\logo-tea-mikaia.png" />
     <Content Include="Images\soldier-1.png" />
     <Content Include="Images\soldier-helmut-sky.png" />
@@ -438,6 +440,7 @@
     <Content Include="Views\Account\UserRolesPartial.cshtml" />
     <Content Include="Views\Donations\Confirm.cshtml" />
     <Content Include="Views\Donations\Donate.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

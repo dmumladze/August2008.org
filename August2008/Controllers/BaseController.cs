@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,6 +27,11 @@ namespace August2008.Controllers
         }
         protected FormsPrincipal Me { get; private set; }
         protected ICacheProvider Cache { get; private set; }
+
+        protected string ContactEmail
+        {
+            get { return ConfigurationManager.AppSettings["August2008:ContactEmail"]; }
+        }
 
         protected ActionResult RedirectToLocal(string returnUrl)
         {
