@@ -7,6 +7,7 @@ using August2008.Common.Interfaces;
 using August2008.Model;
 using System.IO;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace August2008.Data
 {
@@ -67,6 +68,8 @@ namespace August2008.Data
                     db.AddInParameter("@Died", DbType.DateTime, hero.Died);
                     db.AddInParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
                     db.AddInParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
+                    db.AddInParameter("@MilitaryAwardId", DbType.Int32, hero.MilitaryAwardId);
+                    db.AddInParameter("@Biography", DbType.String, hero.Biography);
                     db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
                     db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
                     db.AddInParameter("@Photos", DbType.Xml, photos.ToDbXml());
@@ -78,9 +81,15 @@ namespace August2008.Data
                         SaveBlobs(heroId, photos);
                         tran.Commit();
                     }
-                    catch (Exception)
+                    catch (SqlException ex)
                     {
                         tran.Rollback();
+                        throw new RepositoryException("Oops! Something went wrong... :(", ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw new RepositoryException("Oops! Something went wrong... :(", ex);
                     }
                     return heroId;
                 }
@@ -104,9 +113,10 @@ namespace August2008.Data
                         db.AddInParameter("@Died", DbType.DateTime, hero.Died);
                         db.AddInParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
                         db.AddInParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
+                        db.AddInParameter("@MilitaryAwardId", DbType.Int32, hero.MilitaryAwardId);
+                        db.AddInParameter("@Biography", DbType.String, hero.Biography);
                         db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
                         db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
-                        db.AddInParameter("@Biography", DbType.String, hero.Biography);
 
                         db.ExecuteNonQuery();
                         tran.Commit();
@@ -137,7 +147,7 @@ namespace August2008.Data
                 return photo;
             }
         }
-        public HeroSearchCriteria GetHeros(HeroSearchCriteria criteria)
+        public HeroSearchCriteria SearchHeros(HeroSearchCriteria criteria)
         {
             var heros = new List<Hero>();
             var photos = new List<HeroPhoto>();
@@ -200,14 +210,20 @@ namespace August2008.Data
         }
         private void GetBlobs(Hero hero, CloudDataAccess cloud)
         {
-            var baseUri = cloud.GetBaseUri("images/hero", hero.HeroId.ToString());
-            GetBlobs(baseUri, hero.Photos);
+            if (hero.HeroId.HasValue)
+            {
+                var baseUri = cloud.GetBaseUri("images/hero", hero.HeroId.ToString());
+                GetBlobs(baseUri, hero.Photos);
+            }
         }
         private void GetBlobs(Uri baseUri, IEnumerable<HeroPhoto> photos)
         {
             foreach (var item in photos)
             {
-                item.PhotoUri = Path.Combine(baseUri.AbsoluteUri, item.PhotoUri); 
+                if (!string.IsNullOrWhiteSpace(item.PhotoUri))
+                {
+                    item.PhotoUri = Path.Combine(baseUri.AbsoluteUri, item.PhotoUri);
+                }
             }
         }
         private void DeleteBlob(HeroPhoto photo)

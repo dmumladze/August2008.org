@@ -10,7 +10,7 @@ namespace August2008.Common.Interfaces
         Hero GetRandomHero(int languageId);
         int CreateHero(Hero hero, IEnumerable<IPostedFile> photos);
         void UpdateHero(Hero hero, IEnumerable<IPostedFile> photos);  
-        HeroSearchCriteria GetHeros(HeroSearchCriteria criteria);
+        HeroSearchCriteria SearchHeros(HeroSearchCriteria criteria);
         HeroPhoto DeletePhoto(int heroPhotoId);
         IEnumerable<string> GetAlphabet(int languageId);
     }

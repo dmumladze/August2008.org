@@ -33,9 +33,9 @@ namespace August2008
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
-                "~/content/site.css",
+                "~/content/bootstrap.css",
                 "~/content/jquery-ui-1.10.3.custom.css",
-                "~/content/bootstrap.css"));
+                "~/content/site.css"));
         }
     }
 }

@@ -56,5 +56,26 @@ namespace August2008.Data
                 }
             }
         }
+        public DonationSearchCriteria SearchDonations(DonationSearchCriteria criteria)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.SearchDonations");
+                db.AddInParameter("@UserId", DbType.Int32, criteria.UserId);
+                db.AddInParameter("@Name", DbType.String, criteria.Name);
+                db.AddInParameter("@FromDate", DbType.DateTime, criteria.FromDate.ToFromDate());
+                db.AddInParameter("@ToDate", DbType.DateTime, criteria.ToDate.ToToDate());
+                try
+                {
+                    criteria.Result = new List<Donation>();
+                    db.ReadInto(criteria.Result);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return criteria;
+            }   
+        }
     }
 }

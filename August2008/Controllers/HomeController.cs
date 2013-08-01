@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using August2008.Common.Interfaces;
+using August2008.Helpers;
 using August2008.Models;
 using AutoMapper;
 
@@ -35,9 +37,10 @@ namespace August2008.Controllers
         [HttpPost]
         public ActionResult Contact(ContactModel model)
         {
-            var smtp = new SmtpClient();
-            var message = new MailMessage(base.ContactEmail, model.Email, model.Subject, model.Message);
-            smtp.Send(message);
+            SiteHelper.SendEmail(model.Email,
+                ContactEmail,
+                string.Format("{0}: {1}", model.Name, model.Subject),
+                model.Message);
             ViewBag.Notification = "Thank you, message has been delivered.";
             return View();
         }

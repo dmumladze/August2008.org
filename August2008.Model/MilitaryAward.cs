@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace August2008.Model
 {
-    class MilitaryAward
+    public class MilitaryAward
     {
+        public int MilitaryAwardId { get; set; }
+        public string AwardName { get; set; }
+        public string Description { get; set; }
+        public int LanguageId { get; set; } 
     }
 }

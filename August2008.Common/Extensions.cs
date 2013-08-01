@@ -57,5 +57,21 @@ namespace August2008.Common
             }
             return string.Empty;
         }
+        public static DateTime? ToFromDate(this DateTime? dateTime)
+        {
+            if (dateTime.HasValue)
+            {
+                dateTime = dateTime.Value.Date;
+            }
+            return dateTime;
+        }
+        public static DateTime? ToToDate(this DateTime? dateTime) 
+        {
+            if (dateTime.HasValue)
+            {
+                dateTime = dateTime.Value.Date.AddDays(1).AddMilliseconds(-1);                
+            }
+            return dateTime;
+        }
     }
 }

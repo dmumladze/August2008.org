@@ -9,11 +9,13 @@ namespace August2008.Model
         {
             MilitaryGroup = new MilitaryGroup();
             MilitaryRank = new MilitaryRank();
+            MilitaryAward = new MilitaryAward();
             Photos = new List<HeroPhoto>();
         }
         public int? HeroId { get; set; }
         public int? MilitaryRankId { get; set; }
         public int? MilitaryGroupId { get; set; }
+        public int? MilitaryAwardId { get; set; } 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
@@ -26,6 +28,7 @@ namespace August2008.Model
 
         public MilitaryRank MilitaryRank { get; set; }
         public MilitaryGroup MilitaryGroup { get; set; }
+        public MilitaryAward MilitaryAward { get; set; }
 
         public IEnumerable<HeroPhoto> Photos { get; set; }
     }

@@ -11,6 +11,7 @@ namespace August2008.Common.Interfaces
     {
         IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId);
         IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId);
+        IEnumerable<MilitaryAward> GetMilitaryAwards(int languageId); 
         IEnumerable<Role> GetRoles();
     }
 }

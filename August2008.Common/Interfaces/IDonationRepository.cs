@@ -11,5 +11,6 @@ namespace August2008.Common.Interfaces
     { 
         Donation CreateDonation(Donation donation);
         void UpdateDonation(Donation donation);
+        DonationSearchCriteria SearchDonations(DonationSearchCriteria criteria);
     }
 }

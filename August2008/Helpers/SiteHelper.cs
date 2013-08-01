@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using August2008.Models;
 using August2008.Properties;
-using August2008.Resources.Shared;
 using ImageResizer;
 
 namespace August2008.Helpers
@@ -63,8 +64,8 @@ namespace August2008.Helpers
         }
         public static List<string> GetAlphabet()
         {            
-            var firstLetter = char.Parse(Global.AlphabetFirstLetter);
-            var lastLetter = char.Parse(Global.AlphabetLastLetter);
+            var firstLetter = char.Parse(Resources.Global.Strings.AlphabetFirstLetter);
+            var lastLetter = char.Parse(Resources.Global.Strings.AlphabetLastLetter);
             var alphabet = new List<string>(lastLetter - firstLetter + 1);
 
             for (var c = firstLetter; c <= lastLetter; c++)
@@ -86,6 +87,15 @@ namespace August2008.Helpers
                 return dateTime.Value.ToShortDateString();
             }
             return string.Empty;
+        }
+        public static void SendEmail(string from, string to, string subject, string body)
+        {
+            var smtpServer = ConfigurationManager.AppSettings["August2008:SmtpServer"]; 
+            var username = ConfigurationManager.AppSettings["August2008:SmtpUsername"]; 
+            var password = ConfigurationManager.AppSettings["August2008:SmtpPassword"]; 
+            var smtp = new SmtpClient(smtpServer);
+            smtp.Credentials = new NetworkCredential(username, password);
+            smtp.Send(new MailMessage(from, to, subject, body));
         }
     }
 }

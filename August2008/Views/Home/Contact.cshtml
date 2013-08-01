@@ -6,7 +6,7 @@
 @using (Html.BeginForm("Contact", "Home", FormMethod.Post)) {
     <div class="section transp shadow contact-envelope padding-50">
         <fieldset>
-            <legend>Contact Us</legend>
+            <legend>@Resources.Home.Labels.ContactUs</legend>
             <div style="float:left">
                 <div class="editor-label">
                     @Html.LabelFor2(m => m.Name)
@@ -33,8 +33,9 @@
                     @Html.TextAreaFor(m => m.Message, new { rows = 10, @class = "contact-message" })
                 </div>
             </div>
-            <div style="overflow:hidden;padding-left:35px">
+            <div style="overflow:hidden;padding-left:10%">
                 <div style="text-align:left">
+                    <!--
                     <p>Frequantly Asked Questions</p>
                     <ul style="margin: 0 0 0 15px">
                         <li><a href="#">Question #1 Question #1 Question #1</a></li>
@@ -48,11 +49,12 @@
                         <li><a href="#">Question #9</a></li>
                         <li><a href="#">Question #10</a></li>
                     </ul>
+                    -->
                 </div>
             </div>
             <div style="clear:both">
-                <button type="submit" class="btn btn-inverse">Send</button>
-                <button type="submit" class="btn">Reset</button>
+                <button type="submit" class="btn btn-inverse">@Resources.Global.Labels.Send</button>
+                <button type="reset" class="btn">@Resources.Global.Labels.Reset</button>
             </div>
         </fieldset>
     </div>

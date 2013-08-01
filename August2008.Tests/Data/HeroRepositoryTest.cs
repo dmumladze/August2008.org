@@ -13,7 +13,7 @@ namespace August2008.Tests.Data
         public void HeroRepository_Can_GetHeros() 
         {
             var repository = new HeroRepository();
-            var heros = repository.GetHeros(new HeroSearchCriteria  { 
+            var heros = repository.SearchHeros(new HeroSearchCriteria  { 
                 PageNo = 1,
                 PageSize = 10,
                 LanguageId = 1});

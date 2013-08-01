@@ -62,6 +62,28 @@ namespace August2008.Data
             }
             return groups;
         }
+        public IEnumerable<MilitaryAward> GetMilitaryAwards(int languageId)
+        {
+            List<MilitaryAward> awards;
+            if (!Cache.TryGetObject("MilitaryAwards" + languageId, out awards))
+            {
+                using (var db = new DataAccess())
+                {
+                    db.CreateStoredProcCommand("dbo.GetMilitaryAwards");
+                    db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                    awards = new List<MilitaryAward>();
+                    try
+                    {
+                        db.ReadInto(awards);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            }
+            return awards;
+        }
         public IEnumerable<Role> GetRoles()
         {
             List<Role> roles;

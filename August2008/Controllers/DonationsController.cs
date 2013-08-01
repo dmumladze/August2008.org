@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using August2008.Common;
 using August2008.Common.Interfaces;
+using August2008.Filters;
 using August2008.Model;
 using August2008.Models;
 using AutoMapper;
@@ -22,7 +24,14 @@ namespace August2008.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            var criteria = new DonationSearchCriteria
+                {
+                    FromDate = DateTime.Now.AddDays(-30),
+                    ToDate = DateTime.Now
+                };
+            criteria = _donationRepository.SearchDonations(criteria);
+            var model = Mapper.Map(criteria, new DonationSearchModel());
+            return View(model);
         }
         public ActionResult Donate(string provider)
         {
@@ -59,6 +68,27 @@ namespace August2008.Controllers
         public ActionResult Cancel(DonationProvider provider)
         {
             return View("Index");
+        }
+        [HttpGet]
+        [NoCache]
+        [AllowAnonymous]
+        public ActionResult Search(DonationSearchModel model)
+        {
+            var criteria = Mapper.Map(model, new DonationSearchCriteria());
+            try
+            {
+                criteria = _donationRepository.SearchDonations(criteria);                
+                Mapper.Map(criteria.Result, model.Result);
+            }
+            catch (RepositoryException ex)
+            {
+                ViewBag.DisplayMessage = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.DisplayMessage = "Oops! Something went wrong... :(";
+            }            
+            return PartialView("DonationsListPartial", model.Result);
         }
     }
 }

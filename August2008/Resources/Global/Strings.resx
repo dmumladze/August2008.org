@@ -138,4 +138,7 @@
   <data name="Mission" xml:space="preserve">
     <value>Mission</value>
   </data>
+  <data name="NoResultForCriteria" xml:space="preserve">
+    <value>Try a different criteria...</value>
+  </data>
 </root>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewResources {
+namespace Resources.Home {
     using System;
     
     
@@ -63,9 +63,9 @@ namespace ViewResources {
         /// <summary>
         ///   Looks up a localized string similar to We Remember August.
         /// </summary>
-        public static string Title {
+        public static string PageTitle {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("PageTitle", resourceCulture);
             }
         }
     }

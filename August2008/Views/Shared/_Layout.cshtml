@@ -25,16 +25,27 @@
     <div id="header">
         <div class="menu-container">
             <ul>
-                <li>@Html.ActionLink(Labels.Home, "Index", "Home")</li>
-                <li>@Html.ActionLink("Mission", "Index", "Home")</li>
-                <li>@Html.ActionLink("Heroes", "Index", "Hero")</li>
-                <li>@Html.ActionLink("Donations", "Index", "Donations")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <li>@Html.ActionLink(Resources.Global.Strings.Home, "Index", "Home")</li>
+                <li>@Html.ActionLink(Resources.Global.Strings.Mission, "Index", "Home")</li>
+                <li>@Html.ActionLink(Resources.Global.Strings.Heroes, "Index", "Hero")</li>
+                <li>@Html.ActionLink(Resources.Global.Strings.Donations, "Index", "Donations")</li>
+                <li>@Html.ActionLink(Resources.Global.Strings.Contact, "Contact", "Home")</li>
             </ul>
-            <p id="layoutdims">
-                <a href="#" id="manageUsersOpener" class="btn btn-small">Manage Users</a>
-                <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })"  class="btn btn-small">Log In</a>
-            </p>
+            <div id="layoutdims">
+                <div id="adminButtonsContainer">
+                    @if (User.IsInRole("Admin")) {
+                        <a href="#" id="manageUsersOpener" class="btn btn-small">Manage Users</a>
+                    }
+                    @if (!User.Identity.IsAuthenticated) {
+                        <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })"  class="btn btn-small">Log In</a>
+                    } 
+                    else {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                            <a href="#" onclick="$(this).closest('form').submit();return false;" class="btn btn-small">Log Off</a>
+                        }
+                    }
+                </div>
+            </div>
         </div>
         <img src="../images/logo-tea-mikaia.png" class="logo-tea-mikaia" />
     </div>

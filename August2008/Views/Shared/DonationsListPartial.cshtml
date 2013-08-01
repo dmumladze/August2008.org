@@ -1,1 +1,32 @@
-﻿
+﻿@model List<DonationModel>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>@Resources.Global.Labels.Name</th>
+            <th>@Resources.Global.Labels.Amount</th>
+            <th>@Resources.Global.Labels.Date</th>
+            <th>@Resources.Global.Labels.Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.IsNullOrEmpty()) {
+            var counter = 1;
+            foreach (var item in Model) {
+                <tr>
+                    <td>@(counter++)</td>
+                    <td>@item.DisplayName</td>
+                    <td>@item.Amount.ToString("N2")&nbsp;@item.Currency</td>
+                    <td>@item.DateDonated.ToShortDateString()</td>
+                    <td>@item.UserMessage</td>
+                </tr>
+            }
+        }
+        else {
+            <tr>
+                <td colspan="5">@(ViewBag.DisplayMessage ?? Resources.Global.Strings.NoResultForCriteria)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -16,6 +16,18 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF	(EXISTS(SELECT 1 FROM dbo.HeroTranslation (NOLOCK)
+				WHERE FirstName = @FirstName
+				AND	LastName = @LastName
+				AND (@MilitaryGroupId IS NULL OR MilitaryGroupId = @MilitaryGroupId)
+				AND (@MilitaryRankId IS NULL OR MilitaryRankId = @MilitaryRankId)
+				AND (@MilitaryAwardId IS NULL OR MilitaryAwardId = @MilitaryAwardId)
+				AND LanguageId = @LanguageId))
+	BEGIN
+		RAISERROR(50001, 16, 1, @LastName, @FirstName);
+		RETURN;
+	END;	
+
 	DECLARE @xdh INT;
 
 	INSERT INTO dbo.Hero (
@@ -66,14 +78,14 @@ BEGIN
 		UpdatedBy
 	)
 	SELECT    
-		PhotoUrl,
+		PhotoUri,
 		@HeroId,
 		ContentType,
 		IsThumbnail,
 		@UpdatedBy
 	FROM OPENXML (@xdh, '/Photos/Photo', 1)
 	WITH (
-		PhotoUrl	NVARCHAR(250),
+		PhotoUri	NVARCHAR(250),
 		ContentType NVARCHAR(25),
 		IsThumbnail BIT
 	);

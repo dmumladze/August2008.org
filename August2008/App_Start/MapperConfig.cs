@@ -35,6 +35,8 @@ namespace August2008
 
             Mapper.CreateMap<Donation, DonationModel>();
             Mapper.CreateMap<DonationModel, Donation>();
+            Mapper.CreateMap<DonationSearchCriteria, DonationSearchModel>();
+            Mapper.CreateMap<DonationSearchModel, DonationSearchCriteria>();
             
         }
     }

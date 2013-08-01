@@ -25,6 +25,7 @@ namespace August2008.Controllers
             Me = requestContext.HttpContext.User as FormsPrincipal;
             base.Initialize(requestContext);
         }
+
         protected FormsPrincipal Me { get; private set; }
         protected ICacheProvider Cache { get; private set; }
 
@@ -32,7 +33,18 @@ namespace August2008.Controllers
         {
             get { return ConfigurationManager.AppSettings["August2008:ContactEmail"]; }
         }
-
+        protected string SmtpServer
+        {
+            get { return ConfigurationManager.AppSettings["August2008:SmtpServer"]; }
+        }
+        protected string SmtpUsername
+        {
+            get { return ConfigurationManager.AppSettings["August2008:SmtpUsername"]; }
+        }
+        protected string SmtpPassword
+        {
+            get { return ConfigurationManager.AppSettings["August2008:SmtpPassword"]; }
+        }
         protected ActionResult RedirectToLocal(string returnUrl)
         {
             // prevents from "open redirection attack"

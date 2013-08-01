@@ -23,9 +23,11 @@
             }
         </ul>
     </div>
-    <div id="adminToolbar" class="hero-toolbar-container">
-        <button id="createButton" class="btn btn-inverse btn-mini">Add Hero</button> 
-    </div>
+    @if (User.IsInRole("Admin")) {
+        <div id="adminToolbar" class="hero-toolbar-container">
+            <button id="createButton" class="btn btn-inverse btn-mini">Add Hero</button> 
+        </div>
+    }
 </div>
 
 @if (!Model.Result.IsNullOrEmpty()) {
@@ -33,7 +35,7 @@
         <div class="hero-box section shadow transp soldier-helmut">
             <div class="hero-header">
                 <span class="hero-name">@item.LastName @item.FirstName</span>
-                <span class="hero-rank">@item.MilitaryRank.RankName</span>
+                <span class="hero-rank">@item.MilitaryAward.AwardName</span>
             </div>
             <div class="hero-body">
                 <div class="hero-thumb">
@@ -51,6 +53,9 @@
 
                         <span class="hero-about-label">@Html.DisplayTextFor2(m => item.Died)</span>
                         <p class="hero-about-text">@item.Died.ToShortDateString()</p>
+
+                        <span class="hero-about-label">@Html.DisplayTextFor2(m => item.MilitaryRank)</span>
+                        <p class="hero-about-text">@item.MilitaryRank.RankName</p>
 
                         <span class="hero-about-label">@Html.DisplayTextFor2(m => item.MilitaryGroup)</span>
                         <p class="hero-about-text">@item.MilitaryGroup.GroupName</p>

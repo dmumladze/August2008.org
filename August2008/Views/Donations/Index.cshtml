@@ -1,6 +1,46 @@
-﻿@model August2008.Models.DonationModel
+﻿@model DonationSearchModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<a href="@Url.Action("Donate", new { provider = "PayPal" })"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" /></a>
+@if (User.Identity.IsAuthenticated) {
+    @Html.Partial("DonatePartial")
+}
+else {
+    <div>You must be logged in</div>
+}
+<div class="section transp shadow padding-50 donations-jar" style="margin-top:10px">
+    <fieldset>
+        <legend>@Resources.Donations.Labels.SearchDonations</legend>
+        <div>
+                @using (Ajax.BeginForm("Search", "Donations", null, new AjaxOptions {
+                                                                            HttpMethod = "GET",
+                                                                            InsertionMode = InsertionMode.Replace,
+                                                                            UpdateTargetId = "donationsList",
+                                                                            OnBegin = "Spinner.show()",
+                                                                            OnComplete = "Spinner.hide()"                                                                            
+                                                                        },
+                                                                        new { @id = "searchForm", name = "searchForm" }))
+                {                    
+                    <div class="criteria-field-horizontal">
+                        <div class="editor-label">@Html.DisplayNameFor(m => m.Name)</div>
+                        <div class="editor-field">@Html.TextBoxFor(m => m.Name, new { @class = "input-medium", tabindex = 0 })</div>
+                    </div>
+                    <div class="criteria-field-horizontal">
+                        <div class="editor-label">@Html.DisplayNameFor(m => m.FromDate)</div>
+                        <div class="editor-field">@Html.EditorFor(m => m.FromDate, new { @class = "input-small", tabindex = 1 })</div>
+                    </div>
+                    <div class="criteria-field-horizontal">
+                        <div class="editor-label">@Html.DisplayNameFor(m => m.ToDate)</div>
+                        <div class="editor-field">@Html.EditorFor(m => m.ToDate, new { @class = "input-small", tabindex = 2 })</div>
+                    </div>
+                    <div class="criteria-field-horizontal">
+                        <button type="submit" class="btn btn-inverse" id="submitButton" style="margin: 20px 0 0 2px", tabindex="3">Search</button>
+                    </div>
+                }
+        </div>
+        <div id="donationsList">
+            @Html.Partial("DonationsListPartial", Model.Result)
+        </div>
+    </fieldset>
+</div>
 

@@ -23,7 +23,7 @@ August2008.ajaxSetup = function () {
                 alert('You do not have permission for this feature.');
                 break;
             default:
-                alert('Unexpected error occured. Please try again later...');
+                alert('Oops! Something went wrong... :(');
                 break;
         }        
     });

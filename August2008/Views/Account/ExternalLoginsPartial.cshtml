@@ -1,11 +1,22 @@
 ﻿@model ICollection<AuthenticationClientData>
 
-@if (Model.Count != 0) {
-    using (Html.BeginForm("ExternalLogin", "Account", new {ReturnUrl = ViewBag.ReturnUrl})) {
-        <p>
-            @foreach (var p in Model) {
-                <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account" class="btn btn-inverse btn-large">@p.DisplayName</button>
+<div class="section transp shadow openid-logo padding-50">
+    <fieldset>
+        <legend>@Resources.Account.Strings.OpenIDTitle</legend>
+        @if (Model.Count != 0) {
+            using (Html.BeginForm("ExternalLogin", "Account", new {ReturnUrl = ViewBag.ReturnUrl})) {
+                <div style="width: 250px;float: left">
+                    @foreach (var p in Model) {
+                        <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account" class="btn btn-large btn-@p.DisplayName.ToLowerInvariant()" style="margin-top: 15px">
+                            <span class="span-1">Log in with</span>
+                            <span class="span-2">@p.DisplayName</span>
+                        </button>
+                    }
+                </div>
+                <div style="overflow:hidden;padding: 15px 0 0 20px;font-size:1.1em;line-height:22px">
+                    @Resources.Account.Strings.OpenIDDescription
+                </div>
             }
-        </p>
-    }
-}
+        }
+    </fieldset>
+</div>

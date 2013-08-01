@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace August2008.Resources.Shared {
+namespace Resources.Global {
     using System;
     
     
@@ -120,6 +120,15 @@ namespace August2008.Resources.Shared {
         public static string Mission {
             get {
                 return ResourceManager.GetString("Mission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try a different criteria....
+        /// </summary>
+        public static string NoResultForCriteria {
+            get {
+                return ResourceManager.GetString("NoResultForCriteria", resourceCulture);
             }
         }
     }

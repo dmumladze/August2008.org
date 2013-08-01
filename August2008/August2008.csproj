@@ -299,6 +299,7 @@
     <Compile Include="Helpers\UrlHelper2.cs" />
     <Compile Include="Models\AlphabetLetter.cs" />
     <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\DonationSearchModel.cs" />
     <Compile Include="Models\FormsIdentity2.cs" />
     <Compile Include="Models\FormsPrincipal.cs" />
     <Compile Include="Models\DonationModel.cs" />
@@ -321,40 +322,75 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Hero\Form.Designer.cs">
-      <DependentUpon>Form.resx</DependentUpon>
+    <Compile Include="Resources\Account\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Hero\Form.ka.Designer.cs">
+    <Compile Include="Resources\Account\Strings.ka.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Form.ka.resx</DependentUpon>
+      <DependentUpon>Strings.ka.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Home\Index.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Index.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Shared\Global.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Global.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Shared\Global.ka.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Global.ka.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Shared\Labels.Designer.cs">
+    <Compile Include="Resources\Donations\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Shared\Labels.ka.Designer.cs">
+    <Compile Include="Resources\Donations\Labels.ka.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.ka.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Donations\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Donations\Strings.ka.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ka.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Global\Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Global\Labels.ka.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.ka.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Hero\Labels.Designer.cs">
+      <DependentUpon>Labels.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Hero\Labels.ka.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.ka.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Home\Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Home\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Global\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Global\Strings.ka.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ka.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -380,7 +416,13 @@
     <Content Include="Images\american-flag-bg.jpg" />
     <Content Include="Images\black-texture-bg.jpg" />
     <Content Include="Images\contact-envelope.png" />
+    <Content Include="Images\donations-thankyou.png" />
+    <Content Include="Images\donations-jar.png" />
+    <Content Include="Images\facebook-btn-logo.png" />
+    <Content Include="Images\google-btn-logo.png" />
     <Content Include="Images\logo-tea-mikaia.png" />
+    <Content Include="Images\openid-logo.png" />
+    <Content Include="Images\paypal-btn.png" />
     <Content Include="Images\soldier-1.png" />
     <Content Include="Images\soldier-helmut-sky.png" />
     <Content Include="Images\spinner-1.gif" />
@@ -388,6 +430,7 @@
     <Content Include="favicon.png" />
     <Content Include="Images\logo-first.png" />
     <Content Include="Images\white-texture-bg.jpg" />
+    <Content Include="Images\yahoo-btn-logo.png" />
     <Content Include="Scripts\August2008.js" />
     <Content Include="Scripts\Hero.js" />
     <Content Include="Properties\Settings.settings">
@@ -439,8 +482,9 @@
     <Content Include="Views\Account\UserListPartial.cshtml" />
     <Content Include="Views\Account\UserRolesPartial.cshtml" />
     <Content Include="Views\Donations\Confirm.cshtml" />
-    <Content Include="Views\Donations\Donate.cshtml" />
+    <Content Include="Views\Donations\DonatePartial.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Shared\DonationsListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -463,40 +507,76 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Hero\Form.resx">
+    <EmbeddedResource Include="Resources\Account\Strings.ka.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Form.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
+      <LastGenOutput>Strings.ka.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Account</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Hero\Form.ka.resx">
+    <EmbeddedResource Include="Resources\Account\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Form.ka.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Account</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Home\Index.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Index.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ViewResources</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Shared\Global.ka.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Global.ka.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>August2008.Resources.Shared</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Shared\Global.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Global.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>August2008.Resources.Shared</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Shared\Labels.ka.resx">
+    <EmbeddedResource Include="Resources\Donations\Labels.ka.resx">
+      <CustomToolNamespace>Resources.Donations</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.ka.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>SharedResources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Shared\Labels.resx">
+    <EmbeddedResource Include="Resources\Donations\Labels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>SharedResources</CustomToolNamespace>
+      <CustomToolNamespace>Resources.Donations</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Donations\Strings.ka.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ka.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Donations</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Donations\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Donations</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global\Labels.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Global</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global\Labels.ka.resx">
+      <CustomToolNamespace>Resource.Global</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.ka.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Hero\Labels.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Hero\Labels.ka.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.ka.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Home\Labels.ka.resx" />
+    <EmbeddedResource Include="Resources\Home\Labels.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Home</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Home\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Home</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global\Strings.ka.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ka.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Global</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Global</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

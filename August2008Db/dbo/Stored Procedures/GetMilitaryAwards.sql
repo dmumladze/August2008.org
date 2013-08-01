@@ -1,6 +1,11 @@
-﻿CREATE PROCEDURE [dbo].[GetMilitaryAwards]
-	@param1 int = 0,
-	@param2 int
+﻿CREATE PROCEDURE [dbo].[GetMilitaryAwards] 
+	@LanguageId	INT = 1
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+	SELECT MilitaryAwardId
+		  ,AwardName
+	FROM dbo.MilitaryAwardTranslation
+	WHERE LanguageId = @LanguageId
+	ORDER BY AwardName;
+END;

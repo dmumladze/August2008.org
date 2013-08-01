@@ -7,17 +7,24 @@
         <tr>
             <td style="vertical-align: top; width: 235px; padding-top: 10px">
                 <div class="editor-label">
-                    @Html.LabelFor2(model => model.MilitaryRanks)
+                    @Html.LabelFor2(model => model.MilitaryRank)
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("Rank", Model.MilitaryRanks, "-", new { id = "MilitaryRankId" })
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor2(model => model.MilitaryGroups)
+                    @Html.LabelFor2(model => model.MilitaryGroup)
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("Group", Model.MilitaryGroups, "-", new { id = "MilitaryGroupId" })
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor2(model => model.MilitaryAward)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("Award", Model.MilitaryAwards, "-", new { id = "MilitaryAwardId" })
                 </div>
 
                 <div class="editor-label">
@@ -55,7 +62,7 @@
                     @Html.EditorFor(model => model.Died)
                 </div>
             </td>
-            <td>
+            <td style="vertical-align:top">
                 <fieldset>
                     <legend>Photos</legend>
                     <div id="photo-edits">

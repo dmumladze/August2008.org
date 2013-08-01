@@ -70,8 +70,9 @@ p {
     position: relative;
     left: 15px;
     line-height: 50px;
-    width: 80px;
+    width: 85px;
     text-shadow: 0 1px 1px #fff;
+    font-size: 1.05em;
 }
 #header ul li a:hover {
     background: #323577;
@@ -100,8 +101,9 @@ p {
     border-top: 1px solid #222222;
     margin: 0;
     padding: 0;
-    height: 33px;
+    height: 36px;
     text-align: right;
+    width: 100%;
 }
 .colmask {
     position: relative; 
@@ -203,6 +205,12 @@ a:active {
     width: 110px;
     height: 95px;
 }
+#logoutForm {
+    display: inline;
+}
+#adminButtonsContainer {
+    padding: 5px 5px 0 0;
+}
 .top-nav {
     width: 100%;
     margin-bottom: 10px;
@@ -256,6 +264,76 @@ a:active {
 .required {
     color: red;
     font-weight: bold;
+}
+.btn-facebook,
+.btn-facebook:hover, 
+.btn-facebook:focus,
+.btn-google,
+.btn-google:hover, 
+.btn-google:focus,
+.btn-yahoo,
+.btn-yahoo:hover, 
+.btn-yahoo:focus {  
+    background-repeat: no-repeat;
+    text-align: left;
+    background-position: 3px;
+    height: 110px;
+    width: 220px;
+}
+.btn-facebook,
+.btn-facebook:hover, 
+.btn-facebook:focus,
+.btn-facebook:active {
+    background-image: url(../images/facebook-btn-logo.png);
+    background-position: 3px;
+}
+.btn-google,
+.btn-google:hover, 
+.btn-google:focus,
+.btn-google:active {
+    background-image: url(../images/google-btn-logo.png);
+    background-position: 3px;
+}
+.btn-yahoo,
+.btn-yahoo:hover, 
+.btn-yahoo:focus,
+.btn-yahoo:active {
+    background-image: url(../images/yahoo-btn-logo.png);
+    background-position: 3px;
+}
+.btn-facebook .span-1,
+.btn-google .span-1,
+.btn-yahoo .span-1 {    
+    display: block; 
+    padding: 0 10px 0 100px;
+    font-size: 12px;
+    margin: 0;
+}
+.btn-facebook .span-2,
+.btn-google .span-2,
+.btn-yahoo .span-2 {    
+    display: block; 
+    padding: 0 10px 0 100px;
+    font-size: 20px;
+    line-height: 55px;
+    margin: 0;
+}
+.btn-paypal,
+.btn-paypal:hover, 
+.btn-paypal:focus {  
+    background-repeat: no-repeat;
+    text-align: left;
+    background-position: 3px;    
+    height: 85px;
+    width: 169px;
+}
+.btn-paypal,
+.btn-paypal:hover, 
+.btn-paypal:focus,
+.btn-paypal:active {
+    background-image: url(../images/paypal-btn.png);
+    background-position: 3px;
+    background-size: 159px 75px;
 }
 .bottom-right {
     position: absolute;
@@ -345,7 +423,7 @@ img {
     clear: both;
 }
 .hero-box .hero-header {  
-    width: 86%;
+    width: 100%;
     border-bottom: solid 1px #E5E5E5;
     font-family: 'Trebuchet MS';
     font-size: 1.2em;
@@ -447,6 +525,11 @@ img {
     background-position: top right;
     background-repeat: no-repeat;
 }
+.openid-logo {
+    background-image: url(../images/openid-logo.png);
+    background-position: top right;
+    background-repeat: no-repeat;
+}
 .soldier-helmut {
     background-image: url(../images/soldier-helmut-sky.png);
     background-position: top right;
@@ -457,9 +540,26 @@ img {
     background-position: 95% 30%;
     background-repeat: no-repeat;
 }
+.donations-jar {
+    background-image: url(../images/donations-jar.png);
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+.donations-thankyou {
+    background-image: url(../images/donations-thankyou.png);
+    background-position: top right;
+    background-repeat: no-repeat;
+}
 .padding-50 {
     padding: 50px;
 }
 .contact-message {
     width: 210px;
+}
+.criteria-field-horizontal {
+    float: left;
+    margin: 0 5px 0 0;
+}
+#donationsList {
+    clear: both;
 }

@@ -77,6 +77,7 @@
     <Compile Include="Interfaces\IHeroRepository.cs" />
     <Compile Include="Interfaces\IMetadataRepository.cs" />
     <Compile Include="Interfaces\IPostedFile.cs" />
+    <Compile Include="RepositoryException.cs" />
     <Compile Include="Tools\ClassBuilder.cs" />
     <Compile Include="Exceptions\DataAccessException.cs" />
     <Compile Include="DataAccess.cs" />

@@ -38,7 +38,7 @@ namespace August2008.Controllers
         [NoCache]
         public ActionResult Index(int? page, string name)
         {
-            var criteria = _heroRepository.GetHeros(new HeroSearchCriteria
+            var criteria = _heroRepository.SearchHeros(new HeroSearchCriteria
                 {
                     PageNo = page.GetValueOrDefault(1),
                     Name = name,
@@ -118,11 +118,13 @@ namespace August2008.Controllers
             }
             var groups = _metadataRepository.GetMilitaryGroups(Me.LanguageId);
             var ranks = _metadataRepository.GetMilitaryRanks(Me.LanguageId);
+            var awards = _metadataRepository.GetMilitaryAwards(Me.LanguageId);
 
             model.MilitaryGroups = new SelectList(groups, "MilitaryGroupId", "GroupName", model.MilitaryGroupId);
             model.MilitaryRanks = new SelectList(ranks, "MilitaryRankId", "RankName", model.MilitaryRankId);
+            model.MilitaryAwards = new SelectList(awards, "MilitaryAwardId", "AwardName", model.MilitaryAwardId);
 
-            return PartialView("EditPartial",model);
+            return PartialView("EditPartial", model);
         }
         /// <summary>
         /// Gets a single photo by name and requested size.

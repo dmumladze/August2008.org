@@ -63,6 +63,9 @@ namespace August2008.Common
         {
             var blobClient = _storageAccount.CreateCloudBlobClient();
             var directory = blobClient.GetContainerReference(directoryName);
+            if (!string.IsNullOrWhiteSpace(subDirectoryName))
+            {
+            }
             var subDirectory = directory.GetDirectoryReference(subDirectoryName);
             return subDirectory;
         }

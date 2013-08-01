@@ -3,12 +3,10 @@
 AS
 BEGIN
 	SET NOCOUNT ON;
-
 	SELECT MilitaryRankId
 		  ,RankName
 		  ,Description
 	FROM dbo.MilitaryRankTranslation
 	WHERE LanguageId = @LanguageId
-	ORDER BY RankName
-
-END
+	ORDER BY RankName;
+END;

@@ -8,6 +8,7 @@ function Hero() {
     this.HeroId = null;
     this.MilitaryRankId = null;
     this.MilitaryGroupId = null;
+    this.MilitaryAwardId = null;
     this.FirstName = null;
     this.LastName = null;
     this.MiddleName = null;
