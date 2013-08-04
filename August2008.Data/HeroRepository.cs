@@ -23,7 +23,7 @@ namespace August2008.Data
                 var hero = new Hero();
                 try
                 {
-                    db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.Photos);
+                    db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.MilitaryAward, hero.Photos);
                     GetBlobs(hero, new CloudDataAccess());
                 }
                 catch (Exception)
