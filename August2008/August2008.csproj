@@ -422,11 +422,14 @@
     <None Include="Properties\PublishProfiles\August2008 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\August2008 - Web Deploy.pubxml" />
     <Content Include="Images\american-flag-bg.jpg" />
+    <Content Include="Images\american-flag-bg.png" />
+    <Content Include="Images\bg.jpg" />
     <Content Include="Images\black-texture-bg.jpg" />
     <Content Include="Images\contact-envelope.png" />
     <Content Include="Images\donations-thankyou.png" />
     <Content Include="Images\donations-jar.png" />
     <Content Include="Images\facebook-btn-logo.png" />
+    <Content Include="Images\georgian-flag-bg.png" />
     <Content Include="Images\google-btn-logo.png" />
     <Content Include="Images\logo-tea-mikaia.png" />
     <Content Include="Images\openid-logo.png" />
@@ -438,6 +441,8 @@
     <Content Include="favicon.png" />
     <Content Include="Images\logo-first.png" />
     <Content Include="Images\white-texture-bg.jpg" />
+    <Content Include="Images\white-texture-bg.png" />
+    <Content Include="Images\white-texture-bg2.jpg" />
     <Content Include="Images\yahoo-btn-logo.png" />
     <Content Include="Scripts\August2008.js" />
     <Content Include="Scripts\Hero.js" />
