@@ -23,40 +23,12 @@ Hero.init = function () {
     // editor dialog
     $('<div id="hero-dialog"></div>').appendTo(document.body);  
     // dialog open
-    $('#createButton').click(function () {
-        //debugger;
-        var bodyHeight = $(window).height();
-        var winHeight = 825;
-        if (bodyHeight < winHeight) {
-            winHeight = bodyHeight - 20;
-        }
-        $('#hero-dialog').dialog({
-            autoOpen: false,
-            modal: true,
-            width: 725,
-            height: winHeight,
-            title: 'Hero',
-            buttons: [
-                {
-                    text: "Save",
-                    //"class": "btn btn-inverse",
-                    click: function () {
-                        $.hero.save();
-                    }
-                },
-                {
-                    text: "Cancel",
-                    //"class": "btn btn-inverse",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                }
-            ]
-        });
+    $('#createButton').click(function () {    
         $.hero.edit();
     });
 };
 Hero.prototype.edit = function (id) {
+    this.initEditDialog();
     $.ajax({
         url: Hero.editAction + (id != undefined ? ("/" + id) : ""),
         method: 'GET',
@@ -177,6 +149,36 @@ Hero.prototype.deletePhoto = function(heroPhotoId, photoBox) {
         }
     });
 }
+Hero.prototype.initEditDialog = function () {
+    var bodyHeight = $(window).height();
+    var winHeight = 825;
+    if (bodyHeight < winHeight) {
+        winHeight = bodyHeight - 20;
+    }
+    $('#hero-dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 725,
+        height: winHeight,
+        title: 'Hero',
+        buttons: [
+            {
+                text: "Save",
+                //"class": "btn btn-inverse",
+                click: function () {
+                    $.hero.save();
+                }
+            },
+            {
+                text: "Cancel",
+                //"class": "btn btn-inverse",
+                click: function () {
+                    $(this).dialog("destroy");
+                }
+            }
+        ]
+    });
+};
 
 $.hero = new Hero();
 
