@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using August2008.Models;
 using August2008.Properties;
 using ImageResizer;
@@ -90,12 +91,33 @@ namespace August2008.Helpers
         }
         public static void SendEmail(string from, string to, string subject, string body)
         {
-            var smtpServer = ConfigurationManager.AppSettings["August2008:SmtpServer"]; 
-            var username = ConfigurationManager.AppSettings["August2008:SmtpUsername"]; 
-            var password = ConfigurationManager.AppSettings["August2008:SmtpPassword"]; 
-            var smtp = new SmtpClient(smtpServer);
-            smtp.Credentials = new NetworkCredential(username, password);
-            smtp.Send(new MailMessage(from, to, subject, body));
+            try
+            {
+                var smtpServer = ConfigurationManager.AppSettings["August2008:SmtpServer"];
+                var username = ConfigurationManager.AppSettings["August2008:SmtpUsername"];
+                var password = ConfigurationManager.AppSettings["August2008:SmtpPassword"];
+                var smtp = new SmtpClient(smtpServer);
+                smtp.Credentials = new NetworkCredential(username, password);
+                smtp.Send(new MailMessage(from, to, subject, body));
+            }
+            catch (Exception)
+            {
+            }
+
+        }
+        public static bool IsCurrentRoute(this RequestContext context, string areaName, string controllerName, params string[] actionNames)
+        {
+            var routeData = context.RouteData;
+            var routeArea = routeData.DataTokens["area"] as string;
+            var current = false;
+
+            if (((string.IsNullOrEmpty(routeArea) && string.IsNullOrEmpty(areaName)) || (routeArea == areaName))
+                  && ((string.IsNullOrEmpty(controllerName)) || (routeData.GetRequiredString("controller") == controllerName))
+                  && ((actionNames == null) || actionNames.Contains(routeData.GetRequiredString("action"))))
+            {
+                current = true;
+            }
+            return current;
         }
     }
 }

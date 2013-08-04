@@ -132,6 +132,9 @@
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>

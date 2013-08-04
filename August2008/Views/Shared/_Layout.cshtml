@@ -25,13 +25,16 @@
     <div id="header">
         <div class="menu-container">
             <ul>
-                <li>@Html.ActionLink(Resources.Global.Strings.Home, "Index", "Home")</li>
-                <li>@Html.ActionLink(Resources.Global.Strings.Mission, "Index", "Home")</li>
-                <li>@Html.ActionLink(Resources.Global.Strings.Heroes, "Index", "Hero")</li>
-                <li>@Html.ActionLink(Resources.Global.Strings.Donations, "Index", "Donations")</li>
-                <li>@Html.ActionLink(Resources.Global.Strings.Contact, "Contact", "Home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Home, "Index", "Home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Mission, "Mission", "Home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Heroes, "Index", "Hero")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Donations, "Index", "Donations")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Contact, "Contact", "Home")</li>
             </ul>
             <div id="layoutdims">
+                <div id="pageButtonsContainer">
+                    @RenderSection("pageButtons", false)
+                </div>
                 <div id="adminButtonsContainer">
                     @if (User.IsInRole("Admin")) {
                         <a href="#" id="manageUsersOpener" class="btn btn-small">Manage Users</a>
@@ -49,7 +52,7 @@
         </div>
         <img src="../images/logo-tea-mikaia.png" class="logo-tea-mikaia" />
     </div>
-    <div class="colmask threecol">
+    <div id="contentContainer" class="colmask threecol">
         <div class="colmid">
             <div class="colleft">
                 <div class="col1">

@@ -8,7 +8,7 @@ body {
     padding: 0;
     border: 0; 
     width: 100%;
-    background: #fff;
+    background: #999;
     min-width: 768px;
     font-size: 90%;
     height: 100%;
@@ -35,7 +35,7 @@ p {
     border-bottom: 1px solid #000;
     background-image: url(../images/black-texture-bg.jpg);
     background-repeat: repeat-x;
-    height: 16%;
+    height: 150px;
     position: relative;
 }
 #header p,
@@ -74,10 +74,17 @@ p {
     text-shadow: 0 1px 1px #fff;
     font-size: 1.05em;
 }
-#header ul li a:hover {
-    background: #323577;
+#header ul li a:hover, 
+#header ul li a.selected {
+    background: #42434A;
     color: #fff;
-    text-shadow: 0 1px 1px #000;
+    text-shadow: 0 1px 1px #000;    
+}
+#header ul li a.selected {
+    box-shadow: 0 -3px 0 0 rgba(0,0,0,0.5);
+}
+#header ul li a:hover {
+    box-shadow: 0 -7px 0 0 rgba(0,0,0,0.5);
 }
 #header ul li a.active,
 #header ul li a.active:hover {
@@ -104,6 +111,7 @@ p {
     height: 36px;
     text-align: right;
     width: 100%;
+    position: relative;
 }
 .colmask {
     position: relative; 
@@ -111,7 +119,6 @@ p {
     float: left;
     width: 100%;
     overflow: hidden;
-    height: 87%;
 }
 .colmid,
 .colleft {
@@ -130,27 +137,29 @@ p {
     padding: 8px 0;
 }
 .threecol {
-    background-image: url(../images/american-flag-bg.jpg);
+    background-image: url(../images/american-flag-bg.png);
     background-position: right top;
-    background-repeat: repeat-y;
+    background-repeat: repeat-y;        
 }
 .threecol .colmid {
     right: 15%;
     background: #fff;
-    -moz-box-shadow: 0 0 3px 4px #111111;
-    -webkit-box-shadow: 0 0 3px 4px #111111;
-    box-shadow: 0 0 3px 4px #111111;
+    -moz-box-shadow: 0 0 0 6px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 0 6px rgba(0,0,0,0.5);
+    box-shadow: 0 0 0 6px rgba(0,0,0,0.5);
     background-image: url(../images/white-texture-bg.jpg);
     background-position: right top;
-    background-repeat: repeat;
+    background-repeat: repeat;  
+    border-right: solid 1px #000;  
 }
 .threecol .colleft {
     right: 60%;
-    background-image: url(../images/georgian-flag-bg.jpg);
+    background-image: url(../images/georgian-flag-bg.png);
     background-position: right top;
     background-repeat: repeat-y;
     margin: 0px auto;
     text-align: center;
+    border-right: solid 1px #000;
 }
 .threecol .col1 {
     left: 101%;
@@ -170,7 +179,8 @@ p {
     float: left;
     width: 100%;
     border-top: 1px solid #000;
-    height: 5%;
+    height: 40px;
+    background: #eee;
 }
 #footer p {
     padding: 10px;
@@ -200,16 +210,22 @@ a:active {
 .logo-tea-mikaia {
     position: absolute;
     right:45px; 
-    top:8px;
-    z-index:9999; 
-    width: 110px;
-    height: 95px;
+    top:2px;
+    width: 125px;
+    height: 110px;
 }
 #logoutForm {
     display: inline;
 }
 #adminButtonsContainer {
+    position: absolute;
+    right: 0;
     padding: 5px 5px 0 0;
+}
+#pageButtonsContainer {
+    position: absolute;
+    left: 24.7%;
+    padding: 5px 0 0 15px;
 }
 .top-nav {
     width: 100%;
@@ -232,6 +248,10 @@ a:active {
 .hero-toolbar-container {
     float: right;
 }
+.common-font {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1.1em;
+}
 .section {
     background-color: #FCFCFC;
     border: 0px solid #333;
@@ -242,6 +262,25 @@ a:active {
     text-align: left;
     padding: 5px;
     overflow: hidden;
+}
+.ui-dialog {
+    -moz-box-shadow: 0 0 0 8px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 0 8px rgba(0,0,0,0.3);
+    box-shadow: 0 0 0 8px rgba(0,0,0,0.3);
+    filter: alpha(opacity=92);
+    -moz-opacity: 0.92;
+    -khtml-opacity: 0.92;
+    opacity: 0.92;
+    background-color: #FFFFFF;
+}
+.pagination {
+    text-align: center;
+    margin: 0;
+    line-height: 0
+}
+.pagination ul > li > a,
+.pagination ul > li > span {
+  padding: 2px 7px;
 }
 .split-two {
     float: left;

@@ -86,5 +86,14 @@ namespace Resources.Donations {
                 return ResourceManager.GetString("ThankYou1", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have just donated {0} {1}. We appreciate your genrosity. Please do tell us what inspired you as your words may inspire others....
+        /// </summary>
+        public static string ThankYou2 {
+            get {
+                return ResourceManager.GetString("ThankYou2", resourceCulture);
+            }
+        }
     }
 }

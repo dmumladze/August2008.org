@@ -126,4 +126,7 @@
   <data name="ThankYou1" xml:space="preserve">
     <value>გმადლობთ დახმარებისთვის!</value>
   </data>
+  <data name="ThankYou2" xml:space="preserve">
+    <value>თქვენ გაიღეთ ფულადი დახმარება {0} {1}, რისთვისაც გიხდით მადლობას და გთხოვთ რამოდენიმე სიტყვით გამოხატოთ თქვენი დამოკიდებულება ამ ღვთისმიერი საქმისადმი.</value>
+  </data>
 </root>

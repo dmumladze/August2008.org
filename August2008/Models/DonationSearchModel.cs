@@ -22,5 +22,7 @@ namespace August2008.Models
         public DateTime? ToDate { get; set; }
 
         public IEnumerable<DonationModel> Result { get; set; }
+
+        public DonationModel ConfirmDonation { get; set; } 
     }
 }

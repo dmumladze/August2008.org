@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Filters;
+using August2008.Helpers;
 using August2008.Model;
 using August2008.Models;
 using AutoMapper;
@@ -50,9 +51,9 @@ namespace August2008.Controllers
                 };
             Mapper.Map(transaction, donation);
             donation = _donationRepository.CreateDonation(donation);
-            var model = new DonationModel();
-            Mapper.Map(donation, model);
-            return View("Confirm", model);
+            SiteHelper.SendEmail(ContactEmail, Me.Email, "Thank you", "Thank you for donating");                
+            var model = new DonationSearchModel { ConfirmDonation = Mapper.Map(donation, new DonationModel()) }; 
+            return View("Index", model);
         }
         [HttpPost]
         public ActionResult Confirm(DonationModel model)

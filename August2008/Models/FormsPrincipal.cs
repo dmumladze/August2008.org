@@ -19,6 +19,7 @@ namespace August2008.Models
         }
 
         public int UserId { get; set; }
+        public string Email { get; set; }
         public int LanguageId { get; set; }
         public string Culture { get; set; }
         public bool SuperUser { get; set; }

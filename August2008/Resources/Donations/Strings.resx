@@ -126,4 +126,7 @@
   <data name="ThankYou1" xml:space="preserve">
     <value>Thank you for donating!</value>
   </data>
+  <data name="ThankYou2" xml:space="preserve">
+    <value>You have just donated {0} {1}. We appreciate your genrosity. Please do tell us what inspired you as your words may inspire others...</value>
+  </data>
 </root>

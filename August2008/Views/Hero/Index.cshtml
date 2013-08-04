@@ -7,32 +7,37 @@
 {
     @Scripts.Render("~/bundles/hero")
 }
-
+@section pageButtons {
+    @if (User.IsInRole("Admin")) {
+        <div id="adminToolbar" class="hero-toolbar-container">
+            <button id="createButton" class="btn btn-inverse btn-small">Add Hero</button> 
+        </div>
+    }
+}
 <div class="top-nav">
-    <div id="alphabet" class="alphabet-container">
+    <div id="alphabet" class="alphabet-container pagination">
         <ul class="nav-alphabet">
-            @foreach (var item in Model.Alphabet) {
-                <li>
-                    @if (item.Active) {
-                        <a href="@Url.Action("Index", new { page = 1, name = item.Letter })" class="btn btn-success btn-mini">@item.Letter</a>
-                    } 
-                    else {
-                        <a href="#" class="btn btn-mini">@item.Letter</a>
-                    }
-                </li>
+            @foreach (var item in Model.Alphabet) {                
+                if (item.Active) {
+                    <li><a href="@Url.Action("Index", new { page = 1, name = item.Letter })">@item.Letter</a></li>
+                } 
+                else {
+                    <li class="active"><a href="#">@item.Letter</a></li>
+                }
             }
         </ul>
     </div>
-    @if (User.IsInRole("Admin")) {
-        <div id="adminToolbar" class="hero-toolbar-container">
-            <button id="createButton" class="btn btn-inverse btn-mini">Add Hero</button> 
-        </div>
-    }
 </div>
 
-@if (!Model.Result.IsNullOrEmpty()) {
+@if (!Model.Result.IsNullOrEmpty()) {        
+	@Html.Pager(Model.PageSize, Model.PageNo, Model.TotalCount).Options(o => o
+		.DisplayTemplate("BootstrapPagination")
+		.MaxNrOfPages(2)
+		.AlwaysAddFirstPageNumber()
+        .AddRouteValue("name", Model.Name)
+	)        
     foreach (var item in Model.Result)  {
-        <div class="hero-box section shadow transp soldier-helmut">
+        <div class="hero-box section shadow transp soldier-helmut" style="margin-bottom:10px">
             <div class="hero-header">
                 <span class="hero-name">@item.LastName @item.FirstName</span>
                 <span class="hero-rank">@item.MilitaryAward.AwardName</span>
@@ -78,6 +83,12 @@
             }
         </div>                
     }
+	@Html.Pager(Model.PageSize, Model.PageNo, Model.TotalCount).Options(o => o
+		.DisplayTemplate("BootstrapPagination")
+		.MaxNrOfPages(2)
+		.AlwaysAddFirstPageNumber()
+        .AddRouteValue("name", Model.Name)
+	)    
 }
 
 @section BottomScriptSection

@@ -166,6 +166,7 @@ namespace August2008.Data
                     heros.ForEach(x => x.Photos = photos.Where(y => y.HeroId == x.HeroId));
                     GetBlobs(heros, new CloudDataAccess());
                     criteria.Result = heros;
+                    criteria.TotalCount = db.GetParameterValue<int>("@TotalCount");
                 }
                 catch (Exception)
                 {

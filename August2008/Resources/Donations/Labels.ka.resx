@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DonateNow" xml:space="preserve">
-    <value>დაეხმარე</value>
+    <value>გადარიცხვა</value>
   </data>
   <data name="FromDate" xml:space="preserve">
     <value>აქედან</value>
@@ -130,7 +130,7 @@
     <value>სხვა</value>
   </data>
   <data name="SearchDonations" xml:space="preserve">
-    <value>შემოწირულობის ძებნა</value>
+    <value>არქივი</value>
   </data>
   <data name="ToDate" xml:space="preserve">
     <value>აქამდე</value>

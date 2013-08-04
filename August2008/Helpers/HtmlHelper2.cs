@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Mvc.Html;
 
 namespace August2008.Helpers
 {
@@ -89,6 +90,17 @@ namespace August2008.Helpers
             var metadata = ModelMetadata.FromLambdaExpression<TModel, TProperty>(expression, htmlHelper.ViewData);
             string value = metadata.DisplayName ?? (metadata.PropertyName ?? ExpressionHelper.GetExpressionText(expression));
             return MvcHtmlString.Create(value);
+        }
+        public static IHtmlString ActionMenuItem(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName)
+        {
+            if (!htmlHelper.ViewContext.RequestContext.IsCurrentRoute(null, controllerName, actionName))
+            {
+                return htmlHelper.ActionLink(linkText, actionName, controllerName);
+            }
+            else
+            {
+                return htmlHelper.ActionLink(linkText, actionName, controllerName, new { @class = "selected" });
+            }
         }
     }
 }

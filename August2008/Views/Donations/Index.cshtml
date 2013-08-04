@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @if (User.Identity.IsAuthenticated) {
-    @Html.Partial("DonatePartial")
+    @Html.Partial("DonationsPartial")
 }
 else {
     <div>You must be logged in</div>
@@ -17,7 +17,7 @@ else {
                                                                             InsertionMode = InsertionMode.Replace,
                                                                             UpdateTargetId = "donationsList",
                                                                             OnBegin = "Spinner.show()",
-                                                                            OnComplete = "Spinner.hide()"                                                                            
+                                                                            OnComplete = "Spinner.hide();August2008.adjustDimensions();"                                                                            
                                                                         },
                                                                         new { @id = "searchForm", name = "searchForm" }))
                 {                    
@@ -34,7 +34,9 @@ else {
                         <div class="editor-field">@Html.EditorFor(m => m.ToDate, new { @class = "input-small", tabindex = 2 })</div>
                     </div>
                     <div class="criteria-field-horizontal">
-                        <button type="submit" class="btn btn-inverse" id="submitButton" style="margin: 20px 0 0 2px", tabindex="3">Search</button>
+                        <button type="submit" class="btn btn-inverse" id="submitButton" style="margin: 20px 0 0 2px", tabindex="3">
+                            @Resources.Global.Labels.Search
+                        </button>
                     </div>
                 }
         </div>
@@ -43,4 +45,20 @@ else {
         </div>
     </fieldset>
 </div>
+
+@if (!Model.ConfirmDonation.IsNull()) {
+    <div id="confirmDonation">
+        @Html.Partial("ConfirmPartial", Model.ConfirmDonation)
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#confirmDonation').dialog({
+                autoOpen: true,
+                modal: true,
+                width: 500,                
+                title: '@Resources.Donations.Strings.ThankYou1'
+            });
+        });
+    </script>    
+}
 

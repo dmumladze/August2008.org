@@ -1,0 +1,15 @@
+﻿@model DonationModel
+
+<p class="common-font">
+   @string.Format(Resources.Donations.Strings.ThankYou2, Model.Amount.ToString("N2"), Model.Currency)
+</p>
+@using (Html.BeginForm("Confirm", "Donations")) {
+    @Html.HiddenFor(m => m.DonationId)
+    @Html.HiddenFor(m => m.Amount)
+    @Html.HiddenFor(m => m.Currency)
+    @Html.TextAreaFor(m => m.UserMessage, new { style = "width:455px;height:200px" })
+    <p>
+        <button type="submit" class="btn btn-inverse">@Resources.Global.Labels.Send</button>
+        <button type="reset" class="btn">@Resources.Global.Labels.Reset</button>
+    </p>
+}

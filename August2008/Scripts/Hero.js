@@ -19,33 +19,40 @@ function Hero() {
     // client model
     this.photos = new Array();
 };
-Hero.init = function() {
+Hero.init = function () {
     // editor dialog
-    $('<div id="hero-dialog"></div>').appendTo(document.body);
-    $('#hero-dialog').dialog({
-        autoOpen: false,
-        modal: true,
-        width: 725,
-        title: 'Hero',
-        buttons: [
-            {
-                text: "Save",
-                //"class": "btn btn-inverse",
-                click: function () {
-                    $.hero.save();
-                }
-            },
-            {
-                text: "Cancel",
-                //"class": "btn btn-inverse",
-                click: function () {
-                    $(this).dialog("close");
-                }
-            }
-        ]
-    });    
+    $('<div id="hero-dialog"></div>').appendTo(document.body);  
     // dialog open
-    $('#createButton').click(function() {
+    $('#createButton').click(function () {
+        //debugger;
+        var bodyHeight = $(window).height();
+        var winHeight = 825;
+        if (bodyHeight < winHeight) {
+            winHeight = bodyHeight - 20;
+        }
+        $('#hero-dialog').dialog({
+            autoOpen: false,
+            modal: true,
+            width: 725,
+            height: winHeight,
+            title: 'Hero',
+            buttons: [
+                {
+                    text: "Save",
+                    //"class": "btn btn-inverse",
+                    click: function () {
+                        $.hero.save();
+                    }
+                },
+                {
+                    text: "Cancel",
+                    //"class": "btn btn-inverse",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            ]
+        });
         $.hero.edit();
     });
 };

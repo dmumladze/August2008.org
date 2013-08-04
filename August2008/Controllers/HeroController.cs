@@ -42,7 +42,7 @@ namespace August2008.Controllers
                 {
                     PageNo = page.GetValueOrDefault(1),
                     Name = name,
-                    PageSize = 10,
+                    PageSize = 5,
                     LanguageId = Me.LanguageId
                 });
             var alphabet = SiteHelper.GetAlphabet();
