@@ -1,7 +1,7 @@
 ﻿@model DonationModel
 
 <p class="common-font">
-   @string.Format(Resources.Donations.Strings.ThankYou2, Model.Amount.ToString("N2"), Model.Currency)
+   @Resources.Donations.Strings.YourCommentAfterDonation
 </p>
 @using (Html.BeginForm("Confirm", "Donations")) {
     @Html.HiddenFor(m => m.DonationId)

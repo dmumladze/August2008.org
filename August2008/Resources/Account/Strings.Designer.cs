@@ -77,5 +77,14 @@ namespace Resources.Account {
                 return ResourceManager.GetString("OpenIDTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to მოგესალმებით! თქვენ წარმატებით გაიარეთ რეგისტრაცია. დიდად გმადლობთ..
+        /// </summary>
+        public static string WelcomeRegistrationMessage {
+            get {
+                return ResourceManager.GetString("WelcomeRegistrationMessage", resourceCulture);
+            }
+        }
     }
 }

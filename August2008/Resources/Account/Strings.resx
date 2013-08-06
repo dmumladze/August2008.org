@@ -123,4 +123,7 @@
   <data name="OpenIDTitle" xml:space="preserve">
     <value>Choose OpenID Provider</value>
   </data>
+  <data name="WelcomeRegistrationMessage" xml:space="preserve">
+    <value>მოგესალმებით! თქვენ წარმატებით გაიარეთ რეგისტრაცია. დიდად გმადლობთ.</value>
+  </data>
 </root>

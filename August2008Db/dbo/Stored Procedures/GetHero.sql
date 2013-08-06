@@ -37,8 +37,8 @@ BEGIN
 		ht.DateUpdated,
 		ht.UpdatedBy,
 		ht.LanguageId		
-	FROM dbo.Hero h (NOLOCK) 
-	INNER JOIN dbo.HeroTranslation ht (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId
+	FROM dbo.Hero h WITH (NOLOCK) 
+	INNER JOIN dbo.HeroTranslation ht WITH (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId
 	WHERE h.HeroId = @HeroId;
 
 	SELECT * FROM @Hero;
@@ -47,24 +47,24 @@ BEGIN
 		mgt.MilitaryGroupId,
 		mgt.GroupName,
 		mgt.Description
-	FROM dbo.MilitaryGroup mg (NOLOCK)
-	INNER JOIN dbo.MilitaryGroupTranslation mgt (NOLOCK) ON mg.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
+	FROM dbo.MilitaryGroup mg WITH (NOLOCK)
+	INNER JOIN dbo.MilitaryGroupTranslation mgt WITH (NOLOCK) ON mg.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
 	INNER JOIN @Hero h ON mgt.MilitaryGroupId = h.MilitaryGroupId;
 
 	SELECT TOP 1
 		mrt.MilitaryRankId,
 		mrt.RankName,
 		mrt.Description
-	FROM dbo.MilitaryRank mr (NOLOCK)
-	INNER JOIN dbo.MilitaryRankTranslation mrt (NOLOCK) ON mr.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
+	FROM dbo.MilitaryRank mr WITH (NOLOCK)
+	INNER JOIN dbo.MilitaryRankTranslation mrt WITH (NOLOCK) ON mr.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
 	INNER JOIN @Hero h ON mrt.MilitaryRankId = h.MilitaryRankId;
 
 	SELECT TOP 1
 		mat.MilitaryAwardId,
 		mat.AwardName,
 		mat.Description
-	FROM dbo.MilitaryAward ma (NOLOCK)
-	INNER JOIN dbo.MilitaryAwardTranslation mat (NOLOCK) ON ma.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
+	FROM dbo.MilitaryAward ma WITH (NOLOCK)
+	INNER JOIN dbo.MilitaryAwardTranslation mat WITH (NOLOCK) ON ma.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
 	INNER JOIN @Hero h ON mat.MilitaryAwardId = h.MilitaryAwardId;
 
 	SELECT
@@ -75,6 +75,6 @@ BEGIN
 		IsThumbnail,
 		DateCreated,
 		UpdatedBy
-	FROM dbo.HeroPhoto (NOLOCK)
+	FROM dbo.HeroPhoto WITH (NOLOCK)
 	WHERE HeroId = @HeroId;
 END;

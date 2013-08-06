@@ -9,7 +9,7 @@ BEGIN
 		,DisplayName
 		,MemberSince
 		,SuperAdmin
-	FROM [dbo].[User] (NOLOCK)
+	FROM [dbo].[User] WITH (NOLOCK)
 	WHERE (@StartsWith IS NULL OR DisplayName LIKE @StartsWith + '%')
 	ORDER BY DisplayName;
 END

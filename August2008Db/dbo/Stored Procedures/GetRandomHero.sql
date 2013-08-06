@@ -15,7 +15,7 @@ BEGIN
 
 	INSERT INTO @Random
 	SELECT HeroId
-	FROM dbo.HeroTranslation
+	FROM dbo.HeroTranslation WITH (NOLOCK)
 	WHERE LanguageId = @LanguageId;
 
 	SELECT  

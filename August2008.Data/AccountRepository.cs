@@ -59,43 +59,65 @@ namespace August2008.Data
         }
         public User CreateUser(User user)
         {
-            using (var tran = new TransactionScope())
-            using (var db = new DataAccess())
+            using (var tran = new DbTransactionManager())
             {
-                try
+                tran.BeginTransaction();
+                using (var db = new DataAccess(tran))
                 {
-                    db.CreateStoredProcCommand("dbo.CreateUser");
-                    db.AddInParameter("@Email", DbType.String, user.Email);
-                    db.AddInParameter("@DisplayName", DbType.String, user.DisplayName);
-                    db.AddOutParameter("@UserId", DbType.Int32);
-                    db.ExecuteNonQuery();
-                    user.UserId = db.GetParameterValue<int>("@UserId");
+                    try
+                    {
+                        db.CreateStoredProcCommand("dbo.CreateUser");
+                        db.AddInParameter("@Email", DbType.String, user.Email);
+                        db.AddInParameter("@DisplayName", DbType.String, user.DisplayName);
+                        db.AddOutParameter("@UserId", DbType.Int32);
+                        db.ExecuteNonQuery();
+                        user.UserId = db.GetParameterValue<int>("@UserId");
 
-                    user.OAuth.UserId = user.UserId;
-                    user.OAuth = CreateOAuthUser(user.OAuth);
+                        user.OAuth.UserId = user.UserId;
+                        user.OAuth = CreateOAuthUser(user.OAuth, tran);
 
-                    db.CreateStoredProcCommand("dbo.CreateUserProfile");
-                    db.AddInParameter("@UserId", DbType.String, user.UserId);
-                    db.AddInParameter("@LanguageId", DbType.String, user.Profile.Lang.LanguageId);
-                    db.AddInParameter("@Dob", DbType.String, user.Profile.Dob);
-                    db.AddInParameter("@Nationality", DbType.String, user.Profile.Nationality);
-                    db.AddOutParameter("@UserProfileId", DbType.Int32);
-                    db.ExecuteNonQuery();
-                    user.Profile.UserProfileId = db.GetParameterValue<int>("@UserProfileId");
+                        db.CreateStoredProcCommand("dbo.CreateUserProfile");
+                        db.AddInParameter("@UserId", DbType.String, user.UserId);
+                        db.AddInParameter("@LanguageId", DbType.String, user.Profile.Lang.LanguageId);
+                        db.AddInParameter("@Dob", DbType.String, user.Profile.Dob);
+                        db.AddInParameter("@Nationality", DbType.String, user.Profile.Nationality);
+                        db.AddOutParameter("@UserProfileId", DbType.Int32);
+                        db.ExecuteNonQuery();
+                        user.Profile.UserProfileId = db.GetParameterValue<int>("@UserProfileId");
 
-                    user = GetUser(user.UserId);
-                    tran.Complete();
+                        user = GetUser(user.UserId);
+                        tran.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                    return user;
                 }
-                catch (Exception)
-                {                    
-                    throw;
-                }
-                return user;
             }
         }
         public OAuthUser CreateOAuthUser(OAuthUser user)
         {
-            using (var db = new DataAccess())
+            using (var tran = new DbTransactionManager())
+            {
+                try
+                {
+                    tran.BeginTransaction();
+                    user = CreateOAuthUser(user, tran);
+                    tran.Commit();
+                }
+                catch (Exception)
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+            return user;
+        }
+        private OAuthUser CreateOAuthUser(OAuthUser user, DbTransactionManager tran)
+        {
+            using (var db = new DataAccess(tran))
             {
                 db.CreateStoredProcCommand("dbo.CreateOAuthUser");
                 db.AddInParameter("@UserId", DbType.String, user.UserId);
@@ -118,26 +140,30 @@ namespace August2008.Data
         }
         public void UpdateUser(User user)
         {
-            using (var tran = new TransactionScope())
-            using (var db = new DataAccess())
+            using (var tran = new DbTransactionManager())
             {
-                db.CreateStoredProcCommand("dbo.UpdateUser");
-                db.AddInParameter("@UserId", DbType.Int32, user.UserId);
-                db.AddInParameter("@Email", DbType.String, user.Email);
-                db.AddInParameter("@DisplayName", DbType.String, user.DisplayName); 
-                try
-                {                   
-                    db.ExecuteNonQuery();
-
-                    if (user.Profile != null)
-                    {
-                        UpdateUserProfile(user.Profile);
-                    }
-                    tran.Complete();
-                }
-                catch (Exception)
+                tran.BeginTransaction();
+                using (var db = new DataAccess(tran))
                 {
-                    throw;
+                    db.CreateStoredProcCommand("dbo.UpdateUser");
+                    db.AddInParameter("@UserId", DbType.Int32, user.UserId);
+                    db.AddInParameter("@Email", DbType.String, user.Email);
+                    db.AddInParameter("@DisplayName", DbType.String, user.DisplayName);
+                    try
+                    {
+                        db.ExecuteNonQuery();
+
+                        if (user.Profile != null)
+                        {
+                            UpdateUserProfile(user.Profile);
+                        }
+                        tran.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
                 }
             }
         }
@@ -215,47 +241,55 @@ namespace August2008.Data
         }
         public void AssignUserToRoles(int userId, IEnumerable<int> roles)
         {
-            using (var tran= new TransactionScope())            
-            using (var db = new DataAccess())
+            using (var tran = new DbTransactionManager())
             {
-                try
+                tran.BeginTransaction();
+                using (var db = new DataAccess(tran))
                 {
-                    db.CreateStoredProcCommand("dbo.AssignUserToRole");
-                    foreach (var id in roles)
+                    try
                     {
-                        db.AddInParameter("@UserId", DbType.Int32, userId);
-                        db.AddInParameter("@RoleId", DbType.Int32, id);
-                        db.ExecuteNonQuery();
-                        db.ResetCommand(false);
+                        db.CreateStoredProcCommand("dbo.AssignUserToRole");
+                        foreach (var id in roles)
+                        {
+                            db.AddInParameter("@UserId", DbType.Int32, userId);
+                            db.AddInParameter("@RoleId", DbType.Int32, id);
+                            db.ExecuteNonQuery();
+                            db.ResetCommand(false);
+                        }
+                        tran.Commit();
                     }
-                    tran.Complete();
-                }
-                catch (Exception)
-                {
-                    throw;
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
                 }
             }
         }
         public void RevokeUserFromRoles(int userId, IEnumerable<int> roles)
         {
-            using (var tran = new TransactionScope())   
-            using (var db = new DataAccess())
+            using (var tran = new DbTransactionManager())
             {
-                try
+                tran.BeginTransaction();
+                using (var db = new DataAccess(tran))
                 {
-                    db.CreateStoredProcCommand("dbo.RevokeUserFromRole");
-                    foreach (var id in roles)
+                    try
                     {
-                        db.AddInParameter("@UserId", DbType.Int32, userId);
-                        db.AddInParameter("@RoleId", DbType.Int32, id);
-                        db.ExecuteNonQuery();
-                        db.ResetCommand(false);
+                        db.CreateStoredProcCommand("dbo.RevokeUserFromRole");
+                        foreach (var id in roles)
+                        {
+                            db.AddInParameter("@UserId", DbType.Int32, userId);
+                            db.AddInParameter("@RoleId", DbType.Int32, id);
+                            db.ExecuteNonQuery();
+                            db.ResetCommand(false);
+                        }
+                        tran.Commit();
                     }
-                    tran.Complete();
-                }
-                catch (Exception)
-                {
-                    throw;
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
                 }
             }
         }

@@ -25,7 +25,7 @@ BEGIN
 
 	SELECT 
 		@TotalCount = COUNT(*)
-	FROM dbo.HeroTranslation ht (NOLOCK)
+	FROM dbo.HeroTranslation ht WITH (NOLOCK)
 	WHERE ht.LanguageId = @LanguageId
 	AND (@Name IS NULL OR ht.LastName LIKE @Name + '%');
 
@@ -42,11 +42,11 @@ BEGIN
 		ht.MiddleName,
 		ht.Biography,
 		ht.DateUpdated	
-	FROM dbo.Hero h (NOLOCK)
-	INNER JOIN dbo.HeroTranslation ht (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId
-	LEFT JOIN dbo.MilitaryGroupTranslation mgt (NOLOCK) ON ht.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
-	LEFT JOIN dbo.MilitaryRankTranslation mrt (NOLOCK) ON ht.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
-	LEFT JOIN dbo.MilitaryAwardTranslation mat (NOLOCK) ON ht.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
+	FROM dbo.Hero h WITH (NOLOCK)
+	INNER JOIN dbo.HeroTranslation ht WITH (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId
+	LEFT JOIN dbo.MilitaryGroupTranslation mgt WITH (NOLOCK) ON ht.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
+	LEFT JOIN dbo.MilitaryRankTranslation mrt WITH (NOLOCK) ON ht.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
+	LEFT JOIN dbo.MilitaryAwardTranslation mat WITH (NOLOCK) ON ht.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
 	AND (@Name IS NULL OR ht.LastName LIKE @Name + '%')
 	ORDER BY ht.LastName, ht.FirstName
 	OFFSET ((@PageNo - 1) * @PageSize) ROWS
@@ -71,7 +71,7 @@ BEGIN
 		hp.ContentType,
 		hp.PhotoUri,
 		hp.IsThumbnail
-	FROM dbo.HeroPhoto hp (NOLOCK)
+	FROM dbo.HeroPhoto hp WITH (NOLOCK)
 	INNER JOIN @Hero h ON hp.HeroId = h.HeroId
 	--WHERE hp.IsThumbnail = 1;
 

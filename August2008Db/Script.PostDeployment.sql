@@ -1,7 +1,7 @@
 ﻿BEGIN TRY
 	BEGIN TRANSACTION;
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	EXECUTE sp_addmessage 
+	EXECUTE sp_addmessage -- not supported in SQL Azure
 		@msgnum		= 50001, 
 		@severity	= 16, 
 		@msgtext	= N'Hero under the name of ''%s %s'' already exists.';
@@ -143,9 +143,8 @@
 	მოქალაქენი საქართველოს აღორძინების საქმეში შეტანილი განსაკუთრებული წვლილისა და ღირსეული სამსახურისათვის.', 1)
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	SET IDENTITY_INSERT[dbo].[Role] ON
-	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (1, 'Reader', 'Regular user with minimal provilages')
-	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (2, 'Writer', 'User with ability to perform set of operation such as creating an aricle etc..')
-	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (3, 'Admin', 'Administrator')
+	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (1, 'Writer', 'User with ability to perform set of operation such as creating an aricle etc..')
+	INSERT INTO [dbo].[Role] (RoleId, Name, Description) VALUES (2, 'Admin', 'Administrator')
 	SET IDENTITY_INSERT[dbo].[Role] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	SET IDENTITY_INSERT[dbo].[DonationProvider] ON

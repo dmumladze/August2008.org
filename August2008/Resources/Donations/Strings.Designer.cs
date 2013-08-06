@@ -79,20 +79,34 @@ namespace Resources.Donations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for donating!.
+        ///   Looks up a localized string similar to დიდად გმადლობთ!.
         /// </summary>
-        public static string ThankYou1 {
+        public static string ThankYou {
             get {
-                return ResourceManager.GetString("ThankYou1", resourceCulture);
+                return ResourceManager.GetString("ThankYou", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have just donated {0} {1}. We appreciate your genrosity. Please do tell us what inspired you as your words may inspire others....
+        ///   Looks up a localized string similar to მოგესალმებით! 
+        ///
+        ///უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
+        ///
+        ///www.august2008.org 
+        ///ადმინისტრაცია.
         /// </summary>
-        public static string ThankYou2 {
+        public static string ThankYouEmailMessage {
             get {
-                return ResourceManager.GetString("ThankYou2", resourceCulture);
+                return ResourceManager.GetString("ThankYouEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to თქვენი კომენტარი.
+        /// </summary>
+        public static string YourCommentAfterDonation {
+            get {
+                return ResourceManager.GetString("YourCommentAfterDonation", resourceCulture);
             }
         }
     }

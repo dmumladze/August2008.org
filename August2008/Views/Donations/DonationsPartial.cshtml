@@ -10,7 +10,7 @@
                     <!-- Specify a Donate button. -->
                     <input type="hidden" name="cmd" value="_donations">
                     <!-- Specify details about the contribution -->
-                    <input type="hidden" name="item_name" value="@Resources.Donations.Strings.ThankYou1">
+                    <input type="hidden" name="item_name" value="@Resources.Donations.Strings.ThankYou">
                     <input type="hidden" name="return" value="@Url.Action("PayPal", null, null, HttpContext.Current.Request.Url.Scheme)"/>
                     <input type="hidden" name="cancel_return" value="@Url.Action("Cancel", null, new {provider = DonationProvider.PayPal}, HttpContext.Current.Request.Url.Scheme)"/>
                     <input type="hidden" name="rm" value="2"/>
@@ -33,7 +33,7 @@
                 @Resources.Donations.Strings.ChooseAndDonate
             </div>
             <div style="width:100%;clear:both;border-top:dashed 1px #E5E5E5;padding:10px;margin-top:17px">
-                @Resources.Donations.Strings.AboutPayPal
+                @Html.Raw(Resources.Donations.Strings.AboutPayPal)
             </div>
         </div>
     </fieldset>

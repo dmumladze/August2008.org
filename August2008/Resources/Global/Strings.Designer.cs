@@ -97,6 +97,15 @@ namespace Resources.Global {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We Remember August.
+        /// </summary>
+        public static string EmailSubject {
+            get {
+                return ResourceManager.GetString("EmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heroes.
         /// </summary>
         public static string Heroes {

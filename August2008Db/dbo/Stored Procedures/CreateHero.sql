@@ -16,7 +16,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF	(EXISTS(SELECT 1 FROM dbo.HeroTranslation (NOLOCK)
+	IF	(EXISTS(SELECT 1 FROM dbo.HeroTranslation WITH (NOLOCK)
 				WHERE FirstName = @FirstName
 				AND	LastName = @LastName
 				AND (@MilitaryGroupId IS NULL OR MilitaryGroupId = @MilitaryGroupId)
@@ -24,11 +24,10 @@ BEGIN
 				AND (@MilitaryAwardId IS NULL OR MilitaryAwardId = @MilitaryAwardId)
 				AND LanguageId = @LanguageId))
 	BEGIN
-		RAISERROR(50001, 16, 1, @LastName, @FirstName);
+		--RAISERROR(50001, 16, 1, @LastName, @FirstName); not supported in SQL Azure
+		RAISERROR(N'Hero under the name of ''%s %s'' already exists.', 16, 1, @LastName, @FirstName);
 		RETURN;
 	END;	
-
-	DECLARE @xdh INT;
 
 	INSERT INTO dbo.Hero (
 		Dob,
@@ -68,26 +67,21 @@ BEGIN
 		@UpdatedBy
 	);
 
-	EXEC sp_xml_preparedocument @xdh OUTPUT, @Photos;
-
-	INSERT INTO dbo.HeroPhoto (
-		PhotoUri,
-		HeroId,
-		ContentType,
-		IsThumbnail,
-		UpdatedBy
-	)
-	SELECT    
-		PhotoUri,
-		@HeroId,
-		ContentType,
-		IsThumbnail,
-		@UpdatedBy
-	FROM OPENXML (@xdh, '/Photos/Photo', 1)
-	WITH (
-		PhotoUri	NVARCHAR(250),
-		ContentType NVARCHAR(25),
-		IsThumbnail BIT
-	);
-	EXEC sp_xml_removedocument @xdh;
+	IF (@Photos IS NOT NULL)
+	BEGIN
+		INSERT INTO dbo.HeroPhoto (
+			HeroId,
+			UpdatedBy,		
+			PhotoUri,
+			ContentType,
+			IsThumbnail
+		)
+		SELECT  
+			@HeroId,
+			@UpdatedBy,	  
+			T.c.value('./@PhotoUri', 'NVARCHAR(250)'),
+			T.c.value('./@ContentType', 'NVARCHAR(25)'),
+			T.c.value('./@IsThumbnail', 'BIT')
+		FROM @Photos.nodes('/Photos/Photo') T(c)
+	END;
 END;

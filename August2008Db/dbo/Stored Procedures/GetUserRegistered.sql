@@ -12,16 +12,16 @@ BEGIN
 	SELECT TOP 1
 		@UserId		= u.UserId,
 		@Provider2	= oa.ProviderName
-	FROM dbo.OAuthUser oa (NOLOCK)
-	INNER JOIN dbo.[User] u (NOLOCK) ON oa.UserId = u.UserId
+	FROM dbo.OAuthUser oa WITH (NOLOCK)
+	INNER JOIN dbo.[User] u WITH (NOLOCK) ON oa.UserId = u.UserId
 	WHERE oa.Email = @Email; 
 
 	IF @UserId IS NOT NULL
 	BEGIN
 		SELECT TOP 1
 			@Provider2	= oa.ProviderName
-		FROM dbo.OAuthUser oa (NOLOCK)
-		INNER JOIN dbo.[User] u (NOLOCK) ON oa.UserId = u.UserId
+		FROM dbo.OAuthUser oa WITH (NOLOCK)
+		INNER JOIN dbo.[User] u WITH (NOLOCK) ON oa.UserId = u.UserId
 		WHERE oa.Email = @Email
 		AND oa.ProviderName = @Provider
 

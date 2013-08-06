@@ -123,10 +123,18 @@
   <data name="ChooseAndDonate" xml:space="preserve">
     <value>Choose desired amount and click on PayPal button...</value>
   </data>
-  <data name="ThankYou1" xml:space="preserve">
-    <value>Thank you for donating!</value>
+  <data name="ThankYou" xml:space="preserve">
+    <value>დიდად გმადლობთ!</value>
   </data>
-  <data name="ThankYou2" xml:space="preserve">
-    <value>You have just donated {0} {1}. We appreciate your genrosity. Please do tell us what inspired you as your words may inspire others...</value>
+  <data name="ThankYouEmailMessage" xml:space="preserve">
+    <value>მოგესალმებით! 
+
+უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
+
+www.august2008.org 
+ადმინისტრაცია</value>
+  </data>
+  <data name="YourCommentAfterDonation" xml:space="preserve">
+    <value>თქვენი კომენტარი</value>
   </data>
 </root>

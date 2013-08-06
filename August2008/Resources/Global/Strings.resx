@@ -129,6 +129,9 @@
   <data name="Donations" xml:space="preserve">
     <value>Donations</value>
   </data>
+  <data name="EmailSubject" xml:space="preserve">
+    <value>We Remember August</value>
+  </data>
   <data name="Heroes" xml:space="preserve">
     <value>Heroes</value>
   </data>

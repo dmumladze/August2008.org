@@ -121,7 +121,7 @@
     <value>გადარიცხვა</value>
   </data>
   <data name="FromDate" xml:space="preserve">
-    <value>აქედან</value>
+    <value>თარიღი</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>სახელი</value>
@@ -133,6 +133,6 @@
     <value>არქივი</value>
   </data>
   <data name="ToDate" xml:space="preserve">
-    <value>აქამდე</value>
+    <value>შუალედი</value>
   </data>
 </root>

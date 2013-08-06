@@ -45,6 +45,10 @@ namespace August2008.Controllers
         {
             get { return ConfigurationManager.AppSettings["August2008:SmtpPassword"]; }
         }
+        protected string ReplyEmail
+        {
+            get { return ConfigurationManager.AppSettings["August2008:ReplyEmail"]; }
+        }
         protected ActionResult RedirectToLocal(string returnUrl)
         {
             // prevents from "open redirection attack"

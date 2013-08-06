@@ -129,6 +129,9 @@
   <data name="Donations" xml:space="preserve">
     <value>დახმარება</value>
   </data>
+  <data name="EmailSubject" xml:space="preserve">
+    <value>We Remember August</value>
+  </data>
   <data name="Heroes" xml:space="preserve">
     <value>გმირები</value>
   </data>
@@ -139,6 +142,6 @@
     <value>მისია</value>
   </data>
   <data name="NoResultForCriteria" xml:space="preserve">
-    <value>სცადეთ სხვა კრიტერიუმით ძიება.</value>
+    <value>სცადეთ სხვა კრიტერიუმით ძებნა.</value>
   </data>
 </root>

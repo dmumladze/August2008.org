@@ -10,13 +10,13 @@ BEGIN
 			,DisplayName
 			,MemberSince
 			,SuperAdmin
-	FROM dbo.[User] (NOLOCK)
+	FROM dbo.[User] WITH (NOLOCK)
 	WHERE UserId = @UserId;
 
 	-- user profile
 	SELECT	 Dob
 			,Nationality
-	FROM dbo.UserProfile
+	FROM dbo.UserProfile WITH (NOLOCK)
 	WHERE UserId = @UserId;
 
 	-- language
@@ -24,19 +24,19 @@ BEGIN
 			,lang.DisplayName
 			,lang.EnglishName
 			,lang.Culture
-	FROM dbo.[Language] lang (NOLOCK)
-	INNER JOIN dbo.UserProfile up (NOLOCK) ON lang.LanguageId = up.LanguageId AND up.UserId = @UserId;
+	FROM dbo.[Language] lang WITH (NOLOCK)
+	INNER JOIN dbo.UserProfile up WITH (NOLOCK) ON lang.LanguageId = up.LanguageId AND up.UserId = @UserId;
 
 	-- provider
 	SELECT	 ProviderId
 			,ProviderName
 			--,ProviderData
-	FROM dbo.OAuthUser (NOLOCK)
+	FROM dbo.OAuthUser WITH (NOLOCK)
 	WHERE UserId = @UserId;
 
 	-- roles
 	SELECT	 r.Name
-	FROM dbo.[Role] r (NOLOCK)
-	INNER JOIN dbo.UserRole ur (NOLOCK) ON r.RoleId = ur.RoleId AND ur.UserId = @UserId;
+	FROM dbo.[Role] r WITH (NOLOCK)
+	INNER JOIN dbo.UserRole ur WITH (NOLOCK) ON r.RoleId = ur.RoleId AND ur.UserId = @UserId;
 
 END

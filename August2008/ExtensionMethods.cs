@@ -162,7 +162,7 @@ namespace August2008
                 var target = new FormsPrincipal(new FormsIdentity2(source.DisplayName, isAuthenticated))
                     {
                         UserId = source.UserId,
-                        SuperUser = source.SuperAdmin,
+                        Email = source.Email,
                         Roles = source.Roles.Select(x => x.Name).ToList(),
                         LanguageId = source.Profile.Lang.LanguageId,
                         Culture = source.Profile.Lang.Culture                        

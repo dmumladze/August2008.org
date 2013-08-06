@@ -6,11 +6,11 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF (EXISTS(SELECT 1 FROM dbo.[User] (NOLOCK) WHERE Email = @Email))
+	IF (EXISTS(SELECT 1 FROM dbo.[User] WITH (NOLOCK) WHERE Email = @Email))
 	BEGIN
 		SELECT
 			@UserId = UserId
-		FROM dbo.[User] (NOLOCK)
+		FROM dbo.[User] WITH (NOLOCK)
 		WHERE Email = @Email 
 	END
 	ELSE

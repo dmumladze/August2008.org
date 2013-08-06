@@ -16,6 +16,7 @@ using August2008;
 using August2008.Common;
 using System.Globalization;
 using AutoMapper;
+using August2008.Helpers;
 
 namespace August2008.Controllers
 {
@@ -91,6 +92,10 @@ namespace August2008.Controllers
                 else
                 {
                     user = _accountRepository.CreateUser(user);
+                    SiteHelper.SendEmail(ReplyEmail,
+                        user.Email,
+                        Resources.Global.Strings.EmailSubject,
+                        Resources.Account.Strings.WelcomeRegistrationMessage);
                 }
                 Response.Cookies.Add(user.ToAuthCookie());
                 return isOAuthUser ? RedirectToLocal(returnUrl) : View("ExternalLoginConfirmation", user.ToRegisterUser());

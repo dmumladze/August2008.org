@@ -6,5 +6,5 @@ BEGIN
 		 [UserId]
 		,[Email]
 		,[DisplayName]
-	FROM [dbo].[User] (NOLOCK)
+	FROM [dbo].[User] WITH (NOLOCK)
 END

@@ -118,15 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPayPal" xml:space="preserve">
-    <value>Paypal არის ელექტრონული საგადასახადო სისტემა, რომელიც ანხორციელებს თანხის გადარიცხვის ოპერაციებს ინტერნეტის საშუალებით. დღეისათვის იგი მუშაობს 190 ქვეყანაში და ჰყავს 164 მილიონზე მეტი დარეგისტრირებული მომხმარებელი. პეიპალი მუშაობს 17 ეროვნულ ვალუტაზე. 2002 წლიდან იგი არის ცნობილი ინტერნეტ აუქციონის, eBay-ს მფლობელობაში.</value>
+    <value>PayPal არის ელექტრონული საგადასახადო სისტემა, რომელიც ახორციელებს თანხის გადარიცხვის ოპერაციას ინტერნეტის საშუალებით. დღეისათვის იგი მუშაობს 190 ქვეყანაში, &lt;span style="text-decoration;underline"&gt;მათ შორის საქართველოშიც&lt;/span&gt;. ამ სისტემით დაახლოებით 164 მილიონი მომხმარებელი სარგებლობს. PayPal მუშაობს 17 ეროვნულ ვალიუტაზე. 2002 წლიდან კი ინტერნეტ აუქციონის eBay-ს სისტემაში გამოიყენება.</value>
   </data>
   <data name="ChooseAndDonate" xml:space="preserve">
-    <value>შეარჩიეთ თქვენთვის სასურველი თანხა და ჩააწკაპუნეთ PayPal ღილაკი..</value>
+    <value>შეარჩიეთ თქვენთვის სასურველი თანხა.</value>
   </data>
-  <data name="ThankYou1" xml:space="preserve">
-    <value>გმადლობთ დახმარებისთვის!</value>
+  <data name="ThankYou" xml:space="preserve">
+    <value>გმადლობთ!</value>
   </data>
-  <data name="ThankYou2" xml:space="preserve">
-    <value>თქვენ გაიღეთ ფულადი დახმარება {0} {1}, რისთვისაც გიხდით მადლობას და გთხოვთ რამოდენიმე სიტყვით გამოხატოთ თქვენი დამოკიდებულება ამ ღვთისმიერი საქმისადმი.</value>
+  <data name="ThankYouEmailMessage" xml:space="preserve">
+    <value>მოგესალმებით! 
+
+უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
+
+www.august2008.org 
+ადმინისტრაცია</value>
+  </data>
+  <data name="YourCommentAfterDonation" xml:space="preserve">
+    <value>თქვენი კომენტარი...</value>
   </data>
 </root>

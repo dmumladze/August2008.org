@@ -51,7 +51,10 @@ namespace August2008.Controllers
                 };
             Mapper.Map(transaction, donation);
             donation = _donationRepository.CreateDonation(donation);
-            SiteHelper.SendEmail(ContactEmail, Me.Email, "Thank you", "Thank you for donating");                
+            SiteHelper.SendEmail(ReplyEmail, 
+                Me.Email, 
+                Resources.Donations.Strings.ThankYou,
+                Resources.Donations.Strings.ThankYouEmailMessage);                
             var model = new DonationSearchModel { ConfirmDonation = Mapper.Map(donation, new DonationModel()) }; 
             return View("Index", model);
         }

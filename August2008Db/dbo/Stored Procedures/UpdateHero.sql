@@ -10,6 +10,7 @@
 	@Died				DATETIME		= NULL,	
 	@MiddleName			NVARCHAR(50)	= NULL,
 	@Biography			NVARCHAR(MAX)	= NULL,
+	@Photos				XML				= NULL,
 	@UpdatedBy			INT
 AS
 BEGIN
@@ -36,4 +37,22 @@ BEGIN
 	WHERE 
 		HeroId		= @HeroId
 	AND LanguageId	= @LanguageId;
+
+	IF (@Photos IS NOT NULL)
+	BEGIN
+		INSERT INTO dbo.HeroPhoto (
+			HeroId,
+			UpdatedBy,		
+			PhotoUri,
+			ContentType,
+			IsThumbnail
+		)
+		SELECT  
+			@HeroId,
+			@UpdatedBy,	  
+			T.c.value('./@PhotoUri', 'NVARCHAR(250)'),
+			T.c.value('./@ContentType', 'NVARCHAR(25)'),
+			T.c.value('./@IsThumbnail', 'BIT')
+		FROM @Photos.nodes('/Photos/Photo') T(c)
+	END;
 END;

@@ -42,7 +42,7 @@ namespace August2008.Data
                 var hero = new Hero();
                 try
                 {
-                    db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.Photos);
+                    db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.MilitaryAward, hero.Photos);
                     GetBlobs(hero, new CloudDataAccess());
                 }
                 catch (Exception)
@@ -117,8 +117,10 @@ namespace August2008.Data
                         db.AddInParameter("@Biography", DbType.String, hero.Biography);
                         db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
                         db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
+                        db.AddInParameter("@Photos", DbType.Xml, photos.ToDbXml());
 
                         db.ExecuteNonQuery();
+                        SaveBlobs(hero.HeroId.Value, photos);
                         tran.Commit();
                     }
                 }
