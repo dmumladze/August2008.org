@@ -89,6 +89,14 @@ namespace August2008.Helpers
             }
             return string.Empty;
         }
+        public static string ToYearString(this DateTime? dateTime) 
+        {
+            if (dateTime.HasValue)
+            {
+                return dateTime.Value.Year.ToString();
+            }
+            return "-";
+        }
         public static void SendEmail(string from, string to, string subject, string body)
         {
             try
