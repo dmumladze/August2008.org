@@ -32,7 +32,7 @@
 @if (!Model.Result.IsNullOrEmpty()) {        
 	@Html.Pager(Model.PageSize, Model.PageNo, Model.TotalCount).Options(o => o
 		.DisplayTemplate("BootstrapPagination")
-		.MaxNrOfPages(2)
+		.MaxNrOfPages(10)
 		.AlwaysAddFirstPageNumber()
         .AddRouteValue("name", Model.Name)
 	)        
@@ -85,7 +85,7 @@
     }
 	@Html.Pager(Model.PageSize, Model.PageNo, Model.TotalCount).Options(o => o
 		.DisplayTemplate("BootstrapPagination")
-		.MaxNrOfPages(2)
+		.MaxNrOfPages(10)
 		.AlwaysAddFirstPageNumber()
         .AddRouteValue("name", Model.Name)
 	)    

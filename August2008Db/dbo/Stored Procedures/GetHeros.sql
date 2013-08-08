@@ -47,7 +47,7 @@ BEGIN
 	LEFT JOIN dbo.MilitaryGroupTranslation mgt WITH (NOLOCK) ON ht.MilitaryGroupId = mgt.MilitaryGroupId AND mgt.LanguageId = @LanguageId
 	LEFT JOIN dbo.MilitaryRankTranslation mrt WITH (NOLOCK) ON ht.MilitaryRankId = mrt.MilitaryRankId AND mrt.LanguageId = @LanguageId
 	LEFT JOIN dbo.MilitaryAwardTranslation mat WITH (NOLOCK) ON ht.MilitaryAwardId = mat.MilitaryAwardId AND mat.LanguageId = @LanguageId
-	AND (@Name IS NULL OR ht.LastName LIKE @Name + '%')
+	WHERE (@Name IS NULL OR ht.LastName LIKE @Name + '%')
 	ORDER BY ht.LastName, ht.FirstName
 	OFFSET ((@PageNo - 1) * @PageSize) ROWS
 	FETCH NEXT @PageSize ROWS ONLY
