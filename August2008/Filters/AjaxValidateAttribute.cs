@@ -21,7 +21,7 @@ namespace August2008.Filters
                                  where item.Errors.Count > 0
                                  select new { key = x, errors = item.Errors.Select(y => y.ErrorMessage).ToArray() };
 
-                filterContext.Result = new JsonResult { Data = errorModel };
+                filterContext.Result = new JsonResult { Data = new { Ok = false, ErroModel = errorModel } };
                 filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
         }

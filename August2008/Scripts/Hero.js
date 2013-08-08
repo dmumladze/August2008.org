@@ -28,6 +28,7 @@ Hero.init = function () {
     });
 };
 Hero.prototype.edit = function (id) {
+    this.initModel();
     this.initEditDialog();
     $.ajax({
         url: Hero.editAction + (id != undefined ? ("/" + id) : ""),
@@ -129,8 +130,21 @@ Hero.prototype.save = function () {
         data: formData,
         processData: false,
         contentType: false,
-        success: function(res) {
-            alert(res);
+        success: function (result) {
+            if (result.Ok) {
+                $('#hero-dialog').dialog('close');
+            }
+            else {
+                if (result.Message) {
+                    alert(result.Message);
+                }
+                else if (result.ErrorModel) {
+                    alert(result.ErrorModel);
+                }
+                else {
+                    alert('Oops! Something went wrong... :(');
+                }
+            }
         }
     });
 };
@@ -179,6 +193,20 @@ Hero.prototype.initEditDialog = function () {
         ]
     });
 };
+Hero.prototype.initModel = function () {
+    this.HeroId = null;
+    this.MilitaryRankId = null;
+    this.MilitaryGroupId = null;
+    this.MilitaryAwardId = null;
+    this.FirstName = null;
+    this.LastName = null;
+    this.MiddleName = null;
+    this.Dob = null;
+    this.Died = null;
+    this.Biography = null;
+    this.LanguageId = null;
+    this.photos = new Array();
+}
 
 $.hero = new Hero();
 

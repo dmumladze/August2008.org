@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE dbo.GetHeros
+﻿CREATE PROCEDURE [dbo].[GetHeros]
 	@PageNo		INT,
 	@Name		NVARCHAR(50) = NULL,
 	@PageSize	INT,
@@ -19,7 +19,7 @@ BEGIN
 		FirstName		NVARCHAR(50),
 		LastName		NVARCHAR(75),
 		MiddleName		NVARCHAR(50),
-		Biography		NVARCHAR(MAX),
+		Biography		NVARCHAR(700),
 		DateUpdated		DATETIME
 	);
 
@@ -40,7 +40,7 @@ BEGIN
 		ht.FirstName,
 		ht.LastName,
 		ht.MiddleName,
-		ht.Biography,
+		SUBSTRING(ht.Biography, 1, 700) AS Biography,
 		ht.DateUpdated	
 	FROM dbo.Hero h WITH (NOLOCK)
 	INNER JOIN dbo.HeroTranslation ht WITH (NOLOCK) ON h.HeroId = ht.HeroId AND ht.LanguageId = @LanguageId

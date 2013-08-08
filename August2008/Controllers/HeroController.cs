@@ -96,8 +96,7 @@ namespace August2008.Controllers
                     return Json(new { Ok = true, HeroId = hero.HeroId });
                 }
                 catch (Exception)
-                {
-                    throw;
+                {                    
                 }
             }
             return Json(new {Ok = false});

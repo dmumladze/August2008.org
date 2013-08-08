@@ -248,9 +248,23 @@ a:active {
 .hero-toolbar-container {
     float: right;
 }
-.common-font {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+.text-section {
+    font-family: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
     font-size: 1.1em;
+    padding: 15px 25px;
+    color: #333444;  
+    clear: both;
+    background-color: #FCFCFC;
+    border: 0px solid #333;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: justify;
+    text-justify: inter-word;    
+}
+.section-margin {
+    margin-bottom: 10px;
 }
 .section {
     background-color: #FCFCFC;
@@ -262,6 +276,14 @@ a:active {
     text-align: left;
     padding: 5px;
     overflow: hidden;
+}
+.section-start-text {
+    font-weight: bold;
+    font-size: 1.1em;
+    font-style: oblique;
+}
+.section-p {
+    text-indent: 45px;
 }
 .ui-dialog {
     -moz-box-shadow: 0 0 0 8px rgba(0,0,0,0.3);
@@ -294,7 +316,6 @@ a:active {
   opacity: 0.9;
 }
 .shadow {
-    margin: 0 3px;
     -moz-box-shadow: 0px 0px 2px 0px #888;
     -webkit-box-shadow: 0px 0px 2px 0px #888;
     box-shadow: 0px 0px 2px 0px #888;
@@ -458,7 +479,7 @@ img {
 }
 .hero-box {
     padding: 15px 25px;
-    color: #444444;  
+    color: #333444;  
     clear: both;
 }
 .hero-box .hero-header {  
