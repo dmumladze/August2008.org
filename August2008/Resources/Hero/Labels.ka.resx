@@ -144,4 +144,7 @@
   <data name="MilitaryRank" xml:space="preserve">
     <value>წოდება</value>
   </data>
+  <data name="More" xml:space="preserve">
+    <value>ვრცლად...</value>
+  </data>
 </root>

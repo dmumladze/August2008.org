@@ -70,7 +70,7 @@
                             @if (!Model.Photos.IsNullOrEmpty()) {                                
                                 foreach (var item in Model.Photos) {
                                     <div class="existing-thumb-img" id="box-@item.HeroPhotoId">
-                                        <img class="@(item.IsThumbnail ? "old-hero-photo hero-edit-thumb" : "old-hero-photo")" src="@Url.Action("GetPhoto", "Hero", new {name = item.PhotoUri, size = PhotoSize.Small})"/>
+                                        <img class="@(item.IsThumbnail ? "old-hero-photo hero-edit-thumb" : "old-hero-photo")" src="@Url.Action("Photo", "Hero", new {name = item.PhotoUri, size = PhotoSize.Small})"/>
                                         <div class="thumb-img-cmd">
                                             <a href="#" onclick="$.hero.deletePhoto(@item.HeroPhotoId, 'box-@item.HeroPhotoId');return false;">Delete</a>
                                         </div>

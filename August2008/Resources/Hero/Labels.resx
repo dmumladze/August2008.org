@@ -144,4 +144,7 @@
   <data name="MilitaryRank" xml:space="preserve">
     <value>Rank</value>
   </data>
+  <data name="More" xml:space="preserve">
+    <value>More...</value>
+  </data>
 </root>

@@ -32,8 +32,8 @@ namespace August2008.Helpers
         }
         public static Bitmap ResizeImage(Stream imageStream, PhotoSize size)
         {
-            var maxHeight = 125;
-            var maxWidth = 125;
+            var maxHeight = 0;
+            var maxWidth = 0;
 
             switch (size)
             {
@@ -41,14 +41,21 @@ namespace August2008.Helpers
                     maxHeight = 225;
                     maxWidth = 225;
                     break;
-            }
-            var rs = new ResizeSettings
-                {
-                    Cache = ServerCacheMode.Always,
-                    MaxHeight = maxHeight,
-                    MaxWidth = maxWidth,
-                };
 
+                case PhotoSize.Fullsize:
+                    break;
+
+                default:
+                    maxHeight = 125;
+                    maxWidth = 125;
+                    break;
+            }
+            var rs = new ResizeSettings();
+            if (maxHeight > 0)
+            {
+                rs.MaxHeight = maxHeight;
+                rs.MaxWidth = maxWidth;
+            }            
             return ImageBuilder.Current.Build(imageStream, rs);
         }
         public static byte[] ToByteArray(this Bitmap bmp)

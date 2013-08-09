@@ -45,7 +45,7 @@
             <div class="hero-body">
                 <div class="hero-thumb">
                     @if (!item.Photos.IsNullOrEmpty()) {
-                        <img class="hero-thumb-img" src="@Url.Action("GetPhoto", "Hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
+                        <img class="hero-thumb-img" src="@Url.Action("Photo", "Hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
                     }
                     else {
                         <span>NO IMAGE</span>
@@ -54,10 +54,10 @@
                 <div class="hero-about">
                     <div class="hero-about-info">
                         <span class="hero-about-label">@Html.DisplayTextFor2(m => item.Dob)</span>
-                        <p class="hero-about-text">@item.Dob.ToShortDateString()</p>
+                        <p class="hero-about-text">@item.Dob.ToYearString()</p>
 
                         <span class="hero-about-label">@Html.DisplayTextFor2(m => item.Died)</span>
-                        <p class="hero-about-text">@item.Died.ToShortDateString()</p>
+                        <p class="hero-about-text">@item.Died.ToYearString()</p>
 
                         <span class="hero-about-label">@Html.DisplayTextFor2(m => item.MilitaryRank)</span>
                         <p class="hero-about-text">@item.MilitaryRank.RankName</p>
@@ -71,12 +71,12 @@
                             @item.Biography..........
                         </p>
                         <div class="hero-bio-more">
-                            <a href="#">ვრცლად...</a>
+                            @Html.ActionLink(Resources.Hero.Labels.More, "Personal", new { id = item.HeroId })
                         </div>
                     </div>
                 </div>
             </div>
-            @if (User.Identity.IsAuthenticated) {
+            @if (User.IsInRole("Admin")) {
                 <div class="hero-box-cmd">
                     <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
                 </div>

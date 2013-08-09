@@ -38,7 +38,7 @@ namespace August2008.Models
                 {
                     LanguageId = 1,
                     Culture = "ka-GE",
-                    Identity = new FormsIdentity2("Anonymous", true)
+                    Identity = new FormsIdentity2("Anonymous")
                 };
         }
     }

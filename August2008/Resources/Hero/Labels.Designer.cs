@@ -140,5 +140,14 @@ namespace Resources.Hero {
                 return ResourceManager.GetString("MilitaryRank", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More....
+        /// </summary>
+        public static string More {
+            get {
+                return ResourceManager.GetString("More", resourceCulture);
+            }
+        }
     }
 }

@@ -500,6 +500,7 @@
     <Content Include="Views\Shared\DonationsListPartial.cshtml" />
     <Content Include="Views\Home\Mission.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BootstrapPagination.cshtml" />
+    <Content Include="Views\Hero\Personal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

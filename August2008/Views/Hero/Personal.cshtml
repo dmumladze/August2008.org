@@ -1,8 +1,54 @@
 ﻿@model August2008.Models.HeroModel
 
 @{
-    ViewBag.Title = "Personal";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Personal</h2>
+@{
+    ViewBag.Title = "Personal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="hero-box section shadow transp soldier-helmut" style="margin-bottom:10px">
+    <div class="hero-header">
+        <span class="hero-name">@Model.LastName @Model.FirstName</span>
+        <span class="hero-rank">@Model.MilitaryAward.AwardName</span>
+    </div>
+    <div class="hero-body">
+        <div class="hero-thumb">
+            @if (!Model.Photos.IsNullOrEmpty()) {
+                <img class="hero-thumb-img" src="@Url.Action("Photo", "Hero", new {name = Model.Photos.First().PhotoUri, size = PhotoSize.Fullsize})"/>
+            }
+            else {
+                <span>NO IMAGE</span>
+            }
+        </div>
+        <div class="hero-about">
+            <div class="hero-about-info-full">
+                <span class="hero-about-label">@Html.DisplayTextFor2(m => m.Dob)</span>
+                <p class="hero-about-text">@Model.Dob.ToYearString()</p>
+
+                <span class="hero-about-label">@Html.DisplayTextFor2(m => m.Died)</span>
+                <p class="hero-about-text">@Model.Died.ToYearString()</p>
+
+                <span class="hero-about-label">@Html.DisplayTextFor2(m => m.MilitaryRank)</span>
+                <p class="hero-about-text">@Model.MilitaryRank.RankName</p>
+
+                <span class="hero-about-label">@Html.DisplayTextFor2(m => m.MilitaryGroup)</span>
+                <p class="hero-about-text">@Model.MilitaryGroup.GroupName</p>
+
+                @if (User.IsInRole("Admin")) {
+                    <div class="hero-box-cmd">
+                        <a href="#" onclick="$.hero.edit(@Model.HeroId);return false;">Edit</a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div style="clear: both;margin:0"></div>
+        <div class="hero-about-bio-full">
+                <p class="hero-about-text-full">
+                       @Model.Biography
+                </p>
+        </div>
+    </div>
+</div>    
+

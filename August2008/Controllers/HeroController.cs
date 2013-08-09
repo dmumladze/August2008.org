@@ -11,6 +11,7 @@ using August2008.Models;
 using August2008.Helpers;
 using August2008.Properties;
 using AutoMapper;
+using System.Web.UI;
 
 namespace August2008.Controllers
 {
@@ -125,11 +126,20 @@ namespace August2008.Controllers
 
             return PartialView("EditPartial", model);
         }
+        [HttpGet]
+        [OutputCache(Location = OutputCacheLocation.Client, Duration = 43200, VaryByParam = "id")]
+        public ActionResult Personal(int id)
+        {
+            var hero = _heroRepository.GetHero(id, Me.LanguageId);
+            var model = Mapper.Map(hero, new HeroModel());
+            return View(model);
+        }
         /// <summary>
         /// Gets a single photo by name and requested size.
         /// </summary>
         [HttpGet]
-        public FileResult GetPhoto(string name, PhotoSize? size)
+        [OutputCache(Location = OutputCacheLocation.Client, Duration = 43200, VaryByParam = "name;size")]
+        public FileResult Photo(string name, PhotoSize? size) 
         {
             return SiteHelper.GetHeroPhoto(name, size.GetValueOrDefault(PhotoSize.Small));
         }

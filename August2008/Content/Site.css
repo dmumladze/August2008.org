@@ -262,6 +262,9 @@ a:active {
     right: 0;
     text-align: justify;
     text-justify: inter-word;    
+    -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+            border-radius: 2px;
 }
 .section-margin {
     margin-bottom: 10px;
@@ -276,6 +279,9 @@ a:active {
     text-align: left;
     padding: 5px;
     overflow: hidden;
+    -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+            border-radius: 2px;
 }
 .section-start-text {
     font-weight: bold;
@@ -508,27 +514,43 @@ img {
 .hero-box .hero-about { /*block formatting context*/
     overflow: hidden;
 }
-.hero-about p.hero-about-text {
+.hero-body p.hero-about-text,
+.hero-body .hero-about-text-full {
     font-size: 1.1em;
+    text-align: justify;
+    text-justify: inter-word;    
+}
+.hero-body .hero-about-text-full {
+    white-space: pre-line;  
 }
 .hero-box .hero-thumb-img {
     left: 0;
     margin: 0;    
 }
-.hero-about .hero-about-info {
+.hero-body .hero-about-info,
+.hero-body .hero-about-info-full {
     margin-right: 10px;
     padding-left: 10px;
     float: left;
+}
+.hero-body .hero-about-info {
     max-width: 150px;
 }
-.hero-about .hero-about-bio {
+.hero-body .hero-about-bio,
+.hero-body .hero-about-bio-full {
     line-height: 24px;
-    position: relative;
-    padding-left: 10px;
-    overflow: hidden;
+    position: relative; 
+}
+.hero-body .hero-about-bio {
     min-height: 220px;
-    max-height: 200px;
+    max-height: 220px;
     border-left: dashed 1px #E5E5E5;
+    overflow: hidden;
+    padding-left: 10px;   
+}
+.hero-body .hero-about-bio-full {
+    clear: both;
+    margin-top: 10px;
 }
 .hero-about-bio .hero-bio-more {
     position: absolute;
@@ -537,7 +559,7 @@ img {
     background: #E5E5E5;
     padding: 0 10px 0 10px;
 }
-.hero-about .hero-about-label {
+.hero-body .hero-about-label {
     display: block;
     width: 100px;
     padding: 0 0 1px 1px;
