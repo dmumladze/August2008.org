@@ -3,8 +3,7 @@
     ViewBag.Title = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section HeaderScriptSection 
-{
+@section HeaderScriptSection {
     @Scripts.Render("~/bundles/hero")
 }
 @section pageButtons {
@@ -89,6 +88,10 @@
 		.AlwaysAddFirstPageNumber()
         .AddRouteValue("name", Model.Name)
 	)    
+}
+
+@section LeftSection {
+    @Html.Partial("BookPartial")
 }
 
 @section BottomScriptSection

@@ -514,8 +514,8 @@ img {
 .hero-box .hero-about { /*block formatting context*/
     overflow: hidden;
 }
-.hero-body p.hero-about-text,
-.hero-body .hero-about-text-full {
+p.hero-about-text,
+.hero-about-text-full {
     font-size: 1.1em;
     text-align: justify;
     text-justify: inter-word;    
@@ -559,7 +559,7 @@ img {
     background: #E5E5E5;
     padding: 0 10px 0 10px;
 }
-.hero-body .hero-about-label {
+.hero-about-label {
     display: block;
     width: 100px;
     padding: 0 0 1px 1px;
@@ -633,7 +633,7 @@ img {
     background-repeat: no-repeat;
 }
 .padding-50 {
-    padding: 50px;
+    padding: 30px;
 }
 .contact-message {
     width: 210px;

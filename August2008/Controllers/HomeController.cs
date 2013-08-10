@@ -44,5 +44,9 @@ namespace August2008.Controllers
             ViewBag.Notification = "Thank you, message has been delivered.";
             return View();
         }
+        public ActionResult Faq()
+        {
+            return View();
+        }
     }
 }

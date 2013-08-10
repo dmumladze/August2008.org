@@ -132,6 +132,9 @@
   <data name="EmailSubject" xml:space="preserve">
     <value>We Remember August</value>
   </data>
+  <data name="Faq" xml:space="preserve">
+    <value>კითხვები</value>
+  </data>
   <data name="Heroes" xml:space="preserve">
     <value>გმირები</value>
   </data>

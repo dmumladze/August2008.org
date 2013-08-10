@@ -1,7 +1,8 @@
 ﻿@model DateTime?
 @{
     var date = Model;
-    var identity = ViewData["id"] ?? ViewData.ModelMetadata.PropertyName;
+    var identity = (ViewData["id"] ?? ViewData.ModelMetadata.PropertyName).ToString();
+    var identityDisplay = identity + "_field";
     var dateFormat = Html.JQueryDateFormat();
     var cssClass = " " + ViewData["class"] ?? "";
     var tabIndex = ViewData["tabindex"] ?? "";
@@ -11,16 +12,22 @@
         date = DateTime.Now;
     }
     //@Html.TextBox("", (date == null) ? String.Empty : date.Value.ToString(System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern), new { @class = ("jquery-date"+cssClass), id = identity, tabIndex = tabIndex })
-    @Html.TextBox("", (date == null) ? String.Empty : string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:MM/dd/yyyy}", date.Value), new { @class = ("jquery-date"+cssClass), id = identity, tabIndex = tabIndex })
+    @Html.TextBox("", (date == null) ? String.Empty : string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:MM/dd/yyyy}", date.Value), new { @class = ("jquery-date"+cssClass), id = identityDisplay, tabIndex = tabIndex })
+
+    @Html.Hidden(identity, (date == null) ? String.Empty : date.Value.ToString(System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern), new { name = identity });
 }
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#@identity').datepicker({
+        $('#@identityDisplay').datepicker({
             showAnim: 'slide',
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
             yearRange: '1950:@DateTime.Now.Year'
+        });
+        $('#@identityDisplay').bind('change', function () {
+            debugger;
+            $('#@identity').val(this.value);
         });
     });
 </script>
