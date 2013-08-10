@@ -28,6 +28,7 @@ Hero.init = function () {
     });
 };
 Hero.prototype.edit = function (id) {
+    //debugger;
     this.initModel();
     this.initEditDialog();
     $.ajax({

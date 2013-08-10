@@ -61,6 +61,15 @@ namespace Resources.Hero {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Biogaraphy.
         /// </summary>
         public static string Biography {

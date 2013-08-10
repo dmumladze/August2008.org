@@ -106,6 +106,15 @@ namespace Resources.Global {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FAQ.
+        /// </summary>
+        public static string Faq {
+            get {
+                return ResourceManager.GetString("Faq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Heroes.
         /// </summary>
         public static string Heroes {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources.Home {
+namespace Resources.Hero {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Resources.Home {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("August2008.Resources.Home.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("August2008.Resources.Hero.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,20 @@ namespace Resources.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frequently Asked Quetions.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string FaqTitle {
+        public static string HeroBookThankYou {
             get {
-                return ResourceManager.GetString("FaqTitle", resourceCulture);
+                return ResourceManager.GetString("HeroBookThankYou", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We Remember August.
+        ///   Looks up a localized string similar to Tamar Pkhakadze.
         /// </summary>
-        public static string PageTitle {
+        public static string TamarPkhakadze {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
+                return ResourceManager.GetString("TamarPkhakadze", resourceCulture);
             }
         }
     }

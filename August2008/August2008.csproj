@@ -380,6 +380,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.ka.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Hero\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Hero\Strings.ka.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.ka.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Home\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -421,6 +431,7 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\August2008 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\August2008 - Web Deploy.pubxml" />
+    <Content Include="Images\amazon-logo.png" />
     <Content Include="Images\american-flag-bg.jpg" />
     <Content Include="Images\american-flag-bg.png" />
     <Content Include="Images\bg.jpg" />
@@ -431,6 +442,7 @@
     <Content Include="Images\facebook-btn-logo.png" />
     <Content Include="Images\georgian-flag-bg.png" />
     <Content Include="Images\google-btn-logo.png" />
+    <Content Include="Images\hero-book-cover.jpg" />
     <Content Include="Images\logo-tea-mikaia.png" />
     <Content Include="Images\openid-logo.png" />
     <Content Include="Images\paypal-btn.png" />
@@ -501,6 +513,8 @@
     <Content Include="Views\Home\Mission.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\BootstrapPagination.cshtml" />
     <Content Include="Views\Hero\Personal.cshtml" />
+    <Content Include="Views\Hero\BookPartial.cshtml" />
+    <Content Include="Views\Home\Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -573,12 +587,23 @@
       <LastGenOutput>Labels.ka.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Hero\Strings.ka.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.ka.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Hero\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Hero</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Home\Labels.ka.resx" />
     <EmbeddedResource Include="Resources\Home\Labels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources.Home</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Home\Strings.ka.resx" />
     <EmbeddedResource Include="Resources\Home\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -609,11 +634,12 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4700</DevelopmentServerPort>
+          <DevelopmentServerPort>9477</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1125/</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
