@@ -1,10 +1,10 @@
 ﻿BEGIN TRY
 	BEGIN TRANSACTION;
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	EXECUTE sp_addmessage -- not supported in SQL Azure
-		@msgnum		= 50001, 
-		@severity	= 16, 
-		@msgtext	= N'Hero under the name of ''%s %s'' already exists.';
+	--EXECUTE sp_addmessage -- not supported in SQL Azure
+	--	@msgnum		= 50001, 
+	--	@severity	= 16, 
+	--	@msgtext	= N'Hero under the name of ''%s %s'' already exists.';
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	SET IDENTITY_INSERT[dbo].[Language] ON
 	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (1, N'ქართული (Georgian)', N'Georgian', N'ka-GE')
