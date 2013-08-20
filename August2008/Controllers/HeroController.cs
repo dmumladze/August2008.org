@@ -26,8 +26,7 @@ namespace August2008.Controllers
         /// <summary>
         /// Initializes controller with an instance of repository interface.
         /// </summary>
-        public HeroController(IHeroRepository heroRepository, IMetadataRepository metadataRepository, ICacheProvider cacheProvider)
-            : base(cacheProvider)
+        public HeroController(IHeroRepository heroRepository, IMetadataRepository metadataRepository)
         {
             _heroRepository = heroRepository;
             _metadataRepository = metadataRepository;
@@ -128,9 +127,13 @@ namespace August2008.Controllers
         }
         [HttpGet]
         [OutputCache(Location = OutputCacheLocation.Client, Duration = 43200, VaryByParam = "id")]
-        public ActionResult Personal(int id)
+        public ActionResult Personal(int? id)
         {
-            var hero = _heroRepository.GetHero(id, Me.LanguageId);
+            if (!id.HasValue)
+            {
+                throw new HttpException(404, "Not Found");
+            }
+            var hero = _heroRepository.GetHero(id.Value, Me.LanguageId);
             var model = Mapper.Map(hero, new HeroModel());
             return View(model);
         }

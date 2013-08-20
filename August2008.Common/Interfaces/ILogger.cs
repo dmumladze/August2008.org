@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace August2008.Common.Interfaces
 {
-    interface ILogger
+    public interface ILogger
     {
     }
 }

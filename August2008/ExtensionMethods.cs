@@ -11,6 +11,9 @@ using August2008.Models;
 using DotNetOpenAuth.AspNet;
 using Newtonsoft.Json;
 using August2008.Models;
+using System.Xml.Serialization;
+using System.IO;
+using System.Reflection;
 
 namespace August2008
 {
@@ -24,9 +27,40 @@ namespace August2008
         {
             return !(value != null && value.Count() != 0);
         }
-        public static string ToJson(this object value)
+        public static string ToJson(this object obj)
         {
-            return (value != null ? JsonConvert.SerializeObject(value) : string.Empty);
+            return (obj != null ? JsonConvert.SerializeObject(obj) : string.Empty);
+        }
+        public static string ToXml(this object obj)
+        {
+            if (obj != null)
+            {
+                using (var writer = new StringWriter(CultureInfo.InvariantCulture))
+                {
+                    var serializer = new XmlSerializer(obj.GetType());
+                    serializer.Serialize(writer, obj);
+                    return writer.ToString();
+                }
+            }
+            return string.Empty;
+        }
+        public static Dictionary<string, string> ToDictionary(this object obj)
+        {
+            if (obj != null)
+            {                
+                var type = obj.GetType();
+                var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                var toReturn = new Dictionary<string, string>(props.Count());
+
+                foreach (var item in props)
+                {
+                    var key = item.Name;
+                    var value = item.GetValue(obj);
+                    toReturn.Add(key, !value.IsNull() ? value.ToString() : string.Empty);
+                }
+                return toReturn;
+            }
+            return default(Dictionary<string, string>);
         }
         public static T FromJson<T>(this string value) 
         {

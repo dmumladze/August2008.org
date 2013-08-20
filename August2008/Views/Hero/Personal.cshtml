@@ -4,6 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Facebook {
+    <meta property="og:title" content="@Model.LastName @Model.FirstName" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:image" content="@Url.Action("Photo", "Hero", new {name = Model.Photos.First().PhotoUri, size = PhotoSize.Medium})" />   
+}
+
+@section HeaderScriptSection {
+    @Scripts.Render("~/bundles/hero")
+}
+
 @{
     ViewBag.Title = "Personal";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -38,6 +48,7 @@
 
                 @if (User.IsInRole("Admin")) {
                     <div class="hero-box-cmd">
+                        <a href="#" onclick="August2008.facebookShare('@Url.Action("Personal", new { id = Model.HeroId })');return false;">Share</a>
                         <a href="#" onclick="$.hero.edit(@Model.HeroId);return false;">Edit</a>
                     </div>
                 }
@@ -52,7 +63,14 @@
     </div>
 </div>    
 
-@section LeftSection {
-    @Html.Partial("BookPartial")
+@section BottomScriptSection {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Hero.editAction = '@Url.Action("Edit")';
+            Hero.saveAction = '@Url.Action("Save")';
+            Hero.deletePhotoAction = '@Url.Action("DeletePhoto")';
+            Hero.init();
+        });
+    </script>
 }
 

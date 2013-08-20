@@ -134,6 +134,9 @@
 www.august2008.org 
 ადმინისტრაცია</value>
   </data>
+  <data name="YouMustBeRegistered" xml:space="preserve">
+    <value>In order to make a donation, you must be registered.. Please go to the &lt;a href="{0}"&gt;registration&lt;/a&gt; page and sing up using your OpenID. </value>
+  </data>
   <data name="YourCommentAfterDonation" xml:space="preserve">
     <value>თქვენი კომენტარი</value>
   </data>

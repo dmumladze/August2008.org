@@ -28,6 +28,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bin", "Bin", "{7DB9CE85-0C2F-4DD9-BF5C-3356F19ECBDC}"
 	ProjectSection(SolutionItems) = preProject
 		CommonBin\AutoMapper.dll = CommonBin\AutoMapper.dll
+		CommonBin\log4net.dll = CommonBin\log4net.dll
+		CommonBin\log4net.xml = CommonBin\log4net.xml
 		CommonBin\Microsoft.Practices.Unity.Configuration.dll = CommonBin\Microsoft.Practices.Unity.Configuration.dll
 		CommonBin\Microsoft.Practices.Unity.dll = CommonBin\Microsoft.Practices.Unity.dll
 		CommonBin\Microsoft.Practices.Unity.Mvc.dll = CommonBin\Microsoft.Practices.Unity.Mvc.dll

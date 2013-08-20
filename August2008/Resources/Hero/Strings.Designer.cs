@@ -70,6 +70,15 @@ namespace Resources.Hero {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In memory of Georgian heroes who died in Russia–Georgia War of August 2008.
+        /// </summary>
+        public static string SocialDescription {
+            get {
+                return ResourceManager.GetString("SocialDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tamar Pkhakadze.
         /// </summary>
         public static string TamarPkhakadze {

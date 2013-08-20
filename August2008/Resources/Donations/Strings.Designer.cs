@@ -102,6 +102,15 @@ namespace Resources.Donations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In order to make a donation, you must be registered.. Please go to the &lt;a href=&quot;{0}&quot;&gt;registration&lt;/a&gt; page and sing up using your OpenID. .
+        /// </summary>
+        public static string YouMustBeRegistered {
+            get {
+                return ResourceManager.GetString("YouMustBeRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to თქვენი კომენტარი.
         /// </summary>
         public static string YourCommentAfterDonation {

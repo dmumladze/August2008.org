@@ -292,8 +292,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DateTimeBinder.cs" />
     <Compile Include="Helpers\HtmlHelper2.cs" />
     <Compile Include="Helpers\JQueryHelper.cs" />
+    <Compile Include="Helpers\Log4NetUnityHelper.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
     <Compile Include="Helpers\StringDecimalConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
@@ -314,6 +316,7 @@
     <Compile Include="Models\PostedFile.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UsernameProperty.cs" />
     <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Models\UserSearchModel.cs" />
     <Compile Include="Paging\IPagedList.cs" />
@@ -436,26 +439,32 @@
     <Content Include="Images\american-flag-bg.png" />
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\black-texture-bg.jpg" />
+    <Content Include="Images\check-mark.png" />
     <Content Include="Images\contact-envelope.png" />
     <Content Include="Images\donations-thankyou.png" />
     <Content Include="Images\donations-jar.png" />
     <Content Include="Images\facebook-btn-logo.png" />
+    <Content Include="Images\facebook-share.png" />
     <Content Include="Images\georgian-flag-bg.png" />
     <Content Include="Images\google-btn-logo.png" />
+    <Content Include="Images\google-share.png" />
     <Content Include="Images\hero-book-cover.jpg" />
     <Content Include="Images\logo-tea-mikaia.png" />
     <Content Include="Images\openid-logo.png" />
     <Content Include="Images\paypal-btn.png" />
+    <Content Include="Images\question-mark.png" />
     <Content Include="Images\soldier-1.png" />
     <Content Include="Images\soldier-helmut-sky.png" />
     <Content Include="Images\spinner-1.gif" />
     <Content Include="Images\georgian-flag-bg.jpg" />
     <Content Include="favicon.png" />
     <Content Include="Images\logo-first.png" />
+    <Content Include="Images\twitter-share.png" />
     <Content Include="Images\white-texture-bg.jpg" />
     <Content Include="Images\white-texture-bg.png" />
     <Content Include="Images\white-texture-bg2.jpg" />
     <Content Include="Images\yahoo-btn-logo.png" />
+    <Content Include="log4net.config" />
     <Content Include="Scripts\August2008.js" />
     <Content Include="Scripts\Hero.js" />
     <Content Include="Properties\Settings.settings">
@@ -634,12 +643,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>9477</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:1125/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -120,6 +120,9 @@
   <data name="HeroBookThankYou" xml:space="preserve">
     <value>უღრმეს მადლობას ვუხდით თამარ ფხაკაძეს თანადგომისთვის და წიგნის გამოყენების ნებართვისთვის.</value>
   </data>
+  <data name="SocialDescription" xml:space="preserve">
+    <value>2008 წლის აგვისტოს სამამულო ომში დაღუპული გმირები.</value>
+  </data>
   <data name="TamarPkhakadze" xml:space="preserve">
     <value>თამარ ფხაკაძე</value>
   </data>

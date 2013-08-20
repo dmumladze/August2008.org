@@ -2,12 +2,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (User.Identity.IsAuthenticated) {
-    @Html.Partial("DonationsPartial")
-}
-else {
-    <div>You must be logged in</div>
-}
+
+@Html.Partial("DonationsPartial")
+
 <div class="section transp shadow padding-50 donations-jar" style="margin-top:10px">
     <fieldset>
         <legend>@Resources.Donations.Labels.SearchDonations</legend>
@@ -56,7 +53,7 @@ else {
                 autoOpen: true,
                 modal: true,
                 width: 500,                
-                title: '@Resources.Donations.Strings.ThankYou'
+                title: 'დახმარება მიღებულია'
             });
         });
     </script>    

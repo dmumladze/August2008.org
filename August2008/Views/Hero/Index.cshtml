@@ -63,6 +63,19 @@
 
                         <span class="hero-about-label">@Html.DisplayTextFor2(m => item.MilitaryGroup)</span>
                         <p class="hero-about-text">@item.MilitaryGroup.GroupName</p>
+                        <!--
+                        <div>
+                            <a href="#" onclick="August2008.facebookShare('http://august2008.org/Hero/Personal/31');return false;">
+                                <img border="0" height="20" width="20" src="@Url.ImageUrl("facebook-share.png")" />
+                            </a>  
+                            <a href="#" onclick="August2008.googleShare('http://august2008.org/Hero/Personal/31');return false;">
+                                <img border="0" height="20" width="20" src="@Url.ImageUrl("google-share.png")" />
+                            </a>  
+                            <a href="#" onclick="August2008.twitterShare('http://august2008.org/Hero/Personal/31');return false;">
+                                <img border="0" height="20" width="20" src="@Url.ImageUrl("twitter-share.png")" />
+                            </a>                                                              
+                        </div> 
+                        -->
                     </div>
                     <div class="hero-about-bio">
                         <span class="hero-about-label hero-about-bio-label">@Html.DisplayTextFor2(m => item.Biography)</span>
@@ -74,9 +87,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>     
             @if (User.IsInRole("Admin")) {
                 <div class="hero-box-cmd">
+                    
                     <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
                 </div>
             }
@@ -91,7 +105,9 @@
 }
 
 @section LeftSection {
-    @Html.Partial("BookPartial")
+    <div style="max-width:305px;">
+        @Html.Partial("BookPartial")
+    </div>
 }
 
 @section BottomScriptSection

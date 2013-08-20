@@ -5,6 +5,12 @@ using System.Web;
 
 namespace August2008.Models
 {
+    public class PayPalModel2
+    {
+        public decimal amt { get; set; }
+        public string cc { get; set; }
+        public string st { get; set; }
+    }
     public class PayPalModel
     {
         public string mc_gross { get; set; }
@@ -45,5 +51,6 @@ namespace August2008.Models
         public string payment_gross { get; set; }
         public string merchant_return_link { get; set; }
         public string auth { get; set; }
+        public string ipn_track_id { get; set; }
     }
 }

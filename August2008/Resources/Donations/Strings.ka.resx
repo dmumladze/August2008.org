@@ -124,7 +124,7 @@
     <value>შეარჩიეთ თქვენთვის სასურველი თანხა.</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
-    <value>გმადლობთ!</value>
+    <value>In memory of Georgian heroes who died in Russia-Georgia War of August 2008</value>
   </data>
   <data name="ThankYouEmailMessage" xml:space="preserve">
     <value>მოგესალმებით! 
@@ -133,6 +133,13 @@
 
 www.august2008.org 
 ადმინისტრაცია</value>
+  </data>
+  <data name="YouMustBeRegistered" xml:space="preserve">
+    <value>თანხის გადარიცხვის მსურველებს: 
+
+გთხოვთ გაიაროთ &lt;a href="{0}"&gt;რეგისტრაცია&lt;a&gt; ან &lt;a href="{0}"&gt;შედით&lt;/a&gt; უკვე დარეგისტრირებული ანგარიშით. 
+
+გმადლობთ!</value>
   </data>
   <data name="YourCommentAfterDonation" xml:space="preserve">
     <value>თქვენი კომენტარი...</value>

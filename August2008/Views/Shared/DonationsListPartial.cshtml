@@ -16,7 +16,7 @@
             foreach (var item in Model) {
                 <tr>
                     <td>@(counter++)</td>
-                    <td>@item.DisplayName</td>
+                    <td style="white-space:nowrap">@item.DisplayName</td>
                     <td>@item.Amount.ToString("N2")&nbsp;@item.Currency</td>
                     <td>@item.DateDonated.ToShortDateString()</td>
                     <td>@item.UserMessage</td>

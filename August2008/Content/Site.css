@@ -57,6 +57,7 @@ p {
     list-style: none;
     margin: 0;
     padding: 0;
+    vertical-align: bottom;
 }
 #header ul li a {
     display: block;
@@ -252,7 +253,7 @@ a:active {
     font-family: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
     font-size: 1.1em;
     padding: 15px 25px;
-    color: #333444;  
+    color: #222333;  
     clear: both;
     background-color: #FCFCFC;
     border: 0px solid #333;
@@ -260,11 +261,18 @@ a:active {
     bottom: 0;
     left: 0;
     right: 0;
+    line-height: 25px;
     text-align: justify;
     text-justify: inter-word;    
     -webkit-border-radius: 2px;
         -moz-border-radius: 2px;
             border-radius: 2px;
+}
+.text {
+    font-family: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.1em;
+    color: #222333;  
+    line-height: 25px;
 }
 .section-margin {
     margin-bottom: 10px;
@@ -316,10 +324,10 @@ a:active {
 }
 .transp {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-  filter: alpha(opacity=90);
-  -moz-opacity: 0.9;
-  -khtml-opacity: 0.9;
-  opacity: 0.9;
+  filter: alpha(opacity=85);
+  -moz-opacity: 0.85;
+  -khtml-opacity: 0.85;
+  opacity: 0.85;
 }
 .shadow {
     -moz-box-shadow: 0px 0px 2px 0px #888;
@@ -484,6 +492,7 @@ img {
     box-sizing: border-box;
 }
 .hero-box {
+    position: relative;
     padding: 15px 25px;
     color: #333444;  
     clear: both;
@@ -619,7 +628,7 @@ p.hero-about-text,
 }
 .contact-envelope {
     background-image: url(../images/contact-envelope.png);
-    background-position: 95% 30%;
+    background-position: 95% 35%;
     background-repeat: no-repeat;
 }
 .donations-jar {
@@ -632,8 +641,21 @@ p.hero-about-text,
     background-position: top right;
     background-repeat: no-repeat;
 }
+.question-mark {
+    background-image: url(../images/question-mark.png);
+    background-position: 95% 80%;
+    background-repeat: no-repeat;
+}
+.check-mark {
+    background-image: url(../images/check-mark.png);
+    background-position: 93% 35%;
+    background-repeat: no-repeat;
+}
+.padding-25 {
+    padding: 25px;
+}
 .padding-50 {
-    padding: 30px;
+    padding: 50px;
 }
 .contact-message {
     width: 210px;
@@ -644,4 +666,19 @@ p.hero-about-text,
 }
 #donationsList {
     clear: both;
+}
+.faq-ul {
+    margin: 5px 0 0 20px;
+    list-style: decimal
+}
+.faq-ul li a {
+    line-height:25px;
+}
+.faq-ul li a:hover {
+    background-color: #E5E5E5
+}
+.faq-title {
+    font-weight: bold;
+    border-bottom: dashed 1px #E5E5E5;
+    padding-bottom: 2px;
 }

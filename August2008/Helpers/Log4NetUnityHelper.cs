@@ -6,7 +6,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.ObjectBuilder;
 using System.Collections.Generic;
 
-namespace August2008.Common
+namespace August2008.Helpers
 {
     public class BuildTrackingExtension : UnityContainerExtension
     {

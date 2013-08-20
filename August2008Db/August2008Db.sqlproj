@@ -197,6 +197,8 @@
     <Build Include="dbo\Tables\MilitaryAward.sql" />
     <Build Include="dbo\Stored Procedures\UpdateHero.sql" />
     <Build Include="dbo\Stored Procedures\GetMilitaryAwards.sql" />
+    <Build Include="dbo\Tables\Log.sql" />
+    <Build Include="dbo\Stored Procedures\Logger.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

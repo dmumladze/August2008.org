@@ -61,5 +61,20 @@ namespace August2008.Models
         {
             get { return !HeroId.HasValue; }
         }
+
+        public string Description
+        {
+            get
+            {
+                if (MilitaryAward != null && !string.IsNullOrWhiteSpace(MilitaryAward.AwardName))
+                {
+                    return MilitaryAward.AwardName;
+                }
+                else 
+                {
+                    return Resources.Hero.Strings.SocialDescription;
+                }
+            }
+        }
     }
 }

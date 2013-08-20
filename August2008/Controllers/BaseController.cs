@@ -8,6 +8,8 @@ using System.Web.Routing;
 using August2008.Common.Interfaces;
 using August2008.Model;
 using August2008.Models;
+using log4net;
+using Microsoft.Practices.Unity;
 
 namespace August2008.Controllers
 {
@@ -16,18 +18,19 @@ namespace August2008.Controllers
         protected BaseController()
         {            
         }
-        protected BaseController(ICacheProvider cacheProvider)
-        {
-            Cache = cacheProvider;
-        }
         protected override void Initialize(RequestContext requestContext)
         {
             Me = requestContext.HttpContext.User as FormsPrincipal;
             base.Initialize(requestContext);
         }
 
+        [Dependency]
+        protected ICacheProvider Cache { get; set; }
+
+        [Dependency]
+        protected ILog Logger { get; set; }
+
         protected FormsPrincipal Me { get; private set; }
-        protected ICacheProvider Cache { get; private set; }
 
         protected string ContactEmail
         {
@@ -48,6 +51,14 @@ namespace August2008.Controllers
         protected string ReplyEmail
         {
             get { return ConfigurationManager.AppSettings["August2008:ReplyEmail"]; }
+        }
+        protected string PayPalEmail
+        {
+            get { return ConfigurationManager.AppSettings["PayPal:PrimaryEmail"]; }
+        }
+        protected string PayPalPostUri 
+        {
+            get { return ConfigurationManager.AppSettings["PayPal:PostUri"]; }
         }
         protected ActionResult RedirectToLocal(string returnUrl)
         {

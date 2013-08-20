@@ -22,8 +22,6 @@ namespace August2008.Controllers
         }
         public ActionResult Index()
         {
-            //var hero = _heroRepository.GetRandomHero(Me.LanguageId);
-            //ViewBag.RandomHero = Mapper.Map(hero, new HeroModel());
             return View();
         }
         public ActionResult Mission() 
