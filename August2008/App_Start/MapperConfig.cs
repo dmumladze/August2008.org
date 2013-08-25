@@ -28,10 +28,7 @@ namespace August2008
 
             Mapper.CreateMap<PayPalModel, Donation>()
                 .ForMember(x => x.Amount, o => o.MapFrom(y => y.mc_gross))
-                .ForMember(x => x.Currency, o => o.MapFrom(y => y.mc_currency))
-                .ForMember(x => x.FirstName, o => o.MapFrom(y => y.first_name))
-                .ForMember(x => x.LastName, o => o.MapFrom(y => y.last_name))
-                .ForMember(x => x.Email, o => o.MapFrom(y => y.payer_email));
+                .ForMember(x => x.Currency, o => o.MapFrom(y => y.mc_currency)); ;
 
             Mapper.CreateMap<Donation, DonationModel>();
             Mapper.CreateMap<DonationModel, Donation>();

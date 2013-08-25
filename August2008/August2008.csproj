@@ -544,6 +544,10 @@
       <Project>{010855c3-51a6-4f61-9b02-15e0ab038dea}</Project>
       <Name>August2008.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\August2008.Services\August2008.Services.csproj">
+      <Project>{baca97f3-ed4d-45a3-963d-c60708827549}</Project>
+      <Name>August2008.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Account\Strings.ka.resx">

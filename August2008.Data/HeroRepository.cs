@@ -13,6 +13,12 @@ namespace August2008.Data
 {
     public sealed class HeroRepository : IHeroRepository
     {
+        private readonly ILogger Logger;
+
+        public HeroRepository(ILogger logger)
+        {
+            Logger = logger;
+        }
         public Hero GetHero(int heroId, int languageId)
         {
             using (var db = new DataAccess())
@@ -175,7 +181,7 @@ namespace August2008.Data
                     throw;
                 }
                 return criteria;
-            }            
+            }
         }
         public IEnumerable<string> GetAlphabet(int languageId)
         {
@@ -205,7 +211,7 @@ namespace August2008.Data
             }
         }
         private void GetBlobs(IEnumerable<Hero> heros, CloudDataAccess cloud)
-        {            
+        {
             foreach (var item in heros)
             {
                 GetBlobs(item, cloud);
@@ -232,7 +238,7 @@ namespace August2008.Data
         private void DeleteBlob(HeroPhoto photo)
         {
             var cloud = new CloudDataAccess();
-            cloud.DeleteBlob("images/hero", photo.HeroId.ToString(), photo.PhotoUri);            
+            cloud.DeleteBlob("images/hero", photo.HeroId.ToString(), photo.PhotoUri);
         }
     }
 }

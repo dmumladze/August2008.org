@@ -73,5 +73,9 @@ namespace August2008.Common
             }
             return dateTime;
         }
+        public static string SingleOrEmpty(this IEnumerable<string> source)
+        {
+            return source.SingleOrDefault() ?? string.Empty;
+        }
     }
 }

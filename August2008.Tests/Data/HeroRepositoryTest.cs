@@ -12,7 +12,7 @@ namespace August2008.Tests.Data
         [TestMethod]
         public void HeroRepository_Can_GetHeros() 
         {
-            var repository = new HeroRepository();
+            var repository = new HeroRepository(null);
             var heros = repository.SearchHeros(new HeroSearchCriteria  { 
                 PageNo = 1,
                 PageSize = 10,
@@ -22,14 +22,14 @@ namespace August2008.Tests.Data
         [TestMethod]
         public void HeroRepository_Can_GetHeroAlphabet()
         {
-            var repository = new HeroRepository();
+            var repository = new HeroRepository(null);
             var alphabet = repository.GetAlphabet(1);
             Assert.IsTrue(alphabet.Count() > 0);
         }
         [TestMethod]
         public void HeroRepository_Can_GetRandomHero()
         {
-            var repository = new HeroRepository();
+            var repository = new HeroRepository(null);
             var hero = repository.GetRandomHero(1);
             Assert.IsTrue(hero.HeroId > 0);
         }

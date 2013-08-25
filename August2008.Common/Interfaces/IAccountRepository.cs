@@ -10,6 +10,7 @@ namespace August2008.Common.Interfaces
         User GetUser(int userId);
         void UpdateUser(User user);
         void UpdateUserProfile(UserProfile profile);
+        void UpdateUserProfileAddress(int userId, Address address);
         OAuthUser CreateOAuthUser(OAuthUser user);
         bool TryGetUserRegistered(string email, string provider, out int? userId, out bool isOAuthUser);
         IEnumerable<User> GetUsers();

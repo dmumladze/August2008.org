@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using August2008.Controllers;
 using August2008.Helpers;
+using August2008.Services;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Microsoft.Practices.Unity.Mvc;
@@ -22,11 +23,10 @@ namespace August2008
             {
                 section.Configure(container);
             }
-           
 
-            container
-                .AddNewExtension<BuildTrackingExtension>()
-                .AddNewExtension<LogCreationExtension>();
+            //container
+            //    .AddNewExtension<BuildTrackingExtension>()
+            //    .AddNewExtension<LogCreationExtension>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

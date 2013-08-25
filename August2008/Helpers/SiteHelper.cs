@@ -28,7 +28,6 @@ namespace August2008.Helpers
                 var bmp = ResizeImage(response.GetResponseStream(), size);
                 return new FileContentResult(bmp.ToByteArray(), MediaTypeNames.Application.Octet);
             }
-
         }
         public static Bitmap ResizeImage(Stream imageStream, PhotoSize size)
         {

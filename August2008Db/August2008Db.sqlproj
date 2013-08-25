@@ -199,6 +199,16 @@
     <Build Include="dbo\Stored Procedures\GetMilitaryAwards.sql" />
     <Build Include="dbo\Tables\Log.sql" />
     <Build Include="dbo\Stored Procedures\Logger.sql" />
+    <Build Include="dbo\Tables\Country.sql" />
+    <Build Include="dbo\Tables\State.sql" />
+    <Build Include="dbo\Tables\City.sql" />
+    <Build Include="dbo\Stored Procedures\TryGetCountry.sql" />
+    <Build Include="dbo\Stored Procedures\TryGetState.sql" />
+    <Build Include="dbo\Stored Procedures\TryGetCity.sql" />
+    <Build Include="dbo\Stored Procedures\CreateCountry.sql" />
+    <Build Include="dbo\Stored Procedures\CreateState.sql" />
+    <Build Include="dbo\Stored Procedures\CreateCity.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateUserProfileAddress.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

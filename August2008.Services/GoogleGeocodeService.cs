@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Model;
 using log4net;
@@ -25,15 +26,15 @@ namespace August2008.Services
         }
         public Country GetCountry(string country)
         {
-            var geo = GoogleGeocode(null, null, null, country);
+            var geo = GoogleGeocode(null, null, null, null, country);
             if (geo != null)
             {
-                var q = from a in geo.results 
+                var q = from a in geo.results
                         from b in a.address_components
                         where b.types.Contains("country")
-                        select new Country { 
-                            Name = b.short_name, 
-                            FullName = b.long_name, 
+                        select new Country {
+                            Name = b.short_name,
+                            FullName = b.long_name,
                             Latitude = a.geometry.location.lat,
                             Longitude = a.geometry.location.lng
                         };
@@ -46,7 +47,7 @@ namespace August2008.Services
         }
         public State GetState(string state, string country)
         {
-            var geo = GoogleGeocode(null, null, state, country);
+            var geo = GoogleGeocode(null, null, state, null, country);
             if (geo != null)
             {
                 var q = from a in geo.results
@@ -57,9 +58,8 @@ namespace August2008.Services
                             FullName = b.long_name,
                             Latitude = a.geometry.location.lat,
                             Longitude = a.geometry.location.lng,
-                            Country = (from c in a.address_components
-                                      where c.types.Contains("country")
-                                      select c.long_name).SingleOrDefault()
+                            Country = country ?? (from c in a.address_components where c.types.Contains("country")
+                                                  select c.long_name).SingleOrDefault()
                         };
                 if (q.Count() != 0)
                 {
@@ -70,7 +70,7 @@ namespace August2008.Services
         }
         public City GetCity(string city, string state, string country)
         {
-            var geo = GoogleGeocode(null, city = city, state, country);
+            var geo = GoogleGeocode(null, city = city, state, null, country);
             if (geo != null)
             {
                 var q = from a in geo.results
@@ -80,9 +80,12 @@ namespace August2008.Services
                             Name = b.long_name,
                             Latitude = a.geometry.location.lat,
                             Longitude = a.geometry.location.lng,
-                            State = (from c in a.address_components
-                                     where c.types.Contains("administrative_area_level_1")
-                                     select c.long_name).SingleOrDefault()
+
+                            PostalCode = (from c in a.address_components where c.types.Contains("postal_code")
+                                          select c.long_name).SingleOrDefault(),
+
+                            State = state ?? (from c in a.address_components where c.types.Contains("administrative_area_level_1")
+                                              select c.long_name).SingleOrDefault()
                         };
                 if (q.Count() != 0)
                 {
@@ -91,17 +94,48 @@ namespace August2008.Services
             }
             return default(City);
         }
-        public Address GetAddress(string street, string city, string state, string country)
+        public Address GetAddress(string street, string city, string state, string postalCode, string country)
         {
-            var geo = GoogleGeocode(street, city, state, country);
-            return null;
+            var geo = GoogleGeocode(street, city, state, postalCode, country);
+            if (geo != null)
+            {
+                var q = from a in geo.results
+                        from b in a.address_components
+                        where b.types.Contains("locality")
+                        select new Address {
+                            Street = street ?? string.Format("{0} {1}", (from c in a.address_components where c.types.Contains("street_number") 
+                                                                         select c.long_name).SingleOrEmpty(),
+                                                                        (from c in a.address_components where c.types.Contains("route") 
+                                                                         select c.long_name).SingleOrEmpty()),
+
+                            City = city ?? (from c in a.address_components where c.types.Contains("locality")
+                                            select c.long_name).SingleOrDefault(),
+
+                            State = (from c in a.address_components where c.types.Contains("administrative_area_level_1")
+                                     select c.long_name).SingleOrDefault(),
+
+                            PostalCode = (from c in a.address_components where c.types.Contains("postal_code")
+                                          select c.long_name).SingleOrDefault(),
+
+                            Country = country ?? (from c in a.address_components where c.types.Contains("country")
+                                                  select c.long_name).SingleOrDefault(),
+
+                            Latitude = a.geometry.location.lat,
+                            Longitude = a.geometry.location.lng,
+                        };
+                if (q.Count() != 0)
+                {
+                    return q.SingleOrDefault();
+                }
+            }
+            return default(Address);
         }
-        private GoogleGeoCodeResponse GoogleGeocode(string street, string city, string state, string country) 
+        private GoogleGeocodeResponse GoogleGeocode(string street, string city, string state, string postalCode, string country)
         {
             var client = new HttpClient();
             var format = new StringBuilder();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
+
             if (!string.IsNullOrWhiteSpace(street))
             {
                 format.Append(street);
@@ -117,26 +151,31 @@ namespace August2008.Services
                 format.Append(state);
                 format.Append(" ");
             }
+            if (!string.IsNullOrWhiteSpace(postalCode))
+            {
+                format.Append(postalCode);
+                format.Append(" ");
+            }
             if (!string.IsNullOrWhiteSpace(country))
             {
                 format.Append(country);
             }
             string requestUrl = string.Format(_serviceUrl, format.ToString());
             try
-            {                
+            {
                 var json = client.GetStringAsync(requestUrl).Result;
-                return JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(json);
+                return JsonConvert.DeserializeObject<GoogleGeocodeResponse>(json);
             }
             catch (Exception ex)
             {
                 _logger.Error(requestUrl, ex);
             }
-            return default(GoogleGeoCodeResponse);
+            return default(GoogleGeocodeResponse);
         }
         /// <summary>
         /// Structure that matches up with Google Geocode json format
         /// </summary>
-        public class GoogleGeoCodeResponse
+        public class GoogleGeocodeResponse
         {
             public string status { get; set; }
             public IEnumerable<results> results { get; set; }

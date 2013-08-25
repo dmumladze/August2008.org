@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace August2008.Model
 {
-    class Country
+    public class Country
     {
+        public int CountryId { get; set; }
+        public string Name { get; set; }
+        public string FullName { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

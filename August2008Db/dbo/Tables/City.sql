@@ -1,4 +1,10 @@
 ﻿CREATE TABLE [dbo].[City]
 (
-	[Id] INT NOT NULL PRIMARY KEY
+	[CityId]		INT	IDENTITY (1, 1) NOT NULL,
+	[StateId]		INT				NOT NULL,
+    [Name]			NVARCHAR(50)	NULL, 
+	[PostalCode]	NVARCHAR(15)	NULL,
+	[Geo]			GEOGRAPHY		DEFAULT('POINT EMPTY')		
+	CONSTRAINT [PK_City] PRIMARY KEY CLUSTERED ([CityId] ASC)
+	CONSTRAINT [FK_City_State] FOREIGN KEY ([StateId]) REFERENCES [dbo].[State]([StateId])
 )

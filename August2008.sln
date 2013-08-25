@@ -11,11 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Data", "August20
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Model", "August2008.Model\August2008.Model.csproj", "{010855C3-51A6-4F61-9B02-15E0AB038DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Manager", "August2008.Manager\August2008.Manager.csproj", "{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Common", "August2008.Common\August2008.Common.csproj", "{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{3FD79DE9-226A-40E8-B7D0-4693DB2BE847}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3FD79DE9-226A-40E8-B7D0-4693DB2BE847}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web UI", "Web UI", "{CA12B7F5-7825-48B2-9EF3-81EAAB946883}"
 EndProject
@@ -34,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bin", "Bin", "{7DB9CE85-0C2
 		CommonBin\Microsoft.Practices.Unity.dll = CommonBin\Microsoft.Practices.Unity.dll
 		CommonBin\Microsoft.Practices.Unity.Mvc.dll = CommonBin\Microsoft.Practices.Unity.Mvc.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Services", "August2008.Services\August2008.Services.csproj", "{BACA97F3-ED4D-45A3-963D-C60708827549}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,14 +62,14 @@ Global
 		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{010855C3-51A6-4F61-9B02-15E0AB038DEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BACA97F3-ED4D-45A3-963D-C60708827549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACA97F3-ED4D-45A3-963D-C60708827549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACA97F3-ED4D-45A3-963D-C60708827549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACA97F3-ED4D-45A3-963D-C60708827549}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,7 +81,7 @@ Global
 		{28748D9E-0148-4AFC-A778-A92E4F0CB19A} = {7BFE55B9-4192-4689-9FC2-87C99BE75258}
 		{7B2DC08D-01A3-41EE-B0CE-C40945B0172E} = {761A184F-5876-4A12-A27D-412C336ADC0F}
 		{010855C3-51A6-4F61-9B02-15E0AB038DEA} = {761A184F-5876-4A12-A27D-412C336ADC0F}
-		{36CE3CC2-996E-48EF-B6C5-7C488AE32BD5} = {3FD79DE9-226A-40E8-B7D0-4693DB2BE847}
+		{BACA97F3-ED4D-45A3-963D-C60708827549} = {3FD79DE9-226A-40E8-B7D0-4693DB2BE847}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

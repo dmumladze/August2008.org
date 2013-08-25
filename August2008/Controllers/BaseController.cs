@@ -28,7 +28,7 @@ namespace August2008.Controllers
         protected ICacheProvider Cache { get; set; }
 
         [Dependency]
-        protected ILog Logger { get; set; }
+        protected ILogger Logger { get; set; }
 
         protected FormsPrincipal Me { get; private set; }
 
@@ -56,14 +56,14 @@ namespace August2008.Controllers
         {
             get { return ConfigurationManager.AppSettings["PayPal:PrimaryEmail"]; }
         }
-        protected string PayPalPostUri 
+        protected string PayPalWorkerUrl 
         {
-            get { return ConfigurationManager.AppSettings["PayPal:PostUri"]; }
+            get { return ConfigurationManager.AppSettings["PayPal:WorkerUrl"]; }
         }
         protected ActionResult RedirectToLocal(string returnUrl)
         {
             // prevents from "open redirection attack"
-            if (Url.IsLocalUrl(returnUrl))
+            if (Url.IsLocalUrl(returnUrl)) 
             {
                 return Redirect(returnUrl);
             }

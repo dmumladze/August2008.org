@@ -129,6 +129,13 @@ namespace August2008.Common
             AddParameter(name, type, ParameterDirection.Output, DBNull.Value);
         }
         /// <summary>
+        /// Adds a default return parameter to the associated DbCommand object.
+        /// </summary>
+        public void AddReturnParameter()
+        {
+            AddReturnParameter(ReturnValueParameterName, DbType.Int32);
+        }
+        /// <summary>
         /// Adds a return parameter to the associated DbCommand object.
         /// </summary>
         public void AddReturnParameter(string name, DbType type)

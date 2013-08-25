@@ -12,6 +12,15 @@ namespace August2008.Common.Interfaces
         IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId);
         IEnumerable<MilitaryGroup> GetMilitaryGroups(int languageId);
         IEnumerable<MilitaryAward> GetMilitaryAwards(int languageId); 
+
         IEnumerable<Role> GetRoles();
+
+        bool TryGetCountry(string country, out Country match);
+        bool TryGetState(string state, string country, out State match);
+        bool TryGetCity(string city, string state, string country, out City match); 
+
+        Country CreateCountry(Country country);
+        State CreateState(State state);
+        City CreateCity(City city);  
     }
 }

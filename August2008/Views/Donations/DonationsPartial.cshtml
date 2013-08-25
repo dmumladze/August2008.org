@@ -6,7 +6,8 @@
         @if (User.Identity.IsAuthenticated) {
         <div style="font-size:1.1em">
             <div style="float:left;margin-right:20px">                
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" id="userId" value="@ViewBag.UserId" />
                     <!-- Identify your business so that you can collect the payments. -->
                     <input type="hidden" name="business" value="donations@august2008.org">
                     <!-- Specify a Donate button. -->
@@ -14,11 +15,11 @@
                     <!-- Specify details about the contribution -->
                     <input type="hidden" name="item_name" value="@Resources.Donations.Strings.ThankYou">
                     <input type="hidden" name="return" value="@Url.Action("PayPal", null, null, HttpContext.Current.Request.Url.Scheme)"/>
-                    <input type="hidden" name="notify_url" value="@Url.Action("PayPalDonationIpn", null, null, HttpContext.Current.Request.Url.Scheme)"/>
+                    <input type="hidden" name="notify_url" value="http://98.221.24.73/Donations/PayPalDonationIpn"/>
                     <input type="hidden" name="cancel_return" value="@Url.Action("Cancel", null, new {provider = DonationProvider.PayPal}, HttpContext.Current.Request.Url.Scheme)"/>
                     <input type="hidden" name="rm" value="2"/>
-                    <input type="hidden" name="item_number" value="5.00"> 
-                    <select name="amount" onchange="$('input[name=item_number]').val($(this).val())" style="height:85px !important;width:90px;font-size:15px;padding-top:30px;padding-bottom:30px">
+                    <input type="hidden" name="item_number" value='{ "UserId": "@ViewBag.UserId", "Amount": "5.00"}'> 
+                    <select name="amount" id="amount" style="height:85px !important;width:90px;font-size:15px;padding-top:30px;padding-bottom:30px">
                         <option value="1.00">$1.00</option>    
                         <option value="5.00" selected>$5.00</option>
                         <option value="10.00">$10.00</option>
@@ -47,3 +48,15 @@
         }
     </fieldset>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#amount').change(function () {
+            $('input[name=item_number]').val(JSON.stringify(
+                {
+                    UserId: $('#userId').val(),
+                    Amount: $('#amount').val()
+                }
+            ));
+        });
+    });
+</script>

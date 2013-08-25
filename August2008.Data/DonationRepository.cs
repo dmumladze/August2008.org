@@ -12,6 +12,12 @@ namespace August2008.Data
 {
     public class DonationRepository : IDonationRepository
     {
+        private readonly ILogger Logger;
+
+        public DonationRepository(ILogger logger)
+        {
+            Logger = logger;
+        }
         public Donation CreateDonation(Donation donation)
         {
             using (var db = new DataAccess())
@@ -21,9 +27,6 @@ namespace August2008.Data
                 db.AddInParameter("@UserId", DbType.Int32, donation.UserId);
                 db.AddInParameter("@Amount", DbType.Decimal, donation.Amount);
                 db.AddInParameter("@Currency", DbType.String, donation.Currency);
-                db.AddInParameter("@FirstName", DbType.String, donation.FirstName);
-                db.AddInParameter("@LastName", DbType.String, donation.LastName);
-                db.AddInParameter("@Email", DbType.String, donation.Email);
                 db.AddInParameter("@UserMessage", DbType.String, donation.UserMessage);
                 db.AddInParameter("@ProviderData", DbType.Xml, donation.ProviderData.ToDbXml());
                 db.AddOutParameter("@DonationId", DbType.Int32);
@@ -34,6 +37,7 @@ namespace August2008.Data
                 }
                 catch (Exception ex)
                 {
+                    Logger.Error("Error while creating donation.", ex);
                     throw;
                 }
             }
@@ -52,6 +56,7 @@ namespace August2008.Data
                 }
                 catch (Exception ex)
                 {
+                    Logger.Error("Error while updating donation.", ex);
                     throw;
                 }
             }
@@ -70,8 +75,9 @@ namespace August2008.Data
                     criteria.Result = new List<Donation>();
                     db.ReadInto(criteria.Result);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while searching donations.", ex);
                     throw;
                 }
                 return criteria;

@@ -1,6 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].[TryGetCountry]
-	@param1 int = 0,
-	@param2 int
+	@Country	NVARCHAR(50)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT TOP 1
+		CountryId,
+		Name,
+		FullName
+	FROM dbo.Country WITH (NOLOCK)
+	WHERE FullName= @Country;
+
+	RETURN @@ROWCOUNT;
+END;

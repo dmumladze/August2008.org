@@ -12,6 +12,12 @@ namespace August2008.Data
 {
     public class AccountRepository : IAccountRepository
     {
+        private readonly ILogger Logger;
+
+        public AccountRepository(ILogger logger)
+        {
+            Logger = logger;
+        }
         public User GetUser(int userId)
         {
             var user = new User();
@@ -27,8 +33,9 @@ namespace August2008.Data
                                 user.OAuth,
                                 user.Roles);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while getting user.", ex);
                     throw;
                 }
             }
@@ -50,8 +57,9 @@ namespace August2008.Data
                     userId = db.GetParameterValue<int?>("@UserId");
                     isOAuthUser = db.GetParameterValue<bool>("@IsOAuthUser");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while checking registered user.", ex);
                     throw;
                 }
             }
@@ -88,9 +96,10 @@ namespace August2008.Data
                         user = GetUser(user.UserId);
                         tran.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         tran.Rollback();
+                        Logger.Error("Error while creating user.", ex);
                         throw;
                     }
                     return user;
@@ -107,9 +116,10 @@ namespace August2008.Data
                     user = CreateOAuthUser(user, tran);
                     tran.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     tran.Rollback();
+                    Logger.Error("Error while creating OAuth user.", ex);
                     throw;
                 }
             }
@@ -159,9 +169,10 @@ namespace August2008.Data
                         }
                         tran.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         tran.Rollback();
+                        Logger.Error("Error while updating user.", ex);
                         throw;
                     }
                 }
@@ -180,8 +191,33 @@ namespace August2008.Data
                 {
                     db.ExecuteNonQuery();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while updating user profile.", ex);
+                    throw;
+                }
+            }
+        }
+        public void UpdateUserProfileAddress(int userId, Address address)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.UpdateUserProfileAddress");                
+                db.AddInParameter("@UserId", DbType.Int32, userId);
+                db.AddInParameter("@Street", DbType.String, address.Street);
+                db.AddInParameter("@CityId", DbType.String, address.CityId);
+                db.AddInParameter("@StateId", DbType.String, address.StateId);
+                db.AddInParameter("@CountryId", DbType.String, address.CountryId);
+                db.AddInParameter("@Latitude", DbType.Double, address.Latitude);
+                db.AddInParameter("@Longitude", DbType.Double, address.Longitude);
+                db.AddInParameter("@PostalCode", DbType.String, address.PostalCode);
+                try
+                {
+                    db.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error while updating user profile address.", ex);
                     throw;
                 }
             }
@@ -197,8 +233,9 @@ namespace August2008.Data
                     db.ReadInto(users);
                     return users;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while getting user.", ex);
                     throw;
                 }
             }
@@ -207,19 +244,20 @@ namespace August2008.Data
         {
             using (var db = new DataAccess())
             {
-                db.CreateStoredProcCommand("dbo.SearchUsers");   
+                db.CreateStoredProcCommand("dbo.SearchUsers");
                 db.AddInParameter("@StartsWith", DbType.String, name);
                 try
                 {
-                    var users = new List<User>();                   
+                    var users = new List<User>();
                     db.ReadInto(users);
                     return users;
                 }
                 catch (Exception ex)
                 {
+                    Logger.Error("Error while searching users.", ex);
                     throw;
                 }
-            }  
+            }
         }
         public IEnumerable<Role> GetUserRoles(int userId)
         {
@@ -233,8 +271,9 @@ namespace August2008.Data
                     db.ReadInto(roles);
                     return roles;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while getting user roles.", ex);
                     throw;
                 }
             }
@@ -258,9 +297,10 @@ namespace August2008.Data
                         }
                         tran.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         tran.Rollback();
+                        Logger.Error("Error while assigning roles.", ex);
                         throw;
                     }
                 }
@@ -285,9 +325,10 @@ namespace August2008.Data
                         }
                         tran.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         tran.Rollback();
+                        Logger.Error("Error while revoking roles.", ex);
                         throw;
                     }
                 }

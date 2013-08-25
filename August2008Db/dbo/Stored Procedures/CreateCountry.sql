@@ -1,6 +1,21 @@
 ﻿CREATE PROCEDURE [dbo].[CreateCountry]
-	@param1 int = 0,
-	@param2 int
+	@Name		NVARCHAR(10),
+	@FullName	NVARCHAR(50),
+	@Latitude	FLOAT,
+	@Longitude	FLOAT,
+	@CountryId	INT	= NULL OUTPUT
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO [dbo].[Country]
+		([Name]
+		,[FullName]
+		,[Geo])
+	VALUES
+		(@Name
+		,@FullName
+		,geography::Point(@Latitude, @Longitude, 4326));
+
+	SET @CountryId = SCOPE_IDENTITY();
+END;
