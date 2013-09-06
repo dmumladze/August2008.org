@@ -23,7 +23,7 @@ namespace August2008.Controllers
     /// <summary>
     /// Orchestrates account related actions such as User Accouts, Logins, Authorization, etc.
     /// </summary>
-    //[Authorize]
+    [Authorize]
     public class AccountController : BaseController
     {
         private readonly IAccountRepository _accountRepository;
@@ -153,7 +153,7 @@ namespace August2008.Controllers
         /// </summary>
         [HttpGet]
         [NoCache]
-        //[Authorize2(Roles = "Admin")]
+        [Authorize2(Roles = "Admin")]
         public ActionResult ManageUsers()
         {
             var users = _accountRepository.SearchUsers();
@@ -167,7 +167,7 @@ namespace August2008.Controllers
         }
         [HttpPost]
         [NoCache]
-        //[Authorize2(Roles = "Admin")]
+        [Authorize2(Roles = "Admin")]
         public ActionResult SearchUsers(string name)
         {
             var users = _accountRepository.SearchUsers(name);
@@ -177,14 +177,14 @@ namespace August2008.Controllers
         }
         [HttpPost]
         [NoCache]
-        //[Authorize2(Roles = "Admin")]
+        [Authorize2(Roles = "Admin")]
         public ActionResult UserRoles(int userId)  
         {
             return GetUserRoles(userId);
         }
         [HttpPost]
         [NoCache]
-        //[Authorize2(Roles = "Admin")]
+        [Authorize2(Roles = "Admin")]
         public ActionResult AssignRoles(UserRoleModel model)
         {
             if (ModelState.IsValid)

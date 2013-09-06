@@ -3,7 +3,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("DonationsPartial")
+@section HeaderScriptSection {
+    @Scripts.Render("~/bundles/donations")   
+}
+
+@if (!Model.ConfirmDonation) {
+    Html.RenderPartial("DonationsPartial");
+}
+else {
+    Html.RenderPartial("ThankYou");
+    <script>
+        if (window.history.replaceState) {
+            history.replaceState(null, null, '@Url.Action("Index")');
+        }
+    </script>    
+}
+
+<script>
+    Donations.init('@Resources.Donations.Strings.CommentPopupTitle');
+</script>
 
 <div class="section transp shadow padding-50 donations-jar" style="margin-top:10px">
     <fieldset>
@@ -42,20 +60,3 @@
         </div>
     </fieldset>
 </div>
-
-@if (!Model.ConfirmDonation.IsNull()) {
-    <div id="confirmDonation">
-        @Html.Partial("ConfirmPartial", Model.ConfirmDonation)
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('#confirmDonation').dialog({
-                autoOpen: true,
-                modal: true,
-                width: 500,                
-                title: 'დახმარება მიღებულია'
-            });
-        });
-    </script>    
-}
-

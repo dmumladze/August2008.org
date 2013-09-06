@@ -25,10 +25,23 @@ namespace August2008
             Mapper.CreateMap<Role, RoleModel>();
 
             Mapper.CreateMap<string, decimal>().ConvertUsing<StringDecimalConverter>();
+            Mapper.CreateMap<string, int>().ConvertUsing<StringIntegerConverter>();
+            Mapper.CreateMap<string, DateTime>().ConvertUsing<PayPalDateTimeConverter>();
 
-            Mapper.CreateMap<PayPalModel, Donation>()
+            Mapper.CreateMap<PayPalConfirm, DonationModel>()
+                .ForMember(x => x.Amount, o => o.MapFrom(y => y.amt))
+                .ForMember(x => x.Currency, o => o.MapFrom(y => y.cc))
+                .ForMember(x => x.ExternaStatus, o => o.MapFrom(y => y.st));
+
+            Mapper.CreateMap<PayPalTransaction, Donation>()
+                .ForMember(x => x.UserId, o => o.ResolveUsing<PayPalUserIdResolver>())
                 .ForMember(x => x.Amount, o => o.MapFrom(y => y.mc_gross))
-                .ForMember(x => x.Currency, o => o.MapFrom(y => y.mc_currency)); ;
+                .ForMember(x => x.Currency, o => o.MapFrom(y => y.mc_currency))
+                .ForMember(x => x.DateDonated, o => o.MapFrom(y => y.payment_date))
+                .ForMember(x => x.ExternalId, o => o.MapFrom(y => y.txn_id))
+                .ForMember(x => x.ExternalStatus, o => o.MapFrom(y => y.payment_status))
+                .ForMember(x => x.ProviderXml, o => o.MapFrom(y => y.ToXml()))
+                .ForMember(x => x.DonationProviderId, o => o.UseValue<int>(1));
 
             Mapper.CreateMap<Donation, DonationModel>();
             Mapper.CreateMap<DonationModel, Donation>();

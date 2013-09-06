@@ -6,8 +6,8 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.ObjectBuilder;
 using System.Collections.Generic;
 
-namespace August2008.Helpers
-{
+namespace August2008.Common 
+{ 
     public class BuildTrackingExtension : UnityContainerExtension
     {
         protected override void Initialize()

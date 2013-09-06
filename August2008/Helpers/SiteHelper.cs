@@ -87,6 +87,12 @@ namespace August2008.Helpers
             decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
             return result;
         }
+        public static int ToInteger(this string value) 
+        {
+            int result;
+            int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
+            return result;
+        }
         public static string ToShortDateString(this DateTime? dateTime)
         {
             if (dateTime.HasValue)
@@ -102,6 +108,16 @@ namespace August2008.Helpers
                 return dateTime.Value.Year.ToString();
             }
             return "-";
+        }
+        public static DateTime ToDateTime(this string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                DateTime dateTime;
+                DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+                return dateTime;
+            }
+            return default(DateTime);
         }
         public static void SendEmail(string from, string to, string subject, string body)
         {

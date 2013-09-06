@@ -1,12 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateUserProfileAddress]
-	@UserId		INT,
-	@Street		NVARCHAR(100),
-	@CityId		INT,
-	@StateId	INT,
-	@Latitude	FLOAT,
-	@Longitude	FLOAT,
-	@CountryId	INT,
-	@PostalCode	NVARCHAR(15) = NULL
+	@UserId			INT,
+	@Street			NVARCHAR(100) = NULL,
+	@CityId			INT,
+	@StateId		INT,
+	@CountryId		INT,
+	@Latitude		FLOAT	= NULL,
+	@Longitude		FLOAT	= NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -18,19 +17,14 @@ BEGIN
 				  AND StateId = @StateId 
 				  AND CountryId = @CountryId)
 	BEGIN
-		UPDATE dbo.UserProfile SET
-			Street = @Street,
-			CityId = @CityId,
-			StateId = @StateId,
-			CountryId = @CountryId,
-			Geo = geography::Point(@Latitude, @Longitude, 4326)
-		WHERE UserId = @UserId;
-	END;
-
-	IF NOT EXISTS(SELECT 1 FROM dbo.City WITH (NOLOCK) WHERE CityId = @CityId AND PostalCode = @PostalCode)
-	BEGIN
-		UPDATE dbo.City SET
-			PostalCode = @PostalCode
-		WHERE CityId = @CityId;
+		UPDATE dbo.UserProfile 
+		SET
+			Street		= @Street,
+			CityId		= @CityId,
+			StateId		= @StateId,
+			CountryId	= @CountryId,
+			Geo			= dbo.GetGeoPoint(@Latitude, @Longitude)
+		WHERE 
+			UserId		= @UserId;
 	END;
 END;

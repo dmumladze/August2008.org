@@ -14,6 +14,7 @@ using August2008.Models;
 using System.Xml.Serialization;
 using System.IO;
 using System.Reflection;
+using System.Security.Principal;
 
 namespace August2008
 {
@@ -218,9 +219,24 @@ namespace August2008
             }
             return default(FormsPrincipal);
         }
-        public static string ToTitleCase(this string value)
+        public static string ToTitleCase(this string value) 
         {
             return !string.IsNullOrWhiteSpace(value) ? CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value) : value;
+        }
+        public static int GetUserId(this IPrincipal principal)
+        {
+            var formsPrincipal = HttpContext.Current.User as FormsPrincipal;
+            if (formsPrincipal != null)
+            {
+                return formsPrincipal.UserId;
+            }
+            return 0;
+        }
+        public static bool ToBoolean(this object obj)
+        {
+            bool value;
+            bool.TryParse(obj as string, out value);
+            return value;
         }
     }
 }

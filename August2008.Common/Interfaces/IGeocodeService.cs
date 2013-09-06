@@ -12,6 +12,8 @@ namespace August2008.Common.Interfaces
         Country GetCountry(string country); 
         State GetState(string state, string country);
         City GetCity(string city, string state, string country);
-        Address GetAddress(string street, string city, string state, string postalCode, string country);        
+        Address GetAddress(string street, string city, string state, string postalCode, string country);
+
+        GeoLocation GetGeoLocation(PayPalTransaction source); 
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace August2008.Model
 {
-    class PayPalConfirm
+    public class PayPalConfirm
     {
-    }
+        public decimal amt { get; set; }
+        public string cc { get; set; }
+        public string st { get; set; }
+    } 
 }

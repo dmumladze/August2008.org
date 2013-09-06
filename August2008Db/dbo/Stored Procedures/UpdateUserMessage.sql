@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateUserMessage]
 	@DonationId		INT,
+	@UserId			INT,
 	@UserMessage	NVARCHAR(500) = NULL
 AS
 BEGIN
@@ -8,5 +9,6 @@ BEGIN
 	 UPDATE dbo.Donation
 	 SET UserMessage = @UserMessage
 	 WHERE DonationId = @DonationId
+	 AND UserId = @UserId;
 END;
 

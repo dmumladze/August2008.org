@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace August2008.Model
 {
-    class GeoLocation
+    public class GeoLocation
     {
+        public Address Address { get; set; }
+        public City City { get; set; }
+        public State State { get; set; }  
+        public Country Country { get; set; }                     
     }
 }

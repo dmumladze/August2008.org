@@ -8,14 +8,15 @@ using August2008.Model;
 using System.IO;
 using System.Diagnostics;
 using System.Data.SqlClient;
+using log4net;
 
 namespace August2008.Data
 {
     public sealed class HeroRepository : IHeroRepository
     {
-        private readonly ILogger Logger;
+        private readonly ILog Logger;
 
-        public HeroRepository(ILogger logger)
+        public HeroRepository(ILog logger)
         {
             Logger = logger;
         }
@@ -32,8 +33,9 @@ namespace August2008.Data
                     db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.MilitaryAward, hero.Photos);
                     GetBlobs(hero, new CloudDataAccess());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while getting hero", ex);
                     throw;
                 }
                 return hero;
@@ -51,8 +53,9 @@ namespace August2008.Data
                     db.ReadInto(hero, hero.MilitaryGroup, hero.MilitaryRank, hero.MilitaryAward, hero.Photos);
                     GetBlobs(hero, new CloudDataAccess());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while getting random hero", ex);
                     throw;
                 }
                 return hero;
@@ -90,11 +93,13 @@ namespace August2008.Data
                     catch (SqlException ex)
                     {
                         tran.Rollback();
+                        Logger.Error("Error while creating hero", ex);
                         throw new RepositoryException("Oops! Something went wrong... :(", ex);
                     }
                     catch (Exception ex)
                     {
                         tran.Rollback();
+                        Logger.Error("Error while creating hero", ex);
                         throw new RepositoryException("Oops! Something went wrong... :(", ex);
                     }
                     return heroId;
@@ -130,9 +135,11 @@ namespace August2008.Data
                         tran.Commit();
                     }
                 }
-                catch (Exception)
-                {
+                catch (Exception ex)
+                {                    
                     tran.Rollback();
+                    Logger.Error("Error while updating hero", ex);
+                    throw;
                 }
             }
         }
@@ -148,8 +155,9 @@ namespace August2008.Data
                     db.ReadInto(photo);
                     DeleteBlob(photo);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while deleting hero", ex);
                     throw;
                 }
                 return photo;
@@ -176,8 +184,9 @@ namespace August2008.Data
                     criteria.Result = heros;
                     criteria.TotalCount = db.GetParameterValue<int>("@TotalCount");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while searching hero", ex);
                     throw;
                 }
                 return criteria;
@@ -197,7 +206,7 @@ namespace August2008.Data
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(ex);
+                    Logger.Error("Error while getting alphabet", ex);
                     throw;
                 }
             }

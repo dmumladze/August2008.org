@@ -139,8 +139,9 @@
     <Reference Include="ImageResizer">
       <HintPath>..\packages\ImageResizer.3.3.3\lib\ImageResizer.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>CommonBin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -273,6 +274,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\DependencyConfig.cs" />
+    <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -295,9 +297,11 @@
     <Compile Include="Helpers\DateTimeBinder.cs" />
     <Compile Include="Helpers\HtmlHelper2.cs" />
     <Compile Include="Helpers\JQueryHelper.cs" />
-    <Compile Include="Helpers\Log4NetUnityHelper.cs" />
+    <Compile Include="Helpers\PayPalUserIdResolver.cs" />
     <Compile Include="Helpers\SiteHelper.cs" />
+    <Compile Include="Helpers\PayPalDateTimeConverter.cs" />
     <Compile Include="Helpers\StringDecimalConverter.cs" />
+    <Compile Include="Helpers\StringIntegerConverter.cs" />
     <Compile Include="Helpers\UrlHelper2.cs" />
     <Compile Include="Models\AlphabetLetter.cs" />
     <Compile Include="Models\ContactModel.cs" />
@@ -311,7 +315,6 @@
     <Compile Include="Models\RegisterUser.cs" />
     <Compile Include="Models\HeroModel.cs" />
     <Compile Include="Models\LoginProvider.cs" />
-    <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\PhotoSize.cs" />
     <Compile Include="Models\PostedFile.cs" />
     <Compile Include="Models\RoleModel.cs" />
@@ -415,6 +418,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bin2\log4net.dll" />
+    <Content Include="Bin2\log4net.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\animated-overlay.gif" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -459,6 +464,7 @@
     <Content Include="Images\georgian-flag-bg.jpg" />
     <Content Include="favicon.png" />
     <Content Include="Images\logo-first.png" />
+    <Content Include="Images\thankyou-sticky.png" />
     <Content Include="Images\twitter-share.png" />
     <Content Include="Images\white-texture-bg.jpg" />
     <Content Include="Images\white-texture-bg.png" />
@@ -466,6 +472,7 @@
     <Content Include="Images\yahoo-btn-logo.png" />
     <Content Include="log4net.config" />
     <Content Include="Scripts\August2008.js" />
+    <Content Include="Scripts\Donations.js" />
     <Content Include="Scripts\Hero.js" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -515,7 +522,7 @@
     <Content Include="Views\Account\ManageUsersPartial.cshtml" />
     <Content Include="Views\Account\UserListPartial.cshtml" />
     <Content Include="Views\Account\UserRolesPartial.cshtml" />
-    <Content Include="Views\Donations\ConfirmPartial.cshtml" />
+    <Content Include="Views\Donations\UserMessagePartial.cshtml" />
     <Content Include="Views\Donations\DonationsPartial.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Shared\DonationsListPartial.cshtml" />
@@ -524,6 +531,7 @@
     <Content Include="Views\Hero\Personal.cshtml" />
     <Content Include="Views\Hero\BookPartial.cshtml" />
     <Content Include="Views\Home\Faq.cshtml" />
+    <Content Include="Views\Donations\ThankYou.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

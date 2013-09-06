@@ -6,8 +6,12 @@ namespace August2008.Common
 {
     public class Log4NetLogger : ILogger
     {
-        private ILog logger = LogManager.GetLogger(typeof(Log4NetLogger));
+        private ILog logger;
 
+        public Log4NetLogger()
+        {
+            logger = LogManager.GetLogger(typeof(Log4NetLogger));
+        }        
         public void Debug(object message)
         {
             logger.Debug(message);

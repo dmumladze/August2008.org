@@ -10,22 +10,13 @@ BEGIN
 	DECLARE @Provider2 VARCHAR(50);
 
 	SELECT TOP 1
-		@UserId		= u.UserId,
-		@Provider2	= oa.ProviderName
-	FROM dbo.OAuthUser oa WITH (NOLOCK)
-	INNER JOIN dbo.[User] u WITH (NOLOCK) ON oa.UserId = u.UserId
-	WHERE oa.Email = @Email; 
+		@UserId	= UserId
+	FROM dbo.[User] WITH (NOLOCK)
+	WHERE Email = @Email; 
 
 	IF @UserId IS NOT NULL
 	BEGIN
-		SELECT TOP 1
-			@Provider2	= oa.ProviderName
-		FROM dbo.OAuthUser oa WITH (NOLOCK)
-		INNER JOIN dbo.[User] u WITH (NOLOCK) ON oa.UserId = u.UserId
-		WHERE oa.Email = @Email
-		AND oa.ProviderName = @Provider
-
-		IF @Provider2 = @Provider 
+		IF EXISTS(SELECT TOP 1 1 FROM dbo.OAuthUser WITH (NOLOCK) WHERE UserId = @UserId AND ProviderName = @Provider)
 			SET @IsOAuthUser = 1;
 		ELSE
 			SET @IsOAuthUser = 0;

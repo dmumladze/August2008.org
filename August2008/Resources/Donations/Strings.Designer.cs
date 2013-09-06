@@ -79,7 +79,34 @@ namespace Resources.Donations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to დიდად გმადლობთ!.
+        ///   Looks up a localized string similar to You Message.
+        /// </summary>
+        public static string CommentPopupTitle {
+            get {
+                return ResourceManager.GetString("CommentPopupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In memory of Georgian heroes who died in Russia–Georgia War of August 2008.
+        /// </summary>
+        public static string DonationCause {
+            get {
+                return ResourceManager.GetString("DonationCause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string EditYourComment {
+            get {
+                return ResourceManager.GetString("EditYourComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to გმადლობთ.
         /// </summary>
         public static string ThankYou {
             get {
@@ -88,7 +115,21 @@ namespace Resources.Donations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to მოგესალმებით! 
+        ///   Looks up a localized string similar to უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
+        ///
+        ///თუ რაიმე შეკითხვა გაქვთ ან უბრალოდ გსურთ რომ გამოგვეხმაუროთ, გთხოვთ გამოიყენოთ ჩვენი &lt;a href=&quot;{0}&quot;&gt;საკონტაქტო გვერდი&lt;/a&gt; ან იხილოთ ხშირად &lt;a href=&quot;{1}&quot;&gt;დასმული კითხვების სია&lt;/&gt;.
+        ///
+        ///ბედნიერ დღეს გისურვებთ...
+        ///.
+        /// </summary>
+        public static string ThankYouDisplayMessage {
+            get {
+                return ResourceManager.GetString("ThankYouDisplayMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to მოგესალმებით.
         ///
         ///უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
         ///
@@ -111,11 +152,11 @@ namespace Resources.Donations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to თქვენი კომენტარი.
+        ///   Looks up a localized string similar to You message.
         /// </summary>
-        public static string YourCommentAfterDonation {
+        public static string YourComment {
             get {
-                return ResourceManager.GetString("YourCommentAfterDonation", resourceCulture);
+                return ResourceManager.GetString("YourComment", resourceCulture);
             }
         }
     }

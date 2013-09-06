@@ -11,50 +11,49 @@
 	@CityId					INT				= NULL,
 	@StateId				INT				= NULL,
 	@CountryId				INT				= NULL,
-	@Latitude				FLOAT			= NULL,
-	@Longitude				FLOAT			= NULL,
 	@DonationId				INT				= NULL OUTPUT
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @point GEOGRAPHY;
-
-	IF @Latitude IS NULL OR @Longitude IS NULL 
+	IF EXISTS(SELECT TOP 1 1 FROM dbo.Donation WITH (NOLOCK) WHERE ExternalId = @ExternalId)
 	BEGIN
-		SET @point = 'POINT EMPTY';
-		SET @point.STSrid = 4326;
-	END;
+		SELECT 
+			@DonationId
+		FROM dbo.Donation WITH (NOLOCK)
+		WHERE ExternalId = @ExternalId;
+	END
+	ELSE
+	BEGIN
 
-	INSERT INTO dbo.Donation (
-		 DonationProviderId
-		,UserId
-		,ExternalId
-		,ExternalStatus
-		,IsCompleted
-		,Amount
-		,Currency
-		,UserMessage
-		,ProviderData
-		,CityId
-		,StateId
-		,CountryId
-		,Geo
-	)
-	VALUES (
-		 @DonationProviderId
-		,@UserId
-		,@ExternalId
-		,@ExternalStatus
-		,@IsCompleted
-		,@Amount
-		,@Currency
-		,@UserMessage
-		,@ProviderData
-		,@CityId
-		,@StateId
-		,@CountryId
-		,@point
-	 )
-	SET @DonationId = SCOPE_IDENTITY();
+		INSERT INTO dbo.Donation (
+			 DonationProviderId
+			,UserId
+			,ExternalId
+			,ExternalStatus
+			,IsCompleted
+			,Amount
+			,Currency
+			,UserMessage
+			,ProviderData
+			,CityId
+			,StateId
+			,CountryId
+		)
+		VALUES (
+			 @DonationProviderId
+			,@UserId
+			,@ExternalId
+			,@ExternalStatus
+			,@IsCompleted
+			,@Amount
+			,@Currency
+			,@UserMessage
+			,@ProviderData
+			,@CityId
+			,@StateId
+			,@CountryId
+		 )
+		SET @DonationId = SCOPE_IDENTITY();
+	END;
 END;

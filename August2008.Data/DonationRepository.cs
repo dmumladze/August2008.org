@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Model;
+using log4net;
 
 namespace August2008.Data   
 {
     public class DonationRepository : IDonationRepository
     {
-        private readonly ILogger Logger;
+        private readonly ILog Logger;
 
-        public DonationRepository(ILogger logger)
+        public DonationRepository(ILog logger)
         {
             Logger = logger;
         }
@@ -24,11 +25,17 @@ namespace August2008.Data
             {
                 db.CreateStoredProcCommand("dbo.CreateDonation");
                 db.AddInParameter("@DonationProviderId", DbType.Int32, donation.DonationProviderId);
-                db.AddInParameter("@UserId", DbType.Int32, donation.UserId);
+                db.AddInParameter("@UserId", DbType.String, donation.UserId);
+                db.AddInParameter("@ExternalId", DbType.String, donation.ExternalId);
+                db.AddInParameter("@ExternalStatus", DbType.String, donation.ExternalStatus);
+                db.AddInParameter("@IsCompleted", DbType.Boolean, donation.IsCompleted);
+                db.AddInParameter("@CountryId", DbType.Int32, donation.CountryId);
+                db.AddInParameter("@StateId", DbType.Int32, donation.StateId);
+                db.AddInParameter("@CityId", DbType.Int32, donation.CityId);
                 db.AddInParameter("@Amount", DbType.Decimal, donation.Amount);
                 db.AddInParameter("@Currency", DbType.String, donation.Currency);
                 db.AddInParameter("@UserMessage", DbType.String, donation.UserMessage);
-                db.AddInParameter("@ProviderData", DbType.Xml, donation.ProviderData.ToDbXml());
+                db.AddInParameter("@ProviderData", DbType.Xml, donation.ProviderXml);
                 db.AddOutParameter("@DonationId", DbType.Int32);
                 try
                 {
@@ -43,12 +50,13 @@ namespace August2008.Data
             }
             return donation;
         }
-        public void UpdateDonation(Donation donation)
+        public void UpdateUserMessage(Donation donation)
         {
             using (var db = new DataAccess())
             {
-                db.CreateStoredProcCommand("dbo.UpdateDonation");
+                db.CreateStoredProcCommand("dbo.UpdateUserMessage");
                 db.AddInParameter("@DonationId", DbType.Int32, donation.DonationId);
+                db.AddInParameter("@UserId", DbType.Int32, donation.UserId);
                 db.AddInParameter("@UserMessage", DbType.String, donation.UserMessage);
                 try
                 {
@@ -56,7 +64,63 @@ namespace August2008.Data
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("Error while updating donation.", ex);
+                    Logger.Error("Error while updating user message.", ex);
+                    throw;
+                }
+            }
+        }
+        public void CompleteTransaction(Donation donation)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.CompleteDonation");
+                db.AddInParameter("@ExternalId", DbType.String, donation.ExternalId);
+                db.AddInParameter("@ExternalStatus", DbType.String, donation.ExternalStatus);
+                db.AddInParameter("@IsCompleted", DbType.Boolean, donation.IsCompleted);
+                db.AddInParameter("@CountryId", DbType.Int32, donation.CountryId);
+                db.AddInParameter("@StateId", DbType.Int32, donation.StateId);
+                db.AddInParameter("@CityId", DbType.Int32, donation.CityId);
+                try
+                {
+                    db.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error while verifying donation.", ex);
+                    throw;
+                }
+            }
+        }
+        public bool TransactionCompleted(string externalId)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.GetTransactionCompleted");
+                db.AddInParameter("@ExternalId", DbType.String, externalId);
+                try
+                {
+                    return db.ExecuteScalar<bool>();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error while validating transaction.", ex);
+                    throw;
+                }
+            }
+        }
+        public string GetUserMessage(int donationId)
+        {
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand("dbo.GetDonationMessage");
+                db.AddInParameter("@DonationId", DbType.Int32, donationId);
+                try
+                {
+                    return db.ExecuteScalar<string>();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error while updating user message.", ex);
                     throw;
                 }
             }

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateDonationStatus]
+﻿CREATE PROCEDURE [dbo].[CompleteDonation]
 	@ExternalId				NVARCHAR(50),
 	@ExternalStatus			NVARCHAR(25)	= NULL,
 	@IsCompleted			BIT,
@@ -17,6 +17,6 @@ BEGIN
 		CityId			= @CityId,
 		StateId			= @StateId
 	WHERE 
-		@ExternalId		= @ExternalId;		
+		ExternalId		= @ExternalId;		
 END;
 

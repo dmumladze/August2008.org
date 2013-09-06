@@ -7,14 +7,15 @@ using August2008.Common;
 using August2008.Model;
 using August2008.Common.Interfaces;
 using System.Diagnostics;
+using log4net;
 
 namespace August2008.Data
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly ILogger Logger;
+        private readonly ILog Logger;
 
-        public AccountRepository(ILogger logger)
+        public AccountRepository(ILog logger)
         {
             Logger = logger;
         }
@@ -141,8 +142,9 @@ namespace August2008.Data
                     db.ExecuteNonQuery();
                     user.OAuthUserId = db.GetParameterValue<int>("@OAuthUserId");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Error("Error while creating OAuth user", ex);
                     throw;
                 }
             }
@@ -210,7 +212,6 @@ namespace August2008.Data
                 db.AddInParameter("@CountryId", DbType.String, address.CountryId);
                 db.AddInParameter("@Latitude", DbType.Double, address.Latitude);
                 db.AddInParameter("@Longitude", DbType.Double, address.Longitude);
-                db.AddInParameter("@PostalCode", DbType.String, address.PostalCode);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -333,6 +334,26 @@ namespace August2008.Data
                     }
                 }
             }
+        }
+        public UserContactInfo GetUserContactInfo(int userId)
+        {
+            using (var db = new DataAccess())
+            {
+                try
+                {
+                    db.CreateStoredProcCommand("dbo.GetUserContactInfo");
+                    db.AddInParameter("@UserId", DbType.Int32, userId);
+                    var info = new UserContactInfo();
+                    info.Address = new Address();
+                    db.ReadInto(info);
+                    return info;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error while getting user contact info.", ex);
+                    throw;
+                }
+            }            
         }
     }
 }

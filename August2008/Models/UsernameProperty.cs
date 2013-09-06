@@ -9,7 +9,11 @@ namespace August2008.Models
     {
         public override string ToString()
         {
-            return HttpContext.Current.User.Identity.Name;
+            if (!HttpContext.Current.IsNull())
+            {
+                return HttpContext.Current.User.Identity.Name;
+            }
+            return string.Empty;
         }
     }
 }

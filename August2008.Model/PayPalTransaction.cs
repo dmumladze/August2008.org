@@ -2,12 +2,6 @@
 
 namespace August2008.Model
 {
-    public class PayPalConfirm
-    {
-        public decimal amt { get; set; }
-        public string cc { get; set; }
-        public string st { get; set; }
-    } 
     public class PayPalTransaction
     {
         public string mc_gross { get; set; }

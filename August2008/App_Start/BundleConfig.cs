@@ -20,6 +20,9 @@ namespace August2008
             bundles.Add(new ScriptBundle("~/bundles/hero").Include(
                 "~/Scripts/Hero.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/donations").Include(
+                "~/Scripts/Donations.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-1.9.1.js",
                 "~/Scripts/jquery-ui-1.10.3.custom.js",

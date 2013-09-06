@@ -13,8 +13,8 @@ namespace August2008.Model
         public string State { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
 
         public int CityId { get; set; }
         public int StateId { get; set; }

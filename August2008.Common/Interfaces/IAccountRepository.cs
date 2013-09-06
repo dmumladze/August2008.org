@@ -14,6 +14,7 @@ namespace August2008.Common.Interfaces
         OAuthUser CreateOAuthUser(OAuthUser user);
         bool TryGetUserRegistered(string email, string provider, out int? userId, out bool isOAuthUser);
         IEnumerable<User> GetUsers();
+        UserContactInfo GetUserContactInfo(int userId);
         IEnumerable<User> SearchUsers(string name = null);
         IEnumerable<Role> GetUserRoles(int userId);
         void AssignUserToRoles(int userId, IEnumerable<int> roles);

@@ -16,14 +16,17 @@ namespace August2008.Services
 {
     public class GoogleGeocodeService : IGeocodeService
     {
-        private string _serviceUrl;
-        private ILogger _logger;
+        private string _serviceUrlFormat;
+        private ILog _logger;
+        private IMetadataRepository _metadataRepository;
 
-        public GoogleGeocodeService(ILogger logger)
+        public GoogleGeocodeService(IMetadataRepository metadataReposity, ILog logger)
         {
+            _metadataRepository = metadataReposity;
             _logger = logger;
-            _serviceUrl = ConfigurationManager.AppSettings["GeocodeUrlFormat"];
+            _serviceUrlFormat = ConfigurationManager.AppSettings["GeocodeUrlFormat"];
         }
+
         public Country GetCountry(string country)
         {
             var geo = GoogleGeocode(null, null, null, null, country);
@@ -160,7 +163,7 @@ namespace August2008.Services
             {
                 format.Append(country);
             }
-            string requestUrl = string.Format(_serviceUrl, format.ToString());
+            string requestUrl = string.Format(_serviceUrlFormat, format.ToString());
             try
             {
                 var json = client.GetStringAsync(requestUrl).Result;
@@ -172,9 +175,51 @@ namespace August2008.Services
             }
             return default(GoogleGeocodeResponse);
         }
-        /// <summary>
-        /// Structure that matches up with Google Geocode json format
-        /// </summary>
+        public GeoLocation GetGeoLocation(PayPalTransaction source) 
+        {
+            try
+            {
+                Country country;
+                State state;
+                City city;
+                Address address;
+                if (!_metadataRepository.TryGetCountry(source.address_country, out country))
+                {
+                    country = GetCountry(source.address_country);
+                    country = _metadataRepository.CreateCountry(country);
+                }
+                if (!_metadataRepository.TryGetState(source.address_state, country.FullName, out state))
+                {
+                    state = GetState(source.address_state, country.FullName);
+                    state.CountryId = country.CountryId;
+                    state = _metadataRepository.CreateState(state);
+                }
+                if (!_metadataRepository.TryGetCity(source.address_city, state.FullName, country.FullName, out city))
+                {
+                    city = GetCity(source.address_city, state.FullName, country.FullName);
+                    city.StateId = state.StateId;
+                    city.PostalCode = source.address_zip;
+                    city = _metadataRepository.CreateCity(city);
+                }                
+                address = GetAddress(source.address_street, city.Name, state.FullName, source.address_zip, country.FullName);
+                address.CityId = city.CityId;
+                address.StateId = state.StateId;
+                address.CountryId = country.CountryId;
+
+                return new GeoLocation {
+                    Address = address,
+                    City = city,
+                    State = state,
+                    Country = country
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error while Geocoding.", ex);
+                throw;
+            }
+        }
+
         public class GoogleGeocodeResponse
         {
             public string status { get; set; }

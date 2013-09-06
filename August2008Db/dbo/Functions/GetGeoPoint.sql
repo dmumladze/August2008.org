@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION dbo.GetPoint
+﻿CREATE FUNCTION dbo.GetGeoPoint
 (
 	@Latitude	FLOAT	= NULL,
 	@Longitude	FLOAT	= NULL

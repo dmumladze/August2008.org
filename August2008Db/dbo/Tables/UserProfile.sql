@@ -5,7 +5,7 @@
     [LanguageId]	INT				NOT NULL,
 	[Dob]			DATETIME		NULL,
 	[Nationality]	NVARCHAR(50)	NULL,
-	[Street]	NVARCHAR(100)		NULL,
+	[Street]		NVARCHAR(100)	NULL,
 	[CityId]		INT				NULL,
 	[StateId]		INT				NULL,
 	[CountryId]		INT				NULL,

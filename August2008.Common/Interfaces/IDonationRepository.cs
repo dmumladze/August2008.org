@@ -10,7 +10,10 @@ namespace August2008.Common.Interfaces
     public interface IDonationRepository
     { 
         Donation CreateDonation(Donation donation);
-        void UpdateDonation(Donation donation);
+        void UpdateUserMessage(Donation donation);
+        void CompleteTransaction(Donation donation);
+        string GetUserMessage(int donationId);
+        bool TransactionCompleted(string externalId);
         DonationSearchCriteria SearchDonations(DonationSearchCriteria criteria);
     }
 }

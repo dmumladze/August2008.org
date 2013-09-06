@@ -1,13 +1,18 @@
 ﻿@model DonationModel
 
-<p class="common-font">
-   @Resources.Donations.Strings.YourComment
-</p>
-@using (Html.BeginForm("UserMessage", "Donations")) {
-    @Html.HiddenFor(m => m.DonationId)
-    @Html.TextAreaFor(m => m.UserMessage, new { style = "width:455px;height:200px" })
-    <p>
-        <button type="submit" class="btn btn-inverse">@Resources.Global.Labels.Send</button>
-        <button type="reset" class="btn">@Resources.Global.Labels.Reset</button>
-    </p>
-}
+<div style="padding-top:15px">
+    @using (Ajax.BeginForm("UserMessage", "Donations", null, new AjaxOptions {
+                                                                    HttpMethod = "POST",
+                                                                    OnBegin = "Spinner.show()",
+                                                                    OnComplete = "Spinner.hide();Donations.updateMessage(" + Model.DonationId + ",'" + @Resources.Donations.Strings.EditYourComment + "')"                                                                        
+                                                                 },
+                                                                 new { @id = "messageForm", name = "messageForm" }))
+    {
+        @Html.HiddenFor(m => m.DonationId)
+        @Html.TextAreaFor(m => m.UserMessage, new { maxlength = "500", style = "width:455px;height:200px" })
+        <p>
+            <button type="submit" class="btn btn-inverse">@Resources.Global.Labels.Send</button>
+            <button type="reset" class="btn">@Resources.Global.Labels.Reset</button>
+        </p>
+    }
+</div>

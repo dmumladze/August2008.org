@@ -107,6 +107,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql">
@@ -182,7 +183,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Stored Procedures\UpdateDonation.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateUserMessage.sql" />
     <Build Include="dbo\Stored Procedures\UpdateUserProfile.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -209,6 +210,17 @@
     <Build Include="dbo\Stored Procedures\CreateState.sql" />
     <Build Include="dbo\Stored Procedures\CreateCity.sql" />
     <Build Include="dbo\Stored Procedures\UpdateUserProfileAddress.sql" />
+    <Build Include="dbo\Stored Procedures\CompleteDonation.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Functions\GetGeoPoint.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\GetDonationMessage.sql" />
+    <Build Include="dbo\Stored Procedures\GetUserContactInfo.sql" />
+    <Build Include="dbo\Stored Procedures\GetTransactionCompleted.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

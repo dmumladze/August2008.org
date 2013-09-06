@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Model;
+using log4net;
 
 namespace August2008.Data
 {
     public class MetadataRepository : IMetadataRepository
     {
         private readonly ICacheProvider Cache;
-        private readonly ILogger Logger;
+        private readonly ILog Logger;
 
-        public MetadataRepository(ICacheProvider cache, ILogger logger)
+        public MetadataRepository(ICacheProvider cache, ILog logger)
         {
             Cache = cache;
             Logger = logger;
@@ -233,7 +234,7 @@ namespace August2008.Data
                 try
                 {
                     db.ExecuteNonQuery();
-                    city.CityId = db.GetParameterValue<int>("@Cityd");
+                    city.CityId = db.GetParameterValue<int>("@CityId");
                 }
                 catch (Exception ex)
                 {

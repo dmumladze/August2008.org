@@ -1,1 +1,8 @@
-﻿
+﻿<div class="section transp shadow thankyou-sticky padding-50">
+    <fieldset>
+        <legend>@Resources.Donations.Strings.ThankYou</legend>
+        <p style="white-space:pre-line;font-size:1.1em;margin:0">
+            @Html.Raw(string.Format(Resources.Donations.Strings.ThankYouDisplayMessage, Url.Action("Contact", "Home"), Url.Action("Faq", "Home")))
+        </p>
+    </fieldset>
+</div>

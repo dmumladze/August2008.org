@@ -23,6 +23,6 @@ namespace August2008.Models
 
         public IEnumerable<DonationModel> Result { get; set; }
 
-        public DonationModel ConfirmDonation { get; set; } 
+        public bool ConfirmDonation { get; set; } 
     }
 }

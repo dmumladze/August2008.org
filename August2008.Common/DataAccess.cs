@@ -224,8 +224,10 @@ namespace August2008.Common
             this.OpenConnection();
             IsCommandPending = false;
             var value = _mainCommand.ExecuteScalar();
-            if (value != null)
+            if (!(value is System.DBNull || value == null))
+            {
                 return (T)value;
+            }
             return default(T);
         }
         /// <summary>

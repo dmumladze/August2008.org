@@ -77,5 +77,13 @@ namespace August2008.Common
         {
             return source.SingleOrDefault() ?? string.Empty;
         }
+        public static string ToASCIIString(this byte[] value)
+        {
+            if (value != null && value.Length > 0)
+            {
+                return Encoding.ASCII.GetString(value);
+            }
+            return string.Empty;
+        }
     }
 }

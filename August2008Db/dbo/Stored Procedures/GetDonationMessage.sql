@@ -1,6 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[GetDonationMessage]
-	@param1 int = 0,
-	@param2 int
+	@DonationId	INT
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT
+		UserMessage
+	FROM dbo.Donation WITH (NOLOCK)
+	WHERE DonationId = @DonationId;
+END;

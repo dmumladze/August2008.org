@@ -33,6 +33,11 @@
                 <li>@Html.ActionMenuItem(Resources.Global.Strings.Faq, "Faq", "Home")</li>
             </ul>
             <div id="layoutdims">
+                @if (!User.Identity.Name.Equals("Anonymous")) {
+                    <div id="greetingsContainer">
+                        <span>Welcome, @User.Identity.Name</span>
+                    </div>
+                }
                 <div id="pageButtonsContainer">
                     @RenderSection("pageButtons", false)
                 </div>

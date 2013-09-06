@@ -123,11 +123,28 @@
   <data name="ChooseAndDonate" xml:space="preserve">
     <value>Choose desired amount and click on PayPal button...</value>
   </data>
+  <data name="CommentPopupTitle" xml:space="preserve">
+    <value>You Message</value>
+  </data>
+  <data name="DonationCause" xml:space="preserve">
+    <value>In memory of Georgian heroes who died in Russia–Georgia War of August 2008</value>
+  </data>
+  <data name="EditYourComment" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="ThankYou" xml:space="preserve">
-    <value>დიდად გმადლობთ!</value>
+    <value>გმადლობთ</value>
+  </data>
+  <data name="ThankYouDisplayMessage" xml:space="preserve">
+    <value>უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
+
+თუ რაიმე შეკითხვა გაქვთ ან უბრალოდ გსურთ რომ გამოგვეხმაუროთ, გთხოვთ გამოიყენოთ ჩვენი &lt;a href="{0}"&gt;საკონტაქტო გვერდი&lt;/a&gt; ან იხილოთ ხშირად &lt;a href="{1}"&gt;დასმული კითხვების სია&lt;/&gt;.
+
+ბედნიერ დღეს გისურვებთ...
+</value>
   </data>
   <data name="ThankYouEmailMessage" xml:space="preserve">
-    <value>მოგესალმებით! 
+    <value>მოგესალმებით.
 
 უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
 
@@ -137,7 +154,7 @@ www.august2008.org
   <data name="YouMustBeRegistered" xml:space="preserve">
     <value>In order to make a donation, you must be registered.. Please go to the &lt;a href="{0}"&gt;registration&lt;/a&gt; page and sing up using your OpenID. </value>
   </data>
-  <data name="YourCommentAfterDonation" xml:space="preserve">
-    <value>თქვენი კომენტარი</value>
+  <data name="YourComment" xml:space="preserve">
+    <value>You message</value>
   </data>
 </root>

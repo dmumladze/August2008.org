@@ -1,18 +1,16 @@
 ﻿using System;
-using August2008.Models;
+using August2008.Model;
 using AutoMapper;
 using Newtonsoft.Json;
 
 namespace August2008.Helpers
 {
-    public class PayPalUserIdResolver : ValueResolver<PayPalModel, int>
+    public class PayPalUserIdResolver : ValueResolver<PayPalTransaction, int>
     {
-        protected override int ResolveCore(PayPalModel source)
+        protected override int ResolveCore(PayPalTransaction source)
         {
-            var item = JsonConvert.DeserializeObject<PayPalItemNumber>(source.item_number);
-            int userId;
-            int.TryParse(item.UserId);
-            return userId;
+            var item = JsonConvert.DeserializeObject<PayPalCustom>(source.custom);
+            return item.UserId;
         }
     }
 }

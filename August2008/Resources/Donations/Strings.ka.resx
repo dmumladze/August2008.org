@@ -123,8 +123,25 @@
   <data name="ChooseAndDonate" xml:space="preserve">
     <value>შეარჩიეთ თქვენთვის სასურველი თანხა.</value>
   </data>
+  <data name="CommentPopupTitle" xml:space="preserve">
+    <value>თქვენი კომენტარი</value>
+  </data>
+  <data name="DonationCause" xml:space="preserve">
+    <value>In memory of Georgian heroes who died in Russia–Georgia War of August 2008</value>
+  </data>
+  <data name="EditYourComment" xml:space="preserve">
+    <value>შეცვლა</value>
+  </data>
   <data name="ThankYou" xml:space="preserve">
-    <value>In memory of Georgian heroes who died in Russia-Georgia War of August 2008</value>
+    <value>დახმარება მიღებულია</value>
+  </data>
+  <data name="ThankYouDisplayMessage" xml:space="preserve">
+    <value>უღრმეს მადლობას გიხდით 2008 წლის სამამულო ომში დაღუპულ გმირთა ოჯახების თანადგომისთვის.
+
+თუ რაიმე შეკითხვა გაქვთ ან უბრალოდ გსურთ რომ გამოგვეხმაუროთ, გთხოვთ გამოიყენოთ ჩვენი &lt;a href="{0}"&gt;საკონტაქტო გვერდი&lt;/a&gt; ან იხილოთ ხშირად &lt;a href="{1}"&gt;დასმული კითხვები&lt;/a&gt;.
+
+ბედნიერ დღეს გისურვებთ...
+</value>
   </data>
   <data name="ThankYouEmailMessage" xml:space="preserve">
     <value>მოგესალმებით! 
@@ -141,7 +158,7 @@ www.august2008.org
 
 გმადლობთ!</value>
   </data>
-  <data name="YourCommentAfterDonation" xml:space="preserve">
-    <value>თქვენი კომენტარი...</value>
+  <data name="YourComment" xml:space="preserve">
+    <value>კომენტარის დამატება</value>
   </data>
 </root>

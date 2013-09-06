@@ -641,6 +641,11 @@ p.hero-about-text,
     background-position: top right;
     background-repeat: no-repeat;
 }
+.thankyou-sticky {
+    background-image: url(../images/thankyou-sticky.png);
+    background-position: 95% 15%;
+    background-repeat: no-repeat;
+}
 .question-mark {
     background-image: url(../images/question-mark.png);
     background-position: 95% 80%;
@@ -681,4 +686,10 @@ p.hero-about-text,
     font-weight: bold;
     border-bottom: dashed 1px #E5E5E5;
     padding-bottom: 2px;
+}
+#greetingsContainer {
+    float: left;
+    font-size: 12px;
+    vertical-align: middle;  
+    padding: 8px 0 0 7px;  
 }

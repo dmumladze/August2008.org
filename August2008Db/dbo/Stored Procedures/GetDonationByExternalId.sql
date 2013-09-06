@@ -1,6 +1,25 @@
 ﻿CREATE PROCEDURE [dbo].[GetDonationByExternalId]
-	@param1 int = 0,
-	@param2 int
+	@ExternalId				NVARCHAR(50),
+	@DonationId				INT				= NULL OUTPUT
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT TOP 1
+		 DonationId
+		,DonationProviderId
+		,UserId
+		,ExternalId
+		,ExternalStatus
+		,IsCompleted
+		,Amount
+		,Currency
+		,UserMessage
+		,ProviderData
+		,CityId
+		,StateId
+		,CountryId
+		,Geo
+	FROM dbo.Donation WITH (NOLOCK)
+	WHERE ExternalId = @ExternalId;
+END;

@@ -1,33 +1,40 @@
 ﻿
-Security.manageUsersDialog = undefined;
-Security.manageUsersAction = undefined;
+Donations.userMessageDialog = undefined;
 
-function Security() {
-
-}
-
-Security.init = function(action) {
-    Security.manageUsersAction = action;
-    $("<div id=\"manageUsersDialog\"></div>").appendTo(document.body);
-    Security.manageUsersDialog = $('#manageUsersDialog').dialog({
+function Donations() {
+};
+Donations.init = function (dialogTitle) {
+    $("<div id=\"userMessageDialog\"></div>").appendTo(document.body);
+    Donations.userMessageDialog = $('#userMessageDialog').dialog({
         autoOpen: false,
         modal: true,
-        width: 878,
-        height: 700,
-        title: "Manage Users"
-    });
-    $("#manageUsersOpener").click(function(e) {
-        Security.manageUsers();
+        width: 500,
+        height: 340,
+        title: dialogTitle
     });
 };
-Security.manageUsers = function () {
+Donations.openMessageDialog = function (action, id) {
     $.ajax({
-        url: Security.manageUsersAction,
+        url: action,
         method: "GET",
         success: function (result) {
-            Security.manageUsersDialog.empty();
-            Security.manageUsersDialog.html(result);
-            Security.manageUsersDialog.dialog("open");
+            Donations.userMessageDialog.empty();
+            Donations.userMessageDialog.html(result);
+            Donations.userMessageDialog.dialog("open");
         }
     });
+};
+Donations.closeMessageDialog = function () {
+    Donations.userMessageDialog.empty();
+    Donations.userMessageDialog.dialog("close");
+};
+Donations.updateMessage = function (id, linkText) {
+    var span = $('#m' + id);
+    if (span.length != undefined) {
+        var msg = $("#UserMessage").val();
+        var link = $("#a" + id);
+        span.html(msg);
+        link.html(linkText);
+    }
+    Donations.closeMessageDialog();
 };
