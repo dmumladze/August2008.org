@@ -1,0 +1,13 @@
+﻿@model DonationModel
+
+<p class="common-font">
+   @Resources.Donations.Strings.YourComment
+</p>
+@using (Html.BeginForm("UserMessage", "Donations")) {
+    @Html.HiddenFor(m => m.DonationId)
+    @Html.TextAreaFor(m => m.UserMessage, new { style = "width:455px;height:200px" })
+    <p>
+        <button type="submit" class="btn btn-inverse">@Resources.Global.Labels.Send</button>
+        <button type="reset" class="btn">@Resources.Global.Labels.Reset</button>
+    </p>
+}
