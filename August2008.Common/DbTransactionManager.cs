@@ -16,7 +16,6 @@ namespace August2008.Common
         private DbTransaction _currentTransaction;
         private bool _isTransactionPending;
         private bool _isDisposed;
-        private IsolationLevel _isolationLevel;
         private DbProviderFactory _providerFactory;
         private IDbConnectionResolver _resolver;
 

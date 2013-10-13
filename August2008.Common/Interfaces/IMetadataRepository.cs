@@ -17,7 +17,7 @@ namespace August2008.Common.Interfaces
 
         bool TryGetCountry(string country, out Country match);
         bool TryGetState(string state, string country, out State match);
-        bool TryGetCity(string city, string state, string country, out City match); 
+        bool TryGetCity(string city, string state, string postalCode, string country, out City match); 
 
         Country CreateCountry(Country country);
         State CreateState(State state);

@@ -23,6 +23,9 @@ namespace August2008
             bundles.Add(new ScriptBundle("~/bundles/donations").Include(
                 "~/Scripts/Donations.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bingmap").Include(
+                "~/Scripts/BingMap.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-1.9.1.js",
                 "~/Scripts/jquery-ui-1.10.3.custom.js",
@@ -36,9 +39,12 @@ namespace August2008
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
-                "~/content/bootstrap.css",
+                "~/content/Bootstrap.css",
                 "~/content/jquery-ui-1.10.3.custom.css",
-                "~/content/site.css"));
+                "~/content/Site.css"));
+
+            bundles.Add(new StyleBundle("~/content/bingmap").Include(
+                "~/content/BingMap.css"));
         }
     }
 }

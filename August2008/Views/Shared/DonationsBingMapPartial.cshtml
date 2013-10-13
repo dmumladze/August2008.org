@@ -1,0 +1,12 @@
+﻿
+<script>
+    Map.init('@Url.Action("Locations", "Donations")', 'bingMap', '@Url.ImageUrl("map-pushpin-flower.png")', '@Url.ImageUrl("map-pointer-shadow.png")', '@Url.ImageUrl("map-flover.png")');
+</script>
+
+<div id="bingMapContainer" style="position: relative; width: 100%; height: 550px; border-radius: 1px;">
+    <div style="position:absolute; right:10px; top:10px; z-index:998">
+        <div id="btnResize" class="map-maximize" title="Full Screen"></div>
+    </div>
+    <div id="slider-vertical"></div>
+    <div id="bingMap" style="position: absolute; min-width: 100%; min-height: 100%;"></div>
+ </div>

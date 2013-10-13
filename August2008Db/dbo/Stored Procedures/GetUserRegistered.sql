@@ -11,12 +11,12 @@ BEGIN
 
 	SELECT TOP 1
 		@UserId	= UserId
-	FROM dbo.[User] WITH (NOLOCK)
+	FROM dbo.[User] WITH(NOLOCK)
 	WHERE Email = @Email; 
 
 	IF @UserId IS NOT NULL
 	BEGIN
-		IF EXISTS(SELECT TOP 1 1 FROM dbo.OAuthUser WITH (NOLOCK) WHERE UserId = @UserId AND ProviderName = @Provider)
+		IF EXISTS(SELECT TOP 1 1 FROM dbo.OAuthUser WITH(NOLOCK) WHERE UserId = @UserId AND ProviderName = @Provider)
 			SET @IsOAuthUser = 1;
 		ELSE
 			SET @IsOAuthUser = 0;

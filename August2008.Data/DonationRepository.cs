@@ -147,5 +147,39 @@ namespace August2008.Data
                 return criteria;
             }   
         }
+        public List<MapPoint> GetDonationsByCity(MapPoint northwest, MapPoint southeast)
+        {
+            return GetDonationLocations("dbo.GetDonationsByCity", northwest, southeast);
+        }
+        public List<MapPoint> GetDonationsByState(MapPoint northwest, MapPoint southeast)
+        {
+            return GetDonationLocations("dbo.GetDonationsByState", northwest, southeast);
+        }
+        public List<MapPoint> GetDonationsByCountry(MapPoint northwest, MapPoint southeast)
+        {
+            return GetDonationLocations("dbo.GetDonationsByCountry", northwest, southeast);
+        }
+        private List<MapPoint> GetDonationLocations(string sproc, MapPoint northwest, MapPoint southeast)  
+        {            
+            using (var db = new DataAccess())
+            {
+                db.CreateStoredProcCommand(sproc);
+                db.AddInParameter("@NwLat", DbType.Double, northwest.Latitude);
+                db.AddInParameter("@NwLng", DbType.Double, northwest.Longitude);
+                db.AddInParameter("@SeLat", DbType.Double, southeast.Latitude);
+                db.AddInParameter("@SeLng", DbType.Double, southeast.Longitude);
+                try
+                {
+                    var points = new List<MapPoint>();
+                    db.ReadInto(points);
+                    return points;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error while searching donations.", ex);
+                    throw;
+                }
+            }  
+        }
     }
 }

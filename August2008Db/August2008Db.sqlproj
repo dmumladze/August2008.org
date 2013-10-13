@@ -221,6 +221,8 @@
     <Build Include="dbo\Stored Procedures\GetDonationMessage.sql" />
     <Build Include="dbo\Stored Procedures\GetUserContactInfo.sql" />
     <Build Include="dbo\Stored Procedures\GetTransactionCompleted.sql" />
+    <Build Include="dbo\Stored Procedures\GetDonationsByCity.sql" />
+    <Build Include="dbo\Stored Procedures\GetDonationsByState.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

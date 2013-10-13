@@ -6,18 +6,15 @@
         @if (User.Identity.IsAuthenticated) {
             <div style="font-size:1.1em">
                 <div style="float:left;margin-right:20px">                
-                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <form action="@Url.PayPalAction()" method="post">
                         <!-- Identify your business so that you can collect the payments. -->
-                        <input type="hidden" name="business" value="donations@august2008.org">
+                        <input type="hidden" name="business" value="@ConfigurationManager.AppSettings["PayPal:PrimaryEmail"]">
                         <!-- Specify a Donate button. -->
                         <input type="hidden" name="cmd" value="_donations">
                         <!-- Specify details about the contribution -->
                         <input type="hidden" name="item_name" value="@Resources.Donations.Strings.DonationCause">
-                        <input type="hidden" name="return" value="@Url.Action("ThankYou", null, null, HttpContext.Current.Request.Url.Scheme)"/>
-                        <!--
-                        <input type="hidden" name="notify_url" value="http://98.221.24.?/Donations/PayPalDonationIpn"/>
-                        -->
-                        <input type="hidden" name="notify_url" value="@Url.Action("PayPalDonationIpn", null, null, HttpContext.Current.Request.Url.Scheme)"/>
+                        <input type="hidden" name="return" value="@Url.Action("ThankYou", null, null, HttpContext.Current.Request.Url.Scheme)"/>                                  
+                        <input type="hidden" name="notify_url" value="@Url.ExternalAction("PayPalDonationIpn")"/>
                         <input type="hidden" name="cancel_return" value="@Url.Action("Cancel", null, new {provider = DonationProvider.PayPal}, HttpContext.Current.Request.Url.Scheme)"/>
                         <input type="hidden" name="rm" value="0"/> 
                         <input type="hidden" name="custom" value='{ "UserId": "@User.GetUserId()", "Amount": "5.00"}'> 

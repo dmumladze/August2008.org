@@ -10,7 +10,6 @@ using August2008.Model;
 using August2008.Models;
 using DotNetOpenAuth.AspNet;
 using Newtonsoft.Json;
-using August2008.Models;
 using System.Xml.Serialization;
 using System.IO;
 using System.Reflection;

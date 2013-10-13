@@ -46,5 +46,9 @@ namespace August2008.Model
         public string merchant_return_link { get; set; }
         public string auth { get; set; }
         public string ipn_track_id { get; set; }
+
+        public string ReplyEmail { get; set; }
+        public string EmailSubject { get; set; }
+        public string EmailMessage { get; set; }
     }
 }

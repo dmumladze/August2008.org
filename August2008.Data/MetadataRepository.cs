@@ -149,13 +149,14 @@ namespace August2008.Data
             match = default(State);
             return false;
         }
-        public bool TryGetCity(string city, string state, string country, out City match)
+        public bool TryGetCity(string city, string state, string postalCode, string country, out City match)
         {
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.TryGetCity");
                 db.AddInParameter("@City", DbType.String, city);
                 db.AddInParameter("@State", DbType.String, state);
+                db.AddInParameter("@PostalCode", DbType.String, postalCode);
                 db.AddInParameter("@Country", DbType.String, country);
                 db.AddReturnParameter();
                 try

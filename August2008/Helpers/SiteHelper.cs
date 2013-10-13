@@ -133,7 +133,6 @@ namespace August2008.Helpers
             catch (Exception)
             {
             }
-
         }
         public static bool IsCurrentRoute(this RequestContext context, string areaName, string controllerName, params string[] actionNames)
         {

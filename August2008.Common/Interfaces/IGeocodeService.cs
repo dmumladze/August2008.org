@@ -9,11 +9,11 @@ namespace August2008.Common.Interfaces
 {
     public interface IGeocodeService
     {
-        Country GetCountry(string country); 
-        State GetState(string state, string country);
-        City GetCity(string city, string state, string country);
-        Address GetAddress(string street, string city, string state, string postalCode, string country);
+        Country GetCountry(string country, string countryCode);
+        State GetState(string state, string country, string countryCode);
+        City GetCity(string city, string state, string postalCode, string country, string countryCode);
+        Address GetAddress(string street, string city, string state, string postalCode, string country, string countryCode);
 
-        GeoLocation GetGeoLocation(PayPalTransaction source); 
+        bool TryGetGeoLocation(PayPalTransaction source, out GeoLocation location); 
     }
 }

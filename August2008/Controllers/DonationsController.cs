@@ -26,18 +26,12 @@ namespace August2008.Controllers
     public class DonationsController : BaseController
     {
         private IDonationRepository _donationRepository;
-        private IGeocodeService _geocodeService;
-        private IMetadataRepository _metadataRepository;
-        private IAccountRepository _accountRepository;
-        private IPayPalService _paypalService;
-
-        public DonationsController(IPayPalService paypalService, IDonationRepository donationRepository, IGeocodeService geocodeService, IMetadataRepository metadataReposity, IAccountRepository accountRepository)
+        private IDonationService _donationService;
+         
+        public DonationsController(IDonationService donationService, IDonationRepository donationRepository)
         {
             _donationRepository = donationRepository;
-            _geocodeService = geocodeService;
-            _metadataRepository = metadataReposity;
-            _accountRepository = accountRepository;
-            _paypalService = paypalService;
+            _donationService = donationService;
         }
         [AllowAnonymous]
         public ActionResult Index()
@@ -88,92 +82,59 @@ namespace August2008.Controllers
             catch (RepositoryException ex)
             {
                 ViewBag.DisplayMessage = ex.Message;
+                Logger.Error(ex);
             }
             catch (Exception ex)
-            {
+            {                
                 ViewBag.DisplayMessage = "Oops! Something went wrong... :(";
+                Logger.Error(ex);
             }
             return PartialView("DonationsListPartial", model.Result);
+        }
+        [AllowAnonymous]
+        [NoCache]
+        public JsonResult Locations(ZoomLevel? zoom) 
+        {
+            var p1 = new MapPoint(null, null);
+            List<MapPoint> model;
+            switch (zoom)
+            {
+                case ZoomLevel.City:
+                    model = _donationRepository.GetDonationsByCity(p1, p1);
+                    break;
+
+                case ZoomLevel.State:
+                    model = _donationRepository.GetDonationsByState(p1, p1);
+                    break;
+
+                case ZoomLevel.Country:
+                default:
+                    model = _donationRepository.GetDonationsByCity(p1, p1);
+                    break;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         [AllowAnonymous]
         public ActionResult PayPalDonationIpn(PayPalTransaction model)
         {
+            var httpStatus = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             if (ValidateTransaction(model))
-            {
-                Task.Factory.StartNew(() => {
-                    try
-                    {
-                        var donation = Mapper.Map(model, new Donation());
-                        donation = _donationRepository.CreateDonation(donation);
+            {           
+                       
+                var ipnBytes = Request.BinaryRead(Request.ContentLength);
 
-                        var bytes = Request.BinaryRead(Request.ContentLength);
-                        string response;
-                        if (_paypalService.TryReplyToIpn(PayPalWebScrUrl, bytes, out response))
-                        {
-                            donation.ExternalStatus = model.payment_status;
+                model.ReplyEmail = ReplyEmail;
+                model.EmailSubject = Resources.Donations.Strings.ThankYou;
+                model.EmailMessage = Resources.Donations.Strings.ThankYouEmailMessage;
 
-                            if (response.Equals("VERIFIED", StringComparison.OrdinalIgnoreCase))                               
-                            {
-                                Logger.InfoFormat("{0} - {1}, {2}, {3}", model.txn_id, model.mc_gross, model.mc_currency, response);
-
-                                if (string.Equals(model.payment_status, "Completed", StringComparison.OrdinalIgnoreCase))
-                                {
-                                    try
-                                    {
-                                        var geo = _geocodeService.GetGeoLocation(model);
-
-                                        donation.IsCompleted = true;
-                                        donation.ExternalStatus = model.payment_status;
-                                        donation.CityId = geo.City.CityId;
-                                        donation.StateId = geo.State.StateId;
-                                        donation.CountryId = geo.Country.CountryId;
-
-                                        var ipnItem = JsonConvert.DeserializeObject<PayPalCustom>(model.custom);
-
-                                        _donationRepository.CompleteTransaction(donation);
-                                        _accountRepository.UpdateUserProfileAddress(ipnItem.UserId, geo.Address);
-
-                                        var contactInfo = _accountRepository.GetUserContactInfo(ipnItem.UserId);
-                                        if (contactInfo != null)
-                                        {
-                                            SiteHelper.SendEmail(ReplyEmail,
-                                                contactInfo.Email,
-                                                Resources.Donations.Strings.ThankYou,
-                                                Resources.Donations.Strings.ThankYouEmailMessage);
-                                        }
-                                        //var country = _geocodeService.GetCountry(model.residence_country);
-                                        //check the payment_status is Completed
-                                        //check that txn_id has not been previously processed
-                                        //check that payment_amount/payment_currency are correct
-                                        //process payment
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Logger.Error("Manual investigation required.", ex);
-                                    }
-                                }
-                            }
-                            else if (response.Equals("INVALID", StringComparison.OrdinalIgnoreCase))
-                            {
-                                Logger.WarnFormat("INVALID response: {0}.", bytes.ToASCIIString());
-                                _donationRepository.CompleteTransaction(donation);
-                            }
-                            else
-                            {
-                                Logger.WarnFormat("Empty status from PayPal... {0}, {1}.", response, bytes.ToASCIIString());
-                                _donationRepository.CompleteTransaction(donation);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error("Error while talking to PayPal", ex);
-                    }
-                });
+                if (_donationService.ProcessPayPalDonation(ipnBytes, model))
+                {
+                    httpStatus = new HttpStatusCodeResult(HttpStatusCode.OK);
+                }
             }
             Response.ContentType = "text/html";
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return httpStatus;
         }
         private bool ValidateTransaction(PayPalTransaction model)
         {

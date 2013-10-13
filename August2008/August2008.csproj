@@ -141,7 +141,7 @@
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>CommonBin\log4net.dll</HintPath>
+      <HintPath>Bin2\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -322,6 +322,7 @@
     <Compile Include="Models\UsernameProperty.cs" />
     <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Models\UserSearchModel.cs" />
+    <Compile Include="Models\ZoomLevel.cs" />
     <Compile Include="Paging\IPagedList.cs" />
     <Compile Include="Paging\PagedList.cs" />
     <Compile Include="Paging\Pager.cs" />
@@ -420,6 +421,7 @@
   <ItemGroup>
     <Content Include="Bin2\log4net.dll" />
     <Content Include="Bin2\log4net.xml" />
+    <Content Include="Content\BingMap.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\animated-overlay.gif" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -450,11 +452,16 @@
     <Content Include="Images\donations-jar.png" />
     <Content Include="Images\facebook-btn-logo.png" />
     <Content Include="Images\facebook-share.png" />
+    <Content Include="Images\map-flover.png" />
     <Content Include="Images\georgian-flag-bg.png" />
     <Content Include="Images\google-btn-logo.png" />
     <Content Include="Images\google-share.png" />
     <Content Include="Images\hero-book-cover.jpg" />
     <Content Include="Images\logo-tea-mikaia.png" />
+    <Content Include="Images\map-maximize.png" />
+    <Content Include="Images\map-minimize.png" />
+    <Content Include="Images\map-pointer-shadow.png" />
+    <Content Include="Images\map-pushpin-flower.png" />
     <Content Include="Images\openid-logo.png" />
     <Content Include="Images\paypal-btn.png" />
     <Content Include="Images\question-mark.png" />
@@ -472,6 +479,7 @@
     <Content Include="Images\yahoo-btn-logo.png" />
     <Content Include="log4net.config" />
     <Content Include="Scripts\August2008.js" />
+    <Content Include="Scripts\BingMap.js" />
     <Content Include="Scripts\Donations.js" />
     <Content Include="Scripts\Hero.js" />
     <Content Include="Properties\Settings.settings">
@@ -532,6 +540,7 @@
     <Content Include="Views\Hero\BookPartial.cshtml" />
     <Content Include="Views\Home\Faq.cshtml" />
     <Content Include="Views\Donations\ThankYou.cshtml" />
+    <Content Include="Views\Shared\DonationsBingMapPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -13,23 +14,27 @@ namespace August2008.Services
     {
         private IGeocodeService _geocodeService;
         private IMetadataRepository _metadataRepository;
+        private ILog Log;
+        private string WebSrcUrl;
 
-        public PayPalService(IGeocodeService geocodeService, IMetadataRepository metadataReposity)
+        public PayPalService(IGeocodeService geocodeService, IMetadataRepository metadataReposity, ILog log)
         {
             _geocodeService = geocodeService;
             _metadataRepository = metadataReposity;
+            Log = log;
+#if DEBUG
+            WebSrcUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+#else
+            WebSrcUrl = ConfigurationManager.AppSettings["PayPal:WebScrUrl"];
+#endif
         }
-
-        [Dependency]
-        public ILog Logger { get; set; }
-
-        public bool TryReplyToIpn(string webSrcUrl, byte[] bytes, out string response)       
+        public bool TryReplyToIpn(byte[] bytes, out string response)       
         {
             response = string.Empty;
             try
             {
                 var formVars = string.Concat(bytes.ToASCIIString(), "&cmd=_notify-validate");
-                var request = (HttpWebRequest)WebRequest.Create(webSrcUrl);
+                var request = (HttpWebRequest)WebRequest.Create(WebSrcUrl);
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";                
 
@@ -47,7 +52,7 @@ namespace August2008.Services
             }
             catch (Exception ex)
             {
-                Logger.Error("Error while trying to handle IPN.", ex);
+                Log.Error("Error while trying to handle IPN.", ex);
                 return false;
             }
         }

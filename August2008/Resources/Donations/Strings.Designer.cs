@@ -88,7 +88,7 @@ namespace Resources.Donations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In memory of Georgian heroes who died in Russia–Georgia War of August 2008.
+        ///   Looks up a localized string similar to In memory of Georgian heroes who died in Russia-Georgia War of August 2008.
         /// </summary>
         public static string DonationCause {
             get {

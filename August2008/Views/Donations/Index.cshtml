@@ -3,8 +3,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section HeaderStyleSection {
+    @Styles.Render("~/content/bingmap")
+}
 @section HeaderScriptSection {
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     @Scripts.Render("~/bundles/donations")   
+    @Scripts.Render("~/bundles/bingmap")
 }
 
 @if (!Model.ConfirmDonation) {
@@ -20,8 +25,12 @@ else {
 }
 
 <script>
-    Donations.init('@Resources.Donations.Strings.CommentPopupTitle');
+    Donations.init('@Resources.Donations.Strings.CommentPopupTitle')
 </script>
+
+<div class="section transp-95 shadow padding-5" style="margin-top:10px">
+    @Html.Partial("DonationsBingMapPartial")
+</div>
 
 <div class="section transp shadow padding-50 donations-jar" style="margin-top:10px">
     <fieldset>

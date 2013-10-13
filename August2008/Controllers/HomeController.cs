@@ -39,7 +39,7 @@ namespace August2008.Controllers
                 ContactEmail,
                 string.Format("{0}: {1}", model.Name, model.Subject),
                 model.Message);
-            ViewBag.Notification = "Thank you, message has been delivered.";
+            ViewBag.Notification = "Thank you, message has been delivered. :)";
             return View();
         }
         public ActionResult Faq()
