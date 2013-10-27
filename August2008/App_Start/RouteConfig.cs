@@ -18,13 +18,6 @@ namespace August2008
                 url: "{cotroller}/Partial/{view}",
                 defaults: new {controller = "Home", action = "Partial", view = ""}
             );
-
-            routes.MapRoute(
-                name: "GetPhoto",
-                url: "{cotroller}/GetPhoto/{name}/{size}",
-                defaults: new { controller = "Hero", action = "GetPhoto" } 
-            );
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

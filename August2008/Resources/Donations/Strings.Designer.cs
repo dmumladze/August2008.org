@@ -70,6 +70,29 @@ namespace Resources.Donations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;option value=&quot;1.00&quot;&gt;1.00&lt;/option&gt;    
+        ///&lt;option value=&quot;5.00&quot; selected&gt;5.00&lt;/option&gt;
+        ///&lt;option value=&quot;10.00&quot;&gt;10.00&lt;/option&gt;
+        ///&lt;option value=&quot;15.00&quot;&gt;15.00&lt;/option&gt;
+        ///&lt;option value=&quot;25.00&quot;&gt;25.00&lt;/option&gt;
+        ///&lt;option value=&quot;50.00&quot;&gt;50.00&lt;/option&gt;.
+        /// </summary>
+        public static string AmountOptions {
+            get {
+                return ResourceManager.GetString("AmountOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to შემოსული თანხების არქივი.
+        /// </summary>
+        public static string ArchiveLink {
+            get {
+                return ResourceManager.GetString("ArchiveLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose desired amount and click on PayPal button....
         /// </summary>
         public static string ChooseAndDonate {
@@ -88,6 +111,16 @@ namespace Resources.Donations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;option value=&quot;USD&quot; selected&gt;$ - USD&lt;/option&gt;    
+        ///&lt;option value=&quot;EUR&quot;&gt;€ - EUR&lt;/option&gt;.
+        /// </summary>
+        public static string CurrencyOptions {
+            get {
+                return ResourceManager.GetString("CurrencyOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In memory of Georgian heroes who died in Russia-Georgia War of August 2008.
         /// </summary>
         public static string DonationCause {
@@ -102,6 +135,64 @@ namespace Resources.Donations {
         public static string EditYourComment {
             get {
                 return ResourceManager.GetString("EditYourComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ხშირად დასმული კითხვები.
+        /// </summary>
+        public static string FaqLink {
+            get {
+                return ResourceManager.GetString("FaqLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;option value=&quot;3&quot;&gt;3 თვე&lt;/option&gt;    
+        ///&lt;option value=&quot;6&quot;&gt;6 თვე&lt;/option&gt;
+        ///&lt;option value=&quot;12&quot; selected&gt;1 წელი&lt;/option&gt;
+        ///&lt;option value=&quot;24&quot;&gt;2 წელი&lt;/option&gt;
+        ///&lt;option value=&quot;36&quot;&gt;3 წელი&lt;/option&gt;.
+        /// </summary>
+        public static string FrequencyOptions {
+            get {
+                return ResourceManager.GetString("FrequencyOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How To Donate Money.
+        /// </summary>
+        public static string HowToDonateLink {
+            get {
+                return ResourceManager.GetString("HowToDonateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to შემოსული თანხების რუქა.
+        /// </summary>
+        public static string MapLink {
+            get {
+                return ResourceManager.GetString("MapLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly donation.
+        /// </summary>
+        public static string MonthlyDonation {
+            get {
+                return ResourceManager.GetString("MonthlyDonation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One-time donation.
+        /// </summary>
+        public static string OneTimeDonation {
+            get {
+                return ResourceManager.GetString("OneTimeDonation", resourceCulture);
             }
         }
         
@@ -139,6 +230,15 @@ namespace Resources.Donations {
         public static string ThankYouEmailMessage {
             get {
                 return ResourceManager.GetString("ThankYouEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to რა არის PayPal?.
+        /// </summary>
+        public static string WhatIsPayPalLink {
+            get {
+                return ResourceManager.GetString("WhatIsPayPalLink", resourceCulture);
             }
         }
         

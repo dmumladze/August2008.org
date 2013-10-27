@@ -78,8 +78,7 @@ namespace August2008.Services
                 var q = from a in geo.results
                         from b in a.address_components
                         where b.types.Contains("locality")
-                        select new City
-                        {
+                        select new City {
                             Name = b.long_name,
                             Latitude = a.geometry.location.lat,
                             Longitude = a.geometry.location.lng,
@@ -185,7 +184,7 @@ namespace August2008.Services
             }
             return default(GoogleGeocodeResponse);
         }
-        public bool TryGetGeoLocation(PayPalTransaction source, out GeoLocation location)
+        public bool TryGetGeoLocation(PayPalVariables source, out GeoLocation location)
         {
             location = new GeoLocation();
             try

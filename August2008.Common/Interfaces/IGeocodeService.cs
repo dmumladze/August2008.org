@@ -14,6 +14,6 @@ namespace August2008.Common.Interfaces
         City GetCity(string city, string state, string postalCode, string country, string countryCode);
         Address GetAddress(string street, string city, string state, string postalCode, string country, string countryCode);
 
-        bool TryGetGeoLocation(PayPalTransaction source, out GeoLocation location); 
+        bool TryGetGeoLocation(PayPalVariables source, out GeoLocation location); 
     }
 }

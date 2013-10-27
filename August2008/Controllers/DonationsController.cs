@@ -64,9 +64,11 @@ namespace August2008.Controllers
             return new EmptyResult();
         }
         [HttpGet]
-        public ActionResult Cancel(DonationProvider provider)
+        public ActionResult Cancel()
         {
-            return View("Index");
+            var criteria = _donationRepository.SearchDonations(new DonationSearchCriteria());
+            var model = Mapper.Map(criteria, new DonationSearchModel());
+            return View("Index", model);
         }
         [HttpGet]
         [NoCache]
@@ -82,12 +84,12 @@ namespace August2008.Controllers
             catch (RepositoryException ex)
             {
                 ViewBag.DisplayMessage = ex.Message;
-                Logger.Error(ex);
+                Log.Error(ex);
             }
             catch (Exception ex)
             {                
                 ViewBag.DisplayMessage = "Oops! Something went wrong... :(";
-                Logger.Error(ex);
+                Log.Error(ex);
             }
             return PartialView("DonationsListPartial", model.Result);
         }
@@ -116,51 +118,25 @@ namespace August2008.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult PayPalDonationIpn(PayPalTransaction model)
+        public ActionResult PayPalDonationIpn(PayPalVariables model)
         {
-            var httpStatus = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-            if (ValidateTransaction(model))
-            {           
-                       
-                var ipnBytes = Request.BinaryRead(Request.ContentLength);
-
-                model.ReplyEmail = ReplyEmail;
-                model.EmailSubject = Resources.Donations.Strings.ThankYou;
-                model.EmailMessage = Resources.Donations.Strings.ThankYouEmailMessage;
-
-                if (_donationService.ProcessPayPalDonation(ipnBytes, model))
-                {
-                    httpStatus = new HttpStatusCodeResult(HttpStatusCode.OK);
-                }
-            }
             Response.ContentType = "text/html";
-            return httpStatus;
-        }
-        private bool ValidateTransaction(PayPalTransaction model)
-        {
-            Logger.Info(model.ToXml());
-
-            if (!_donationRepository.TransactionCompleted(model.txn_id))
+            if (_donationService.ProcessPayPalDonation(Request.BinaryRead(Request.ContentLength), model))
             {
-                if (!model.receiver_email.Equals(PayPalEmail, StringComparison.OrdinalIgnoreCase))
-                {
-                    Logger.WarnFormat("Email 'receiver_email' value '{0}' does not match our email '{1}'.", model.receiver_email, PayPalEmail);
-                    return false;
-                }
-                Logger.InfoFormat("{0} - {1}", model.txn_id, model.payment_status);
-                if (model.txn_id == null)
-                {
-                    Logger.Warn("Parameter 'txn_id' is empty.");
-                    return false;
-                }
-                if (string.IsNullOrWhiteSpace(model.custom))
-                {
-                    Logger.Warn("Parameter 'custom' is empty.");
-                    return false;
-                }                
-                return true;
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
-            return false;
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult PayPalSubscriptionIpn(PayPalVariables model)
+        {
+            Response.ContentType = "text/html";
+            if (_donationService.ProcessPayPalSubscription(Request.BinaryRead(Request.ContentLength), model))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
     }
 }

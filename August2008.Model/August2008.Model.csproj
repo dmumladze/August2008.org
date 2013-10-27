@@ -44,6 +44,7 @@
     <Compile Include="Country.cs" />
     <Compile Include="Donation.cs" />
     <Compile Include="DonationSearchCriteria.cs" />
+    <Compile Include="DonationSubscription.cs" />
     <Compile Include="GeoLocation.cs" />
     <Compile Include="HeroSearchCriteria.cs" />
     <Compile Include="Language.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="OAuthUser.cs" />
     <Compile Include="PayPalConfirm.cs" />
     <Compile Include="PayPalCustom.cs" />
-    <Compile Include="PayPalTransaction.cs" />
+    <Compile Include="PayPalVariables.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="State.cs" />
     <Compile Include="User.cs" />

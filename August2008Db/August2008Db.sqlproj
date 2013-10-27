@@ -223,14 +223,19 @@
     <Build Include="dbo\Stored Procedures\GetTransactionCompleted.sql" />
     <Build Include="dbo\Stored Procedures\GetDonationsByCity.sql" />
     <Build Include="dbo\Stored Procedures\GetDonationsByState.sql" />
+    <Build Include="dbo\Tables\DonationSubscription.sql" />
+    <Build Include="dbo\Stored Procedures\CreateDonationSubscription.sql" />
+    <Build Include="dbo\Stored Procedures\GetDonationSubscription.sql" />
+    <Build Include="dbo\Stored Procedures\GetSubscriptionCompleted.sql" />
+    <Build Include="dbo\Stored Procedures\RefundDonation.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SchemaCompare.local.scmp" />
     <None Include="August2008Db.local.publish.xml" />
     <None Include="August2008Db.publish.xml" />
+    <None Include="SchemaCompare.local.scmp" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="August2008Db.refactorlog" />

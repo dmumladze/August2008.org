@@ -29,7 +29,7 @@ namespace August2008.Data
                 using (var db = new DataAccess())
                 {
                     db.CreateStoredProcCommand("dbo.GetMilitaryRanks");
-                    db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                    db.AddInputParameter("@LanguageId", DbType.Int32, languageId);
                     ranks = new List<MilitaryRank>();
                     try
                     {
@@ -51,7 +51,7 @@ namespace August2008.Data
                 using (var db = new DataAccess())
                 {
                     db.CreateStoredProcCommand("dbo.GetMilitaryGroups");
-                    db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                    db.AddInputParameter("@LanguageId", DbType.Int32, languageId);
                     groups = new List<MilitaryGroup>();
                     try
                     {
@@ -73,7 +73,7 @@ namespace August2008.Data
                 using (var db = new DataAccess())
                 {
                     db.CreateStoredProcCommand("dbo.GetMilitaryAwards");
-                    db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                    db.AddInputParameter("@LanguageId", DbType.Int32, languageId);
                     awards = new List<MilitaryAward>();
                     try
                     {
@@ -113,7 +113,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.TryGetCountry");
-                db.AddInParameter("@Country", DbType.String, country);
+                db.AddInputParameter("@Country", DbType.String, country);
                 db.AddReturnParameter();
                 try
                 {
@@ -133,8 +133,8 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.TryGetState");
-                db.AddInParameter("@State", DbType.String, state);
-                db.AddInParameter("@Country", DbType.String, country);
+                db.AddInputParameter("@State", DbType.String, state);
+                db.AddInputParameter("@Country", DbType.String, country);
                 db.AddReturnParameter();
                 try
                 {
@@ -154,10 +154,10 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.TryGetCity");
-                db.AddInParameter("@City", DbType.String, city);
-                db.AddInParameter("@State", DbType.String, state);
-                db.AddInParameter("@PostalCode", DbType.String, postalCode);
-                db.AddInParameter("@Country", DbType.String, country);
+                db.AddInputParameter("@City", DbType.String, city);
+                db.AddInputParameter("@State", DbType.String, state);
+                db.AddInputParameter("@PostalCode", DbType.String, postalCode);
+                db.AddInputParameter("@Country", DbType.String, country);
                 db.AddReturnParameter();
                 try
                 {
@@ -177,11 +177,11 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.CreateCountry");
-                db.AddInParameter("@Name", DbType.String, country.Name);
-                db.AddInParameter("@FullName", DbType.String, country.FullName);
-                db.AddInParameter("@Latitude", DbType.Double, country.Latitude);
-                db.AddInParameter("@Longitude", DbType.Double, country.Longitude);
-                db.AddOutParameter("@CountryId", DbType.Int32);
+                db.AddInputParameter("@Name", DbType.String, country.Name);
+                db.AddInputParameter("@FullName", DbType.String, country.FullName);
+                db.AddInputParameter("@Latitude", DbType.Double, country.Latitude);
+                db.AddInputParameter("@Longitude", DbType.Double, country.Longitude);
+                db.AddOutputParameter("@CountryId", DbType.Int32);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -200,13 +200,13 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.CreateState");
-                db.AddInParameter("@CountryId", DbType.Int32, state.CountryId);
-                db.AddInParameter("@Country", DbType.String, state.Country);
-                db.AddInParameter("@Name", DbType.String, state.Name);
-                db.AddInParameter("@FullName", DbType.String, state.FullName);
-                db.AddInParameter("@Latitude", DbType.Double, state.Latitude);
-                db.AddInParameter("@Longitude", DbType.Double, state.Longitude);
-                db.AddOutParameter("@StateId", DbType.Int32);
+                db.AddInputParameter("@CountryId", DbType.Int32, state.CountryId);
+                db.AddInputParameter("@Country", DbType.String, state.Country);
+                db.AddInputParameter("@Name", DbType.String, state.Name);
+                db.AddInputParameter("@FullName", DbType.String, state.FullName);
+                db.AddInputParameter("@Latitude", DbType.Double, state.Latitude);
+                db.AddInputParameter("@Longitude", DbType.Double, state.Longitude);
+                db.AddOutputParameter("@StateId", DbType.Int32);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -225,13 +225,13 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.CreateCity");
-                db.AddInParameter("@StateId", DbType.Int32, city.StateId);
-                db.AddInParameter("@State", DbType.String, city.State);
-                db.AddInParameter("@Name", DbType.String, city.Name);
-                db.AddInParameter("@PostalCode", DbType.String, city.PostalCode);                
-                db.AddInParameter("@Latitude", DbType.Double, city.Latitude);
-                db.AddInParameter("@Longitude", DbType.Double, city.Longitude);
-                db.AddOutParameter("@CityId", DbType.Int32);
+                db.AddInputParameter("@StateId", DbType.Int32, city.StateId);
+                db.AddInputParameter("@State", DbType.String, city.State);
+                db.AddInputParameter("@Name", DbType.String, city.Name);
+                db.AddInputParameter("@PostalCode", DbType.String, city.PostalCode);                
+                db.AddInputParameter("@Latitude", DbType.Double, city.Latitude);
+                db.AddInputParameter("@Longitude", DbType.Double, city.Longitude);
+                db.AddOutputParameter("@CityId", DbType.Int32);
                 try
                 {
                     db.ExecuteNonQuery();

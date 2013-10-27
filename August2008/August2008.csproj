@@ -541,6 +541,7 @@
     <Content Include="Views\Home\Faq.cshtml" />
     <Content Include="Views\Donations\ThankYou.cshtml" />
     <Content Include="Views\Shared\DonationsBingMapPartial.cshtml" />
+    <Content Include="Views\Donations\DonationsPartial2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

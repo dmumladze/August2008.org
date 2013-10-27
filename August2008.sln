@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bin", "Bin", "{7DB9CE85-0C2
 		CommonBin\Microsoft.Practices.Unity.Configuration.dll = CommonBin\Microsoft.Practices.Unity.Configuration.dll
 		CommonBin\Microsoft.Practices.Unity.dll = CommonBin\Microsoft.Practices.Unity.dll
 		CommonBin\Microsoft.Practices.Unity.Mvc.dll = CommonBin\Microsoft.Practices.Unity.Mvc.dll
+		CommonBin\Moq.dll = CommonBin\Moq.dll
+		CommonBin\Moq.pdb = CommonBin\Moq.pdb
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "August2008.Services", "August2008.Services\August2008.Services.csproj", "{BACA97F3-ED4D-45A3-963D-C60708827549}"

@@ -11,6 +11,8 @@
 	@CityId					INT				= NULL,
 	@StateId				INT				= NULL,
 	@CountryId				INT				= NULL,
+	@DonationSubscriptionId	INT				= NULL,
+	@TransactionType		NVARCHAR(25)	= NULL,
 	@DonationId				INT				= NULL OUTPUT
 AS
 BEGIN
@@ -19,13 +21,12 @@ BEGIN
 	IF EXISTS(SELECT TOP 1 1 FROM dbo.Donation WITH (NOLOCK) WHERE ExternalId = @ExternalId)
 	BEGIN
 		SELECT 
-			@DonationId
+			@DonationId = DonationId
 		FROM dbo.Donation WITH (NOLOCK)
 		WHERE ExternalId = @ExternalId;
 	END
 	ELSE
 	BEGIN
-
 		INSERT INTO dbo.Donation (
 			 DonationProviderId
 			,UserId
@@ -39,6 +40,8 @@ BEGIN
 			,CityId
 			,StateId
 			,CountryId
+			,DonationSubscriptionId
+			,TransactionType
 		)
 		VALUES (
 			 @DonationProviderId
@@ -53,6 +56,8 @@ BEGIN
 			,@CityId
 			,@StateId
 			,@CountryId
+			,@DonationSubscriptionId
+			,@TransactionType
 		 )
 		SET @DonationId = SCOPE_IDENTITY();
 	END;

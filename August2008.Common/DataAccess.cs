@@ -45,9 +45,9 @@ namespace August2008.Common
             {
                 _transactionManager = transaction;
                 DatabaseResolver = transaction.DatabaseResolver;
-                DbProviderFactory = DbProviderFactories.GetFactory(DatabaseResolver.ProviderName);
+                DbFactory = DbProviderFactories.GetFactory(DatabaseResolver.ProviderName);
                 _mainConnection = transaction.CurrentTransaction.Connection;
-                _mainCommand = DbProviderFactory.CreateCommand();
+                _mainCommand = DbFactory.CreateCommand();
                 _mainConnectionIsLocal = false;
                 _isDisposed = false;
             }
@@ -62,10 +62,10 @@ namespace August2008.Common
             try
             {
                 DatabaseResolver = resolver;
-                DbProviderFactory = DbProviderFactories.GetFactory(resolver.ProviderName);
-                _mainConnection = DbProviderFactory.CreateConnection();
+                DbFactory = DbProviderFactories.GetFactory(resolver.ProviderName);
+                _mainConnection = DbFactory.CreateConnection();
                 _mainConnection.ConnectionString = resolver.ConnectionString;
-                _mainCommand = DbProviderFactory.CreateCommand();
+                _mainCommand = DbFactory.CreateCommand();
                 _mainConnectionIsLocal = true;
                 _isDisposed = false;
             }
@@ -117,14 +117,25 @@ namespace August2008.Common
         /// <summary>
         /// Adds an input parameter to the associated DbCommand object.
         /// </summary>
-        public void AddInParameter(string name, DbType type, object value)
+        public void AddInputParameter(string name, object value)
+        {
+            var param = DbFactory.CreateParameter();
+            param.ParameterName = name;
+            param.Value = value;
+            param.Direction = ParameterDirection.Input;
+            _mainCommand.Parameters.Add(param);
+        }
+        /// <summary>
+        /// Adds an input parameter to the associated DbCommand object.
+        /// </summary>
+        public void AddInputParameter(string name, DbType type, object value)
         {
             AddParameter(name, type, ParameterDirection.Input, object.ReferenceEquals(value, null) ? DBNull.Value : value);
         }
         /// <summary>
         /// Adds an output parameter to the associated DbCommand object.
         /// </summary>
-        public void AddOutParameter(string name, DbType type)
+        public void AddOutputParameter(string name, DbType type)
         {
             AddParameter(name, type, ParameterDirection.Output, DBNull.Value);
         }
@@ -147,7 +158,7 @@ namespace August2008.Common
         /// </summary>
         public void AddParameter(string name, DbType type, ParameterDirection direction, object value)
         {
-            var param = DbProviderFactory.CreateParameter();
+            var param = DbFactory.CreateParameter();
             param.DbType = type;
             param.ParameterName = name;
             param.Direction = direction;
@@ -349,7 +360,7 @@ namespace August2008.Common
                         _mainConnectionIsLocal = false;
                         _mainCommand = null;
                         _mainConnection = null;
-                        DbProviderFactory = null;
+                        DbFactory = null;
                     }
                 }
                 _isDisposed = true;
@@ -384,7 +395,7 @@ namespace August2008.Common
         }
         public bool IsCommandPending { get; private set; }
         public IDbConnectionResolver DatabaseResolver { get; private set; }
-        public DbProviderFactory DbProviderFactory { get; private set; }
+        public DbProviderFactory DbFactory { get; private set; }
 
         #endregion
     }

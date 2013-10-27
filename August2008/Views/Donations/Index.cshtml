@@ -12,27 +12,29 @@
     @Scripts.Render("~/bundles/bingmap")
 }
 
-@if (!Model.ConfirmDonation) {
-    Html.RenderPartial("DonationsPartial");
-}
-else {
-    Html.RenderPartial("ThankYou");
-    <script>
-        if (window.history.replaceState) {
-            history.replaceState(null, null, '@Url.Action("Index")');
-        }
-    </script>    
+@if (Model != null) {
+    if (!Model.ConfirmDonation) {
+        Html.RenderPartial("DonationsPartial2");
+    }
+    else {
+        Html.RenderPartial("ThankYou");
+        <script>
+            if (window.history.replaceState) {
+                history.replaceState(null, null, '@Url.Action("Index")');
+            }
+        </script>    
+    }
 }
 
 <script>
     Donations.init('@Resources.Donations.Strings.CommentPopupTitle')
 </script>
 
-<div class="section transp-95 shadow padding-5" style="margin-top:10px">
+<div class="section transp-95 shadow padding-5" style="margin-top:10px" id="gotoMap">
     @Html.Partial("DonationsBingMapPartial")
 </div>
 
-<div class="section transp shadow padding-50 donations-jar" style="margin-top:10px">
+<div class="section transp shadow padding-50 donations-jar" style="margin-top:10px" id="gotoArchive">
     <fieldset>
         <legend>@Resources.Donations.Labels.SearchDonations</legend>
         <div>

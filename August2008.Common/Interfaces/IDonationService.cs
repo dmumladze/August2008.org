@@ -5,6 +5,9 @@ namespace August2008.Common.Interfaces
 {
     public interface IDonationService
     {
-        bool ProcessPayPalDonation(byte[] ipnBytes, PayPalTransaction transaction);
+        bool ValidateDonation(PayPalVariables variables);
+        bool ValidateSubscription(PayPalVariables variables);
+        bool ProcessPayPalDonation(byte[] ipnBytes, PayPalVariables variables);
+        bool ProcessPayPalSubscription(byte[] ipnBytes, PayPalVariables variables);
     }
 }

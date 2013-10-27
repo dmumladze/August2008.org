@@ -25,7 +25,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetUserByUserId");
-                db.AddInParameter("@UserId", DbType.Int32, userId);
+                db.AddInputParameter("@UserId", DbType.Int32, userId);
                 try
                 {
                     db.ReadInto(user,
@@ -48,10 +48,10 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetUserRegistered");
-                db.AddInParameter("@Email", DbType.String, email);
-                db.AddInParameter("@Provider", DbType.String, provider);
-                db.AddOutParameter("@UserId", DbType.Int32);
-                db.AddOutParameter("@IsOAuthUser", DbType.Boolean);
+                db.AddInputParameter("@Email", DbType.String, email);
+                db.AddInputParameter("@Provider", DbType.String, provider);
+                db.AddOutputParameter("@UserId", DbType.Int32);
+                db.AddOutputParameter("@IsOAuthUser", DbType.Boolean);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -76,9 +76,9 @@ namespace August2008.Data
                     try
                     {
                         db.CreateStoredProcCommand("dbo.CreateUser");
-                        db.AddInParameter("@Email", DbType.String, user.Email);
-                        db.AddInParameter("@DisplayName", DbType.String, user.DisplayName);
-                        db.AddOutParameter("@UserId", DbType.Int32);
+                        db.AddInputParameter("@Email", DbType.String, user.Email);
+                        db.AddInputParameter("@DisplayName", DbType.String, user.DisplayName);
+                        db.AddOutputParameter("@UserId", DbType.Int32);
                         db.ExecuteNonQuery();
                         user.UserId = db.GetParameterValue<int>("@UserId");
 
@@ -86,11 +86,11 @@ namespace August2008.Data
                         user.OAuth = CreateOAuthUser(user.OAuth, tran);
 
                         db.CreateStoredProcCommand("dbo.CreateUserProfile");
-                        db.AddInParameter("@UserId", DbType.String, user.UserId);
-                        db.AddInParameter("@LanguageId", DbType.String, user.Profile.Lang.LanguageId);
-                        db.AddInParameter("@Dob", DbType.String, user.Profile.Dob);
-                        db.AddInParameter("@Nationality", DbType.String, user.Profile.Nationality);
-                        db.AddOutParameter("@UserProfileId", DbType.Int32);
+                        db.AddInputParameter("@UserId", DbType.String, user.UserId);
+                        db.AddInputParameter("@LanguageId", DbType.String, user.Profile.Lang.LanguageId);
+                        db.AddInputParameter("@Dob", DbType.String, user.Profile.Dob);
+                        db.AddInputParameter("@Nationality", DbType.String, user.Profile.Nationality);
+                        db.AddOutputParameter("@UserProfileId", DbType.Int32);
                         db.ExecuteNonQuery();
                         user.Profile.UserProfileId = db.GetParameterValue<int>("@UserProfileId");
 
@@ -131,12 +131,12 @@ namespace August2008.Data
             using (var db = new DataAccess(tran))
             {
                 db.CreateStoredProcCommand("dbo.CreateOAuthUser");
-                db.AddInParameter("@UserId", DbType.String, user.UserId);
-                db.AddInParameter("@Email", DbType.String, user.Email);
-                db.AddInParameter("@ProviderId", DbType.String, user.ProviderId);
-                db.AddInParameter("@ProviderName", DbType.String, user.ProviderName);
-                db.AddInParameter("@ProviderData", DbType.Xml, user.ProviderData.ToDbXml());
-                db.AddOutParameter("@OAuthUserId", DbType.Int32);
+                db.AddInputParameter("@UserId", DbType.String, user.UserId);
+                db.AddInputParameter("@Email", DbType.String, user.Email);
+                db.AddInputParameter("@ProviderId", DbType.String, user.ProviderId);
+                db.AddInputParameter("@ProviderName", DbType.String, user.ProviderName);
+                db.AddInputParameter("@ProviderData", DbType.Xml, user.ProviderData.ToDbXml());
+                db.AddOutputParameter("@OAuthUserId", DbType.Int32);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -158,9 +158,9 @@ namespace August2008.Data
                 using (var db = new DataAccess(tran))
                 {
                     db.CreateStoredProcCommand("dbo.UpdateUser");
-                    db.AddInParameter("@UserId", DbType.Int32, user.UserId);
-                    db.AddInParameter("@Email", DbType.String, user.Email);
-                    db.AddInParameter("@DisplayName", DbType.String, user.DisplayName);
+                    db.AddInputParameter("@UserId", DbType.Int32, user.UserId);
+                    db.AddInputParameter("@Email", DbType.String, user.Email);
+                    db.AddInputParameter("@DisplayName", DbType.String, user.DisplayName);
                     try
                     {
                         db.ExecuteNonQuery();
@@ -185,10 +185,10 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.UpdateUserProfile");
-                db.AddInParameter("@UserId", DbType.Int32, profile.UserId);
-                db.AddInParameter("@LanguageId", DbType.String, profile.Lang.LanguageId);
-                db.AddInParameter("@Dob", DbType.String, profile.Dob);
-                db.AddInParameter("@Nationality", DbType.String, profile.Nationality);
+                db.AddInputParameter("@UserId", DbType.Int32, profile.UserId);
+                db.AddInputParameter("@LanguageId", DbType.String, profile.Lang.LanguageId);
+                db.AddInputParameter("@Dob", DbType.String, profile.Dob);
+                db.AddInputParameter("@Nationality", DbType.String, profile.Nationality);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -205,13 +205,13 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.UpdateUserProfileAddress");                
-                db.AddInParameter("@UserId", DbType.Int32, userId);
-                db.AddInParameter("@Street", DbType.String, address.Street);
-                db.AddInParameter("@CityId", DbType.String, address.CityId);
-                db.AddInParameter("@StateId", DbType.String, address.StateId);
-                db.AddInParameter("@CountryId", DbType.String, address.CountryId);
-                db.AddInParameter("@Latitude", DbType.Double, address.Latitude);
-                db.AddInParameter("@Longitude", DbType.Double, address.Longitude);
+                db.AddInputParameter("@UserId", DbType.Int32, userId);
+                db.AddInputParameter("@Street", DbType.String, address.Street);
+                db.AddInputParameter("@CityId", DbType.String, address.CityId);
+                db.AddInputParameter("@StateId", DbType.String, address.StateId);
+                db.AddInputParameter("@CountryId", DbType.String, address.CountryId);
+                db.AddInputParameter("@Latitude", DbType.Double, address.Latitude);
+                db.AddInputParameter("@Longitude", DbType.Double, address.Longitude);
                 try
                 {
                     db.ExecuteNonQuery();
@@ -246,7 +246,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.SearchUsers");
-                db.AddInParameter("@StartsWith", DbType.String, name);
+                db.AddInputParameter("@StartsWith", DbType.String, name);
                 try
                 {
                     var users = new List<User>();
@@ -267,7 +267,7 @@ namespace August2008.Data
                 try
                 {
                     db.CreateStoredProcCommand("dbo.GetUserRoles");
-                    db.AddInParameter("@UserId", DbType.Int32, userId);
+                    db.AddInputParameter("@UserId", DbType.Int32, userId);
                     var roles = new List<Role>();
                     db.ReadInto(roles);
                     return roles;
@@ -291,8 +291,8 @@ namespace August2008.Data
                         db.CreateStoredProcCommand("dbo.AssignUserToRole");
                         foreach (var id in roles)
                         {
-                            db.AddInParameter("@UserId", DbType.Int32, userId);
-                            db.AddInParameter("@RoleId", DbType.Int32, id);
+                            db.AddInputParameter("@UserId", DbType.Int32, userId);
+                            db.AddInputParameter("@RoleId", DbType.Int32, id);
                             db.ExecuteNonQuery();
                             db.ResetCommand(false);
                         }
@@ -319,8 +319,8 @@ namespace August2008.Data
                         db.CreateStoredProcCommand("dbo.RevokeUserFromRole");
                         foreach (var id in roles)
                         {
-                            db.AddInParameter("@UserId", DbType.Int32, userId);
-                            db.AddInParameter("@RoleId", DbType.Int32, id);
+                            db.AddInputParameter("@UserId", DbType.Int32, userId);
+                            db.AddInputParameter("@RoleId", DbType.Int32, id);
                             db.ExecuteNonQuery();
                             db.ResetCommand(false);
                         }
@@ -342,7 +342,7 @@ namespace August2008.Data
                 try
                 {
                     db.CreateStoredProcCommand("dbo.GetUserContactInfo");
-                    db.AddInParameter("@UserId", DbType.Int32, userId);
+                    db.AddInputParameter("@UserId", DbType.Int32, userId);
                     var info = new UserContactInfo();
                     info.Address = new Address();
                     db.ReadInto(info);

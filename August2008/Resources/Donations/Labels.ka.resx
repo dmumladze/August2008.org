@@ -120,8 +120,17 @@
   <data name="DonateNow" xml:space="preserve">
     <value>გადარიცხვა</value>
   </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>ხანგრძლივობა:</value>
+  </data>
   <data name="FromDate" xml:space="preserve">
     <value>თარიღი</value>
+  </data>
+  <data name="MoneyAmount" xml:space="preserve">
+    <value>თანხის რაოდენობა:</value>
+  </data>
+  <data name="MyChoice" xml:space="preserve">
+    <value>ჩემი არჩევანია:</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>სახელი</value>

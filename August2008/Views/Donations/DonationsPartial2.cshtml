@@ -1,0 +1,103 @@
+﻿
+<div class="section transp shadow donations-thankyou padding-50">
+    <fieldset>
+        <legend>@Resources.Donations.Labels.DonateNow</legend>
+
+        @if (User.Identity.IsAuthenticated) {
+            <form action="@Url.PayPalAction()" method="post" name="oneTimeForm">
+                <input type="hidden" name="business" value="@ConfigurationManager.AppSettings["PayPal:PrimaryEmail"]">
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="item_name" value="@Resources.Donations.Strings.DonationCause">
+                <input type="hidden" name="return" value="@Url.Action("ThankYou", null, null, HttpContext.Current.Request.Url.Scheme)"/>                                  
+                <input type="hidden" name="notify_url" value="@Url.ExternalAction("PayPalDonationIpn")"/>
+                <input type="hidden" name="cancel_return" value="@Url.ExternalAction("Cancel")"/>
+                <input type="hidden" name="rm" value="0"/> 
+                <input type="hidden" name="custom" value='{ "UserId": "@User.GetUserId()", "Amount": "5.00"}'> 
+                <input type="hidden" name="amount" value="5.00" />
+                <input type="hidden" name="currency_code" value="USD">
+            </form>
+            <!-- https://www.paypal.com/cgi-bin/webscr?cmd=p/acc/ipn-subscriptions-outside -->
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="monthlyForm">
+                <input type="hidden" name="business" value="@ConfigurationManager.AppSettings["PayPal:PrimaryEmail"]">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                <input type="hidden" name="item_name" value="@Resources.Donations.Strings.DonationCause">
+                <input type="hidden" name="return" value="@Url.Action("ThankYou", null, null, HttpContext.Current.Request.Url.Scheme)"/>                                  
+                <input type="hidden" name="notify_url" value="@Url.ExternalAction("PayPalSubscriptionIpn")"/>
+                <input type="hidden" name="cancel_return" value="@Url.ExternalAction("Cancel")"/>
+                <input type="hidden" name="rm" value="0"/> 
+                <input type="hidden" name="custom" value='{ "UserId": "@User.GetUserId()", "Amount": "5.00"}'> 
+                <input type="hidden" name="src" value="1">
+                <input type="hidden" name="p3" value="1">
+                <input type="hidden" name="t3" value= "M">
+                <input type="hidden" name="srt" value= "12">
+                <input type="hidden" name="a3" value="5.00" />
+                <input type="hidden" name="currency_code" value="USD">
+            </form>            
+            <div class="donation-form" style="font-size: 1.1em">
+                <div class="form-header">
+                    <div class="header-info">@Resources.Donations.Strings.ChooseAndDonate</div>
+                    <div class="header-faq"><a href="#">@Resources.Donations.Strings.HowToDonateLink</a></div>
+                </div>
+                <div class="form-content">
+                    <div class="content-options">
+                        <div class="options-form">
+                            <div class="form-label">@Resources.Donations.Labels.MyChoice</div>
+                            <div class="form-choices">
+                                <div>
+                                    <input type="radio" id="rdoOneTime" name="mychoice" value="1" checked />
+                                    <label for="rdoOneTime">@Resources.Donations.Strings.OneTimeDonation</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="rdoMonthly" name="mychoice" value="2" />
+                                    <label for="rdoMonthly">@Resources.Donations.Strings.MonthlyDonation</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="options-form" id="choiceFrequency">
+                            <div class="form-label">@Resources.Donations.Labels.Frequency</div>
+                            <div class="form-choices">
+                                <select name="frequency" id="frequency">
+                                    @Html.Raw(Resources.Donations.Strings.FrequencyOptions)
+                                </select>
+                            </div>
+                        </div>
+                        <div class="options-form">
+                            <div class="form-label">@Resources.Donations.Labels.MoneyAmount</div>
+                            <div class="form-choices">
+                                <select id="amount">
+                                    @Html.Raw(Resources.Donations.Strings.AmountOptions)
+                                    <option value="">@Resources.Donations.Labels.Other...</option>
+                                </select>
+                                <select id="currency">
+                                    @Html.Raw(Resources.Donations.Strings.CurrencyOptions)
+                                </select>                                                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-links">
+                        <div class="links-container">
+                            <div>@Html.ActionLink(Resources.Donations.Strings.FaqLink, "Faq", "Home")</div>
+                            <div><a href="#gotoMap">@Resources.Donations.Strings.MapLink</a></div>
+                            <div><a href="#gotoArchive">@Resources.Donations.Strings.ArchiveLink</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <div class="footer-button">
+                        <button id="formSubmitter" name="formSubmitter" class="btn btn-large btn-paypal"></button>
+                    </div>
+                    <div class="footer-text">
+                        <a href="https://www.paypal.com/webapps/mpp/what-is-paypal" target="_blank">@Resources.Donations.Strings.WhatIsPayPalLink</a>
+                        <div class="paypal">@Html.Raw(Resources.Donations.Strings.AboutPayPal)</div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p style="white-space:pre-line;font-size:1.1em;margin:0">
+                @Html.Raw(string.Format(Resources.Donations.Strings.YouMustBeRegistered, @Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })))
+            </p>
+        }
+    </fieldset>
+</div>

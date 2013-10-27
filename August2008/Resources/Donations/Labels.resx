@@ -120,8 +120,17 @@
   <data name="DonateNow" xml:space="preserve">
     <value>Donate Now</value>
   </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
   <data name="FromDate" xml:space="preserve">
     <value>From </value>
+  </data>
+  <data name="MoneyAmount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="MyChoice" xml:space="preserve">
+    <value>I would like to</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

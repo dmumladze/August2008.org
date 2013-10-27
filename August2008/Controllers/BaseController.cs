@@ -28,7 +28,7 @@ namespace August2008.Controllers
         protected ICacheProvider Cache { get; set; }
 
         [Dependency]
-        protected ILog Logger { get; set; }
+        protected ILog Log { get; set; }
 
         protected FormsPrincipal Me { get; private set; }
 

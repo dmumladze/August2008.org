@@ -118,19 +118,56 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPayPal" xml:space="preserve">
-    <value>PayPal არის ელექტრონული საგადასახადო სისტემა, რომელიც ახორციელებს თანხის გადარიცხვის ოპერაციას ინტერნეტის საშუალებით. დღეისათვის იგი მუშაობს 190 ქვეყანაში, &lt;span style="text-decoration;underline"&gt;მათ შორის საქართველოშიც&lt;/span&gt;. ამ სისტემით დაახლოებით 164 მილიონი მომხმარებელი სარგებლობს. PayPal მუშაობს 17 ეროვნულ ვალიუტაზე. 2002 წლიდან კი ინტერნეტ აუქციონის eBay-ს სისტემაში გამოიყენება.</value>
+    <value>PayPal არის ელექტრონული სისტემა, რომელიც ახორციელებს თანხის გადარიცხვის ოპერაციას ინტერნეტის საშუალებით. დღეისათვის იგი მუშაობს 190 ქვეყანაში, &lt;span style="text-decoration;underline"&gt;მათ შორის საქართველოშიც&lt;/span&gt;. ამ სისტემით დაახლოებით 164 მილიონი მომხმარებელი სარგებლობს. PayPal მუშაობს 17 ეროვნულ ვალიუტაზე. 2002 წლიდან კი ინტერნეტ აუქციონის eBay-ს სისტემაში გამოიყენება.</value>
+  </data>
+  <data name="AmountOptions" xml:space="preserve">
+    <value>&lt;option value="1.00"&gt;1.00&lt;/option&gt;    
+&lt;option value="5.00" selected&gt;5.00&lt;/option&gt;
+&lt;option value="10.00"&gt;10.00&lt;/option&gt;
+&lt;option value="15.00"&gt;15.00&lt;/option&gt;
+&lt;option value="25.00"&gt;25.00&lt;/option&gt;
+&lt;option value="50.00"&gt;50.00&lt;/option&gt;</value>
+  </data>
+  <data name="ArchiveLink" xml:space="preserve">
+    <value>შემოსული თანხების არქივი</value>
   </data>
   <data name="ChooseAndDonate" xml:space="preserve">
-    <value>შეარჩიეთ თქვენთვის სასურველი თანხა.</value>
+    <value>შეარჩიეთ თქვენთვის სასურველი კონფიგურაცია...</value>
   </data>
   <data name="CommentPopupTitle" xml:space="preserve">
     <value>თქვენი კომენტარი</value>
+  </data>
+  <data name="CurrencyOptions" xml:space="preserve">
+    <value>&lt;option value="USD" selected&gt;$ - USD&lt;/option&gt;    
+&lt;option value="EUR"&gt;€ - EUR&lt;/option&gt;</value>
   </data>
   <data name="DonationCause" xml:space="preserve">
     <value>In memory of Georgian heroes who died in Russia-Georgia War of August 2008</value>
   </data>
   <data name="EditYourComment" xml:space="preserve">
     <value>შეცვლა</value>
+  </data>
+  <data name="FaqLink" xml:space="preserve">
+    <value>ხშირად დასმული კითხვები</value>
+  </data>
+  <data name="FrequencyOptions" xml:space="preserve">
+    <value>&lt;option value="3"&gt;3 თვე&lt;/option&gt;    
+&lt;option value="6"&gt;6 თვე&lt;/option&gt;
+&lt;option value="12" selected&gt;1 წელი&lt;/option&gt;
+&lt;option value="24"&gt;2 წელი&lt;/option&gt;
+&lt;option value="36"&gt;3 წელი&lt;/option&gt;</value>
+  </data>
+  <data name="HowToDonateLink" xml:space="preserve">
+    <value>როგორ გადავრიცხოთ თანხა</value>
+  </data>
+  <data name="MapLink" xml:space="preserve">
+    <value>შემოსული თანხების რუქა</value>
+  </data>
+  <data name="MonthlyDonation" xml:space="preserve">
+    <value>ყოველთვიური დახმარება</value>
+  </data>
+  <data name="OneTimeDonation" xml:space="preserve">
+    <value>ერთჯერადი დახმარება</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
     <value>დახმარება მიღებულია</value>
@@ -150,6 +187,9 @@
 
 www.august2008.org 
 ადმინისტრაცია</value>
+  </data>
+  <data name="WhatIsPayPalLink" xml:space="preserve">
+    <value>რა არის PayPal?</value>
   </data>
   <data name="YouMustBeRegistered" xml:space="preserve">
     <value>თანხის გადარიცხვის მსურველებს: 

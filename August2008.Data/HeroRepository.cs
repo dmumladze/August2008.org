@@ -25,8 +25,8 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetHero");
-                db.AddInParameter("@HeroId", DbType.Int32, heroId);
-                db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                db.AddInputParameter("@HeroId", DbType.Int32, heroId);
+                db.AddInputParameter("@LanguageId", DbType.Int32, languageId);
                 var hero = new Hero();
                 try
                 {
@@ -46,7 +46,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetRandomHero");
-                db.AddInParameter("@LanguageId", DbType.Int32, languageId);
+                db.AddInputParameter("@LanguageId", DbType.Int32, languageId);
                 var hero = new Hero();
                 try
                 {
@@ -70,19 +70,19 @@ namespace August2008.Data
                 using (var db = new DataAccess(tran))
                 {
                     db.CreateStoredProcCommand("dbo.CreateHero");
-                    db.AddInParameter("@FirstName", DbType.String, hero.FirstName);
-                    db.AddInParameter("@LastName", DbType.String, hero.LastName);
-                    db.AddInParameter("@MiddleName", DbType.String, hero.MiddleName);
-                    db.AddInParameter("@Dob", DbType.DateTime, hero.Dob);
-                    db.AddInParameter("@Died", DbType.DateTime, hero.Died);
-                    db.AddInParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
-                    db.AddInParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
-                    db.AddInParameter("@MilitaryAwardId", DbType.Int32, hero.MilitaryAwardId);
-                    db.AddInParameter("@Biography", DbType.String, hero.Biography);
-                    db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
-                    db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
-                    db.AddInParameter("@Photos", DbType.Xml, photos.ToDbXml());
-                    db.AddOutParameter("@HeroId", DbType.Int32);
+                    db.AddInputParameter("@FirstName", DbType.String, hero.FirstName);
+                    db.AddInputParameter("@LastName", DbType.String, hero.LastName);
+                    db.AddInputParameter("@MiddleName", DbType.String, hero.MiddleName);
+                    db.AddInputParameter("@Dob", DbType.DateTime, hero.Dob);
+                    db.AddInputParameter("@Died", DbType.DateTime, hero.Died);
+                    db.AddInputParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
+                    db.AddInputParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
+                    db.AddInputParameter("@MilitaryAwardId", DbType.Int32, hero.MilitaryAwardId);
+                    db.AddInputParameter("@Biography", DbType.String, hero.Biography);
+                    db.AddInputParameter("@LanguageId", DbType.Int32, hero.LanguageId);
+                    db.AddInputParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
+                    db.AddInputParameter("@Photos", DbType.Xml, photos.ToDbXml());
+                    db.AddOutputParameter("@HeroId", DbType.Int32);
                     try
                     {
                         db.ExecuteNonQuery();
@@ -116,19 +116,19 @@ namespace August2008.Data
                     using (var db = new DataAccess(tran))
                     {
                         db.CreateStoredProcCommand("dbo.UpdateHero");
-                        db.AddInParameter("@HeroId", DbType.Int32, hero.HeroId);
-                        db.AddInParameter("@FirstName", DbType.String, hero.FirstName);
-                        db.AddInParameter("@LastName", DbType.String, hero.LastName);
-                        db.AddInParameter("@MiddleName", DbType.String, hero.MiddleName);
-                        db.AddInParameter("@Dob", DbType.DateTime, hero.Dob);
-                        db.AddInParameter("@Died", DbType.DateTime, hero.Died);
-                        db.AddInParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
-                        db.AddInParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
-                        db.AddInParameter("@MilitaryAwardId", DbType.Int32, hero.MilitaryAwardId);
-                        db.AddInParameter("@Biography", DbType.String, hero.Biography);
-                        db.AddInParameter("@LanguageId", DbType.Int32, hero.LanguageId);
-                        db.AddInParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
-                        db.AddInParameter("@Photos", DbType.Xml, photos.ToDbXml());
+                        db.AddInputParameter("@HeroId", DbType.Int32, hero.HeroId);
+                        db.AddInputParameter("@FirstName", DbType.String, hero.FirstName);
+                        db.AddInputParameter("@LastName", DbType.String, hero.LastName);
+                        db.AddInputParameter("@MiddleName", DbType.String, hero.MiddleName);
+                        db.AddInputParameter("@Dob", DbType.DateTime, hero.Dob);
+                        db.AddInputParameter("@Died", DbType.DateTime, hero.Died);
+                        db.AddInputParameter("@MilitaryGroupId", DbType.Int32, hero.MilitaryGroupId);
+                        db.AddInputParameter("@MilitaryRankId", DbType.Int32, hero.MilitaryRankId);
+                        db.AddInputParameter("@MilitaryAwardId", DbType.Int32, hero.MilitaryAwardId);
+                        db.AddInputParameter("@Biography", DbType.String, hero.Biography);
+                        db.AddInputParameter("@LanguageId", DbType.Int32, hero.LanguageId);
+                        db.AddInputParameter("@UpdatedBy", DbType.Int32, hero.UpdatedBy);
+                        db.AddInputParameter("@Photos", DbType.Xml, photos.ToDbXml());
 
                         db.ExecuteNonQuery();
                         SaveBlobs(hero.HeroId.Value, photos);
@@ -148,7 +148,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.DeleteHeroPhoto");
-                db.AddInParameter("@HeroPhotoId", DbType.Int32, heroPhotoId);
+                db.AddInputParameter("@HeroPhotoId", DbType.Int32, heroPhotoId);
                 var photo = new HeroPhoto();
                 try
                 {
@@ -171,11 +171,11 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetHeros");
-                db.AddInParameter("@PageNo", DbType.Int32, criteria.PageNo);
-                db.AddInParameter("@Name", DbType.String, criteria.Name);
-                db.AddInParameter("@PageSize", DbType.Int32, criteria.PageSize);
-                db.AddInParameter("@LanguageId", DbType.Int32, criteria.LanguageId);
-                db.AddOutParameter("@TotalCount", DbType.Int32);
+                db.AddInputParameter("@PageNo", DbType.Int32, criteria.PageNo);
+                db.AddInputParameter("@Name", DbType.String, criteria.Name);
+                db.AddInputParameter("@PageSize", DbType.Int32, criteria.PageSize);
+                db.AddInputParameter("@LanguageId", DbType.Int32, criteria.LanguageId);
+                db.AddOutputParameter("@TotalCount", DbType.Int32);
                 try
                 {
                     db.ReadInto(heros, photos);
@@ -197,7 +197,7 @@ namespace August2008.Data
             using (var db = new DataAccess())
             {
                 db.CreateStoredProcCommand("dbo.GetHeroAlphabet");
-                db.AddInParameter("@LanguageId", DbType.String, languageId);
+                db.AddInputParameter("@LanguageId", DbType.String, languageId);
                 try
                 {
                     var alphabet = new List<string>();

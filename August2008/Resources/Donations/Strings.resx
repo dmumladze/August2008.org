@@ -120,17 +120,54 @@
   <data name="AboutPayPal" xml:space="preserve">
     <value>PayPal is a global e-commerce business allowing payments and money transfers to be made through the Internet. Online money transfers serve as electronic alternatives to paying with traditional paper methods, such as checks and money orders.</value>
   </data>
+  <data name="AmountOptions" xml:space="preserve">
+    <value>&lt;option value="1.00"&gt;1.00&lt;/option&gt;    
+&lt;option value="5.00" selected&gt;5.00&lt;/option&gt;
+&lt;option value="10.00"&gt;10.00&lt;/option&gt;
+&lt;option value="15.00"&gt;15.00&lt;/option&gt;
+&lt;option value="25.00"&gt;25.00&lt;/option&gt;
+&lt;option value="50.00"&gt;50.00&lt;/option&gt;</value>
+  </data>
+  <data name="ArchiveLink" xml:space="preserve">
+    <value>შემოსული თანხების არქივი</value>
+  </data>
   <data name="ChooseAndDonate" xml:space="preserve">
     <value>Choose desired amount and click on PayPal button...</value>
   </data>
   <data name="CommentPopupTitle" xml:space="preserve">
     <value>You Message</value>
   </data>
+  <data name="CurrencyOptions" xml:space="preserve">
+    <value>&lt;option value="USD" selected&gt;$ - USD&lt;/option&gt;    
+&lt;option value="EUR"&gt;€ - EUR&lt;/option&gt;</value>
+  </data>
   <data name="DonationCause" xml:space="preserve">
     <value>In memory of Georgian heroes who died in Russia-Georgia War of August 2008</value>
   </data>
   <data name="EditYourComment" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="FaqLink" xml:space="preserve">
+    <value>ხშირად დასმული კითხვები</value>
+  </data>
+  <data name="FrequencyOptions" xml:space="preserve">
+    <value>&lt;option value="3"&gt;3 თვე&lt;/option&gt;    
+&lt;option value="6"&gt;6 თვე&lt;/option&gt;
+&lt;option value="12" selected&gt;1 წელი&lt;/option&gt;
+&lt;option value="24"&gt;2 წელი&lt;/option&gt;
+&lt;option value="36"&gt;3 წელი&lt;/option&gt;</value>
+  </data>
+  <data name="HowToDonateLink" xml:space="preserve">
+    <value>How To Donate Money</value>
+  </data>
+  <data name="MapLink" xml:space="preserve">
+    <value>შემოსული თანხების რუქა</value>
+  </data>
+  <data name="MonthlyDonation" xml:space="preserve">
+    <value>Monthly donation</value>
+  </data>
+  <data name="OneTimeDonation" xml:space="preserve">
+    <value>One-time donation</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
     <value>გმადლობთ</value>
@@ -150,6 +187,9 @@
 
 www.august2008.org 
 ადმინისტრაცია</value>
+  </data>
+  <data name="WhatIsPayPalLink" xml:space="preserve">
+    <value>რა არის PayPal?</value>
   </data>
   <data name="YouMustBeRegistered" xml:space="preserve">
     <value>In order to make a donation, you must be registered.. Please go to the &lt;a href="{0}"&gt;registration&lt;/a&gt; page and sing up using your OpenID. </value>

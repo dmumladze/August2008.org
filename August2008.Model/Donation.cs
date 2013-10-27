@@ -17,6 +17,7 @@ namespace August2008.Model
         public int? CountryId { get; set; }
         public int? StateId { get; set; }
         public int? CityId { get; set; }
+        public int? DonationSubscriptionId { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string ProviderName { get; set; }
@@ -24,6 +25,7 @@ namespace August2008.Model
         public decimal Amount { get; set; }
         public string Currency { get; set; }
         public string UserMessage { get; set; }
+        public string TransactionType { get; set; }
         public DateTime DateDonated { get; set; }
         public string ProviderXml { get; set; } 
         public IDictionary<string, string> ProviderData { get; set; }

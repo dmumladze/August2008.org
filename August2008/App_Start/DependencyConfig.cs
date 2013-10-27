@@ -24,11 +24,7 @@ namespace August2008
             {
                 section.Configure(container);
             }
-
-            container
-                .AddNewExtension<BuildTrackingExtension>()
-                .AddNewExtension<LogCreationExtension>();
-
+            container.AddNewExtension<BuildTrackingExtension>().AddNewExtension<LogCreationExtension>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

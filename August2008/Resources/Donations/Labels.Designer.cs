@@ -70,11 +70,38 @@ namespace Resources.Donations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        public static string Frequency {
+            get {
+                return ResourceManager.GetString("Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From .
         /// </summary>
         public static string FromDate {
             get {
                 return ResourceManager.GetString("FromDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string MoneyAmount {
+            get {
+                return ResourceManager.GetString("MoneyAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I would like to.
+        /// </summary>
+        public static string MyChoice {
+            get {
+                return ResourceManager.GetString("MyChoice", resourceCulture);
             }
         }
         

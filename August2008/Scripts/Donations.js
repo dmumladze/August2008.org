@@ -38,3 +38,38 @@ Donations.updateMessage = function (id, linkText) {
     }
     Donations.closeMessageDialog();
 };
+Donations.setCustomField = function (amount) {
+    var custom = $('input[name=custom]');
+    var obj = JSON.parse(custom.val());
+    obj.Amount = amount;
+    custom.val(JSON.stringify(obj));
+}
+
+$(document).ready(function () {
+    $('#formSubmitter').click(function () {
+        //debugger;
+        var amount = $('#amount').val();
+        Donations.setCustomField(amount);
+        $('input[name="currency_code"]').val($('#currency').val());
+        var isOneTime = $('#rdoOneTime').is(':checked');
+        if (isOneTime) {
+            $('input[name="amount"]').val(amount);
+            document.forms["oneTimeForm"].submit();
+        }
+        else {
+            $('input[name="a3"]').val(amount);
+            $('input[name="srt"]').val($('#frequency').val());
+            document.forms["monthlyForm"].submit();
+        }
+    });
+    $('input[name="mychoice"]').change(function () {
+        //debugger;
+        var frequency = $('#choiceFrequency');
+        if ($('#rdoMonthly').is(':checked')) {
+            frequency.fadeIn(250, function () { frequency.css('display', 'block'); });
+        }
+        else {
+            frequency.css('display', 'none');
+        }
+    });
+});

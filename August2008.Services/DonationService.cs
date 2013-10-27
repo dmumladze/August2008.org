@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using August2008.Common;
 using August2008.Common.Interfaces;
 using August2008.Model;
@@ -15,6 +16,7 @@ namespace August2008.Services
         private IDonationRepository _donationRepository;
         private IAccountRepository _accountRepository;
         private IEmailService _emailService;
+        private string _paypalEmail;
          
         private ILog Log;
 
@@ -25,70 +27,189 @@ namespace August2008.Services
             _donationRepository = donationRepository;
             _accountRepository = accountRepositoty;
             _emailService = emailService;
+            _paypalEmail = ConfigurationManager.AppSettings["PayPal:PrimaryEmail"];
             Log = log;
         }
-        public bool ProcessPayPalDonation(byte[] ipnBytes, PayPalTransaction transaction) 
+        public bool ProcessPayPalDonation(byte[] ipnBytes, PayPalVariables variables)
         {
+            if (!this.ValidateDonation(variables))
+            {
+                return false;
+            }
             try
             {
-                var donation = Mapper.Map(transaction, new Donation());  
+                var donation = Mapper.Map(variables, new Donation());
+                if (variables.txn_type.Equals("subscr_payment", StringComparison.OrdinalIgnoreCase))
+                {
+                    var subscription = _donationRepository.GetDonationSubscription(variables.subscr_id);
+                    donation.DonationSubscriptionId = subscription.DonationSubscriptionId;
+                }
                 donation = _donationRepository.CreateDonation(donation);
                 string response;
                 if (_paypalService.TryReplyToIpn(ipnBytes, out response))
                 {
-                    donation.ExternalStatus = transaction.payment_status;
+                    donation.ExternalStatus = variables.payment_status;
 
-                    if (response.Equals("VERIFIED", StringComparison.OrdinalIgnoreCase))
+                    if (response.Equals("verified", StringComparison.OrdinalIgnoreCase))
                     {
-                        Log.InfoFormat("{0} - {1}, {2}, {3}", transaction.txn_id, transaction.mc_gross, transaction.mc_currency, response);
-
-                        if (string.Equals(transaction.payment_status, "Completed", StringComparison.OrdinalIgnoreCase))
-                        {
-                            donation.IsCompleted = true;
-                            donation.ExternalStatus = transaction.payment_status;
-                            try
-                            {
-                                GeoLocation location;
-                                if (_geocodeService.TryGetGeoLocation(transaction, out location))
-                                {
-                                    donation.CityId = location.City.CityId;
-                                    donation.StateId = location.State.StateId;
-                                    donation.CountryId = location.Country.CountryId;
-                                }
-                                var ipnItem = JsonConvert.DeserializeObject<PayPalCustom>(transaction.custom);
-                                _donationRepository.CompleteTransaction(donation);
-                                if (location.Address != null)
-                                {
-                                    _accountRepository.UpdateUserProfileAddress(ipnItem.UserId, location.Address);
-                                }
-                                var contactInfo = _accountRepository.GetUserContactInfo(ipnItem.UserId);
-                                if (contactInfo != null)
-                                {
-                                    _emailService.SendEmail(transaction.ReplyEmail, contactInfo.Email, transaction.EmailSubject, transaction.EmailMessage);
-                                }
-                                return true;
-                            }
-                            catch (Exception ex)
-                            {
-                                Log.Error("Manual investigation required.", ex);
-                            }
-                        }
-                    }
-                    else if (response.Equals("INVALID", StringComparison.OrdinalIgnoreCase))
-                    {
-                        Log.WarnFormat("INVALID response: {0}.", ipnBytes.ToASCIIString());
-                        _donationRepository.CompleteTransaction(donation);
+                        return this.HandleVerified(variables, donation);
                     }
                     else
                     {
-                        Log.WarnFormat("Empty status from PayPal... {0}, {1}.", response, ipnBytes.ToASCIIString());
+                        this.LogFailure(ipnBytes, response);
                         _donationRepository.CompleteTransaction(donation);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("Error while processing PayPal IPN.", ex);
+                Log.Error("Error while processing PayPal donation IPN.", ex);
+            }
+            return false;
+        }
+        public bool ProcessPayPalSubscription(byte[] ipnBytes, PayPalVariables variables)
+        {
+            switch (variables.txn_type)
+            {
+                case "subscr_payment":
+                    return this.ProcessPayPalDonation(ipnBytes, variables);
+
+                case "subscr_signup":
+                    return this.HandleSignup(ipnBytes, variables);
+
+                case "refund":
+                    return this.HandleRefund(ipnBytes, variables);
+                
+                default:
+                    return false;
+            }
+        }
+        private bool HandleVerified(PayPalVariables variables, Donation donation) 
+        {
+            Log.InfoFormat("{0} - {1}, {2} - OK", variables.txn_id, variables.mc_gross, variables.mc_currency);
+
+            if (string.Equals(variables.payment_status, "completed", StringComparison.OrdinalIgnoreCase))
+            {
+                donation.IsCompleted = true;
+                donation.ExternalStatus = variables.payment_status;
+                try
+                {
+                    GeoLocation location;
+                    if (_geocodeService.TryGetGeoLocation(variables, out location))
+                    {
+                        donation.CityId = location.City.CityId;
+                        donation.StateId = location.State.StateId;
+                        donation.CountryId = location.Country.CountryId;
+                    }
+                    var custom = JsonConvert.DeserializeObject<PayPalCustom>(variables.custom);
+                    _donationRepository.CompleteTransaction(donation);
+                    if (location != null && location.Address != null)
+                    {
+                        _accountRepository.UpdateUserProfileAddress(custom.UserId, location.Address);
+                    }
+                    //var contactInfo = _accountRepository.GetUserContactInfo(custom.UserId);
+                    //if (contactInfo != null)
+                    //{
+                    //    _emailService.SendEmail(variables.ReplyEmail, contactInfo.Email, variables.EmailSubject, variables.EmailMessage);
+                    //}
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Manual investigation required.", ex);
+                }
+            }
+            return false;
+        }
+        private bool HandleSignup(byte[] ipnBytes, PayPalVariables variables)
+        {
+            if (!this.ValidateSubscription(variables))
+            {
+                return false;
+            }
+            try
+            {
+                var subscription = Mapper.Map(variables, new DonationSubscription());
+                subscription.EndDate = subscription.StartDate.AddMonths(subscription.RecurrenceTimes);
+                _donationRepository.CreateDonationSubscription(subscription);
+                string response;
+                if (_paypalService.TryReplyToIpn(ipnBytes, out response))
+                {
+                    if (response.Equals("verified", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        this.LogFailure(ipnBytes, response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Manual investigation required.", ex);
+            }
+            return false;
+        }
+        private bool HandleRefund(byte[] ipnBytes, PayPalVariables variables) 
+        {
+            return true;
+        }
+        private void LogFailure(byte[] ipnBytes, string response)
+        {
+            if (response.Equals("invalid", StringComparison.OrdinalIgnoreCase))
+            {
+                Log.ErrorFormat("Invalid response: {0}.", ipnBytes.ToASCIIString());                
+            }
+            else
+            {
+                Log.ErrorFormat("Empty status from PayPal... Failed, {0}.", ipnBytes.ToASCIIString());
+            }
+        }
+        public bool ValidateDonation(PayPalVariables variables)
+        {
+            if (!_donationRepository.DonationCompleted(variables.txn_id))
+            {
+                if (!variables.receiver_email.Equals(_paypalEmail, StringComparison.OrdinalIgnoreCase))
+                {
+                    Log.WarnFormat("Email 'receiver_email' value '{0}' does not match our email '{1}'.", variables.receiver_email, _paypalEmail);
+                    return false;
+                }
+                Log.InfoFormat("{0} - {1}", variables.txn_id, variables.payment_status);
+                if (string.IsNullOrWhiteSpace(variables.txn_id))
+                {
+                    Log.Warn("Parameter 'txn_id' is empty.");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(variables.custom))
+                {
+                    Log.Warn("Parameter 'custom' is empty.");
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        public bool ValidateSubscription(PayPalVariables variables)
+        {
+            if (!_donationRepository.SubscriptionCompleted(variables.subscr_id))
+            {
+                if (!variables.receiver_email.Equals(_paypalEmail, StringComparison.OrdinalIgnoreCase))
+                {
+                    Log.WarnFormat("Email 'receiver_email' value '{0}' does not match our email '{1}'.", variables.receiver_email, _paypalEmail);
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(variables.subscr_id))
+                {
+                    Log.Warn("Parameter 'txn_id' is empty.");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(variables.custom))
+                {
+                    Log.Warn("Parameter 'custom' is empty.");
+                    return false;
+                }
+                return true;
             }
             return false;
         }
