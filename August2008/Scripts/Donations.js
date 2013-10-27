@@ -1,5 +1,6 @@
 ﻿
 Donations.userMessageDialog = undefined;
+Donations.otherOption = undefined;
 
 function Donations() {
 };
@@ -66,10 +67,12 @@ $(document).ready(function () {
         //debugger;
         var frequency = $('#choiceFrequency');
         if ($('#rdoMonthly').is(':checked')) {
-            frequency.fadeIn(250, function () { frequency.css('display', 'block'); });
+            frequency.fadeIn(300, function () { frequency.css('display', 'block'); });
+            Donations.otherOption = $('#amount option[value=""]').remove();
         }
         else {
             frequency.css('display', 'none');
+            Donations.otherOption.appendTo($('#amount'));
         }
     });
 });

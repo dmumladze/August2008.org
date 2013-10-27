@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Donation] (
     [DonationId]				INT IDENTITY (1, 1) NOT NULL,
-    [DonationProviderId]		INT				NOT NULL,
+    [DonationProviderId]		INT				NULL,
     [UserId]					INT				NOT NULL,
 	[ExternalId]				NVARCHAR(50)	NULL,
 	[ExternalStatus]			NVARCHAR(25)	NULL,

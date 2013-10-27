@@ -20,7 +20,8 @@ namespace August2008.Services
          
         private ILog Log;
 
-        public DonationService(IPayPalService paypalService, IGeocodeService geocodeService, IDonationRepository donationRepository, IAccountRepository accountRepositoty, IEmailService emailService, ILog log)
+        public DonationService(IPayPalService paypalService, IGeocodeService geocodeService, IDonationRepository donationRepository, 
+            IAccountRepository accountRepositoty, IEmailService emailService, ILog log)
         {
             _paypalService = paypalService;
             _geocodeService = geocodeService;
@@ -32,6 +33,10 @@ namespace August2008.Services
         }
         public bool ProcessPayPalDonation(byte[] ipnBytes, PayPalVariables variables)
         {
+            if (variables.payment_status.Equals("refunded", StringComparison.OrdinalIgnoreCase))
+            {
+                return this.HandleRefunded(ipnBytes, variables);
+            }
             if (!this.ValidateDonation(variables))
             {
                 return false;
@@ -49,7 +54,6 @@ namespace August2008.Services
                 if (_paypalService.TryReplyToIpn(ipnBytes, out response))
                 {
                     donation.ExternalStatus = variables.payment_status;
-
                     if (response.Equals("verified", StringComparison.OrdinalIgnoreCase))
                     {
                         return this.HandleVerified(variables, donation);
@@ -75,20 +79,19 @@ namespace August2008.Services
                     return this.ProcessPayPalDonation(ipnBytes, variables);
 
                 case "subscr_signup":
-                    return this.HandleSignup(ipnBytes, variables);
-
-                case "refund":
-                    return this.HandleRefund(ipnBytes, variables);
-                
-                default:
-                    return false;
+                    return this.HandleSignup(ipnBytes, variables);                
             }
+            if (variables.payment_status.Equals("refunded", StringComparison.OrdinalIgnoreCase))
+            {
+                return this.HandleRefunded(ipnBytes, variables);
+            }
+            return false;
         }
         private bool HandleVerified(PayPalVariables variables, Donation donation) 
         {
             Log.InfoFormat("{0} - {1}, {2} - OK", variables.txn_id, variables.mc_gross, variables.mc_currency);
 
-            if (string.Equals(variables.payment_status, "completed", StringComparison.OrdinalIgnoreCase))
+            if (variables.payment_status.Equals("completed", StringComparison.OrdinalIgnoreCase))
             {
                 donation.IsCompleted = true;
                 donation.ExternalStatus = variables.payment_status;
@@ -151,9 +154,22 @@ namespace August2008.Services
             }
             return false;
         }
-        private bool HandleRefund(byte[] ipnBytes, PayPalVariables variables) 
+        private bool HandleRefunded(byte[] ipnBytes, PayPalVariables variables) 
         {
-            return true;
+            string response;
+            if (_paypalService.TryReplyToIpn(ipnBytes, out response))
+            {
+                if (response.Equals("verified", StringComparison.OrdinalIgnoreCase))
+                {
+                    _donationRepository.RefundDonation(variables.parent_txn_id, variables.payment_status);
+                    return true;
+                }
+                else
+                {
+                    this.LogFailure(ipnBytes, response);
+                }
+            }
+            return false;
         }
         private void LogFailure(byte[] ipnBytes, string response)
         {

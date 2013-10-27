@@ -17,7 +17,7 @@
                 <input type="hidden" name="currency_code" value="USD">
             </form>
             <!-- https://www.paypal.com/cgi-bin/webscr?cmd=p/acc/ipn-subscriptions-outside -->
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="monthlyForm">
+            <form action="@Url.PayPalAction()" method="post" name="monthlyForm">
                 <input type="hidden" name="business" value="@ConfigurationManager.AppSettings["PayPal:PrimaryEmail"]">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions">
                 <input type="hidden" name="item_name" value="@Resources.Donations.Strings.DonationCause">
@@ -36,7 +36,11 @@
             <div class="donation-form" style="font-size: 1.1em">
                 <div class="form-header">
                     <div class="header-info">@Resources.Donations.Strings.ChooseAndDonate</div>
-                    <div class="header-faq"><a href="#">@Resources.Donations.Strings.HowToDonateLink</a></div>
+                    <div class="header-faq">
+                        <a href="https://www.paypal.com/hk/cgi-bin/webscr?cmd=xpt/Marketing/general/how-to-use-paypal-outside" target="_blank">
+                            @Resources.Donations.Strings.HowToDonateLink                            
+                        </a>
+                    </div>
                 </div>
                 <div class="form-content">
                     <div class="content-options">
@@ -77,8 +81,8 @@
                     <div class="content-links">
                         <div class="links-container">
                             <div>@Html.ActionLink(Resources.Donations.Strings.FaqLink, "Faq", "Home")</div>
-                            <div><a href="#gotoMap">@Resources.Donations.Strings.MapLink</a></div>
-                            <div><a href="#gotoArchive">@Resources.Donations.Strings.ArchiveLink</a></div>
+                            <div><a href="#gotomap">@Resources.Donations.Strings.MapLink</a></div>
+                            <div><a href="#gotoarchive">@Resources.Donations.Strings.ArchiveLink</a></div>
                         </div>
                     </div>
                 </div>
@@ -93,8 +97,7 @@
                 </div>
             </div>
         }
-        else
-        {
+        else {
             <p style="white-space:pre-line;font-size:1.1em;margin:0">
                 @Html.Raw(string.Format(Resources.Donations.Strings.YouMustBeRegistered, @Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })))
             </p>
