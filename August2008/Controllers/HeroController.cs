@@ -36,7 +36,7 @@ namespace August2008.Controllers
         /// </summary>
         [HttpGet]
         [NoCache]
-        public ActionResult Index(int? page, string name)
+        public ActionResult Index(int? page, string name, string culture)
         {
             var criteria = _heroRepository.SearchHeros(new HeroSearchCriteria
                 {
@@ -126,7 +126,7 @@ namespace August2008.Controllers
             return PartialView("EditPartial", model);
         }
         [HttpGet]
-        [OutputCache(Location = OutputCacheLocation.Client, Duration = 43200, VaryByParam = "id")]
+        [OutputCache(Location = OutputCacheLocation.ServerAndClient, Duration = 2678400, VaryByParam = "id")]
         public ActionResult Personal(int? id)
         {
             if (!id.HasValue)
@@ -141,7 +141,7 @@ namespace August2008.Controllers
         /// Gets a single photo by name and requested size.
         /// </summary>
         [HttpGet]
-        [OutputCache(Location = OutputCacheLocation.Client, Duration = 43200, VaryByParam = "name;size")]
+        [OutputCache(Location = OutputCacheLocation.ServerAndClient, Duration = 2678400, VaryByParam = "name;size")]
         public FileResult Photo(string name, PhotoSize? size) 
         {
             return SiteHelper.GetHeroPhoto(name, size.GetValueOrDefault(PhotoSize.Small));

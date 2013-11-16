@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Facebook {
+@*@section Facebook {
     <meta property="og:title" content="@Model.LastName @Model.FirstName" />
     <meta property="og:description" content="@Model.Description" />
     <meta property="og:image" content="@Url.Action("Photo", "Hero", new {name = Model.Photos.First().PhotoUri, size = PhotoSize.Medium})" />   
-}
+}*@
 
 @section HeaderScriptSection {
     @Scripts.Render("~/bundles/hero")

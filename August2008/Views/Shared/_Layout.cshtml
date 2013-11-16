@@ -25,12 +25,12 @@
     <div id="header">
         <div class="menu-container">
             <ul>
-                <li>@Html.ActionMenuItem(Resources.Global.Strings.Home, "Index", "Home")</li>
-                <li>@Html.ActionMenuItem(Resources.Global.Strings.Mission, "Mission", "Home")</li>
-                <li>@Html.ActionMenuItem(Resources.Global.Strings.Heroes, "Index", "Hero")</li>
-                <li>@Html.ActionMenuItem(Resources.Global.Strings.Donations, "Index", "Donations")</li>
-                <li>@Html.ActionMenuItem(Resources.Global.Strings.Contact, "Contact", "Home")</li>
-                <li>@Html.ActionMenuItem(Resources.Global.Strings.Faq, "Faq", "Home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Home, "index", "home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Mission, "mission", "home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Heroes, "index", "hero")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Donations, "index", "donations")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Contact, "contact", "home")</li>
+                <li>@Html.ActionMenuItem(Resources.Global.Strings.Faq, "faq", "home")</li>
             </ul>
             <div id="layoutdims">
                 @if (!User.Identity.Name.Equals("Anonymous")) {
@@ -46,16 +46,20 @@
                         <a href="#" id="manageUsersOpener" class="btn btn-small">Manage Users</a>
                     }
                     @if (!User.Identity.IsAuthenticated) {
-                        <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })"  class="btn btn-small">Log In</a>
+                        <a href="@Url.Action("login", "account", new { returnUrl = Request.Url.PathAndQuery })"  class="btn btn-small">Log In</a>
                     } 
                     else {
-                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                        using (Html.BeginForm("logoff", "account", FormMethod.Post, new { id = "logoutForm" })) {
                             <a href="#" onclick="$(this).closest('form').submit();return false;" class="btn btn-small">Log Off</a>
                         }
                     }
                 </div>
             </div>
         </div>
+        <div id="cultureFlags">
+            <a href="@Url.CultureRoute("ka")" title="ქართული (Georgian)">@Html.Img("georgian-flag-tiny.jpg")</a>
+            <a href="@Url.CultureRoute("en")" title="English (USA)">@Html.Img("american-flag-tiny.jpg")</a>
+        </div>        
         <img src="@Url.ImageUrl("logo-tea-mikaia.png")" class="logo-tea-mikaia" />
     </div>
     <div id="contentContainer" class="colmask threecol">

@@ -102,5 +102,35 @@ namespace August2008.Helpers
                 return htmlHelper.ActionLink(linkText, actionName, controllerName, new { @class = "selected" });
             }
         }
+        public static IHtmlString Img(this HtmlHelper helper, string fileName, object htmlAttributes = null)
+        {
+            var urlHelper = ((Controller)helper.ViewContext.Controller).Url;
+            var src = urlHelper.ImageUrl(fileName);
+            var img = new TagBuilder("img");
+            img.Attributes["src"] = src;
+            if (htmlAttributes != null)
+            {
+                img.MergeAttributes<string, object>(new RouteValueDictionary(htmlAttributes));
+            }
+            return MvcHtmlString.Create(img.ToString(TagRenderMode.SelfClosing));
+        }
+        private static RouteValueDictionary Merge(this RouteValueDictionary original, RouteValueDictionary other)
+        {
+            if (other != null && original != null)
+            {
+                foreach (var item in other)
+                {
+                    if (original.ContainsKey(item.Key))
+                    {
+                        original[item.Key] = item.Value;
+                    }
+                    else
+                    {
+                        original.Add(item.Key, item.Value);
+                    }
+                }
+            }
+            return original;
+        }
     }
 }

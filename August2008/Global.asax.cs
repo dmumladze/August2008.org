@@ -57,10 +57,8 @@ namespace August2008
             if (principal != null)
             {
                 Context.User = principal;
-                var ci = new CultureInfo(principal.Culture);
-                Thread.CurrentThread.CurrentUICulture = ci;
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
             }
+            //CultureHelper.SetCulture();
         }
     }
 }

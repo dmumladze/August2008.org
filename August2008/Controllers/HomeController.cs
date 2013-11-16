@@ -22,7 +22,6 @@ namespace August2008.Controllers
         }
         public ActionResult Index()
         {
-            Log.Error("Some error");
             return View();
         }
         public ActionResult Mission() 

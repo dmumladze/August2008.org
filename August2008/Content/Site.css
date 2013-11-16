@@ -1,4 +1,6 @@
-﻿html {
+﻿@import url(http://fonts.googleapis.com/css?family=Special+Elite);
+
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -13,7 +15,7 @@ body {
     font-size: 90%;
     height: 100%;
     color: #000;
-    font-family: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Special Elite", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
     line-height: 20px;
     overflow-x: hidden;
 }
@@ -28,6 +30,19 @@ p {
 #ads img {
     display: block;
     padding-top: 10px;
+}
+#cultureFlags {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+}
+#cultureFlags img {
+    -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+            border-radius: 2px;
+    -moz-box-shadow: 0px 0px 0px 1px #333;
+    -webkit-box-shadow: 0px 0px 0px 1px #333;
+    box-shadow: 0px 0px 0px 1px #333;
 }
 #header {
     clear: both;
@@ -245,7 +260,8 @@ a:active {
     float: left;
 }
 .alphabet-container {
-    float: left;
+    margin-left: auto;
+    margin-right: auto;
 }
 .hero-toolbar-container {
     float: right;
@@ -298,7 +314,7 @@ a:active {
     font-style: oblique;
 }
 .section-p {
-    text-indent: 45px;
+    text-indent: 0;
 }
 .ui-dialog {
     -moz-box-shadow: 0 0 0 8px rgba(0,0,0,0.3);

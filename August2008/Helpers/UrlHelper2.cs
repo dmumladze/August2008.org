@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.Routing;
 
 namespace August2008.Helpers
@@ -40,12 +41,25 @@ namespace August2008.Helpers
             {
                 return route;
             }
-            var url = HttpContext.Current.Request.Url;
             protocol = !string.IsNullOrWhiteSpace(protocol) ? protocol : Uri.UriSchemeHttp;
             return string.Concat(protocol, Uri.SchemeDelimiter, ipAddress, route);
 #else
             return helper.Action(actionName, null, null, HttpContext.Current.Request.Url.Scheme);
 #endif
+        }
+        public static string CultureRoute(this UrlHelper helper, string culture = "ka") 
+        {
+            var values = helper.RequestContext.RouteData.Values;
+            string actionName = values["action"].ToString();
+            if (values.ContainsKey("culture"))
+            {
+                values["culture"] = culture;
+            }
+            else
+            {
+                values.Add("culture", culture);
+            }
+            return helper.Action(actionName, HttpContext.Current.Request.QueryString.ToRouteValues());
         }
     }
 }

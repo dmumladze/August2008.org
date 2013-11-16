@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -147,6 +148,18 @@ namespace August2008.Helpers
                 current = true;
             }
             return current;
+        }
+        public static RouteValueDictionary ToRouteValues(this NameValueCollection source)
+        {
+            var routeValues = new RouteValueDictionary();
+            if (source != null)
+            {                
+                foreach (string name in source.AllKeys)
+                {
+                    routeValues.Add(name, source[name]);
+                }
+            }
+            return routeValues;
         }
     }
 }

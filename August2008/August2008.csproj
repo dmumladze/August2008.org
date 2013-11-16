@@ -294,6 +294,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CultureHelper.cs" />
+    <Compile Include="Helpers\CultureRoute.cs" />
     <Compile Include="Helpers\DateTimeBinder.cs" />
     <Compile Include="Helpers\HtmlHelper2.cs" />
     <Compile Include="Helpers\JQueryHelper.cs" />
@@ -444,6 +446,7 @@
     <Content Include="Images\amazon-logo.png" />
     <Content Include="Images\american-flag-bg.jpg" />
     <Content Include="Images\american-flag-bg.png" />
+    <Content Include="Images\american-flag-tiny.jpg" />
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\black-texture-bg.jpg" />
     <Content Include="Images\check-mark.png" />
@@ -452,6 +455,7 @@
     <Content Include="Images\donations-jar.png" />
     <Content Include="Images\facebook-btn-logo.png" />
     <Content Include="Images\facebook-share.png" />
+    <Content Include="Images\georgian-flag-tiny.jpg" />
     <Content Include="Images\map-flover.png" />
     <Content Include="Images\georgian-flag-bg.png" />
     <Content Include="Images\google-btn-logo.png" />

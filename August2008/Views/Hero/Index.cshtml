@@ -18,7 +18,7 @@
         <ul class="nav-alphabet">
             @foreach (var item in Model.Alphabet) {                
                 if (item.Active) {
-                    <li><a href="@Url.Action("Index", new { page = 1, name = item.Letter })">@item.Letter</a></li>
+                    <li><a href="@Url.Action("index", new { page = 1, name = item.Letter })">@item.Letter</a></li>
                 } 
                 else {
                     <li class="active"><a href="#">@item.Letter</a></li>
@@ -44,7 +44,7 @@
             <div class="hero-body">
                 <div class="hero-thumb">
                     @if (!item.Photos.IsNullOrEmpty()) {
-                        <img class="hero-thumb-img" src="@Url.Action("Photo", "Hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
+                        <img class="hero-thumb-img" src="@Url.Action("photo", "hero", new {name = item.Photos.First().PhotoUri, size = PhotoSize.Medium})"/>
                     }
                     else {
                         <span>NO IMAGE</span>
@@ -83,7 +83,7 @@
                             @item.Biography..........
                         </p>
                         <div class="hero-bio-more">
-                            @Html.ActionLink(Resources.Hero.Labels.More, "Personal", new { id = item.HeroId })
+                            @Html.ActionLink(Resources.Hero.Labels.More, "personal", new { id = item.HeroId })
                         </div>
                     </div>
                 </div>
