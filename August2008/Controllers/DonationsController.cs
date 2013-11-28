@@ -17,7 +17,7 @@ using August2008.Filters;
 using August2008.Helpers;
 using August2008.Model;
 using August2008.Models;
-using AutoMapper;
+using AutoMapper; 
 using Newtonsoft.Json;
 
 namespace August2008.Controllers
