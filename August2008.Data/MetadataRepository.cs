@@ -21,6 +21,27 @@ namespace August2008.Data
             Cache = cache;
             Logger = logger;
         }
+        public IEnumerable<Language> GetLanguages()
+        {
+            List<Language> languages;
+            if (!Cache.TryGetObject("Languages", out languages))
+            {
+                using (var db = new DataAccess())
+                {
+                    db.CreateStoredProcCommand("dbo.GetLanguages");
+                    languages = new List<Language>();
+                    try
+                    {
+                        db.ReadInto(languages);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            }
+            return languages;
+        }
         public IEnumerable<MilitaryRank> GetMilitaryRanks(int languageId)
         {
             List<MilitaryRank> ranks;

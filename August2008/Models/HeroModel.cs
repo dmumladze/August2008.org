@@ -19,6 +19,9 @@ namespace August2008.Models
         public string Thumbnail { get; set; }
         public List<HeroPhoto> Photos { get; set; }
 
+        [Display(Name = "Language", ResourceType = typeof(Labels))]
+        public Language Language { get; set; }
+
         [Display(Name = "MilitaryRank", ResourceType = typeof(Labels))]
         public MilitaryRank MilitaryRank { get; set; }
 
@@ -46,7 +49,10 @@ namespace August2008.Models
         public DateTime? Died { get; set; }
 
         [Display(Name="Biography", ResourceType = typeof(Labels))]
-        public string Biography { get; set; }     
+        public string Biography { get; set; }
+
+        [Display(Name = "Language", ResourceType = typeof(Labels))]
+        public SelectList Languages { get; set; }
 
         [Display(Name = "MilitaryRank", ResourceType = typeof(Labels))]
         public SelectList MilitaryRanks { get; set; }

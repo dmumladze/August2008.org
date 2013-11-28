@@ -37,8 +37,9 @@ namespace August2008.Models
             return new FormsPrincipal
                 {
                     LanguageId = 1,
-                    Culture = "ka-GE",
-                    Identity = new FormsIdentity2("Anonymous")
+                    Culture = "ka",
+                    Identity = new FormsIdentity2("Anonymous"),
+                    Roles = new List<string>(new string[] { "Admin" })
                 };
         }
     }

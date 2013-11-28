@@ -15,6 +15,10 @@ namespace August2008.Helpers
             base.Defaults = CreateRouteValueDictionary(defaults);
             base.Constraints = CreateRouteValueDictionary(contraints);
         }
+        public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
+        {
+            return base.GetVirtualPath(requestContext, values);
+        }
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {
             var routeData = base.GetRouteData(httpContext);

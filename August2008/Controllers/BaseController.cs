@@ -10,17 +10,33 @@ using August2008.Model;
 using August2008.Models;
 using log4net;
 using Microsoft.Practices.Unity;
+using August2008.Helpers;
 
 namespace August2008.Controllers
 {
     public class BaseController : Controller
     {
+        protected readonly static Dictionary<string, int> AppCultures = new Dictionary<string,int>(StringComparer.OrdinalIgnoreCase);
+
+        static BaseController()
+        {
+            AppCultures.Add("ka", 1);
+            AppCultures.Add("ka-GE", 1);
+            AppCultures.Add("en", 2);
+            AppCultures.Add("en-Us", 2);
+        }
         protected BaseController()
         {            
         }
         protected override void Initialize(RequestContext requestContext)
         {
-            Me = requestContext.HttpContext.User as FormsPrincipal;
+            AppUser = requestContext.HttpContext.User as FormsPrincipal;
+            var culture = CultureHelper.GetCurrentCulture();
+            int languageId;
+            if (AppCultures.TryGetValue(culture, out languageId))
+            {
+                AppUser.LanguageId = languageId;
+            }
             base.Initialize(requestContext);
         }
 
@@ -30,7 +46,10 @@ namespace August2008.Controllers
         [Dependency]
         protected ILog Log { get; set; }
 
-        protected FormsPrincipal Me { get; private set; }
+        [Dependency]
+        protected IMetadataRepository Metadata { get; set; }
+
+        protected FormsPrincipal AppUser { get; private set; }
 
         protected string ContactEmail
         {

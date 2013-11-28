@@ -59,7 +59,7 @@ namespace August2008.Controllers
         public ActionResult UserMessage(DonationModel model)
         {
             var donation = Mapper.Map(model, new Donation()); 
-            donation.UserId = Me.UserId;            
+            donation.UserId = AppUser.UserId;            
             _donationRepository.UpdateUserMessage(donation);
             return new EmptyResult();
         }

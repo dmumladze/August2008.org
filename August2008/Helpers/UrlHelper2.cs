@@ -61,5 +61,10 @@ namespace August2008.Helpers
             }
             return helper.Action(actionName, HttpContext.Current.Request.QueryString.ToRouteValues());
         }
+        public static string Action2(this UrlHelper helper, string action)
+        { 
+            var culture = CultureHelper.GetThreadCulture();
+            return helper.Action(action, new { culture = culture });
+        }
     }
 }

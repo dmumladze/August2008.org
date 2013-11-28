@@ -7,8 +7,8 @@
 	--	@msgtext	= N'Hero under the name of ''%s %s'' already exists.';
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	SET IDENTITY_INSERT[dbo].[Language] ON
-	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (1, N'ქართული (Georgian)', N'Georgian', N'ka-GE')
-	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (2, N'English (USA)', N'English (US)', N'en-US')
+	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (1, N'ქართული (Georgian)', N'Georgian', N'ka')
+	INSERT INTO [dbo].[Language] ([LanguageId], [DisplayName], [EnglishName], [Culture]) VALUES (2, N'English (USA)', N'English (US)', N'en')
 	SET IDENTITY_INSERT[dbo].[Language] OFF
 	----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	SET IDENTITY_INSERT[dbo].[MilitaryGroup] ON

@@ -70,6 +70,60 @@ namespace Resources.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MainSection1 {
+            get {
+                return ResourceManager.GetString("MainSection1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MainSection2 {
+            get {
+                return ResourceManager.GetString("MainSection2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MainSection3 {
+            get {
+                return ResourceManager.GetString("MainSection3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MainSection4 {
+            get {
+                return ResourceManager.GetString("MainSection4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MainSection5 {
+            get {
+                return ResourceManager.GetString("MainSection5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string MissionSection {
+            get {
+                return ResourceManager.GetString("MissionSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to We Remember August.
         /// </summary>
         public static string PageTitle {

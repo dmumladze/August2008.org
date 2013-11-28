@@ -54,6 +54,10 @@ p {
     height: 150px;
     position: relative;
 }
+ #header .culture-flag img {
+     width: 28px;
+     height: 17px;
+ }
 #header p,
 #header h1,
 #header h2 {
