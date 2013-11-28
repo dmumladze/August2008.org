@@ -21,7 +21,7 @@ namespace August2008.Controllers
         protected override void Initialize(RequestContext requestContext)
         {
             Me = requestContext.HttpContext.User as FormsPrincipal;
-            base.Initialize(requestContext);
+            base.Initialize(requestContext); 
         }
 
         [Dependency]
