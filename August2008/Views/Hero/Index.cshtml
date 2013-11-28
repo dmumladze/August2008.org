@@ -110,13 +110,12 @@
     </div>
 }
 
-@section BottomScriptSection
-{
+@section BottomScriptSection {
     <script type="text/javascript">
         $(document).ready(function () {
-            Hero.editAction = '@Url.Action("Edit")';
-            Hero.saveAction = '@Url.Action("Save")';
-            Hero.deletePhotoAction = '@Url.Action("DeletePhoto")';
+            Hero.editAction = '@Url.Action2("Edit")';
+            Hero.saveAction = '@Url.Action2("Save")';
+            Hero.deletePhotoAction = '@Url.Action2("DeletePhoto")';
             Hero.init();
         });
     </script>

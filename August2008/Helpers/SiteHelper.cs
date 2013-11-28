@@ -23,11 +23,18 @@ namespace August2008.Helpers
     {
         public static FileContentResult GetHeroPhoto(string uri, PhotoSize size)
         {
-            var wr = WebRequest.Create(uri);
-            using (var response = wr.GetResponse())
+            try
             {
-                var bmp = ResizeImage(response.GetResponseStream(), size);
-                return new FileContentResult(bmp.ToByteArray(), MediaTypeNames.Application.Octet);
+                var wr = WebRequest.Create(uri);
+                using (var response = wr.GetResponse())
+                {
+                    var bmp = ResizeImage(response.GetResponseStream(), size);
+                    return new FileContentResult(bmp.ToByteArray(), MediaTypeNames.Application.Octet);
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
         public static Bitmap ResizeImage(Stream imageStream, PhotoSize size)

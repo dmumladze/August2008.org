@@ -228,6 +228,7 @@
     <Build Include="dbo\Stored Procedures\GetDonationSubscription.sql" />
     <Build Include="dbo\Stored Procedures\GetSubscriptionCompleted.sql" />
     <Build Include="dbo\Stored Procedures\RefundDonation.sql" />
+    <Build Include="dbo\Stored Procedures\GetLanguages.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

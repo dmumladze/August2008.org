@@ -132,6 +132,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>

@@ -43,10 +43,10 @@ namespace August2008.Controllers
                     PageNo = page.GetValueOrDefault(1),
                     Name = name,
                     PageSize = 5,
-                    LanguageId = Me.LanguageId
+                    LanguageId = AppUser.LanguageId
                 });
             var alphabet = SiteHelper.GetAlphabet();
-            var heroAlphabet = _heroRepository.GetAlphabet(Me.LanguageId);
+            var heroAlphabet = _heroRepository.GetAlphabet(AppUser.LanguageId);
             var model = Mapper.Map(criteria, new HeroSearchModel());
             model.Alphabet = alphabet.ConvertAll<AlphabetLetter>(x => new AlphabetLetter(x, heroAlphabet.Contains(x)));            
             return View(model);
@@ -83,10 +83,10 @@ namespace August2008.Controllers
                             }
                         }
                     }
-                    hero.UpdatedBy = Me.UserId;
+                    hero.UpdatedBy = AppUser.UserId;
                     if (model.IsNew)
                     {
-                        hero.LanguageId = Me.LanguageId;
+                        hero.LanguageId = AppUser.LanguageId;
                         hero.HeroId = _heroRepository.CreateHero(hero, photos);
                     }
                     else
@@ -112,13 +112,15 @@ namespace August2008.Controllers
             var model = new HeroModel();
             if (id.HasValue)
             {
-                var hero = _heroRepository.GetHero(id.Value, Me.LanguageId);
+                var hero = _heroRepository.GetHero(id.Value, AppUser.LanguageId);
                 Mapper.Map(hero, model);
             }
-            var groups = _metadataRepository.GetMilitaryGroups(Me.LanguageId);
-            var ranks = _metadataRepository.GetMilitaryRanks(Me.LanguageId);
-            var awards = _metadataRepository.GetMilitaryAwards(Me.LanguageId);
+            var languages = _metadataRepository.GetLanguages();
+            var groups = _metadataRepository.GetMilitaryGroups(AppUser.LanguageId);
+            var ranks = _metadataRepository.GetMilitaryRanks(AppUser.LanguageId);
+            var awards = _metadataRepository.GetMilitaryAwards(AppUser.LanguageId);
 
+            model.Languages = new SelectList(languages, "LanguageId", "DisplayName", model.LanguageId);
             model.MilitaryGroups = new SelectList(groups, "MilitaryGroupId", "GroupName", model.MilitaryGroupId);
             model.MilitaryRanks = new SelectList(ranks, "MilitaryRankId", "RankName", model.MilitaryRankId);
             model.MilitaryAwards = new SelectList(awards, "MilitaryAwardId", "AwardName", model.MilitaryAwardId);
@@ -133,7 +135,7 @@ namespace August2008.Controllers
             {
                 throw new HttpException(404, "Not Found");
             }
-            var hero = _heroRepository.GetHero(id.Value, Me.LanguageId);
+            var hero = _heroRepository.GetHero(id.Value, AppUser.LanguageId);
             var model = Mapper.Map(hero, new HeroModel());
             return View(model);
         }

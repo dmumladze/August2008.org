@@ -120,6 +120,24 @@
   <data name="FaqTitle" xml:space="preserve">
     <value>Frequently Asked Quetions</value>
   </data>
+  <data name="MainSection1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainSection2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainSection3" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainSection4" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MainSection5" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MissionSection" xml:space="preserve">
+    <value />
+  </data>
   <data name="PageTitle" xml:space="preserve">
     <value>We Remember August</value>
   </data>
