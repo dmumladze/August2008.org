@@ -1,4 +1,7 @@
 <div style="width: 100%; margin: 0; text-align: center">
+<p align="center">
+<img width="125" align="middle" height="110" src="http://august2008.org/images/logo-tea-mikaia.png" />
+</p>
 <p>
 ორგანიზაცია "We Remember August" შეიქმნა ამერიკაში მცხოვრები ქართველი ემიგრანტების -აშშ-ს და საქართველოს მოქალაქეების- ერთი ჯგუფის ინიციატივით. ორგანიზაციის მისია, უპირველეს ყოვლისა, რუსეთის ფედერაციასთან 2008 წლის სამამულო ომში დაღუპულ ქართველ სამხედრო მოსამსახურეთა ოჯახებისთვის დახმარების გაწევაა.
 </p>
@@ -14,5 +17,4 @@
 <p>
 ორგანიზაცია უზრუნველყოფს ფინანსური სახსრების შეგროვების, განაწილების და მიმღები ოჯახისთვის მიწოდების პროცესის სრულ გამჭვირვალობას და ანგარიშგებ.ას
 </p>
-<img width="125" height="110" src="http://august2008.org/images/logo-tea-mikaia.png" style="width: 125px; height: 110px; display: block; margin: 0 auto; text-align: center" />
 </div>
