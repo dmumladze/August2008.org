@@ -7,5 +7,6 @@
     CONSTRAINT [PK_Hero] PRIMARY KEY CLUSTERED ([HeroId] ASC),
     CONSTRAINT [FK_User] FOREIGN KEY ([UpdatedBy]) REFERENCES [dbo].[User]([UserId])
 );
+-- sample comment
 
 
