@@ -23,7 +23,7 @@ namespace August2008.Controllers
             AppCultures.Add("ka", 1);
             AppCultures.Add("ka-GE", 1);
             AppCultures.Add("en", 2);
-            AppCultures.Add("en-Us", 2);
+            AppCultures.Add("en-US", 2);
         }
         protected BaseController()
         {            
