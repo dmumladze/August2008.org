@@ -14,18 +14,7 @@ namespace August2008
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //    name: "Partial",
-            //    url: "{culture}/{cotroller}/partial/{view}",
-            //    defaults: new { culture = "ka", controller = "home", action = "partial", view = "" },
-            //    constraints: new { culture = "(ka|en)" }
-            //);
-            //routes.MapRoute(
-            //    name: "Default",
-            //    url: "{culture}/{controller}/{action}/{id}",
-            //    defaults: new { culture = "ka", controller = "home", action = "index", id = UrlParameter.Optional},
-            //    constraints: new { culture = "(ka|en)" }
-            //);
+            routes.LowercaseUrls = true;
 
             routes.Add("Partial", new CultureRoute(
                 "{culture}/{cotroller}/partial/{view}",

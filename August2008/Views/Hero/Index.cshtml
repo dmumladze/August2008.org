@@ -89,8 +89,7 @@
                 </div>
             </div>     
             @if (User.IsInRole("Admin")) {
-                <div class="hero-box-cmd">
-                    
+                <div class="hero-box-cmd">                    
                     <a href="#" onclick="$.hero.edit(@item.HeroId);return false;">Edit</a>
                 </div>
             }
@@ -113,9 +112,9 @@
 @section BottomScriptSection {
     <script type="text/javascript">
         $(document).ready(function () {
-            Hero.editAction = '@Url.Action2("Edit")';
-            Hero.saveAction = '@Url.Action2("Save")';
-            Hero.deletePhotoAction = '@Url.Action2("DeletePhoto")';
+            Hero.editAction = '@Url.Action("Edit")';
+            Hero.saveAction = '@Url.Action("Save")';
+            Hero.deletePhotoAction = '@Url.Action("DeletePhoto")';
             Hero.init();
         });
     </script>

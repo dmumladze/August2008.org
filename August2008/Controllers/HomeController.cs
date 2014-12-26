@@ -14,11 +14,8 @@ namespace August2008.Controllers
 {
     public class HomeController : BaseController
     {
-        private IHeroRepository _heroRepository;
-
-        public HomeController(IHeroRepository heroRepository)
+        public HomeController()
         {
-            _heroRepository = heroRepository;
         }
         public ActionResult Index()
         {

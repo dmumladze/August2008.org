@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,10 +15,6 @@ namespace August2008.Helpers
         {
             base.Defaults = CreateRouteValueDictionary(defaults);
             base.Constraints = CreateRouteValueDictionary(contraints);
-        }
-        public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
-        {
-            return base.GetVirtualPath(requestContext, values);
         }
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {

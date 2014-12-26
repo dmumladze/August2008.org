@@ -30,10 +30,7 @@ namespace August2008.Controllers
         }
         protected override void Initialize(RequestContext requestContext)
         {
-<<<<<<< HEAD
-            Me = requestContext.HttpContext.User as FormsPrincipal;
             base.Initialize(requestContext); 
-=======
             AppUser = requestContext.HttpContext.User as FormsPrincipal;
             var culture = CultureHelper.GetCurrentCulture();
             int languageId;
@@ -42,7 +39,6 @@ namespace August2008.Controllers
                 AppUser.LanguageId = languageId;
             }
             base.Initialize(requestContext);
->>>>>>> 9fc2784a24ebfae3be4aa4d407d06c756ce47532
         }
 
         [Dependency]

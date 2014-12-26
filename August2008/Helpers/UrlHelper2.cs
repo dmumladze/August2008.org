@@ -51,20 +51,7 @@ namespace August2008.Helpers
         {
             var values = helper.RequestContext.RouteData.Values;
             string actionName = values["action"].ToString();
-            if (values.ContainsKey("culture"))
-            {
-                values["culture"] = culture;
-            }
-            else
-            {
-                values.Add("culture", culture);
-            }
-            return helper.Action(actionName, HttpContext.Current.Request.QueryString.ToRouteValues());
-        }
-        public static string Action2(this UrlHelper helper, string action)
-        { 
-            var culture = CultureHelper.GetThreadCulture();
-            return helper.Action(action, new { culture = culture });
+            return helper.Action(actionName, new { culture = culture });
         }
     }
 }
