@@ -1,0 +1,31 @@
+﻿<PayPalVariables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <business>admin@august2008.org</business>
+  <receiver_email>admin@august2008.org</receiver_email>
+  <receiver_id>AWFLS4EPFP8QA</receiver_id>
+  <item_name>In memory of Georgian heroes who died in Russia-Georgia War of August 2008</item_name>
+  <payment_status>Completed</payment_status>
+  <payment_date>09:43:34 Dec 26, 2014 PST</payment_date>
+  <txn_id>7A072500YH718815K</txn_id>
+  <txn_type>web_accept</txn_type>
+  <mc_gross>25.00</mc_gross>
+  <mc_fee>1.03</mc_fee>
+  <mc_currency>USD</mc_currency>
+  <payment_gross>25.00</payment_gross>
+  <payment_fee>1.03</payment_fee>
+  <first_name>katie</first_name>
+  <last_name>bebelashvili</last_name>
+  <address_name>katie shindelashvili</address_name>
+  <address_street>80 forbes st ap3</address_street>
+  <address_city>Boston</address_city>
+  <address_state>MA</address_state>
+  <address_zip>02130</address_zip>
+  <address_country>United States</address_country>
+  <address_country_code>US</address_country_code>
+  <address_status>confirmed</address_status>
+  <payer_email>ketevani@verizon.net</payer_email>
+  <payer_id>BFCTK3MZ2T3X4</payer_id>
+  <payer_status>verified</payer_status>
+  <payment_type>instant</payment_type>
+  <notify_version>3.8</notify_version>
+  <verify_sign>A5lvSeigcCmFJ2QNuy0adU0lfyhiAHGaCTTS1cwWsK1Ph9kj11ClW7dn</verify_sign>
+</PayPalVariables>

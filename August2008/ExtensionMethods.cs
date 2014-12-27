@@ -44,6 +44,15 @@ namespace August2008
             }
             return string.Empty;
         }
+        public static T FromXml<T>(this string xml)
+        {
+            if (!string.IsNullOrWhiteSpace(xml))
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                return (T)serializer.Deserialize(new StringReader(xml));
+            }
+            return default(T);
+        }
         public static Dictionary<string, string> ToDictionary(this object obj)
         {
             if (obj != null)

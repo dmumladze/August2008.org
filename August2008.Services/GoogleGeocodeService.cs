@@ -77,7 +77,7 @@ namespace August2008.Services
             {
                 var q = from a in geo.results
                         from b in a.address_components
-                        where b.types.Contains("locality")
+                        where b.types.Contains("locality") || b.types.Contains("sublocality")
                         select new City {
                             Name = b.long_name,
                             Latitude = a.geometry.location.lat,
@@ -97,9 +97,9 @@ namespace August2008.Services
                 if (q.Count() > 1)
                 {
                     var choose = from c in q
-                                 where (string.Equals(c.PostalCode, postalCode, StringComparison.OrdinalIgnoreCase) || 
-                                    string.Equals(c.State, state, StringComparison.OrdinalIgnoreCase)) && 
-                                    string.Equals(c.Country, country, StringComparison.OrdinalIgnoreCase)
+                                 where ((string.Equals(c.PostalCode, postalCode, StringComparison.OrdinalIgnoreCase) || string.Equals(c.State, state, StringComparison.OrdinalIgnoreCase))
+                                            || string.Equals(c.Name, city)) && 
+                                        string.Equals(c.Country, country, StringComparison.OrdinalIgnoreCase)
                                     select c;
                     return choose.FirstOrDefault();
                 }
