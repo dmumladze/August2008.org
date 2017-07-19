@@ -10,6 +10,8 @@ namespace August2008.Model
     [Serializable]
     public class PayPalVariables
     {
+        public int UserId { get; set; }
+
         // basic information
         public string business { get; set; }
         public string receiver_email { get; set; }

@@ -238,7 +238,4 @@
     <None Include="August2008Db.publish.xml" />
     <None Include="SchemaCompare.local.scmp" />
   </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="August2008Db.refactorlog" />
-  </ItemGroup>
 </Project>

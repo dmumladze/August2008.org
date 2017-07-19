@@ -22,25 +22,27 @@ using Newtonsoft.Json;
 
 namespace August2008.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class DonationsController : BaseController
     {
         private IDonationRepository _donationRepository;
         private IDonationService _donationService;
+        private IAccountRepository _accountRepository;
          
-        public DonationsController(IDonationService donationService, IDonationRepository donationRepository)
+        public DonationsController(IDonationService donationService, IDonationRepository donationRepository, IAccountRepository accountRepository)
         {
             _donationRepository = donationRepository;
             _donationService = donationService;
+            _accountRepository = accountRepository;
         }
-        [AllowAnonymous]
+
         public ActionResult Index()
         {
             var criteria = _donationRepository.SearchDonations(new DonationSearchCriteria());
             var model = Mapper.Map(criteria, new DonationSearchModel());
             return View(model);
         }
-        [AllowAnonymous]
+
         public ActionResult ThankYou()   
         {
             var criteria = _donationRepository.SearchDonations(new DonationSearchCriteria());
@@ -72,7 +74,7 @@ namespace August2008.Controllers
         }
         [HttpGet]
         [NoCache]
-        [AllowAnonymous]
+
         public ActionResult Search(DonationSearchModel model)
         {
             var criteria = Mapper.Map(model, new DonationSearchCriteria());
@@ -93,7 +95,7 @@ namespace August2008.Controllers
             }
             return PartialView("DonationsListPartial", model.Result);
         }
-        [AllowAnonymous]
+
         [NoCache]
         public JsonResult Locations(ZoomLevel? zoom) 
         {
@@ -116,10 +118,12 @@ namespace August2008.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult PayPalDonationIpn(PayPalVariables model)
         {
+            this.ResolveUserId(model);
+
             Response.ContentType = "text/html";
             if (_donationService.ProcessPayPalDonation(Request.BinaryRead(Request.ContentLength), model))
             {
@@ -127,16 +131,57 @@ namespace August2008.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
+
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult PayPalSubscriptionIpn(PayPalVariables model)
         {
+            this.ResolveUserId(model);
+
             Response.ContentType = "text/html";
             if (_donationService.ProcessPayPalSubscription(Request.BinaryRead(Request.ContentLength), model))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+        }
+
+        private void ResolveUserId(PayPalVariables vars)
+        {
+            try
+            {
+                int? userId;
+                bool isOAuthUser;
+
+                Log.InfoFormat("IPN received: {0}", vars.ToJson());
+
+                if (!_accountRepository.TryGetUserRegistered(vars.payer_email, "PayPal", out userId, out isOAuthUser))
+                {
+                    var user = new User();
+                    user.DisplayName = string.Format("{0} {0}", vars.first_name, vars.last_name);
+                    user.Email = vars.payer_email;
+
+                    user.Profile = new UserProfile();
+                    user.Profile.Lang = new Language { LanguageId = 1 };
+
+                    user = _accountRepository.CreateUser(user);
+
+                    vars.UserId = user.UserId;
+
+                    SiteHelper.SendEmail(ReplyEmail,
+                        user.Email,
+                        Resources.Global.Strings.EmailSubject,
+                        Resources.Account.Strings.WelcomeRegistrationMessage);
+                }
+                else
+                {
+                    vars.UserId = userId.GetValueOrDefault(0); //fallback to 0 as anonymous user
+                }
+            }
+            catch (Exception ex)
+            {
+                vars.UserId = 0;
+                Log.Error(ex);
+            }
         }
     }
 }

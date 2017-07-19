@@ -82,8 +82,11 @@ namespace August2008.Data
                         db.ExecuteNonQuery();
                         user.UserId = db.GetParameterValue<int>("@UserId");
 
-                        user.OAuth.UserId = user.UserId;
-                        user.OAuth = CreateOAuthUser(user.OAuth, tran);
+                        //if (user.OAuth != null)
+                        //{
+                        //    user.OAuth.UserId = user.UserId;
+                        //    user.OAuth = CreateOAuthUser(user.OAuth, tran);
+                        //}
 
                         db.CreateStoredProcCommand("dbo.CreateUserProfile");
                         db.AddInputParameter("@UserId", DbType.String, user.UserId);

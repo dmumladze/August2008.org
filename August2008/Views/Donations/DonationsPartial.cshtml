@@ -3,7 +3,7 @@
     <fieldset>
         <legend>@Resources.Donations.Labels.DonateNow</legend>
 
-        @if (User.Identity.IsAuthenticated) {
+        @*@if (User.Identity.IsAuthenticated) {*@
             <div style="font-size:1.1em">
                 <div style="float:left;margin-right:20px">                
                     <form action="@Url.PayPalAction()" method="post">
@@ -39,12 +39,13 @@
                     @Html.Raw(Resources.Donations.Strings.AboutPayPal)
                 </div>
             </div>
-        }
+        @*}
         else {
             <p style="white-space:pre-line;font-size:1.1em;margin:0">
                 @Html.Raw(string.Format(Resources.Donations.Strings.YouMustBeRegistered, @Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })))
             </p>
         }
+        *@
     </fieldset>
 </div>
 <script>

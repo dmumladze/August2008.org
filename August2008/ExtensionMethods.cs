@@ -19,6 +19,13 @@ namespace August2008
 {
     public static class ExtensionMethods
     {
+        private static JsonSerializerSettings settings = new JsonSerializerSettings {
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.None,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+
         public static bool IsNull(this object value)
         {
             return !(value != null);
@@ -29,7 +36,7 @@ namespace August2008
         }
         public static string ToJson(this object obj)
         {
-            return (obj != null ? JsonConvert.SerializeObject(obj) : string.Empty);
+            return (obj != null ? JsonConvert.SerializeObject(obj, settings) : string.Empty);
         }
         public static string ToXml(this object obj)
         {

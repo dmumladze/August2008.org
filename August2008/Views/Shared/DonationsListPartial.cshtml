@@ -25,6 +25,7 @@
                     <td>
                         @if (item.UserId.Equals(userId)) {
                             <span id="m@(item.DonationId)">@item.UserMessage</span>                           
+                            @*
                             <a href="#" id="a@(item.DonationId)" onclick="Donations.openMessageDialog('@Url.Action("UserMessage", new { id = item.DonationId })');return false;">
                                 @if (string.IsNullOrWhiteSpace(item.UserMessage)) {
                                     @Resources.Donations.Strings.YourComment
@@ -33,6 +34,7 @@
                                     @Resources.Donations.Strings.EditYourComment
                                 }
                             </a>
+                            *@
                         }
                         else {
                             @item.UserMessage;

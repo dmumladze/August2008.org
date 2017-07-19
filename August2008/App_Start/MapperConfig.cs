@@ -34,7 +34,7 @@ namespace August2008
                 .ForMember(x => x.ExternaStatus, o => o.MapFrom(y => y.st));
 
             Mapper.CreateMap<PayPalVariables, Donation>()
-                .ForMember(x => x.UserId, o => o.ResolveUsing<PayPalUserIdResolver>())
+                .ForMember(x => x.UserId, o => o.MapFrom(y => y.UserId))
                 .ForMember(x => x.Amount, o => o.MapFrom(y => y.mc_gross))
                 .ForMember(x => x.Currency, o => o.MapFrom(y => y.mc_currency))
                 .ForMember(x => x.DateDonated, o => o.MapFrom(y => y.payment_date))
@@ -55,7 +55,7 @@ namespace August2008
                 .ForMember(x => x.Username, o => o.MapFrom(y => y.username))
                 .ForMember(x => x.Password, o => o.MapFrom(y => y.password))
                 .ForMember(x => x.RecurrenceTimes, o => o.MapFrom(y => y.recur_times))
-                .ForMember(x => x.UserId, o => o.ResolveUsing<PayPalUserIdResolver>())
+                .ForMember(x => x.UserId, o => o.MapFrom(y => y.UserId))
                 .ForMember(x => x.ProviderXml, o => o.MapFrom(y => y.ToXml()));
         }
     }
