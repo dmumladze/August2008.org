@@ -7,7 +7,7 @@
     @Styles.Render("~/content/bingmap")
 }
 @section HeaderScriptSection {
-    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script type="text/javascript" src="http://www.bing.com/api/maps/mapcontrol?callback=GetBingMap" async defer></script>
     @Scripts.Render("~/bundles/donations")   
     @Scripts.Render("~/bundles/bingmap")
 }

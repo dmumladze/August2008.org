@@ -9,7 +9,7 @@ namespace August2008.Model
     public class DonationSearchCriteria
     {
         public DonationSearchCriteria()
-            : this(DateTime.Now.AddDays(-30), DateTime.Now, null)
+            : this(DateTime.Now.AddYears(-1), DateTime.Now, null)
         {
         }
         public DonationSearchCriteria(DateTime fromDate, DateTime toDate)

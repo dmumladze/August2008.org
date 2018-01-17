@@ -174,9 +174,9 @@
       <Project>{baca97f3-ed4d-45a3-963d-c60708827549}</Project>
       <Name>August2008.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\August2008\August2008.csproj">
+    <ProjectReference Include="..\August2008\August2008.Web.csproj">
       <Project>{7263D0F0-6BC4-41BF-A2C3-19E669020068}</Project>
-      <Name>August2008</Name>
+      <Name>August2008.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
