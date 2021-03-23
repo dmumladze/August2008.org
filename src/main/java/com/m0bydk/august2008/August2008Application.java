@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class August2008Application {
 
 	public static void main(String[] args) {
+		//bootstrapper
 		SpringApplication.run(August2008Application.class, args);
 	}
 
